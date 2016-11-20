@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipper</title>
+</head>
+<body>
+Welcome to Clipper.
+<form action="{% url 'core:create_new_user' %}" method="post"> {% csrf_token %}
+    <label for ="username">User Name:</label>
+    <input type="text" name="username" value="" id="username"/>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" id="password"/>
+
+    <label for="stylist">Are you a Stylist?</label>
+    <input type="radio" name="is_stylist" value="YES"> Yes <br>
+    <input type="radio" name="is_stylist" value="NO"> No <br>
+
+    <input type="submit" name="Submit" value="CREATE">
+
+</form>
+</body>
+</html>

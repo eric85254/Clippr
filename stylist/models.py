@@ -38,6 +38,6 @@ class Appointments(models.Model):
 
 
 class User(AbstractUser):
-	is_stylist = models.BooleanField
+	is_stylist = models.CharField(max_length=3, default="NO")
 	stylist = models.OneToOneField(Stylist, null=True, blank=True)
 	customer = models.OneToOneField('customer.Customer', null=True, blank=True)
