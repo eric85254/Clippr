@@ -6,4 +6,4 @@ from stylist.models import User
 class NewUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password', 'is_stylist')
+        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2', 'is_stylist')

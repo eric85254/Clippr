@@ -7,11 +7,23 @@
 <body>
 Welcome to Clipper.
 <form action="{% url 'core:create_new_user' %}" method="post"> {% csrf_token %}
-    <label for ="username">User Name:</label>
-    <input type="text" name="username" value="" id="username"/>
+    <label for="first_name">First Name:</label>
+    <input type="text" name="first_name" value="" id="first_name"/> <br>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" value="" id="password"/>
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name" value="" id="last_name"/> <br>
+
+    <label for="email">Email Address:</label>
+    <input type="email" name="email" value="" id="email"/> <br>
+
+    <label for ="username">User Name:</label>
+    <input type="text" name="username" value="" id="username"/> <br>
+
+    <label for="password1">Password:</label>
+    <input type="password" name="password1" value="" id="password1"/> <br>
+
+    <label for="password2">Please Re-Enter your Password:</label>
+    <input type="password" name="password2" value="" id="password2"/> <br>
 
     <label for="stylist">Are you a Stylist?</label>
     <input type="radio" name="is_stylist" value="YES"> Yes <br>

@@ -1,18 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
+# Get rid of both Stylist and Customer models and just have simple User model with validation
+#  to whether or not they're a stylist?
 class Stylist(models.Model):
 
 	# Basic Information
-	name = models.CharField(max_length=20)
-	email = models.EmailField()
 	stylist_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)
 
 	# Stylist Specific Information
-	price = models.DecimalField
-		# Instead of having a ratings field, just calculate it from customer reviews?
-	location = models.CharField(max_length=500)
+	location = models.CharField(max_length=500, null=True, blank=True)
 
 
 class Deals(models.Model):

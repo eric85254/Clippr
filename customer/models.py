@@ -2,8 +2,6 @@ from django.db import models
 
 
 class Customer(models.Model):
-	name = models.CharField(max_length=20)
-	email = models.EmailField()
 	customer_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)
 
 
