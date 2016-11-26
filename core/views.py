@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
 
@@ -42,3 +43,14 @@ def entering_user(request):
 
             else:
                 print(create_user_form.errors)
+
+        elif request.POST.get('Submit') == 'LOGIN':
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = auth.authenticate(username=username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                render(request, 'core/loggedin.html', {'full_name': request.user.get_full_name()})
+            else:
+                render(request, 'core/invalidLogin.html')
