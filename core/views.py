@@ -56,6 +56,6 @@ def entering_user(request):
 
             if user is not None:
                 auth.login(request, user)
-                render(request, 'core/loggedin.html', {'full_name': request.user.get_full_name()})
+                return render(request, 'core/loggedin.html', {'full_name': request.user.get_full_name()})
             else:
-                render(request, 'core/invalidLogin.html')
+                return render(request, 'core/invalidLogin.html')

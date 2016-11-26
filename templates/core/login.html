@@ -5,7 +5,7 @@
     <title>Clipper</title>
 </head>
 <body>
-    <form action="{% url 'core:create_new_user' %}" method="post"> {% csrf_token %}
+    <form action="{% url 'core:user_authentication' %}" method="post"> {% csrf_token %}
         <label for="username">User Name:</label>
         <input type="text" name="username" value="" id="username"/> <br>
 

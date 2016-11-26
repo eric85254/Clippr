@@ -17,7 +17,7 @@ Welcome to Clipper.
 {#    {% endfor %}#}
 {#{% endif %}#}
 
-<form action="{% url 'core:create_new_user' %}" method="post"> {% csrf_token %}
+<form action="{% url 'core:user_authentication' %}" method="post"> {% csrf_token %}
     <label for="first_name">First Name:</label>
     <input type="text" name="first_name" value="{{ form.first_name.value|default_if_none:"" }}" id="first_name"/> <br>
 
