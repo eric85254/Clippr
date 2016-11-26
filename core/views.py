@@ -8,12 +8,15 @@ from stylist.models import Stylist, User
 
 
 def index(request):
-    return render(request, 'core/home.html')
+    return render(request, 'core/home.html', {'form': None})
+
+def returning_user(request):
+    return render(request, 'core/login.html', {'form': None})
 
 def entering_user(request):
     if request.method == 'POST':
 
-        if request.POST.get('Submit') == 'CREATE':
+        if 'CREATE' in request.POST:
             create_user_form = NewUserForm(request.POST)
 
             if create_user_form.is_valid():
@@ -43,8 +46,10 @@ def entering_user(request):
 
             else:
                 print(create_user_form.errors)
+                return render(request, 'core/home.html', {'form': create_user_form})
 
-        elif request.POST.get('Submit') == 'LOGIN':
+
+        elif 'LOGIN' in request.POST:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = auth.authenticate(username=username, password=password)

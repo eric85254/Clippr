@@ -6,30 +6,44 @@
 </head>
 <body>
 Welcome to Clipper.
+
+{#{% if form.errors %}#}
+{#    {% for field in form %}#}
+{#        {% for error in field.errors %}#}
+{#            <div class="alert alert-danger">#}
+{#                <strong>{{ error|escape }}</strong>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+
 <form action="{% url 'core:create_new_user' %}" method="post"> {% csrf_token %}
     <label for="first_name">First Name:</label>
-    <input type="text" name="first_name" value="" id="first_name"/> <br>
+    <input type="text" name="first_name" value="{{ form.first_name.value|default_if_none:"" }}" id="first_name"/> <br>
 
     <label for="last_name">Last Name:</label>
-    <input type="text" name="last_name" value="" id="last_name"/> <br>
+    <input type="text" name="last_name" value="{{ form.last_name.value|default_if_none:"" }}" id="last_name"/> <br>
 
     <label for="email">Email Address:</label>
-    <input type="email" name="email" value="" id="email"/> <br>
+    <input type="email" name="email" value="{{ form.email.value|default_if_none:"" }}" id="email"/> {{ form.email.errors|default_if_none:"" }} <br>
 
     <label for ="username">User Name:</label>
-    <input type="text" name="username" value="" id="username"/> <br>
+    <input type="text" name="username" value="{{ form.username.value|default_if_none:"" }}" id="username"/> {{ form.username.errors|default_if_none:"" }}<br>
 
     <label for="password1">Password:</label>
     <input type="password" name="password1" value="" id="password1"/> <br>
 
     <label for="password2">Please Re-Enter your Password:</label>
-    <input type="password" name="password2" value="" id="password2"/> <br>
+    <input type="password" name="password2" value="" id="password2"/> {{ form.password2.errors|default_if_none:"" }}<br>
+
 
     <label for="stylist">Are you a Stylist?</label>
     <input type="radio" name="is_stylist" value="YES"/> Yes <br>
     <input type="radio" name="is_stylist" value="NO"/> No <br>
 
-    <input type="submit" name="Submit" value="CREATE"/>
+    <input type="submit" name="CREATE" value="Submit"/>
+
+    <a href="{% url 'core:returning_user' %}">Already have an account?</a>
 
 </form>
 </body>
