@@ -18,6 +18,8 @@ class Deals(models.Model):
 	price_modifier = models.DecimalField
 
 
+# Add another field to Haircut model that stores Customer?
+# Then you can look at customer haircut history and add the haircut you've done to the history
 class Haircut(models.Model):
 	haircut_stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
 	haircut_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)

@@ -1,7 +1,5 @@
 from django.contrib import auth
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 
 from core.forms import NewUserForm
 from customer.models import Customer
@@ -57,6 +55,9 @@ def entering_user(request):
 
             if user is not None:
                 auth.login(request, user)
-                return redirect('stylist:profile')
+                if user.is_stylist == 'YES':
+                    return redirect('stylist:profile')
+                else:
+                    return redirect('core:returning_user')
             else:
                 return render(request, 'core/invalidLogin.html')
