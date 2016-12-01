@@ -12,6 +12,7 @@ class Stylist(models.Model):
 	location = models.CharField(max_length=500, null=True, blank=True)
 
 
+# Change price_modifier field name to price
 class Deals(models.Model):
 	stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
 	description = models.CharField(max_length=500)

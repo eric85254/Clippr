@@ -6,3 +6,4 @@ def profile(request):
 
 def dashboard(request):
 	return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name()})
+
