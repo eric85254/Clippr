@@ -1,0 +1,17 @@
+{% extends 'customer/base.html' %}
+
+{% block main_content %}
+    Search bar to search for stylists!
+    Stylist field displaying Chosen Stylist
+    Location Field
+    Date
+    Haircuts that Stylist Offers -- (Each haircut should be paired with a price) //add tax and extraneous fees. Store
+    TOTAL PRICE
+    Haircut should also be tied to appointment.
+
+    <form action="{% url 'customer:create_appointment' %}" method="get">
+        <input type="search" value="" name="stylist_search" id="stylist_search"/> <br>
+        <input type="submit" value="Stylist Search" name="SEARCH"/>
+    </form>
+
+{% endblock %}
