@@ -6,7 +6,7 @@ from django.db import models
 class Stylist(models.Model):
 
 	# Basic Information
-	stylist_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)
+	stylist_picture = models.FileField(upload_to='stylist/%Y/%m/%d', null=True, blank=True)
 
 	# Stylist Specific Information
 	location = models.CharField(max_length=500, null=True, blank=True)
@@ -23,7 +23,7 @@ class Deals(models.Model):
 # Then you can look at customer haircut history and add the haircut you've done to the history
 class Haircut(models.Model):
 	haircut_stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
-	haircut_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)
+	haircut_picture = models.FileField(upload_to='haircuts/%Y/%m/%d', null=True, blank=True)
 	haircut_name = models.CharField(max_length=30)
 	haircut_description = models.CharField(max_length=500)
 

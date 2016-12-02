@@ -47,7 +47,6 @@ def entering_user(request):
                 print(create_user_form.errors)
                 return render(request, 'core/home.html', {'form': create_user_form})
 
-
         elif 'LOGIN' in request.POST:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
@@ -61,3 +60,14 @@ def entering_user(request):
                     return redirect('core:returning_user')
             else:
                 return render(request, 'core/invalidLogin.html')
+
+
+def upload_picture(request):
+    if request.method == 'POST':
+        if 'PICTURE' in request.POST:
+            stylist = request.user.stylist
+            stylist.stylist_picture = request.FILES['profile_picture']
+            stylist.save()
+            return redirect('stylist:profile')
+    else:
+        return render(request, 'core/upload_picture.html')

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Customer(models.Model):
-	customer_picture = models.FileField(upload_to='documents/%Y/%m/%d', null=True, blank=True)
+	customer_picture = models.FileField(upload_to='customer/%Y/%m/%d', null=True, blank=True)
 
 
 class Reviews(models.Model):

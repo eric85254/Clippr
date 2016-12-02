@@ -7,11 +7,15 @@
             {{ full_name }}
         </li>
         <li>
-            Picture goes here. Add edit button.
+            <img src="{{ stylist.stylist_picture.url }}" height="100px" width="100px">
+            <br>
+            <a href="{% url 'core:upload_picture' %}" >Edit</a>
         </li>
         <li>
             Basic Information goes here. Add edit button.
         </li>
     </ul>
+
+    <h1>Portfolio</h1>
 
 {% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipper</title>
+</head>
+<body>
+    <form action="{% url 'core:upload_picture' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+        Select image to upload:
+        <input type="file" name="profile_picture" id="profile_picture"/>
+        <input type="submit" name="PICTURE" value="Submit"/>
+    </form>
+</body>
+</html>
