@@ -9,10 +9,12 @@
         <li>
             <img src="{{ stylist.stylist_picture.url }}" height="100px" width="100px">
             <br>
-            <a href="{% url 'core:upload_picture' %}" >Edit</a>
+            <a href="{% url 'core:upload_picture' %}" >Edit Picture</a>
         </li>
         <li>
-            Basic Information goes here. Add edit button.
+            {{ stylist.biography|default_if_none:"Basic Information goes here." }}
+            <br>
+            <a href="{% url 'core:basic_information' %}">Edit Basic Information</a>
         </li>
     </ul>
 

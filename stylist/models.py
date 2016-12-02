@@ -7,9 +7,10 @@ class Stylist(models.Model):
 
 	# Basic Information
 	stylist_picture = models.FileField(upload_to='stylist/%Y/%m/%d', null=True, blank=True)
+	biography = models.CharField(max_length=500, blank=True)
 
 	# Stylist Specific Information
-	location = models.CharField(max_length=500, null=True, blank=True)
+	location = models.CharField(max_length=500, blank=True)
 
 
 # Change price_modifier field name to price

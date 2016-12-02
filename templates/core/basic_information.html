@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipper</title>
+</head>
+<body>
+    <form action="{% url 'core:basic_information' %}" method="post"> {% csrf_token %}
+        Write a description about yourself:
+        <input type="text" name="basic_information" id="basic_information" value="{{ stylist.biography|default_if_none:"" }}"/> <br>
+        Add your location:
+        <input type="text" name="location" id="location" value="{{ stylist.location|default_if_none:"" }}"/> <br>
+        <input type="submit" name="BASIC" value="Submit"/>
+    </form>
+</body>
+</html>

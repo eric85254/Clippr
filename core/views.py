@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 
 from core.forms import NewUserForm
+from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from customer.models import Customer
 from stylist.models import Stylist, User
 
@@ -23,7 +24,7 @@ def entering_user(request):
 
                 if create_user_form.data['is_stylist'] == 'YES':
                     stylist = Stylist()
-                    # stylist.stylist_picture
+                    stylist.stylist_picture = DEFAULT_PICTURE_LOCATION
                     stylist.save()
 
                     user = User.objects.get(username=create_user_form.data['username'])
@@ -65,9 +66,10 @@ def entering_user(request):
 def upload_picture(request):
     if request.method == 'POST':
         if 'PICTURE' in request.POST:
-            stylist = request.user.stylist
-            stylist.stylist_picture = request.FILES['profile_picture']
-            stylist.save()
+            if request.user.is_stylist == 'YES':
+                stylist = request.user.stylist
+                stylist.stylist_picture = request.FILES['profile_picture']
+                stylist.save()
             return redirect('stylist:profile')
     else:
         return render(request, 'core/upload_picture.html')
@@ -80,3 +82,20 @@ def logout(request):
 
 def home(request):
     return render(request, 'core/Home.html')
+
+
+def basic_information(request):
+    if request.method == 'POST':
+        if 'BASIC' in request.POST:
+            if request.user.is_stylist == 'YES':
+                stylist = request.user.stylist
+                stylist.location = request.POST.get('location')
+                stylist.biography = request.POST.get('basic_information')
+                stylist.save()
+        return redirect('stylist:profile')
+    else:
+        if request.user.is_stylist == 'YES':
+            stylist = request.user.stylist
+            return render(request, 'core/basic_information.html', {'stylist': stylist})
+        else:
+            return None
