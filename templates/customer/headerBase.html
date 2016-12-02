@@ -1,0 +1,20 @@
+<h2>Clipper</h2>
+
+<ul id="horizontal-list">
+    <li>
+        <a href="{% url 'customer:profile' %}">Profile</a>
+    </li>
+    <li>
+        <a href="{% url 'customer:dashboard' %}">Dashboard</a>
+    </li>
+    <li>
+        <a href="{% url 'core:logout' %}">Logout</a>
+    </li>
+</ul>
+
+<style>
+    ul#horizontal-list li{
+        display:inline;
+        margin: 0 0 3px 0;
+    }
+</style>

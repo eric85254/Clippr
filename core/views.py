@@ -10,8 +10,10 @@ from stylist.models import Stylist, User
 def index(request):
     return render(request, 'core/home.html', {'form': None})
 
+
 def returning_user(request):
     return render(request, 'core/login.html', {'form': None})
+
 
 def entering_user(request):
     if request.method == 'POST':
@@ -35,7 +37,7 @@ def entering_user(request):
 
                 else:
                     customer = Customer()
-                    # customer.customer_picture
+                    customer.customer_picture = DEFAULT_PICTURE_LOCATION
                     customer.save()
 
                     user = User.objects.get(username=create_user_form.data['username'])
@@ -58,7 +60,7 @@ def entering_user(request):
                 if user.is_stylist == 'YES':
                     return redirect('stylist:profile')
                 else:
-                    return redirect('core:returning_user')
+                    return redirect('customer:profile')
             else:
                 return render(request, 'core/invalidLogin.html')
 
@@ -70,7 +72,14 @@ def upload_picture(request):
                 stylist = request.user.stylist
                 stylist.stylist_picture = request.FILES['profile_picture']
                 stylist.save()
-            return redirect('stylist:profile')
+                return redirect('stylist:profile')
+            else:
+                customer = request.user.customer
+                customer.customer_picture = request.FILES['profile_picture']
+                customer.save()
+                return redirect('customer:profile')
+        else:
+            return redirect('core:upload_picture')
     else:
         return render(request, 'core/upload_picture.html')
 
@@ -92,10 +101,17 @@ def basic_information(request):
                 stylist.location = request.POST.get('location')
                 stylist.biography = request.POST.get('basic_information')
                 stylist.save()
-        return redirect('stylist:profile')
+                return redirect('stylist:profile')
+            else:
+                customer = request.user.customer
+                customer.location = request.POST.get('location')
+                customer.biography = request.POST.get('basic_information')
+                customer.save()
+                return redirect('customer:profile')
     else:
         if request.user.is_stylist == 'YES':
             stylist = request.user.stylist
-            return render(request, 'core/basic_information.html', {'stylist': stylist})
+            return render(request, 'core/basic_information.html', {'user': stylist})
         else:
-            return None
+            customer = request.user.stylist
+            return render(request, 'core/basic_information.html', {'user': customer})

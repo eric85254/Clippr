@@ -1,0 +1,23 @@
+{% extends 'customer/base.html' %}
+
+{% block main_content %}
+
+    <ul>
+        <li>
+            {{ full_name }}
+        </li>
+        <li>
+            <img src="{{ customer.customer_picture.url }}" height="100px" width="100px">
+            <br>
+            <a href="{% url 'core:upload_picture' %}" >Edit Picture</a>
+        </li>
+        <li>
+            {{ customer.biography|default_if_none:"Basic Information goes here." }}
+            <br>
+            <a href="{% url 'core:basic_information' %}">Edit Basic Information</a>
+        </li>
+    </ul>
+
+    <h1>Portfolio</h1>
+
+{% endblock %}

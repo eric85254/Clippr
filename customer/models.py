@@ -3,6 +3,8 @@ from django.db import models
 
 class Customer(models.Model):
 	customer_picture = models.FileField(upload_to='customer/%Y/%m/%d', null=True, blank=True)
+	location = models.CharField(max_length=500, blank=True)
+	biography = models.CharField(max_length=500, blank=True)
 
 
 class Reviews(models.Model):
