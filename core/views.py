@@ -71,3 +71,12 @@ def upload_picture(request):
             return redirect('stylist:profile')
     else:
         return render(request, 'core/upload_picture.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('core:home')
+
+
+def home(request):
+    return render(request, 'core/Home.html')
