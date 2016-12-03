@@ -36,8 +36,8 @@ class Appointments(models.Model):
 	customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)
 	location = models.CharField(max_length=500)
 	date = models.DateTimeField(default=datetime.now)
-	price = models.DecimalField
-	haircut = models.ForeignKey(Haircut)
+	price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
+	haircut = models.ForeignKey(Haircut, null=True, blank=True)
 
 
 class User(AbstractUser):

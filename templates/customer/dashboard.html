@@ -6,14 +6,14 @@
         <ul>
             <li>
                 {% for appointment in appointments %}
-                    --------------------------------
-                    Appointment Details:
-                    Stylist: {{ appointment.stylist_name }}
-                    Location: {{ appointment.location }}
-                    Time: {{ appointment.date|default_if_none:"" }}
-                    Price: {{ appointment.price|default_if_none:"" }}
+                    --------------------------------                    <br>
+                    Appointment Details:                                <br>
+                    Stylist: {{ appointment.stylist_name }}             <br>
+                    Location: {{ appointment.location }}                <br>
+                    Time: {{ appointment.date|default_if_none:"" }}     <br>
+                    Price: {{ appointment.price|default_if_none:"" }}   <br>
 
-                    --------------------------------
+                    --------------------------------                    <br>
                 {% endfor %}
 
                 <a href="{% url 'customer:create_appointment' %}">Create Appointment</a>

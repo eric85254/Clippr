@@ -41,14 +41,15 @@ def create_appointment(request):
 
         if 'CREATE' in request.POST:
             create_appointment_form = NewAppointmentForm(request.POST)
-            create_appointment_form.customer_id = request.user.customer_id
-            create_appointment_form.stylist = Stylist.objects.get(user__username=request.session['username'])
-            create_appointment_form.location = request.POST.get('location')
-            # create_appointment_form.date = request.POST.get('date')
-            create_appointment_form.date = datetime.now
 
             if create_appointment_form.is_valid():
-                create_appointment_form.save()
+                new_appointment = create_appointment_form.save(commit=False)
+                new_appointment.customer = request.user.customer
+                new_appointment.stylist = Stylist.objects.get(user__username=request.session['username'])
+                new_appointment.location = request.POST.get('location')
+                # new_appointment.date = datetime.now
+                new_appointment.save()
+
                 return redirect('customer:dashboard')
             else:
                 print(create_appointment_form.errors)
@@ -63,7 +64,7 @@ def create_appointment(request):
 
 def stylist_search(request):
     if 'param' in request.GET:
-        stylist_list = User.objects.filter(username__icontains=request.GET.get('param'))
+        stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
     else:
         stylist_list = None
     return render(request, 'customer/stylist_search.html', {
