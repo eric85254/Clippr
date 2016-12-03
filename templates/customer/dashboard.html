@@ -5,7 +5,17 @@
         <h1>My Appointments</h1>
         <ul>
             <li>
-                Display Appointments with Loop
+                {% for appointment in appointments %}
+                    --------------------------------
+                    Appointment Details:
+                    Stylist: {{ appointment.stylist_name }}
+                    Location: {{ appointment.location }}
+                    Time: {{ appointment.date|default_if_none:"" }}
+                    Price: {{ appointment.price|default_if_none:"" }}
+
+                    --------------------------------
+                {% endfor %}
+
                 <a href="{% url 'customer:create_appointment' %}">Create Appointment</a>
             </li>
         </ul>

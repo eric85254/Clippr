@@ -9,9 +9,23 @@
     TOTAL PRICE
     Haircut should also be tied to appointment.
 
-    <form action="{% url 'customer:create_appointment' %}" method="get">
-        <input type="search" value="" name="stylist_search" id="stylist_search"/> <br>
+    <form action="{% url 'customer:stylist_search' %}" method="get">
+        <input type="search" placeholder="Search...." name="param"/> <br>
         <input type="submit" value="Stylist Search" name="SEARCH"/>
     </form>
+
+    Chosen Stylist: {{ chosen_stylist.get_full_name }}
+
+    <form action="{% url 'customer:create_appointment' %}" method="post"> {% csrf_token %}
+        <label for="location">Location: </label>
+        <input type="text" value="" name="location" id="location"/> <br>
+
+        <label for="date">Date: </label>
+        <input type="datetime-local" value="" name="date" id="location"/> <br>
+
+        <input type="submit" value="Make new Appointment" name="CREATE"/>
+
+    </form>
+
 
 {% endblock %}

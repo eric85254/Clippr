@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -33,7 +35,7 @@ class Appointments(models.Model):
 	stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
 	customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)
 	location = models.CharField(max_length=500)
-	date = models.DateTimeField
+	date = models.DateTimeField(default=datetime.now)
 	price = models.DecimalField
 	haircut = models.ForeignKey(Haircut)
 
