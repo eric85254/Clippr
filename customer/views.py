@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm
-from stylist.models import User, Stylist, Appointments, datetime
+from stylist.models import Appointments
+from core.models import User
 
 # for the search
 from functools import reduce
@@ -11,8 +12,8 @@ from django.db.models import Q
 
 def profile(request):
     full_name = request.user.get_full_name()
-    if request.user.customer.customer_picture is not None:
-        customer = request.user.customer
+    if request.user.profile_picture is not None:
+        customer = request.user
     else:
         customer = None
     return render(request, 'customer/profile.html',
@@ -21,11 +22,11 @@ def profile(request):
 
 
 def dashboard(request):
-    if Appointments.objects.filter(customer=request.user.customer).exists():
-        appointment_list = Appointments.objects.filter(customer=request.user.customer)
+    if Appointments.objects.filter(customer=request.user).exists():
+        appointment_list = Appointments.objects.filter(customer=request.user)
 
         for appointment in appointment_list:
-            appointment.stylist_name = User.objects.get(stylist__appointments=appointment).get_full_name()
+            appointment.stylist_name = appointment.stylist.username
 
     else:
         appointment_list = None
@@ -44,8 +45,8 @@ def create_appointment(request):
 
             if create_appointment_form.is_valid():
                 new_appointment = create_appointment_form.save(commit=False)
-                new_appointment.customer = request.user.customer
-                new_appointment.stylist = Stylist.objects.get(user__username=request.session['username'])
+                new_appointment.customer = request.user
+                new_appointment.stylist = User.objects.get(username=request.session['username'])
                 new_appointment.location = request.POST.get('location')
                 # new_appointment.date = datetime.now
                 new_appointment.save()
