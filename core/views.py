@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect
 
 from core.forms import NewUserForm
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from customer.models import Customer
-from stylist.models import Stylist, User
+from core.models import User
 
 
 def index(request):
@@ -22,27 +21,17 @@ def entering_user(request):
             create_user_form = NewUserForm(request.POST)
 
             if create_user_form.is_valid():
-                create_user_form.save()
+                new_user = create_user_form.save(commit=False)
+                new_user.stylist_picture = DEFAULT_PICTURE_LOCATION
+                new_user.save()
 
                 if create_user_form.data['is_stylist'] == 'YES':
-                    stylist = Stylist()
-                    stylist.stylist_picture = DEFAULT_PICTURE_LOCATION
-                    stylist.save()
 
-                    user = User.objects.get(username=create_user_form.data['username'])
-                    user.stylist = stylist
-                    user.save()
 
                     return render(request, 'core/newUserLogin.html')
 
                 else:
-                    customer = Customer()
-                    customer.customer_picture = DEFAULT_PICTURE_LOCATION
-                    customer.save()
 
-                    user = User.objects.get(username=create_user_form.data['username'])
-                    user.customer = customer
-                    user.save()
 
                     return render(request, 'core/newUserLogin.html')
 
@@ -68,15 +57,12 @@ def entering_user(request):
 def upload_picture(request):
     if request.method == 'POST':
         if 'PICTURE' in request.POST:
+            user = request.user
+            user.profile_picture = request.FILES['profile_picture']
+            user.save()
             if request.user.is_stylist == 'YES':
-                stylist = request.user.stylist
-                stylist.stylist_picture = request.FILES['profile_picture']
-                stylist.save()
                 return redirect('stylist:profile')
             else:
-                customer = request.user.customer
-                customer.customer_picture = request.FILES['profile_picture']
-                customer.save()
                 return redirect('customer:profile')
         else:
             return redirect('core:upload_picture')
@@ -96,22 +82,18 @@ def home(request):
 def basic_information(request):
     if request.method == 'POST':
         if 'BASIC' in request.POST:
+            user = request.user
+            user.location = request.POST.get('location')
+            user.biography = request.POST.get('basic_information')
+            user.save()
             if request.user.is_stylist == 'YES':
-                stylist = request.user.stylist
-                stylist.location = request.POST.get('location')
-                stylist.biography = request.POST.get('basic_information')
-                stylist.save()
                 return redirect('stylist:profile')
             else:
-                customer = request.user.customer
-                customer.location = request.POST.get('location')
-                customer.biography = request.POST.get('basic_information')
-                customer.save()
                 return redirect('customer:profile')
     else:
         if request.user.is_stylist == 'YES':
-            stylist = request.user.stylist
+            stylist = request.user
             return render(request, 'core/basic_information.html', {'user': stylist})
         else:
-            customer = request.user.stylist
+            customer = request.user
             return render(request, 'core/basic_information.html', {'user': customer})

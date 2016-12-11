@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 def profile(request):
 	full_name = request.user.get_full_name()
-	if request.user.stylist.stylist_picture is not None:
+	if request.user.profile_picture is not None:
 		stylist = request.user.stylist
 	else:
 		stylist = None
