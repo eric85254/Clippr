@@ -8,7 +8,7 @@
                 {% for appointment in appointments %}
                     --------------------------------                    <br>
                     Appointment Details:                                <br>
-                    Stylist: {{ appointment.stylist_name }}             <br>
+                    Stylist: {{ appointment.stylist.get_full_name }}             <br>
                     Location: {{ appointment.location }}                <br>
                     Time: {{ appointment.date|default_if_none:"" }}     <br>
                     Price: {{ appointment.price|default_if_none:"" }}   <br>

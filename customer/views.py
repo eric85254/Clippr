@@ -25,9 +25,6 @@ def dashboard(request):
     if Appointments.objects.filter(customer=request.user).exists():
         appointment_list = Appointments.objects.filter(customer=request.user)
 
-        for appointment in appointment_list:
-            appointment.stylist_name = appointment.stylist.username
-
     else:
         appointment_list = None
     return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),

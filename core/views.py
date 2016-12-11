@@ -22,18 +22,9 @@ def entering_user(request):
 
             if create_user_form.is_valid():
                 new_user = create_user_form.save(commit=False)
-                new_user.stylist_picture = DEFAULT_PICTURE_LOCATION
+                new_user.profile_picture = DEFAULT_PICTURE_LOCATION
                 new_user.save()
-
-                if create_user_form.data['is_stylist'] == 'YES':
-
-
-                    return render(request, 'core/newUserLogin.html')
-
-                else:
-
-
-                    return render(request, 'core/newUserLogin.html')
+                return render(request, 'core/newUserLogin.html')
 
             else:
                 print(create_user_form.errors)
