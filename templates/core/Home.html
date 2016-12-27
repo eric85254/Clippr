@@ -9,7 +9,7 @@
 {#    <link rel="stylesheet" type="text/css" href="{% static 'clippr/style.css' %}" />#}
 </head>
 <body>
-Welcome to Clipper.
+Welcome to Clippr.
 
 {#{% if form.errors %}#}
 {#    {% for field in form %}#}
@@ -42,10 +42,10 @@ Welcome to Clipper.
 
 
     <label for="stylist">Are you a Stylist?</label>
-    <input type="radio" name="is_stylist" value="YES"/> Yes <br>
+    <input type="radio" name="is_stylist" value="YES"/> Yes
     <input type="radio" name="is_stylist" value="NO"/> No <br>
 
-    <input type="submit" name="CREATE" value="Submit"/>
+    <input type="submit" name="CREATE" value="Submit"/><br>
 
     <a href="{% url 'core:returning_user' %}">Already have an account?</a>
 
