@@ -7,7 +7,7 @@ from core.models import User
 
 
 def index(request):
-    return render(request, 'core/home.html', {'form': None})
+    return render(request, 'core/realHome.html', {'form': None})
 
 
 def returning_user(request):
@@ -28,7 +28,7 @@ def entering_user(request):
 
             else:
                 print(create_user_form.errors)
-                return render(request, 'core/home.html', {'form': create_user_form})
+                return render(request, 'core/createUser.html', {'form': create_user_form})
 
         elif 'LOGIN' in request.POST:
             username = request.POST.get('username', '')
@@ -67,7 +67,11 @@ def logout(request):
 
 
 def home(request):
-    return render(request, 'core/Home.html')
+    return render(request, 'core/realHome.html')
+
+
+def create_user(request):
+    return render(request, 'core/createUser.html')
 
 
 def basic_information(request):
