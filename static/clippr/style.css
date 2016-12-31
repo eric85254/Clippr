@@ -43,22 +43,28 @@ body {
 }
 #about {
     height:100%;
+    float: left;
     background-color:teal;
 
 }
 
 #appAndSocialMedia {
     height:100%;
+    float: right;
     background-color: yellow;
 }
 
 #downloadApp {
     height: 10%;
+    width: 100%;
+    float: right;
     background-color:green;
 }
 
 #socialMedia {
+    float: right;
     height:90%;
+    width:100%;
     background-color:red;
 }
 
