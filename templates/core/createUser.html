@@ -6,10 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Clipper</title>
-{#    <link rel="stylesheet" type="text/css" href="{% static 'clippr/style.css' %}" />#}
 </head>
 <body>
-Welcome to Clippr.
+Welcome to Clipper.
 
 {#{% if form.errors %}#}
 {#    {% for field in form %}#}
@@ -43,10 +42,10 @@ Welcome to Clippr.
 
     <label for="stylist">Are you a Stylist?</label>
     <input type="radio" name="is_stylist" value="YES"/> Yes
-    <input type="radio" name="is_stylist" value="NO"/> No <br>
-
-    <input type="submit" name="CREATE" value="Submit"/><br>
-
+    <input type="radio" name="is_stylist" value="NO"/> No
+    <br>
+    <input type="submit" name="CREATE" value="Submit"/>
+    <br>
     <a href="{% url 'core:returning_user' %}">Already have an account?</a>
 
 </form>
