@@ -27,6 +27,16 @@ body {
 #headerLinks {
     float:right;
 }
+#profile {
+    background-image: url("./images/profile-icon-9.png");
+    -webkit-background-size: contain;
+    background-size: contain;
+    display: block;
+    margin: 10px;
+    width: 150px;
+    height: 150px;
+    float: right;
+}
 
 #content {
     -webkit-column-count:2;
