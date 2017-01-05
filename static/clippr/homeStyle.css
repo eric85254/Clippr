@@ -14,7 +14,7 @@ body {
     margin: auto;
 }
 #logo {
-    background-image: url("./images/Clippr_Transparent.png");
+    background-image: url("images/logoTransparent.png");
     -webkit-background-size:contain;
     background-size: contain;
     display: block;
