@@ -1,0 +1,64 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'clippr/homeStyle.css' %}" />
+    <meta charset="UTF-8">
+    <title>Clippr</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+</head>
+<body>
+<div class="conatiner">
+    <nav id=navBar class="navbar navbar-light bg-faded">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+              <img src="{% static "clippr/images/logoTransparent.png" %}"  width="50" height="50" alt="">
+          </a>
+          <ul class="nav navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Safety</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Find Your Style</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Become a Stylist</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Log In/Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Find Your Style</a>
+            </li>
+            <li class="nav-item">
+              <a id="profile" href="{% url 'core:home' %}"></a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+<div class="clearFloat"></div>
+<div id="content">
+    <div id = "about">
+        <p>About:</p>
+    </div>
+    <div id = "appAndSocialMedia">
+        <div id="downloadApp">
+            <p>download the app here</p>
+        </div>
+        <div id="socialMedia">
+            <p>follow us on social media!</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
