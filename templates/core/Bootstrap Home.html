@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'clippr/homeStyle.css' %}" />
+    <meta charset="UTF-8">
+    <title>Clippr</title>
+</head>
+<body>
+<div id="header">
+    <a id="logo" href="{% url 'core:home' %}" ></a>
+    <div id="headerLinks">
+        <a href="{% url 'core:home' %}">Home</a>
+        <a href="">Safety</a>
+        <a href="">Find Your Style</a>
+        <a href="{% url 'core:create_user' %}">Become a Stylist</a>
+        <a href="">Log In/Sign Up</a>
+        <a id="profile" href="{% url 'core:home' %}"></a>
+    </div>
+</div>
+<div class="clearFloat"></div>
+<div id="content">
+    <div id = "about">
+        <p>About:</p>
+    </div>
+    <div id = "appAndSocialMedia">
+        <div id="downloadApp">
+            <p>download the app here</p>
+        </div>
+        <div id="socialMedia">
+            <p>follow us on social media!</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
