@@ -1,12 +1,14 @@
 /**
  * Created by sanketh on 1/7/17.
  */
+var navLogo_Link = document.getElementById("navLogo-Link");
 var navHome_Link = document.getElementById("navHome-Link");
 var navSafety_Link = document.getElementById("navSafety-Link");
 var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
 
+var navLogo = document.getElementById("navLogo");
 var navHome = document.getElementById("navHome");
 var navSafety = document.getElementById("navSafety");
 var navFindYourStyle = document.getElementById("navFindYourStyle");
@@ -17,6 +19,7 @@ function init() {
     hideAll();
     show_navHome_Link();
 
+    navLogo.onclick = show_navHome_Link;
     navHome.onclick = show_navHome_Link;
     navSafety.onclick = show_navSafety_Link;
     navFindYourStyle.onclick = show_navFindYourStyle_Link;
@@ -25,6 +28,10 @@ function init() {
 }
 
 function hideAll() {
+    if (navLogo_Link) {
+        navHome_Link.setAttribute("class","hidden");
+    }
+
     if (navHome_Link) {
         navHome_Link.setAttribute("class", "hidden");
     }
@@ -47,6 +54,9 @@ function hideAll() {
 }
 
 function deSelectAll() {
+    if(navLogo_Link) {
+        navHome.parentNode("class", "nav-item");
+    }
     if (navHome_Link) {
         navHome.parentNode.setAttribute("class", "nav-item");
     }
@@ -66,6 +76,13 @@ function deSelectAll() {
     if (navLogIn_Link) {
         navLogIn.parentNode.setAttribute("class", "nav-item");
     }
+}
+
+function show_navLogo_Link() {
+    hideAll();
+    deSelectAll();
+    navHome_Link.setAttribute("class", "visible");
+    navHome.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navHome_Link() {
