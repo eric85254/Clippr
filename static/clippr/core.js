@@ -7,23 +7,20 @@ var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
 
+var navHome = document.getElementById("navHome");
+var navSafety = document.getElementById("navSafety");
+var navFindYourStyle = document.getElementById("navFindYourStyle");
+var navBecomeAStylist = document.getElementById("navBecomeAStylist");
+var navLogIn = document.getElementById("navLogIn");
+
 function init() {
     hideAll();
     show_navHome_Link();
 
-    var navHome = document.getElementById("navHome");
     navHome.onclick = show_navHome_Link;
-
-    var navSafety = document.getElementById("navSafety");
     navSafety.onclick = show_navSafety_Link;
-
-    var navFindYourStyle = document.getElementById("navFindYourStyle");
     navFindYourStyle.onclick = show_navFindYourStyle_Link;
-
-    var navBecomeAStylist = document.getElementById("navBecomeAStylist");
     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
-
-    var navLogIn = document.getElementById("navLogIn");
     navLogIn.onclick = show_navLogIn_Link;
 }
 
@@ -49,29 +46,61 @@ function hideAll() {
     }
 }
 
+function deSelectAll() {
+    if (navHome_Link) {
+        navHome.parentNode.setAttribute("class", "nav-item");
+    }
+
+    if (navSafety_Link) {
+        navSafety.parentNode.setAttribute("class", "nav-item");
+    }
+
+    if (navFindYourStyle_Link) {
+        navFindYourStyle.parentNode.setAttribute("class", "nav-item");
+    }
+
+    if (navBecomeAStylist_Link) {
+        navBecomeAStylist.parentNode.setAttribute("class", "nav-item");
+    }
+
+    if (navLogIn_Link) {
+        navLogIn.parentNode.setAttribute("class", "nav-item");
+    }
+}
+
 function show_navHome_Link() {
     hideAll();
+    deSelectAll();
     navHome_Link.setAttribute("class", "visible");
+    navHome.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navSafety_Link() {
     hideAll();
+    deSelectAll();
     navSafety_Link.setAttribute("class", "visible");
+    navSafety.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navFindYourStyle_Link() {
     hideAll();
+    deSelectAll();
     navFindYourStyle_Link.setAttribute("class", "visible");
+    navFindYourStyle.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navBecomeAStylist_Link() {
     hideAll();
+    deSelectAll();
     navBecomeAStylist_Link.setAttribute("class", "visible");
+    navBecomeAStylist.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navLogIn_Link() {
     hideAll();
+    deSelectAll();
     navLogIn_Link.setAttribute("class", "visible");
+    navLogIn.parentNode.setAttribute("class", "nav-item active");
 }
 
 window.onload = init;
