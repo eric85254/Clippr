@@ -30,43 +30,19 @@ body {
     float: right;
 }
 
-#content {
-    -webkit-column-count:2;
-    -moz-column-count:2;
-    column-count:2;
-    height:500px;
-    background-color:blue;
-    display:flex;
-}
-
-#content > div {
-    display: block;
-    width:50%;
-}
 #about {
-    height:100%;
-    float: left;
+
     background-color:teal;
 
 }
 
-#appAndSocialMedia {
-    height:100%;
-    float: right;
-    background-color: yellow;
-}
-
 #downloadApp {
-    height: 10%;
-    width: 100%;
-    float: right;
+
     background-color:green;
 }
 
 #socialMedia {
-    float: right;
-    height:90%;
-    width:100%;
+
     background-color:red;
 }
 
