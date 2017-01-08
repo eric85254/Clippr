@@ -1,13 +1,11 @@
 /**
  * Created by sanketh on 1/7/17.
  */
-var navLogo_Link = document.getElementById("navLogo-Link");
 var navHome_Link = document.getElementById("navHome-Link");
 var navSafety_Link = document.getElementById("navSafety-Link");
 var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
-var navProfile_Link = document.getElementById("navProfile-Link");
 
 var navLogo = document.getElementById("navLogo");
 var navHome = document.getElementById("navHome");
@@ -27,14 +25,10 @@ function init() {
     navFindYourStyle.onclick = show_navFindYourStyle_Link;
     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
     navLogIn.onclick = show_navLogIn_Link;
-    navProfile.onclick = show_navProfile_Link;
+    navProfile.onclick = show_navLogIn_Link;
 }
 
 function hideAll() {
-    if (navLogo_Link) {
-        navHome_Link.setAttribute("class","hidden");
-    }
-
     if (navHome_Link) {
         navHome_Link.setAttribute("class", "hidden");
     }
@@ -54,15 +48,9 @@ function hideAll() {
     if (navLogIn_Link) {
         navLogIn_Link.setAttribute("class", "hidden");
     }
-    if (navProfile_Link) {
-        navLogIn_Link.setAttribute("class", "hidden");
-    }
 }
 
 function deSelectAll() {
-    if(navLogo_Link) {
-        navHome.parentNode("class", "nav-item");
-    }
     if (navHome_Link) {
         navHome.parentNode.setAttribute("class", "nav-item");
     }
@@ -82,16 +70,6 @@ function deSelectAll() {
     if (navLogIn_Link) {
         navLogIn.parentNode.setAttribute("class", "nav-item");
     }
-    if (navProfile_Link) {
-        navLogIn.parentNode.setAttribute("class", "nav-item");
-    }
-}
-
-function show_navLogo_Link() {
-    hideAll();
-    deSelectAll();
-    navHome_Link.setAttribute("class", "visible");
-    navHome.parentNode.setAttribute("class", "nav-item active");
 }
 
 function show_navHome_Link() {
@@ -123,12 +101,6 @@ function show_navBecomeAStylist_Link() {
 }
 
 function show_navLogIn_Link() {
-    hideAll();
-    deSelectAll();
-    navLogIn_Link.setAttribute("class", "visible");
-    navLogIn.parentNode.setAttribute("class", "nav-item active");
-}
-function show_navProfile_Link() {
     hideAll();
     deSelectAll();
     navLogIn_Link.setAttribute("class", "visible");
