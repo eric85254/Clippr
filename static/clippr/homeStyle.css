@@ -27,7 +27,7 @@ body {
 #headerLinks {
     float:right;
 }
-#profile {
+#navProfile {
     background-image: url("./images/profile-icon-9.png");
     -webkit-background-size: contain;
     background-size: contain;
