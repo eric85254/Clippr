@@ -7,6 +7,7 @@ var navSafety_Link = document.getElementById("navSafety-Link");
 var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
+var navProfile_Link = document.getElementById("navProfile-Link");
 
 var navLogo = document.getElementById("navLogo");
 var navHome = document.getElementById("navHome");
@@ -14,6 +15,7 @@ var navSafety = document.getElementById("navSafety");
 var navFindYourStyle = document.getElementById("navFindYourStyle");
 var navBecomeAStylist = document.getElementById("navBecomeAStylist");
 var navLogIn = document.getElementById("navLogIn");
+var navProfile = document.getElementById("navProfile");
 
 function init() {
     hideAll();
@@ -25,6 +27,7 @@ function init() {
     navFindYourStyle.onclick = show_navFindYourStyle_Link;
     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
     navLogIn.onclick = show_navLogIn_Link;
+    navProfile.onclick = show_navProfile_Link;
 }
 
 function hideAll() {
@@ -51,6 +54,9 @@ function hideAll() {
     if (navLogIn_Link) {
         navLogIn_Link.setAttribute("class", "hidden");
     }
+    if (navProfile_Link) {
+        navLogIn_Link.setAttribute("class", "hidden");
+    }
 }
 
 function deSelectAll() {
@@ -74,6 +80,9 @@ function deSelectAll() {
     }
 
     if (navLogIn_Link) {
+        navLogIn.parentNode.setAttribute("class", "nav-item");
+    }
+    if (navProfile_Link) {
         navLogIn.parentNode.setAttribute("class", "nav-item");
     }
 }
@@ -114,6 +123,12 @@ function show_navBecomeAStylist_Link() {
 }
 
 function show_navLogIn_Link() {
+    hideAll();
+    deSelectAll();
+    navLogIn_Link.setAttribute("class", "visible");
+    navLogIn.parentNode.setAttribute("class", "nav-item active");
+}
+function show_navProfile_Link() {
     hideAll();
     deSelectAll();
     navLogIn_Link.setAttribute("class", "visible");
