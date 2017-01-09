@@ -21,8 +21,8 @@
                         <div class="col-lg-12">
 
                             {# New User Form #}
-                            <div id="newUserForm">
-                                <form action="{% url "core:entering_user" %}" method="post" role="form"
+                            <div id="newUserFormDiv">
+                                <form id="newUserForm" action="{% url "core:entering_user" %}" method="post" role="form"
                                       style="display: block;"> {% csrf_token %}
                                     <div class="form-group">
                                         <input type="text" name="first_name" id="first_name" tabindex="1"
@@ -69,8 +69,8 @@
                             </div>
 
                             {#  Login Form #}
-                            <div id="logInForm">
-                                <form action="{% url 'core:entering_user' %}" method="post" role="form"
+                            <div id="logInFormDiv">
+                                <form id="logInForm" action="{% url 'core:entering_user' %}" method="post" role="form"
                                       style="display: block;"> {% csrf_token %}
                                     <div class="form-group">
                                         <input type="text" name="username" id="login_username" tabindex="1"

@@ -23,6 +23,8 @@ var newUser = document.getElementById("newUser");
 var logIn = document.getElementById("logIn");
 
 // Log in / Sign up Page Form Variables
+var newUserFormDiv = document.getElementById("newUserFormDiv");
+var logInFormDiv = document.getElementById("logInFormDiv");
 var newUserForm = document.getElementById("newUserForm");
 var logInForm = document.getElementById("logInForm");
 
@@ -40,6 +42,8 @@ function init() {
 
     newUser.onclick = newUserButton;
     logIn.onclick = logInButton;
+
+    newUserForm.onsubmit = newUserErrorHandling;
 }
 
 function hideAll() {
@@ -122,24 +126,35 @@ function show_navLogIn_Link() {
 
     newUser.setAttribute("class", "btn btn-secondary");
     logIn.setAttribute("class", "btn btn-primary");
-    newUserForm.setAttribute("class", "visible");
-    logInForm.setAttribute("class", "hidden");
+    newUserFormDiv.setAttribute("class", "visible");
+    logInFormDiv.setAttribute("class", "hidden");
 }
 
 function newUserButton() {
     newUser.setAttribute("class", "btn btn-secondary");
     logIn.setAttribute("class", "btn btn-primary");
 
-    newUserForm.setAttribute("class", "visible");
-    logInForm.setAttribute("class", "hidden");
+    newUserFormDiv.setAttribute("class", "visible");
+    logInFormDiv.setAttribute("class", "hidden");
 }
 
 function logInButton() {
     newUser.setAttribute("class", "btn btn-primary");
     logIn.setAttribute("class", "btn btn-secondary");
 
-    newUserForm.setAttribute("class", "hidden");
-    logInForm.setAttribute("class", "visible");
+    newUserFormDiv.setAttribute("class", "hidden");
+    logInFormDiv.setAttribute("class", "visible");
+}
+
+function newUserErrorHandling() {
+    event.preventDefault();
+    $.ajax({
+        url : $(newUserForm).attr("action"),
+        type : "post",
+        data : $(newUserForm).serialize(),
+        success : logInButton
+    });
+    console.log("form submitted!");
 }
 
 window.onload = init;
