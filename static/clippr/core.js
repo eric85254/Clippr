@@ -1,12 +1,15 @@
 /**
  * Created by sanketh on 1/7/17.
  */
+
+// Pages that NavBar Links to
 var navHome_Link = document.getElementById("navHome-Link");
 var navSafety_Link = document.getElementById("navSafety-Link");
 var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
 
+// NavBar Button Variables
 var navLogo = document.getElementById("navLogo");
 var navHome = document.getElementById("navHome");
 var navSafety = document.getElementById("navSafety");
@@ -14,6 +17,14 @@ var navFindYourStyle = document.getElementById("navFindYourStyle");
 var navBecomeAStylist = document.getElementById("navBecomeAStylist");
 var navLogIn = document.getElementById("navLogIn");
 var navProfile = document.getElementById("navProfile");
+
+// Log in / Sign Up Page Button Variables.
+var newUser = document.getElementById("newUser");
+var logIn = document.getElementById("logIn");
+
+// Log in / Sign up Page Form Variables
+var newUserForm = document.getElementById("newUserForm");
+var logInForm = document.getElementById("logInForm");
 
 function init() {
     hideAll();
@@ -26,6 +37,9 @@ function init() {
     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
     navLogIn.onclick = show_navLogIn_Link;
     navProfile.onclick = show_navLogIn_Link;
+
+    newUser.onclick = newUserButton;
+    logIn.onclick = logInButton;
 }
 
 function hideAll() {
@@ -105,6 +119,27 @@ function show_navLogIn_Link() {
     deSelectAll();
     navLogIn_Link.setAttribute("class", "visible");
     navLogIn.parentNode.setAttribute("class", "nav-item active");
+
+    newUser.setAttribute("class", "btn btn-secondary");
+    logIn.setAttribute("class", "btn btn-primary");
+    newUserForm.setAttribute("class", "visible");
+    logInForm.setAttribute("class", "hidden");
+}
+
+function newUserButton() {
+    newUser.setAttribute("class", "btn btn-secondary");
+    logIn.setAttribute("class", "btn btn-primary");
+
+    newUserForm.setAttribute("class", "visible");
+    logInForm.setAttribute("class", "hidden");
+}
+
+function logInButton() {
+    newUser.setAttribute("class", "btn btn-primary");
+    logIn.setAttribute("class", "btn btn-secondary");
+
+    newUserForm.setAttribute("class", "hidden");
+    logInForm.setAttribute("class", "visible");
 }
 
 window.onload = init;
