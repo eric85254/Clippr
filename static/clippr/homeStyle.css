@@ -39,53 +39,28 @@ body {
 #headerLinks {
     float:right;
 }
-#profile {
+#navProfile {
     background-image: url("./images/profile-icon-9.png");
     -webkit-background-size: contain;
     background-size: contain;
     display: block;
     width: 50px;
     height: 50px;
-    float: right;
 }
 
-#content {
-    -webkit-column-count:2;
-    -moz-column-count:2;
-    column-count:2;
-    height:500px;
-    background-color:blue;
-    display:flex;
-}
-
-#content > div {
-    display: block;
-    width:50%;
-}
 #about {
-    height:100%;
-    float: left;
+
     background-color:teal;
 
 }
 
-#appAndSocialMedia {
-    height:100%;
-    float: right;
-    background-color: yellow;
-}
-
 #downloadApp {
-    height: 10%;
-    width: 100%;
-    float: right;
+
     background-color:green;
 }
 
 #socialMedia {
-    float: right;
-    height:90%;
-    width:100%;
+
     background-color:red;
 }
 
