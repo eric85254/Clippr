@@ -28,6 +28,12 @@ var logInFormDiv = document.getElementById("logInFormDiv");
 var newUserForm = document.getElementById("newUserForm");
 var logInForm = document.getElementById("logInForm");
 
+// Error Variables
+var email_error = document.getElementById("email-error");
+var username_error = document.getElementById("username-error");
+var password_error = document.getElementById("password-error");
+var isStylist_error = document.getElementById("is_stylist-error");
+
 function init() {
     hideAll();
     show_navHome_Link();
@@ -90,9 +96,20 @@ function deSelectAll() {
     }
 }
 
+function cleanUp() {
+    var confirmation = document.getElementById("newUserConfirmation");
+    confirmation.innerHTML = "";
+
+    email_error.innerHTML = "";
+    username_error.innerHTML = "";
+    password_error.innerHTML = "";
+    isStylist_error.innerHTML = "";
+}
+
 function show_navHome_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navHome_Link.setAttribute("class", "visible");
     navHome.parentNode.setAttribute("class", "nav-item active");
 }
@@ -100,6 +117,7 @@ function show_navHome_Link() {
 function show_navSafety_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navSafety_Link.setAttribute("class", "visible");
     navSafety.parentNode.setAttribute("class", "nav-item active");
 }
@@ -107,6 +125,7 @@ function show_navSafety_Link() {
 function show_navFindYourStyle_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navFindYourStyle_Link.setAttribute("class", "visible");
     navFindYourStyle.parentNode.setAttribute("class", "nav-item active");
 }
@@ -114,6 +133,7 @@ function show_navFindYourStyle_Link() {
 function show_navBecomeAStylist_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navBecomeAStylist_Link.setAttribute("class", "visible");
     navBecomeAStylist.parentNode.setAttribute("class", "nav-item active");
 }
@@ -121,6 +141,7 @@ function show_navBecomeAStylist_Link() {
 function show_navLogIn_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navLogIn_Link.setAttribute("class", "visible");
     navLogIn.parentNode.setAttribute("class", "nav-item active");
 
@@ -131,6 +152,7 @@ function show_navLogIn_Link() {
 }
 
 function newUserButton() {
+    cleanUp();
     newUser.setAttribute("class", "btn btn-secondary");
     logIn.setAttribute("class", "btn btn-primary");
 
@@ -146,13 +168,41 @@ function logInButton() {
     logInFormDiv.setAttribute("class", "visible");
 }
 
+// ToDo: Fix all the variable name convention
+// ToDo: Adam eat a dick.
+
 function newUserErrorHandling() {
     event.preventDefault();
     $.ajax({
-        url : $(newUserForm).attr("action"),
-        type : "post",
-        data : $(newUserForm).serialize(),
-        success : logInButton
+        url: $(newUserForm).attr("action"),
+        type: "post",
+        data: $(newUserForm).serialize(),
+        success: function (data) {
+            console.log(data);
+            // var formData = JSON.parse(data);
+
+            if (data.success == true) {
+                logInButton();
+                var confirmation = document.getElementById("newUserConfirmation");
+                confirmation.innerHTML = "You've successfully created a new account!";
+            } else {
+                console.log("found Errors!");
+                cleanUp();
+
+                if (data.email) {
+                    email_error.innerHTML = data.email;
+                }
+                if (data.username) {
+                    username_error.innerHTML = data.username;
+                }
+                if(data.password2) {
+                    password_error.innerHTML = data.password2;
+                }
+                if(data.is_stylist) {
+                    isStylist_error.innerHTML = data.is_stylist;
+                }
+            }
+        }
     });
     console.log("form submitted!");
 }
