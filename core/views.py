@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from core.forms import NewUserForm
@@ -10,39 +11,75 @@ def index(request):
     return render(request, 'core/home/home.html', {'form': None})
 
 
-def returning_user(request):
-    return render(request, 'core/login.html', {'form': None})
+# def returning_user(request):
+#     return render(request, 'core/login.html', {'form': None})
 
 
-def entering_user(request):
+def create_user(request):
     if request.method == 'POST':
+        create_user_form = NewUserForm(request.POST)
 
-        if 'CREATE' in request.POST:
-            create_user_form = NewUserForm(request.POST)
+        if create_user_form.is_valid():
+            new_user = create_user_form.save(commit=False)
+            new_user.profile_picture = DEFAULT_PICTURE_LOCATION
+            new_user.save()
+            data = {
+                'success': True
+            }
+            return JsonResponse(data=data)
 
-            if create_user_form.is_valid():
-                new_user = create_user_form.save(commit=False)
-                new_user.profile_picture = DEFAULT_PICTURE_LOCATION
-                new_user.save()
-                return render(request, 'core/newUserLogin.html')
+        else:
+            print(create_user_form.errors)
+            data = create_user_form.errors
+            data['success'] = False
+            # return render(request, 'core/createUser.html', {'form': create_user_form})
+            return JsonResponse(data=data)
 
+def returning_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            if user.is_stylist == 'YES':
+                return redirect('stylist:profile')
             else:
-                print(create_user_form.errors)
-                return render(request, 'core/createUser.html', {'form': create_user_form})
+                return redirect('customer:profile')
+        else:
+            return render(request, 'core/invalidLogin.html')
 
-        elif 'LOGIN' in request.POST:
-            username = request.POST.get('username', '')
-            password = request.POST.get('password', '')
-            user = auth.authenticate(username=username, password=password)
 
-            if user is not None:
-                auth.login(request, user)
-                if user.is_stylist == 'YES':
-                    return redirect('stylist:profile')
-                else:
-                    return redirect('customer:profile')
-            else:
-                return render(request, 'core/invalidLogin.html')
+# def entering_user(request):
+#     if request.method == 'POST':
+#
+#         if 'CREATE' in request.POST:
+#             create_user_form = NewUserForm(request.POST)
+#
+#             if create_user_form.is_valid():
+#                 new_user = create_user_form.save(commit=False)
+#                 new_user.profile_picture = DEFAULT_PICTURE_LOCATION
+#                 new_user.save()
+#                 return render(request, 'core/newUserLogin.html')
+#
+#             else:
+#                 print(create_user_form.errors)
+#                 return render(request, 'core/createUser.html', {'form': create_user_form})
+#
+#         elif 'LOGIN' in request.POST:
+#             username = request.POST.get('username', '')
+#             password = request.POST.get('password', '')
+#             user = auth.authenticate(username=username, password=password)
+#
+#             if user is not None:
+#                 auth.login(request, user)
+#                 if user.is_stylist == 'YES':
+#                     return redirect('stylist:profile')
+#                 else:
+#                     return redirect('customer:profile')
+#             else:
+#                 return render(request, 'core/invalidLogin.html')
 
 
 def upload_picture(request):
@@ -70,8 +107,8 @@ def home(request):
     return render(request, 'core/home/home.html')
 
 
-def create_user(request):
-    return render(request, 'core/createUser.html')
+# def create_user(request):
+#     return render(request, 'core/createUser.html')
 
 
 def basic_information(request):

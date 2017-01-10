@@ -1,19 +1,38 @@
 /**
  * Created by sanketh on 1/7/17.
  */
-var navLogo_Link = document.getElementById("navLogo-Link");
+
+// Pages that NavBar Links to
 var navHome_Link = document.getElementById("navHome-Link");
 var navSafety_Link = document.getElementById("navSafety-Link");
 var navFindYourStyle_Link = document.getElementById("navFindYourStyle-Link");
 var navBecomeAStylist_Link = document.getElementById("navBecomeAStylist-Link");
 var navLogIn_Link = document.getElementById("navLogIn-Link");
 
+// NavBar Button Variables
 var navLogo = document.getElementById("navLogo");
 var navHome = document.getElementById("navHome");
 var navSafety = document.getElementById("navSafety");
 var navFindYourStyle = document.getElementById("navFindYourStyle");
 var navBecomeAStylist = document.getElementById("navBecomeAStylist");
 var navLogIn = document.getElementById("navLogIn");
+var navProfile = document.getElementById("navProfile");
+
+// Log in / Sign Up Page Button Variables.
+var newUser = document.getElementById("newUser");
+var logIn = document.getElementById("logIn");
+
+// Log in / Sign up Page Form Variables
+var newUserFormDiv = document.getElementById("newUserFormDiv");
+var logInFormDiv = document.getElementById("logInFormDiv");
+var newUserForm = document.getElementById("newUserForm");
+var logInForm = document.getElementById("logInForm");
+
+// Error Variables
+var email_error = document.getElementById("email-error");
+var username_error = document.getElementById("username-error");
+var password_error = document.getElementById("password-error");
+var isStylist_error = document.getElementById("is_stylist-error");
 
 function init() {
     hideAll();
@@ -25,13 +44,15 @@ function init() {
     navFindYourStyle.onclick = show_navFindYourStyle_Link;
     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
     navLogIn.onclick = show_navLogIn_Link;
+    navProfile.onclick = show_navLogIn_Link;
+
+    newUser.onclick = newUserButton;
+    logIn.onclick = logInButton;
+
+    newUserForm.onsubmit = newUserErrorHandling;
 }
 
 function hideAll() {
-    if (navLogo_Link) {
-        navHome_Link.setAttribute("class","hidden");
-    }
-
     if (navHome_Link) {
         navHome_Link.setAttribute("class", "hidden");
     }
@@ -54,9 +75,6 @@ function hideAll() {
 }
 
 function deSelectAll() {
-    if(navLogo_Link) {
-        navHome.parentNode("class", "nav-item");
-    }
     if (navHome_Link) {
         navHome.parentNode.setAttribute("class", "nav-item");
     }
@@ -78,16 +96,20 @@ function deSelectAll() {
     }
 }
 
-function show_navLogo_Link() {
-    hideAll();
-    deSelectAll();
-    navHome_Link.setAttribute("class", "visible");
-    navHome.parentNode.setAttribute("class", "nav-item active");
+function cleanUp() {
+    var confirmation = document.getElementById("newUserConfirmation");
+    confirmation.innerHTML = "";
+
+    email_error.innerHTML = "";
+    username_error.innerHTML = "";
+    password_error.innerHTML = "";
+    isStylist_error.innerHTML = "";
 }
 
 function show_navHome_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navHome_Link.setAttribute("class", "visible");
     navHome.parentNode.setAttribute("class", "nav-item active");
 }
@@ -95,6 +117,7 @@ function show_navHome_Link() {
 function show_navSafety_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navSafety_Link.setAttribute("class", "visible");
     navSafety.parentNode.setAttribute("class", "nav-item active");
 }
@@ -102,6 +125,7 @@ function show_navSafety_Link() {
 function show_navFindYourStyle_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navFindYourStyle_Link.setAttribute("class", "visible");
     navFindYourStyle.parentNode.setAttribute("class", "nav-item active");
 }
@@ -109,6 +133,7 @@ function show_navFindYourStyle_Link() {
 function show_navBecomeAStylist_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navBecomeAStylist_Link.setAttribute("class", "visible");
     navBecomeAStylist.parentNode.setAttribute("class", "nav-item active");
 }
@@ -116,8 +141,70 @@ function show_navBecomeAStylist_Link() {
 function show_navLogIn_Link() {
     hideAll();
     deSelectAll();
+    cleanUp();
     navLogIn_Link.setAttribute("class", "visible");
     navLogIn.parentNode.setAttribute("class", "nav-item active");
+
+    newUser.setAttribute("class", "btn btn-secondary");
+    logIn.setAttribute("class", "btn btn-primary");
+    newUserFormDiv.setAttribute("class", "visible");
+    logInFormDiv.setAttribute("class", "hidden");
+}
+
+function newUserButton() {
+    cleanUp();
+    newUser.setAttribute("class", "btn btn-secondary");
+    logIn.setAttribute("class", "btn btn-primary");
+
+    newUserFormDiv.setAttribute("class", "visible");
+    logInFormDiv.setAttribute("class", "hidden");
+}
+
+function logInButton() {
+    newUser.setAttribute("class", "btn btn-primary");
+    logIn.setAttribute("class", "btn btn-secondary");
+
+    newUserFormDiv.setAttribute("class", "hidden");
+    logInFormDiv.setAttribute("class", "visible");
+}
+
+// ToDo: Fix all the variable name convention
+// ToDo: Adam eat a dick.
+
+function newUserErrorHandling() {
+    event.preventDefault();
+    $.ajax({
+        url: $(newUserForm).attr("action"),
+        type: "post",
+        data: $(newUserForm).serialize(),
+        success: function (data) {
+            console.log(data);
+            // var formData = JSON.parse(data);
+
+            if (data.success == true) {
+                logInButton();
+                var confirmation = document.getElementById("newUserConfirmation");
+                confirmation.innerHTML = "You've successfully created a new account!";
+            } else {
+                console.log("found Errors!");
+                cleanUp();
+
+                if (data.email) {
+                    email_error.innerHTML = data.email;
+                }
+                if (data.username) {
+                    username_error.innerHTML = data.username;
+                }
+                if(data.password2) {
+                    password_error.innerHTML = data.password2;
+                }
+                if(data.is_stylist) {
+                    isStylist_error.innerHTML = data.is_stylist;
+                }
+            }
+        }
+    });
+    console.log("form submitted!");
 }
 
 window.onload = init;
