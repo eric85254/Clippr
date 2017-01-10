@@ -3,8 +3,20 @@ body {
     padding:0;
 }
 
+.jumbotron {
+    min-height:420px;
+}
+
+#homeJumbotron {
+    background-image: url("images/haircut2.jpg");
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 60% 10%;
+    color: white;
+}
+
 #header {
-    background-image: url("./images/haircut1.jpg");
+    background-image: url("images/haircut2.jpg");
     -webkit-background-size:cover;
     background-size:cover;
     background-position: 20% 70%;
