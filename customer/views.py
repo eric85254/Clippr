@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from customer.forms import NewAppointmentForm
-from stylist.models import Appointments
+from customer.forms import NewAppointmentForm, StylistApplicationForm
+from stylist.models import Appointments, Applications
 from core.models import User
 
 # for the search
@@ -50,7 +50,8 @@ def create_appointment(request):
                 new_appointment = create_appointment_form.save(commit=False)
                 new_appointment.customer = request.user
                 new_appointment.stylist = User.objects.get(username=request.session['username'])
-                new_appointment.location = request.POST.get('location')
+                new_appointment.location = request.POST.get('location')  # Is this even necessary? Location should be
+                # pulled automatically.
                 # new_appointment.date = datetime.now
                 new_appointment.save()
 
@@ -74,3 +75,26 @@ def stylist_search(request):
     return render(request, 'customer/stylist_search.html', {
         'stylist_list': stylist_list
     })
+
+
+def become_stylist(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'POST':
+            stylist_application = StylistApplicationForm(request.POST)
+
+            if stylist_application.is_valid():
+                stylist_application = stylist_application.save(commit=False)
+                stylist_application.applicant = request.user
+                stylist_application.save()
+                return render(request, 'customer/application_submitted.html')
+
+            else:
+                return render(request, 'customer/application_error.html')
+
+        application = Applications.objects.filter(applicant=request.user)
+        if len(application) > 0:
+            return render(request, 'customer/application_submitted.html')
+        else:
+            return render(request, 'customer/become_stylist.html')
+    else:
+        return redirect('core:home')

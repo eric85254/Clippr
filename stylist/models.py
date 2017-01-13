@@ -26,8 +26,8 @@ class Appointments(models.Model):
 	haircut = models.ForeignKey(Haircut, null=True, blank=True)
 
 class Applications(models.Model):
-	stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
-	application_status = models.CharField(max_length=20)
+	applicant = models.ForeignKey('core.User', on_delete=models.CASCADE)
+	application_status = models.CharField(max_length=20, default='PENDING')
 	denied_reason = models.CharField(max_length=1000, blank=True)
 	reason = models.CharField(max_length=1000)
 	# ToDo: Figure out what fields we want for a stylist application

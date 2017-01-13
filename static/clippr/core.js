@@ -32,7 +32,7 @@ var logInForm = document.getElementById("logInForm");
 var email_error = document.getElementById("email-error");
 var username_error = document.getElementById("username-error");
 var password_error = document.getElementById("password-error");
-var isStylist_error = document.getElementById("is_stylist-error");
+// var isStylist_error = document.getElementById("is_stylist-error");
 
 function init() {
     hideAll();
@@ -103,7 +103,7 @@ function cleanUp() {
     email_error.innerHTML = "";
     username_error.innerHTML = "";
     password_error.innerHTML = "";
-    isStylist_error.innerHTML = "";
+    // isStylist_error.innerHTML = "";
 }
 
 function show_navHome_Link() {
@@ -198,9 +198,9 @@ function newUserErrorHandling() {
                 if(data.password2) {
                     password_error.innerHTML = data.password2;
                 }
-                if(data.is_stylist) {
-                    isStylist_error.innerHTML = data.is_stylist;
-                }
+                // if(data.is_stylist) {
+                //     isStylist_error.innerHTML = data.is_stylist;
+                // }
             }
         }
     });
@@ -208,3 +208,5 @@ function newUserErrorHandling() {
 }
 
 window.onload = init;
+
+// ToDo: For later --> get rid of commented out portions involving is_stylist field.
