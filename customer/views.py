@@ -11,24 +11,30 @@ from django.db.models import Q
 
 
 def profile(request):
-    full_name = request.user.get_full_name()
-    if request.user.profile_picture is not None:
-        customer = request.user
+    if request.user.is_stylist == 'NO':
+        full_name = request.user.get_full_name()
+        if request.user.profile_picture is not None:
+            customer = request.user
+        else:
+            customer = None
+        return render(request, 'customer/profile.html',
+                      {'full_name': full_name,
+                       'customer': customer})
     else:
-        customer = None
-    return render(request, 'customer/profile.html',
-                  {'full_name': full_name,
-                   'customer': customer})
+        return redirect('core:home')
 
 
 def dashboard(request):
-    if Appointments.objects.filter(customer=request.user).exists():
-        appointment_list = Appointments.objects.filter(customer=request.user)
+    if request.user.is_stylist == 'NO':
+        if Appointments.objects.filter(customer=request.user).exists():
+            appointment_list = Appointments.objects.filter(customer=request.user)
 
+        else:
+            appointment_list = None
+        return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),
+                                                           'appointments': appointment_list})
     else:
-        appointment_list = None
-    return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),
-                                                       'appointments': appointment_list})
+        return redirect('core:home')
 
 
 def create_appointment(request):
