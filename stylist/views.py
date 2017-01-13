@@ -14,7 +14,7 @@ def profile(request):
                       {'full_name': full_name,
                        'stylist': stylist})
     else:
-        return redirect('core:home')
+        return redirect('core:logout')
 
 def dashboard(request):
     if request.user.is_stylist == 'YES':
@@ -26,4 +26,4 @@ def dashboard(request):
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'appointments': appointment_list})
     else:
-        return redirect('core:home')
+        return redirect('core:logout')

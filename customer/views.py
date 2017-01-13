@@ -21,7 +21,7 @@ def profile(request):
                       {'full_name': full_name,
                        'customer': customer})
     else:
-        return redirect('core:home')
+        return redirect('core:logout')
 
 
 def dashboard(request):
@@ -34,7 +34,7 @@ def dashboard(request):
         return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),
                                                            'appointments': appointment_list})
     else:
-        return redirect('core:home')
+        return redirect('core:logout')
 
 
 def create_appointment(request):
@@ -97,4 +97,4 @@ def become_stylist(request):
         else:
             return render(request, 'customer/become_stylist.html')
     else:
-        return redirect('core:home')
+        return redirect('core:logout')

@@ -4,7 +4,7 @@
     <p>List of All Applications</p> <br>
     <hr>
     {% for application in applications %}
-        Stylist: {{ application.stylist.get_full_name }} <br>
+        Applicant: {{ application.applicant.get_full_name }} <br>
         Reason: {{ application.reason }} <br>
         <hr>
     {% endfor %}
