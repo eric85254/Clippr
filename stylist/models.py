@@ -24,3 +24,10 @@ class Appointments(models.Model):
 	date = models.DateTimeField(default=datetime.now)
 	price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 	haircut = models.ForeignKey(Haircut, null=True, blank=True)
+
+class Applications(models.Model):
+	stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
+	application_status = models.CharField(max_length=20)
+	denied_reason = models.CharField(max_length=1000, blank=True)
+	reason = models.CharField(max_length=1000)
+	# ToDo: Figure out what fields we want for a stylist application

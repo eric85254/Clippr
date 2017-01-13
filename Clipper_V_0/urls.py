@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('core.urls', namespace='core')),
     url(r'^stylist/', include('stylist.urls', namespace='stylist')),
-    url(r'^customer/', include('customer.urls', namespace='customer'))
+    url(r'^customer/', include('customer.urls', namespace='customer')),
+    url(r'^administration/', include('administration.urls', namespace='administration')),
 ]
 
 if settings.DEBUG is True:

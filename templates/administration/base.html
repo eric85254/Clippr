@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipper</title>
+</head>
+<body>
+
+<a href="{% url 'administration:profile' %}">Administration Section</a>
+    ----------------------
+
+    <a href="{% url 'administration:view_stylist_applications' %}">Unread Stylist Applications</a>
+    <a href="#">Stylist Interviews</a>
+    <a href="#">Approved Stylists</a>
+
+    {% block main_content %}
+    {% endblock %}
+</body>
+</html>

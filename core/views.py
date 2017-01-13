@@ -43,10 +43,13 @@ def returning_user(request):
 
         if user is not None:
             auth.login(request, user)
-            if user.is_stylist == 'YES':
-                return redirect('stylist:profile')
+            if user.is_superuser:
+                return redirect('administration:profile')
             else:
-                return redirect('customer:profile')
+                if user.is_stylist == 'YES':
+                    return redirect('stylist:profile')
+                else:
+                    return redirect('customer:profile')
         else:
             return render(request, 'core/invalidLogin.html')
 
