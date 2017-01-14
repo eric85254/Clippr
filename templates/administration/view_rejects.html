@@ -1,0 +1,19 @@
+{% extends 'administration/base.html' %}
+
+{% block main_content %}
+    <p>List of All Applications</p> <br>
+    <hr>
+    {% for application in applications %}
+        Applicant: {{ application.applicant.get_full_name }} <br>
+        Reason: {{ application.reason }} <br>
+        Rejection Reason:
+        <br>
+        <form action="{% url 'administration:reinstate_application' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="application_id" value="{{ application.id }}"/>
+
+            <button type="submit" name="reinstate">Reinstate Application</button> <br>
+        </form>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

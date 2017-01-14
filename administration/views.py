@@ -32,13 +32,33 @@ def schedule_interview(request):
             elif 'reject' in request.POST:
                 application.application_status = "REJECTED"
                 application.save()
+        return redirect("administration:view_interviews")
     else:
         return redirect("core:logout")
-    return redirect("administration:view_stylist_applications")
+
 
 def view_interviews(request):
     if request.user.is_superuser:
         applications = Applications.objects.filter(interview_time__isnull=False)
         return render(request, 'administration/view_interviews.html', {'applications': applications})
     else:
-        return render('core:logout')
+        return redirect('core:logout')
+
+
+def view_rejects(request):
+    if request.user.is_superuser:
+        applications = Applications.objects.filter(application_status="REJECTED")
+        return render(request, 'administration/view_rejects.html', {'applications': applications})
+    else:
+        return redirect('core:logout')
+
+
+def reinstate_application(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            application = Applications.objects.get(pk=int(request.POST.get('application_id')))
+            application.application_status = 'PENDING'
+            application.save()
+        return redirect('administration:view_rejects')
+    else:
+        return redirect('core:logout')
