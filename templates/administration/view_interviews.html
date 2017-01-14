@@ -6,11 +6,12 @@
     {% for application in applications %}
         Applicant: {{ application.applicant.get_full_name }} <br>
         Reason: {{ application.reason }} <br>
+        Interview Time: {{ application.interview_time }}
         <br>
         <form action="{% url 'administration:schedule_interview' %}" method="post"> {% csrf_token %}
             <input type="hidden" name="application_id" value="{{ application.id }}"/>
 
-            <button type="submit" name="schedule">Schedule an Interview</button> <br>
+            <button type="submit" name="schedule">Reschedule an Interview</button> <br>
             <button type="reject" name="reject">Reject Applicant</button> <br>
         </form>
         <hr>

@@ -30,4 +30,5 @@ class Applications(models.Model):
 	application_status = models.CharField(max_length=20, default='PENDING')
 	denied_reason = models.CharField(max_length=1000, blank=True)
 	reason = models.CharField(max_length=1000)
+	interview_time = models.DateTimeField(null=True, blank=True)
 	# ToDo: Figure out what fields we want for a stylist application

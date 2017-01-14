@@ -5,5 +5,7 @@ from administration import views
 # does not go to views.profile. Figure this out.
 urlpatterns = [
     url(r'profile/$', views.profile, name="profile"),
-    url(r'view_stylist_applications', views.view_stylist_applications, name="view_stylist_applications")
+    url(r'view_stylist_applications', views.view_stylist_applications, name="view_stylist_applications"),
+    url(r'schedule_interview', views.schedule_interview, name="schedule_interview"),
+    url(r'view_interviews', views.view_interviews, name="view_interviews")
 ]

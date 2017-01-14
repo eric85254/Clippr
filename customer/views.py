@@ -86,15 +86,21 @@ def become_stylist(request):
                 stylist_application = stylist_application.save(commit=False)
                 stylist_application.applicant = request.user
                 stylist_application.save()
-                return render(request, 'customer/application_submitted.html')
+                return render(request, 'customer/stylistApplications/application_submitted.html')
 
             else:
-                return render(request, 'customer/application_error.html')
+                return render(request, 'customer/stylistApplications/application_error.html')
 
         application = Applications.objects.filter(applicant=request.user)
         if len(application) > 0:
-            return render(request, 'customer/application_submitted.html')
+            application = Applications.objects.get(applicant=request.user)
+            if application.application_status == 'PENDING':
+                return render(request, 'customer/stylistApplications/application_submitted.html')
+            elif application.application_status == 'SCHEDULED':
+                return render(request, 'customer/stylistApplications/interview_scheduled.html', {'application': application})
+            elif application.application_status == 'REJECTED':
+                return render(request, 'customer/stylistApplications/application_rejected.html')
         else:
-            return render(request, 'customer/become_stylist.html')
+            return render(request, 'customer/stylistApplications/become_stylist.html')
     else:
         return redirect('core:logout')
