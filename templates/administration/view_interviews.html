@@ -21,8 +21,12 @@
 
             <label for="denied_reason">Rejection Reason:</label>
             <textarea name="denied_reason" cols="40" rows="5"></textarea> <br>
-            <button type="reject" name="reject">Reject Applicant</button>
+            <button type="submit" name="reject">Reject Applicant</button>
             <br>
+        </form>
+        <form action="{% url 'administration:approve_applicant' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="application_id" value="{{ application.id }}"/>
+            <button type="submit" name="Approve">Approve Applicant</button>
         </form>
         <hr>
     {% endfor %}

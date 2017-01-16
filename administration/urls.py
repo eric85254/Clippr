@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'view_interviews/$', views.view_interviews, name="view_interviews"),
     url(r'view_rejects/$', views.view_rejects, name="view_rejects"),
     url(r'reinstate_application/$', views.reinstate_application, name="reinstate_application"),
-    url(r'reject_applicant/$', views.reject_applicant, name="reject_applicant")
+    url(r'reject_applicant/$', views.reject_applicant, name="reject_applicant"),
+    url(r'approve_applicant/$', views.approve_applicant, name="approve_applicant"),
+    url(r'view_stylists/$', views.view_stylists, name="view_stylists")
 ]
