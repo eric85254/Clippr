@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'schedule_interview/$', views.schedule_interview, name="schedule_interview"),
     url(r'view_interviews/$', views.view_interviews, name="view_interviews"),
     url(r'view_rejects/$', views.view_rejects, name="view_rejects"),
-    url(r'reinstate_application/$', views.reinstate_application, name="reinstate_application")
+    url(r'reinstate_application/$', views.reinstate_application, name="reinstate_application"),
+    url(r'reject_applicant/$', views.reject_applicant, name="reject_applicant")
 ]

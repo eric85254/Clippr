@@ -6,7 +6,7 @@
     {% for application in applications %}
         Applicant: {{ application.applicant.get_full_name }} <br>
         Reason: {{ application.reason }} <br>
-        Rejection Reason:
+        Rejection Reason: {{ application.denied_reason }}
         <br>
         <form action="{% url 'administration:reinstate_application' %}" method="post"> {% csrf_token %}
             <input type="hidden" name="application_id" value="{{ application.id }}"/>
