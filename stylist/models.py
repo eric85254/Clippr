@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as datetime
 from django.db import models
 
 # Change price_modifier field name to price

@@ -3,11 +3,12 @@ from django.shortcuts import render, redirect
 from customer.forms import NewAppointmentForm, StylistApplicationForm
 from stylist.models import Appointments, Applications
 from core.models import User
+from datetime import datetime
 
 # for the search
 from functools import reduce
 from operator import __or__ as OR
-from django.db.models import Q
+# from django.db.models import Q,
 
 
 def profile(request):
@@ -52,7 +53,7 @@ def create_appointment(request):
                 new_appointment.stylist = User.objects.get(username=request.session['username'])
                 new_appointment.location = request.POST.get('location')  # Is this even necessary? Location should be
                 # pulled automatically.
-                # new_appointment.date = datetime.now
+                new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
                 new_appointment.save()
 
                 return redirect('customer:dashboard')
