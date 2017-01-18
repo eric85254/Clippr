@@ -26,13 +26,13 @@ var logIn = document.getElementById("logIn");
 var newUserFormDiv = document.getElementById("newUserFormDiv");
 var logInFormDiv = document.getElementById("logInFormDiv");
 var newUserForm = document.getElementById("newUserForm");
-var logInForm = document.getElementById("logInForm");
+// var logInForm = document.getElementById("logInForm");
 
 // Error Variables
 var email_error = document.getElementById("email-error");
 var username_error = document.getElementById("username-error");
 var password_error = document.getElementById("password-error");
-// var isStylist_error = document.getElementById("is_stylist-error");
+var isStylist_error = document.getElementById("is_stylist-error");
 
 function init() {
     hideAll();
@@ -198,9 +198,9 @@ function newUserErrorHandling() {
                 if(data.password2) {
                     password_error.innerHTML = data.password2;
                 }
-                // if(data.is_stylist) {
-                //     isStylist_error.innerHTML = data.is_stylist;
-                // }
+                if(data.is_stylist) {
+                    isStylist_error.innerHTML = data.is_stylist;
+                }
             }
         }
     });
