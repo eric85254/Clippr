@@ -1,3 +1,5 @@
+from django.contrib.auth.models import AnonymousUser
+from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
@@ -19,3 +21,8 @@ class AppointmentsViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     permission_classes = (IsMemberOfAppointment,)
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_anonymous or not user.is_authenticated:
+            return None
+        return Appointments.objects.filter(Q(stylist=user) | Q(customer=user))
