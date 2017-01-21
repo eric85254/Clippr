@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.models import User
-from stylist.models import Appointments
+from stylist.models import Appointments, Haircut
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,3 +29,10 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Appointments
         fields = ('url', 'location', 'date', 'stylist', 'customer')
+
+class HaircutSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:haircut-detail')
+
+    class Meta:
+        model = Haircut
+        fields = ('url', 'haircut_stylist', )
