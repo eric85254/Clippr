@@ -3,7 +3,7 @@ from django.db import models
 
 
 # Change price_modifier field name to price
-class Deals(models.Model):
+class Deal(models.Model):
     stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
     description = models.CharField(max_length=500)
     price_modifier = models.DecimalField
@@ -18,7 +18,7 @@ class Haircut(models.Model):
     haircut_description = models.CharField(max_length=500)
 
 
-class Appointments(models.Model):
+class Appointment(models.Model):
     stylist = models.ForeignKey('core.User', related_name='stylist', on_delete=models.CASCADE)
     customer = models.ForeignKey('core.User', related_name='customer', on_delete=models.CASCADE)
     location = models.CharField(max_length=500)
@@ -27,7 +27,7 @@ class Appointments(models.Model):
     haircut = models.ForeignKey(Haircut, null=True, blank=True)
 
 
-class Applications(models.Model):
+class Application(models.Model):
     applicant = models.ForeignKey('core.User', on_delete=models.CASCADE)
     application_status = models.CharField(max_length=20, default='PENDING')
     denied_reason = models.CharField(max_length=1000, blank=True)

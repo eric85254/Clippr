@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from stylist.models import Appointments, Applications
+from stylist.models import Appointment, Application
 from core.models import User
 from datetime import datetime
 
@@ -27,8 +27,8 @@ def profile(request):
 
 def dashboard(request):
     if request.user.is_stylist == 'NO':
-        if Appointments.objects.filter(customer=request.user).exists():
-            appointment_list = Appointments.objects.filter(customer=request.user)
+        if Appointment.objects.filter(customer=request.user).exists():
+            appointment_list = Appointment.objects.filter(customer=request.user)
 
         else:
             appointment_list = None
@@ -92,9 +92,9 @@ def become_stylist(request):
             else:
                 return render(request, 'customer/stylistApplications/application_error.html')
 
-        application = Applications.objects.filter(applicant=request.user)
+        application = Application.objects.filter(applicant=request.user)
         if len(application) > 0:
-            application = Applications.objects.get(applicant=request.user)
+            application = Application.objects.get(applicant=request.user)
             if application.application_status == 'PENDING':
                 return render(request, 'customer/stylistApplications/application_submitted.html')
             elif application.application_status == 'SCHEDULED':

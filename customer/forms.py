@@ -1,14 +1,14 @@
 from django.forms import ModelForm
 
-from stylist.models import Appointments, Applications
+from stylist.models import Appointment, Application
 
 
 class NewAppointmentForm(ModelForm):
     class Meta:
-        model = Appointments
+        model = Appointment
         fields = ('location',)
 
 class StylistApplicationForm(ModelForm):
     class Meta:
-        model = Applications
+        model = Application
         fields = ('reason',)

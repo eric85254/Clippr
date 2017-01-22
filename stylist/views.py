@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from stylist.models import Appointments
+from stylist.models import Appointment
 
 
 def profile(request):
@@ -18,8 +18,8 @@ def profile(request):
 
 def dashboard(request):
     if request.user.is_stylist == 'YES':
-        if Appointments.objects.filter(stylist=request.user).exists():
-            appointment_list = Appointments.objects.filter(stylist=request.user)
+        if Appointment.objects.filter(stylist=request.user).exists():
+            appointment_list = Appointment.objects.filter(stylist=request.user)
 
         else:
             appointment_list = None

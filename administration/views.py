@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from core.models import User
-from stylist.models import Applications
+from stylist.models import Application
 
 
 def profile(request):
@@ -16,7 +16,7 @@ def profile(request):
 
 def view_stylist_applications(request):
     if request.user.is_superuser:
-        applications = Applications.objects.filter(application_status="PENDING")
+        applications = Application.objects.filter(application_status="PENDING")
         return render(request, 'administration/unread_applications.html', {'applications': applications})
     else:
         return redirect('core:logout')
@@ -25,7 +25,7 @@ def view_stylist_applications(request):
 def schedule_interview(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            application = Applications.objects.get(pk=int(request.POST.get('application_id')))
+            application = Application.objects.get(pk=int(request.POST.get('application_id')))
             application.interview_time = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             application.application_status = "SCHEDULED"
             application.save()
@@ -37,7 +37,7 @@ def schedule_interview(request):
 def view_interviews(request):
     # ToDo: Separate applicants into upcoming interviews and passed interviews. Only give the passed interviews the option of 'approval'.
     if request.user.is_superuser:
-        applications = Applications.objects.filter(application_status="SCHEDULED")
+        applications = Application.objects.filter(application_status="SCHEDULED")
         return render(request, 'administration/view_interviews.html', {'applications': applications})
     else:
         return redirect('core:logout')
@@ -45,7 +45,7 @@ def view_interviews(request):
 
 def view_rejects(request):
     if request.user.is_superuser:
-        applications = Applications.objects.filter(application_status='REJECTED')
+        applications = Application.objects.filter(application_status='REJECTED')
         return render(request, 'administration/view_rejects.html', {'applications': applications})
     else:
         return redirect('core:logout')
@@ -54,7 +54,7 @@ def view_rejects(request):
 def reinstate_application(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            application = Applications.objects.get(pk=int(request.POST.get('application_id')))
+            application = Application.objects.get(pk=int(request.POST.get('application_id')))
             application.application_status = 'PENDING'
             application.save()
         return redirect('administration:view_rejects')
@@ -65,7 +65,7 @@ def reinstate_application(request):
 def reject_applicant(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            application = Applications.objects.get(pk=int(request.POST.get('application_id')))
+            application = Application.objects.get(pk=int(request.POST.get('application_id')))
             application.application_status = 'REJECTED'
             application.denied_reason = request.POST.get('denied_reason')
             application.save()
@@ -80,7 +80,7 @@ def reject_applicant(request):
 def approve_applicant(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            application = Applications.objects.get(pk=int(request.POST.get('application_id')))
+            application = Application.objects.get(pk=int(request.POST.get('application_id')))
             application.application_status = 'APPROVED'
             application.save()
 
@@ -93,7 +93,7 @@ def approve_applicant(request):
 
 def view_stylists(request):
     if request.user.is_superuser:
-        applications = Applications.objects.filter(application_status='APPROVED')
+        applications = Application.objects.filter(application_status='APPROVED')
         return render(request, 'administration/view_stylists.html', {'applications': applications})
     else:
         return redirect('core:logout')
