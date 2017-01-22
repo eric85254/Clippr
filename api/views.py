@@ -4,13 +4,16 @@ from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework import generics
+from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
-from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUser
-from api.serializers import UserSerializer, AppointmentSerializer, HaircutSerializer
+from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn
+from api.serializers import UserSerializer, AppointmentSerializer, HaircutSerializer, StylistSerializer
 from core.models import User
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from stylist.models import Appointment, Haircut
@@ -34,10 +37,31 @@ def user_login(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', ])
+def stylist_search(request, search):
+    context = {'request': request}
+    if request.method == 'GET':
+        stylists = User.objects.filter(is_stylist='YES')
+
+        if search == "" or search is None:
+            return Response(StylistSerializer(many=True, instance=stylists, context=context).data)
+
+        filtered_stylists = stylists.filter(
+            Q(username__icontains=search) | Q(first_name__icontains=search) | Q(last_name__icontains=search))
+
+        if len(filtered_stylists) > 0:
+            return Response(StylistSerializer(many=True, instance=filtered_stylists, context=context).data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsCurrentUser,)
+    permission_classes = (IsCurrentUserOrSuperUser,)
     lookup_field = 'username'
 
     def get_queryset(self):
@@ -46,6 +70,16 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.all()
         else:
             return User.objects.filter(username=user.username)
+
+
+class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = StylistSerializer
+    permission_classes = (IsUserLoggedIn,)
+    lookup_field = 'username'
+
+    def get_queryset(self):
+        return User.objects.filter(is_stylist='YES')
 
 
 class AppointmentsViewSet(viewsets.ModelViewSet):

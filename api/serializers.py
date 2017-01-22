@@ -23,6 +23,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user
 
 
+class StylistSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail', lookup_field='username')
+
+    class Meta:
+        model = User
+        fields = ('url', 'first_name', 'last_name', 'username', 'profile_picture')
+
+
 class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:appointments-detail')
 
@@ -43,3 +51,4 @@ class HaircutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Haircut
         fields = ('url', 'haircut_stylist', 'haircut_picture', 'haircut_name', 'haircut_description')
+
