@@ -9,5 +9,6 @@ router.register(r'appointment', views.AppointmentsViewSet)
 router.register(r'haircut', views.HaircutViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls))
+    url(r'^', include(router.urls)),
+    url(r'user_login/$', views.user_login),
 ]
