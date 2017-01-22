@@ -2,22 +2,36 @@
 
 {% block main_content %}
 
-    <ul>
-        <li>
-            {{ full_name }}
-        </li>
-        <li>
-            <img src="{{ customer.profile_picture.url }}" height="100px" width="100px">
-            <br>
-            <a href="{% url 'core:upload_picture' %}" >Edit Picture</a>
-        </li>
-        <li>
-            {{ customer.biography|default_if_none:"Basic Information goes here." }}
-            <br>
-            <a href="{% url 'core:basic_information' %}">Edit Basic Information</a>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="fb-profile">
+            <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/"
+                 alt="Profile Image Example"/>
+            <img align="left" class="fb-image-profile thumbnail" src="{{ customer.profile_picture.url }}"/> <br>
+            <a href="{% url 'core:upload_picture' %}">Edit Picture</a>
+            <div class="fb-profile-text">
+                <h1>{{ full_name }}</h1>
+                <p>{{ customer.biography|default_if_none:"Basic Information goes here." }}</p>
+                <a href="{% url 'core:basic_information' %}">Edit Basic Information</a>
+            </div>
+        </div>
+    </div>
 
-    <h1>Portfolio</h1>
+{#    <ul>#}
+{#        <li>#}
+{#            {{ full_name }}#}
+{#        </li>#}
+{#        <li>#}
+{#            <img src="{{ customer.profile_picture.url }}" height="100px" width="100px">#}
+{#            <br>#}
+{#            <a href="{% url 'core:upload_picture' %}">Edit Picture</a>#}
+{#        </li>#}
+{#        <li>#}
+{#            {{ customer.biography|default_if_none:"Basic Information goes here." }}#}
+{#            <br>#}
+{#            <a href="{% url 'core:basic_information' %}">Edit Basic Information</a>#}
+{#        </li>#}
+{#    </ul>#}
+{##}
+{#    <h1>Portfolio</h1>#}
 
 {% endblock %}
