@@ -23,16 +23,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:appointments-detail')
 
-    stylist = UserSerializer(many=False)
-    customer = UserSerializer(many=False)
+    stylist = serializers.SlugRelatedField(many=False, read_only=False, slug_field=User.USERNAME_FIELD,
+                                           queryset=User.objects.filter(is_stylist='YES'))
+    customer = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = Appointments
         fields = ('url', 'location', 'date', 'stylist', 'customer')
 
-class HaircutSerializer(serializers.HyperlinkedModelSerializer):
+
+class HaircutSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:haircut-detail')
+
+    haircut_stylist = serializers.SlugRelatedField(many=False, read_only=False, slug_field=User.USERNAME_FIELD,
+                                                   queryset=User.objects.all())
 
     class Meta:
         model = Haircut
-        fields = ('url', 'haircut_stylist', )
+        fields = ('url', 'haircut_stylist', 'haircut_picture', 'haircut_name', 'haircut_description')
