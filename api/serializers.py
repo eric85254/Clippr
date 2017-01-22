@@ -6,7 +6,7 @@ from stylist.models import Appointment, Haircut
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:user-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='api:user-detail', lookup_field='username')
     profile_picture = serializers.FileField(default=DEFAULT_PICTURE_LOCATION)
 
     class Meta:
