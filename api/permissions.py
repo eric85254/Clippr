@@ -13,6 +13,8 @@ class IsOwnerOfAppointment(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.user.is_anonymous:
             return False
+        else:
+            return True
 
 
 class IsOwnerOfHaircut(permissions.BasePermission):
