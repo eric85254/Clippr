@@ -1,0 +1,10 @@
+{% extends 'customer/base.html' %}
+
+{% block main_content %}
+    <form action="{% url 'customer:become_stylist' %}" method="post"> {% csrf_token %}
+        <label for="reason">Reason for applying: </label> <br>
+        <textarea name="reason" cols="40" rows="5"></textarea>
+
+        <input type="submit" name="Submit" value="Submit"/>
+    </form>
+{% endblock %}

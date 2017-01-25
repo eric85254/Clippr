@@ -1,0 +1,19 @@
+{% extends 'administration/base.html' %}
+
+{% block main_content %}
+    <p>List of All Stylists</p> <br>
+    <hr>
+    {% for application in applications %}
+        Applicant: {{ application.applicant.get_full_name }} <br>
+        Reason for Applying: {{ application.reason }} <br>
+        <form action="{% url 'administration:reject_applicant' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="application_id" value="{{ application.id }}"/>
+
+            <label for="denied_reason">Demotion Reason:</label>
+            <textarea name="denied_reason" cols="40" rows="5"></textarea> <br>
+            <button type="submit" name="reject">Demote Stylist</button>
+            <br>
+        </form>
+        <hr>
+    {% endfor %}
+{% endblock %}

@@ -5,7 +5,16 @@
         <h1>My Appointments</h1>
         <ul>
             <li>
-                use for loop etc. to create a list of all the appointments.
+                {% for appointment in appointments %}
+                    --------------------------------                    <br>
+                    Appointment Details:                                <br>
+                    Customer: {{ appointment.customer.get_full_name }}  <br>
+                    Location: {{ appointment.location }}                <br>
+                    Time: {{ appointment.date|default_if_none:"" }}     <br>
+                    Price: {{ appointment.price|default_if_none:"" }}   <br>
+
+                    --------------------------------                    <br>
+                {% endfor %}
             </li>
         </ul>
     </div>

@@ -26,7 +26,7 @@ var logIn = document.getElementById("logIn");
 var newUserFormDiv = document.getElementById("newUserFormDiv");
 var logInFormDiv = document.getElementById("logInFormDiv");
 var newUserForm = document.getElementById("newUserForm");
-var logInForm = document.getElementById("logInForm");
+// var logInForm = document.getElementById("logInForm");
 
 // Error Variables
 var email_error = document.getElementById("email-error");
@@ -103,7 +103,7 @@ function cleanUp() {
     email_error.innerHTML = "";
     username_error.innerHTML = "";
     password_error.innerHTML = "";
-    isStylist_error.innerHTML = "";
+    // isStylist_error.innerHTML = "";
 }
 
 function show_navHome_Link() {
@@ -208,3 +208,5 @@ function newUserErrorHandling() {
 }
 
 window.onload = init;
+
+// ToDo: For later --> get rid of commented out portions involving is_stylist field.

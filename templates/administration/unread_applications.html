@@ -1,0 +1,29 @@
+{% extends 'administration/base.html' %}
+
+{% block main_content %}
+    <p>List of All Applications</p> <br>
+    <hr>
+    {% for application in applications %}
+        Applicant: {{ application.applicant.get_full_name }} <br>
+        Reason: {{ application.reason }} <br>
+        <br>
+        <form action="{% url 'administration:schedule_interview' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="application_id" value="{{ application.id }}"/>
+
+            <label for="date">Date: </label>
+            <input type="datetime-local" name="date"/>
+            <button type="submit" name="schedule">Schedule an Interview</button>
+            <br>
+        </form>
+        <form action="{% url 'administration:reject_applicant' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="application_id" value="{{ application.id }}"/>
+
+            <label for="denied_reason">Rejection Reason:</label>
+            <textarea name="denied_reason" cols="40" rows="5"></textarea> <br>
+            <button type="reject" name="reject">Reject Applicant</button>
+            <br>
+        </form>
+        <hr>
+    {% endfor %}
+
+{% endblock %}
