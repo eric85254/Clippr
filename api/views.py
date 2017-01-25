@@ -1,10 +1,7 @@
 from django.contrib import auth
-from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
-from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -13,10 +10,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn
-from api.serializers import UserSerializer, AppointmentSerializer, HaircutSerializer, StylistSerializer
-from core.models import User
-from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from stylist.models import Appointment, Haircut
+from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer
+from core.models import User, Appointment
+from stylist.models import PortfolioHaircut
 
 
 @api_view(['POST', ])
@@ -82,7 +78,7 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
         return User.objects.filter(is_stylist='YES')
 
 
-class AppointmentsViewSet(viewsets.ModelViewSet):
+class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
     permission_classes = (IsOwnerOfAppointment,)
@@ -98,12 +94,12 @@ class AppointmentsViewSet(viewsets.ModelViewSet):
 
 
 class HaircutViewSet(viewsets.ModelViewSet):
-    queryset = Haircut.objects.all()
-    serializer_class = HaircutSerializer
+    queryset = PortfolioHaircut.objects.all()
+    serializer_class = PortfolioHaircutSerializer
     permission_classes = (IsOwnerOfHaircut,)
 
     def get_queryset(self):
-        return Haircut.objects.filter(haircut_stylist=self.request.user)
+        return PortfolioHaircut.objects.filter(stylist=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(haircut_stylist=self.request.user)
+        serializer.save(stylist=self.request.user)

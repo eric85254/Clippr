@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from stylist.models import Appointment, Application
-from core.models import User
+from core.models import User, Appointment, Application
 from datetime import datetime
 
 # for the search

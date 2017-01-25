@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from stylist.models import Appointment, Application
+from core.models import Appointment, Application
 
 
 class NewAppointmentForm(ModelForm):

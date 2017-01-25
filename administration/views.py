@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
-from core.models import User
-from stylist.models import Application
+from core.models import User, Application
 
 
 def profile(request):

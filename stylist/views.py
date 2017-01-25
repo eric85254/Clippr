@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from stylist.models import Appointment
+from core.models import Appointment
 
 
 def profile(request):
