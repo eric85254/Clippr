@@ -35,6 +35,15 @@ class ItemInBill(models.Model):
     appointment = models.ForeignKey('core.Appointment', on_delete=models.SET_NULL, null=True)
     charged = models.BooleanField(default=False)
 
+    def __str__(self):
+        if (self.item_menu == '' or self.item_menu is None) is False:
+            return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_menu.name
+        elif (self.item_portfolio == '' or self.item_portfolio is None) is False:
+            return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_portfolio.name
+        elif (self.item_custom == '' or self.item_custom is None) is False:
+            return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_custom
+        else:
+            return "Unknown Entry"
 
 class Review(models.Model):
     reviewer = models.ForeignKey('core.User', related_name='reviewer', on_delete=models.SET_NULL, null=True)
@@ -52,6 +61,9 @@ class Appointment(models.Model):
     date = models.DateTimeField(default=datetime.now)
     price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
     haircut = models.ForeignKey('stylist.PortfolioHaircut', null=True, blank=True)
+
+    def __str__(self):
+        return self.stylist.username + "'s appointment with " + self.customer.username
 
 
 class Application(models.Model):
