@@ -27,12 +27,13 @@ class Menu(models.Model):
         return "Category: " + self.category + " || Option: " + self.name
 
 
-class Bill(models.Model):
+class ItemInBill(models.Model):
     item_menu = models.ForeignKey('core.Menu', related_name='item_menu', null=True, blank=True)
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
     item_custom = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     appointment = models.ForeignKey('core.Appointment', on_delete=models.SET_NULL, null=True)
+    charged = models.BooleanField(default=False)
 
 
 class Review(models.Model):

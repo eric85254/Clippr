@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, Application
+from core.models import User, Appointment, Application, ItemInBill, Menu
 from datetime import datetime
 
 # for the search
 from functools import reduce
 from operator import __or__ as OR
+
+
 # from django.db.models import Q,
 
 
@@ -37,6 +39,14 @@ def dashboard(request):
         return redirect('core:logout')
 
 
+def catch_menu_choices(request):
+    if request.method == 'POST':
+        request.session['menu_main'] = request.POST.get('menu_main')
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
 def create_appointment(request):
     if request.method == 'POST':
         if 'SELECT' in request.POST:
@@ -54,6 +64,12 @@ def create_appointment(request):
                 # pulled automatically.
                 new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
                 new_appointment.save()
+
+                menu_item = Menu.objects.get(name=request.POST.get('menu_main'))
+                bill = ItemInBill.objects.create(item_menu=menu_item, price=1.00, appointment=new_appointment)
+                bill.save()
+
+                # Need to change the way price is obtained
 
                 return redirect('customer:dashboard')
             else:
@@ -97,7 +113,8 @@ def become_stylist(request):
             if application.application_status == 'PENDING':
                 return render(request, 'customer/stylistApplications/application_submitted.html')
             elif application.application_status == 'SCHEDULED':
-                return render(request, 'customer/stylistApplications/interview_scheduled.html', {'application': application})
+                return render(request, 'customer/stylistApplications/interview_scheduled.html',
+                              {'application': application})
             elif application.application_status == 'REJECTED':
                 return render(request, 'customer/stylistApplications/application_rejected.html')
         else:
