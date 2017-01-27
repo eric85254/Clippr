@@ -59,7 +59,7 @@ class Appointment(models.Model):
     customer = models.ForeignKey('core.User', related_name='customer', on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=500)
     date = models.DateTimeField(default=datetime.now)
-    price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
+    # price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True) Price is included within the haircut model.
     haircut = models.ForeignKey('stylist.PortfolioHaircut', null=True, blank=True)
 
     def __str__(self):

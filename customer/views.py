@@ -8,7 +8,6 @@ from datetime import datetime
 from functools import reduce
 from operator import __or__ as OR
 
-
 # from django.db.models import Q,
 from stylist.models import PortfolioHaircut
 
@@ -93,14 +92,17 @@ def create_appointment(request):
         create_appointment_form = NewAppointmentForm(request.POST)
 
         if create_appointment_form.is_valid():
+            portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
+
             new_appointment = create_appointment_form.save(commit=False)
             new_appointment.customer = request.user
             new_appointment.stylist = User.objects.get(username=request.session['username'])
             new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
+            new_appointment.haircut = portfolio_haircut
             new_appointment.save()
 
-            menu_item = Menu.objects.get(name=request.session['menu_main'])
-            bill = ItemInBill.objects.create(item_menu=menu_item, price=1.00, appointment=new_appointment)
+            bill = ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
+                                             appointment=new_appointment)
             bill.save()
 
             return redirect('customer:dashboard')
@@ -133,7 +135,8 @@ def create_appointment_obtainStylistUsername(request):
 def create_appointment_menuMainChoice(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            request.session['menu_main'] = request.POST.get('menu_main')
+            request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
+            request.session['username'] = request.POST.get('username')
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')
@@ -145,7 +148,8 @@ def obtain_stylist_profile(request):
             if 'username' in request.GET:
                 stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
                 portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
-                return render(request, 'customer/stylist_profile.html', {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
+                return render(request, 'customer/stylist_profile.html',
+                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')

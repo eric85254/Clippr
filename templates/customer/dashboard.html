@@ -11,8 +11,12 @@
                     Stylist: {{ appointment.stylist.get_full_name }}             <br>
                     Location: {{ appointment.location }}                <br>
                     Time: {{ appointment.date|default_if_none:"" }}     <br>
-                    Price: {{ appointment.price|default_if_none:"" }}   <br>
 
+                    Price: {{ appointment.haircut.price|default_if_none:"" }}   <br>
+                    What you're getting done: {{ appointment.haircut.name|default_if_none:"" }} <br>
+                    Description: {{ appointment.haircut.description|default_if_none:"" }} <br>
+                    Picture: <br>
+                    <img src="{{ appointment.haircut.picture.url }}"/> <br>
                     --------------------------------                    <br>
                 {% endfor %}
 

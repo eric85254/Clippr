@@ -12,6 +12,14 @@
         Name: {{ portfolio_haircut.name }} <br>
         Price: {{ portfolio_haircut.price }} <br>
         Description: {{ portfolio_haircut.description }} <br>
+
+        <form action="{% url 'customer:create_appointment_menuMainChoice' %}" method="post"> {% csrf_token %}
+            <input type="hidden" name="username" value="{{ stylist.username }}"/>
+            <input type="hidden" name="portfolio_haircut" value="{{ portfolio_haircut.pk }}"/>
+
+            <input type="submit" name="Select"/>
+        </form>
+
         <hr>
     {% endfor %}
 {% endblock %}
