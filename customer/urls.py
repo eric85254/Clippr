@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'become_stylist/$', views.become_stylist, name="become_stylist"),
     url(r'catch_menu_choices/$', views.catch_menu_choices, name="catch_menu_choices"),
     url(r'create_appointment_obtainStylistUsername', views.create_appointment_obtainStylistUsername, name='create_appointment_obtainStylistUsername'),
-    url(r'create_appointment_menuMainChoice', views.create_appointment_menuMainChoice, name='create_appointment_menuMainChoice')
+    url(r'create_appointment_menuMainChoice', views.create_appointment_menuMainChoice, name='create_appointment_menuMainChoice'),
+    url(r'obtain_stylist_profile', views.obtain_stylist_profile, name='obtain_stylist_profile')
 ]

@@ -1,0 +1,17 @@
+{% extends 'customer/base.html' %}
+
+{% block main_content %}
+
+    {{ stylist.get_full_name|default:stylist.username }}'s Services and Haircuts.
+
+    <hr>
+    <hr>
+
+    {% for portfolio_haircut in portfolio_haircuts %}
+        <img src="{{ portfolio_haircut.picture.url }}"/> <br>
+        Name: {{ portfolio_haircut.name }} <br>
+        Price: {{ portfolio_haircut.price }} <br>
+        Description: {{ portfolio_haircut.description }} <br>
+        <hr>
+    {% endfor %}
+{% endblock %}

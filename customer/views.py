@@ -10,6 +10,7 @@ from operator import __or__ as OR
 
 
 # from django.db.models import Q,
+from stylist.models import PortfolioHaircut
 
 
 def profile(request):
@@ -133,6 +134,18 @@ def create_appointment_menuMainChoice(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             request.session['menu_main'] = request.POST.get('menu_main')
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+def obtain_stylist_profile(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            if 'username' in request.GET:
+                stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
+                portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
+                return render(request, 'customer/stylist_profile.html', {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')
