@@ -9,7 +9,7 @@
         <br>
         {{ user.stylist.biography }}
         <br>
-        <form action="{% url 'customer:create_appointment' %}" method="post"> {% csrf_token %}
+        <form action="{% url 'customer:create_appointment_obtainStylistUsername' %}" method="post"> {% csrf_token %}
             <input type="hidden" name="username" value="{{ user.username }}"/>
             <input type="submit" name="SELECT" value="Select"/>
         </form>

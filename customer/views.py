@@ -47,42 +47,6 @@ def catch_menu_choices(request):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-def create_appointment(request):
-    if request.method == 'POST':
-        if 'SELECT' in request.POST:
-            request.session['username'] = request.POST.get('username')
-            return redirect('customer:create_appointment')
-
-        if 'CREATE' in request.POST:
-            create_appointment_form = NewAppointmentForm(request.POST)
-
-            if create_appointment_form.is_valid():
-                new_appointment = create_appointment_form.save(commit=False)
-                new_appointment.customer = request.user
-                new_appointment.stylist = User.objects.get(username=request.session['username'])
-                new_appointment.location = request.POST.get('location')  # Is this even necessary? Location should be
-                # pulled automatically.
-                new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
-                new_appointment.save()
-
-                menu_item = Menu.objects.get(name=request.POST.get('menu_main'))
-                bill = ItemInBill.objects.create(item_menu=menu_item, price=1.00, appointment=new_appointment)
-                bill.save()
-
-                # Need to change the way price is obtained
-
-                return redirect('customer:dashboard')
-            else:
-                print(create_appointment_form.errors)
-        return redirect('customer:dashboard')
-    else:
-        if 'username' in request.session:
-            chosen_stylist = User.objects.get(username=request.session['username'])
-        else:
-            chosen_stylist = 'Please select a stylist'
-        return render(request, 'customer/create_appointment.html', {'chosen_stylist': chosen_stylist})
-
-
 def stylist_search(request):
     if 'param' in request.GET:
         stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
@@ -119,5 +83,56 @@ def become_stylist(request):
                 return render(request, 'customer/stylistApplications/application_rejected.html')
         else:
             return render(request, 'customer/stylistApplications/become_stylist.html')
+    else:
+        return redirect('core:logout')
+
+
+def create_appointment(request):
+    if request.method == 'POST':
+        create_appointment_form = NewAppointmentForm(request.POST)
+
+        if create_appointment_form.is_valid():
+            new_appointment = create_appointment_form.save(commit=False)
+            new_appointment.customer = request.user
+            new_appointment.stylist = User.objects.get(username=request.session['username'])
+            new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
+            new_appointment.save()
+
+            menu_item = Menu.objects.get(name=request.session['menu_main'])
+            bill = ItemInBill.objects.create(item_menu=menu_item, price=1.00, appointment=new_appointment)
+            bill.save()
+
+            return redirect('customer:dashboard')
+        else:
+            print(create_appointment_form.errors)
+        return redirect('customer:dashboard')
+
+    if 'username' in request.session:
+        chosen_stylist = User.objects.get(username=request.session['username'])
+    else:
+        chosen_stylist = 'Please select a stylist'
+    if 'menu_main' in request.session:
+        menu_main = Menu.objects.filter(category__icontains='main').get(name__icontains=request.session['menu_main'])
+    else:
+        menu_main = None
+
+    return render(request, 'customer/create_appointment.html',
+                  {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
+
+
+def create_appointment_obtainStylistUsername(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            request.session['username'] = request.POST.get('username')
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+def create_appointment_menuMainChoice(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            request.session['menu_main'] = request.POST.get('menu_main')
+        return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')

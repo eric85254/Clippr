@@ -3,13 +3,15 @@
 {% block main_content %}
 
     <div id="menu_main_div">
-        <button id=short_cut value="short_cut" name="menu_main">Short Cut</button>
-        <button id=long_cut type="submit" value="long_cut" name="menu_main">Long Cut</button>
+        <form action="{% url 'customer:create_appointment_menuMainChoice' %}" method="post"> {% csrf_token %}
+            <button id=short_cut value="short_cut" name="menu_main">Short Cut</button>
+            <button id=long_cut type="submit" value="long_cut" name="menu_main">Long Cut</button>
+        </form>
     </div>
 
     <hr>
 
-    <text id="menu_choice"></text>
+    {{ menu_main.name|default_if_none:"" }}
 
     <div id="stylist_search">
         <form id=create_appointment_form action="{% url 'customer:stylist_search' %}" method="get">
@@ -20,13 +22,12 @@
         Chosen Stylist: {{ chosen_stylist.get_full_name }}
 
         <form action="{% url 'customer:create_appointment' %}" method="post"> {% csrf_token %}
+
             <label for="location">Location: </label>
             <input type="text" value="" name="location" id="location"/> <br>
 
             <label for="date">Date: </label>
             <input type="datetime-local" value="" name="date" id="date"/> <br>
-
-            <input id=menu_main type="hidden" name=menu_main value=""/>
 
             <input id=create_appointment_button type="submit" value="Make new Appointment" name="CREATE"/>
         </form>
