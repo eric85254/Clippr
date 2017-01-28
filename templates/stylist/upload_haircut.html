@@ -1,15 +1,23 @@
 <form action="{% url 'stylist:upload_haircut' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
     <label for="picture">Picture: </label>
-    <input id="picture" type="file" name="picture"/> <br>
+    <input id="picture" type="file" name="picture"/> <br> <br>
 
     <label for="name">Name: </label>
-    <input id="name" type="text" name="name"/>
+    <input id="name" type="text" name="name"/> <br> <br>
 
     <label for="description">Description: </label>
-    <textarea id="description" name="description"></textarea>
+    <textarea id="description" name="description"></textarea> <br> <br>
 
     <label for="price">Price: </label>
-    <input id="price" type="number" step=".01" min="0" name="price"/>
+    <input id="price" type="number" step=".01" min="0" name="price"/> <br> <br>
+
+    Menu:<br>
+    <hr>
+    <label for="menu_main">Main: </label>
+    <input id="menu_main" type="radio" name="menu_main" value="short_cut"> Short Cut
+    <input id="menu_main" type="radio" name="menu_main" value="long_cut"> Long Cut
+    <input id="menu_main" type="radio" name="menu_main"> None
+    <br> <br>
 
     <input type="submit" name="Submit"/>
 </form>

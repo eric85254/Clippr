@@ -15,3 +15,6 @@ class PortfolioHaircut(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     menu_option = models.ForeignKey('core.Menu', null=True, blank=True)
+
+    def __str__(self):
+        return self.stylist.username + ' || ' + self.name

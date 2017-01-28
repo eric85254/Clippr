@@ -19,6 +19,7 @@ class User(AbstractUser):
 class Menu(models.Model):
     name = models.CharField(max_length=20)
     category = models.TextField(default='MAIN')
+    # Might get rid of price.
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     picture = models.FileField(upload_to='menu/%Y/%m/%d', null=True, blank=True)
     description = models.TextField(blank=True)
@@ -28,7 +29,6 @@ class Menu(models.Model):
 
 
 class ItemInBill(models.Model):
-    item_menu = models.ForeignKey('core.Menu', related_name='item_menu', null=True, blank=True)
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
     item_custom = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -36,10 +36,8 @@ class ItemInBill(models.Model):
     charged = models.BooleanField(default=False)
 
     def __str__(self):
-        if (self.item_menu == '' or self.item_menu is None) is False:
-            return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_menu.name
-        elif (self.item_portfolio == '' or self.item_portfolio is None) is False:
-            return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_portfolio.name
+        if (self.item_portfolio == '' or self.item_portfolio is None) is False:
+            return str(self.appointment.date) + " || stylist: " + self.appointment.stylist.username + " || " + self.item_portfolio.name
         elif (self.item_custom == '' or self.item_custom is None) is False:
             return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_custom
         else:

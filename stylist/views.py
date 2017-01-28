@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from core.models import Appointment
+from core.models import Appointment, Menu
 from stylist.forms import NewPortfolioHaircutForm
 from stylist.models import PortfolioHaircut
 
@@ -39,6 +39,9 @@ def upload_haircut(request):
                 new_portfolioHaircut = new_portfolioHaircut_form.save(commit=False)
                 new_portfolioHaircut.stylist = request.user
                 new_portfolioHaircut.picture = request.FILES['picture']
+                # Finding and adding selected menu option to new_portfolioHaircut
+                menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
+                new_portfolioHaircut.menu_option = menu_main
                 new_portfolioHaircut.save()
 
             return redirect('stylist:profile')
