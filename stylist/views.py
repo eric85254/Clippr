@@ -22,9 +22,11 @@ def dashboard(request):
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING)
         accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED)
+        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
-                                                          'accepted_appointments': accepted_appointments})
+                                                          'accepted_appointments': accepted_appointments,
+                                                          'declined_appointments': declined_appointments})
     else:
         return redirect('core:logout')
 
@@ -58,5 +60,14 @@ def accept_appointment(request):
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
             appointment.status = Appointment.STATUS_ACCEPTED
+            appointment.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def decline_appointment(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_DECLINED
             appointment.save()
     return redirect(request.META.get('HTTP_REFERER'))

@@ -41,11 +41,35 @@
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
                 <br>
-                <form action="#" method="post"> {% csrf_token %}
+                <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Decline"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
                 <br>
+                <form action="#" method="post">
+                    <input type="submit" value="Reschedule"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="declined_appointments">
+        <h1>Declined Appointments</h1>
+        {% for appointment in declined_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Accept"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
                 <form action="#" method="post">
                     <input type="submit" value="Reschedule"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
