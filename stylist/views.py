@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, Menu
+from core.models import Appointment, Menu, ItemInBill
 from stylist.forms import NewPortfolioHaircutForm
 from stylist.models import PortfolioHaircut
 
@@ -91,3 +91,13 @@ def reschedule_appointment(request):
             appointment.save()
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('core:logout')
+
+
+def view_bill(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
+            bill = ItemInBill.objects.filter(appointment=appointment)
+            return render(request, 'stylist/view_bill.html', {'bill': bill})
+    else:
+        return redirect('core:logout')
