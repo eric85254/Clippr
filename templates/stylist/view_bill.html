@@ -15,7 +15,14 @@
             <td>
                 {{ item.price }}
             </td>
+            <td>
+                <form action="#" method="post"> {% csrf_token %}
+                    <input type="submit" value="Delete Item"/>
+                    <input type="hidden" name="item_pk" value="{{ item.pk }}"/>
+                </form>
+            </td>
         </tr>
     {% endfor %}
     </table>
+    <a href="#">Add item to bill</a>
 {% endblock %}
