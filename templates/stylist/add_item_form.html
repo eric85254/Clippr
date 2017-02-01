@@ -1,0 +1,20 @@
+{% extends 'stylist/base.html' %}
+
+{% block main_content %}
+    <a href="#">Add item from your portfolio</a> <br>
+    -------------------------------------------- <br>
+    Add Custom Item:
+    <form action="{% url 'stylist:add_item' %}" method="post"> {% csrf_token %}
+        <label for="item_custom">Custom Item Name: </label>
+        <input id="item_custom" type="text" name="item_custom" value=""/> <br>
+
+        <label for="price">Price: </label>
+        <input id="price" type="number" step=".01" min="0" name="price"/> <br>
+
+        <input type="submit" name="custom" value="Submit"/>
+    </form>
+    --------------------------------------------<br>
+    Add Selected Haircut. <br>
+    Django code here <br>
+    <a href="#">Select Haircut from Portfolio</a>
+{% endblock %}

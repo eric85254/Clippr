@@ -98,6 +98,37 @@ def view_bill(request):
         if request.method == 'GET':
             appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
             bill = ItemInBill.objects.filter(appointment=appointment)
+
+            request.session['appointment_for_bill'] = request.GET.get('appointment_pk')
             return render(request, 'stylist/view_bill.html', {'bill': bill})
+        else:
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
+def delete_item(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            item = ItemInBill.objects.get(pk=request.POST.get('item_pk'))
+            item.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
+def add_item(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            return render(request, 'stylist/add_item_form.html')
+        if request.method == 'POST':
+            if 'custom' in request.POST:
+                appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
+                item = ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
+                                                 price=request.POST.get('price'), appointment=appointment)
+                item.save()
+                return redirect('stylist:dashboard')
+        else:
+            return redirect('core:logout')
     else:
         return redirect('core:logout')

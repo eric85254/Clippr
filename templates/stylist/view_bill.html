@@ -16,7 +16,7 @@
                 {{ item.price }}
             </td>
             <td>
-                <form action="#" method="post"> {% csrf_token %}
+                <form action="{% url 'stylist:delete_item' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Delete Item"/>
                     <input type="hidden" name="item_pk" value="{{ item.pk }}"/>
                 </form>
@@ -24,5 +24,5 @@
         </tr>
     {% endfor %}
     </table>
-    <a href="#">Add item to bill</a>
+    <a href="{% url 'stylist:add_item' %}">Add item to bill</a>
 {% endblock %}
