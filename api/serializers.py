@@ -32,7 +32,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 '''
     Stylist Serializer.
-        Similar to User Serializer, but gives
+        Similar to User Serializer but omits many unnecessary fields.
+        Since the model is User, by default it utilizes user-* views. Conflicts with User views.
+            Thus base_name = 'stylist' in urls.py
 '''
 
 class StylistSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,6 +44,11 @@ class StylistSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'first_name', 'last_name', 'username', 'profile_picture')
 
+'''
+    Appointment Serializer
+        Customer's can only pick stylists from a list of stylists hence the SlugRelatedField.
+        Customer ties to UserSerializer.
+'''
 
 class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:appointment-detail')
@@ -54,6 +61,9 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
         model = Appointment
         fields = ('url', 'location', 'date', 'stylist', 'customer')
 
+'''
+    PortfolioHaircut Serializer
+'''
 
 class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
@@ -64,6 +74,9 @@ class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
         model = PortfolioHaircut
         fields = ('url', 'stylist', 'picture', 'name', 'description', 'price')
 
+'''
+    Menu Serializer
+'''
 
 class MenuSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:menu-detail')
