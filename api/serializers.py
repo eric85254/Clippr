@@ -1,9 +1,15 @@
 from rest_framework import serializers
 
-from core.models import User, Appointment
+from core.models import User, Appointment, Menu
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from stylist.models import PortfolioHaircut
 
+'''
+    User Serializer.
+        Profile Pictures is FileField
+        Hashed Password cannot be viewed - field is write_only
+        Hashed Password is created using the create method.
+'''
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:user-detail', lookup_field='username')
@@ -11,8 +17,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'first_name', 'last_name', 'email', 'username', 'password', 'is_stylist', 'profile_picture')
-        write_only_fields = ('password',)
+        fields = ('url', 'first_name', 'last_name', 'email', 'password', 'username', 'is_stylist', 'profile_picture')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
     def create(self, validated_data):
         user = User.objects.create(**validated_data)
@@ -22,6 +30,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         return user
 
+'''
+    Stylist Serializer.
+        Similar to User Serializer, but gives
+'''
 
 class StylistSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail', lookup_field='username')
@@ -51,4 +63,12 @@ class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PortfolioHaircut
         fields = ('url', 'stylist', 'picture', 'name', 'description', 'price')
+
+
+class MenuSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:menu-detail')
+
+    class Meta:
+        model = Menu
+        fields = ('url', 'name', 'category', 'price', 'picture', 'description')
 

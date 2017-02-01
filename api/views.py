@@ -9,11 +9,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn
-from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer
-from core.models import User, Appointment
+from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn, \
+    OnlySuperUsersCanModify
+from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
+    MenuSerializer
+from core.models import User, Appointment, Menu
 from stylist.models import PortfolioHaircut
 
+'''
+    USER LOGIN & LOGOUT
+'''
 
 @api_view(['POST', ])
 def user_login(request):
@@ -32,6 +37,18 @@ def user_login(request):
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST', ])
+def user_logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        return Response(status=status.HTTP_200_OK)
+
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+'''
+    STYLIST SEARCH
+'''
 
 @api_view(['GET', ])
 def stylist_search(request, search):
@@ -53,6 +70,9 @@ def stylist_search(request, search):
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+'''
+    USER VIEW SET
+'''
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -67,6 +87,9 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return User.objects.filter(username=user.username)
 
+'''
+    STYLIST VIEW SET
+'''
 
 class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
     queryset = User.objects.all()
@@ -77,6 +100,9 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
     def get_queryset(self):
         return User.objects.filter(is_stylist='YES')
 
+'''
+    APPOINTMENT VIEW SET
+'''
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
@@ -92,6 +118,9 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
 
+'''
+    HAIRCUT VIEW SET
+'''
 
 class HaircutViewSet(viewsets.ModelViewSet):
     queryset = PortfolioHaircut.objects.all()
@@ -103,3 +132,13 @@ class HaircutViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(stylist=self.request.user)
+
+'''
+    MENU VIEW SET
+'''
+
+class MenuViewSet(viewsets.ModelViewSet):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+    permission_classes = (OnlySuperUsersCanModify,)
+
