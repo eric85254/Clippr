@@ -153,3 +153,31 @@ def obtain_stylist_profile(request):
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')
+
+
+def dashboard_real(request):
+    if request.user.is_stylist == 'NO':
+        return render(request, 'customer/customerReal/dashboard/dashboard_core.html')
+    else:
+        return redirect('core:logout')
+
+
+def profile_real(request):
+    if request.user.is_stylist == 'NO':
+        return render(request, 'customer/customerReal/profile/profile_core.html')
+    else:
+        return redirect('core:logout')
+
+
+def search_real(request):
+    if request.user.is_stylist == 'NO':
+        return render(request, 'customer/customerReal/search/search_core.html')
+    else:
+        return redirect('core:logout')
+
+
+def settings_real(request):
+    if request.user.is_stylist == 'NO':
+        return render(request, 'customer/customerReal/settings/settings_core.html')
+    else:
+        return redirect('core:logout')
