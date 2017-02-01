@@ -12,8 +12,8 @@
                 Time: {{ appointment.date|default_if_none:"" }} <br>
                 Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
 
-                <form action="#" method="post"> {% csrf_token %}
-                    <input type="submit" value="Add items onto Bill"/>
+                <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                    <input type="submit" value="View the Bill"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
                 <form action="#" method="post"> {% csrf_token %}

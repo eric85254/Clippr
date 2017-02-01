@@ -1,0 +1,21 @@
+{% extends 'stylist/base.html' %}
+
+{% block main_content %}
+    <h1>The Current Bill</h1>
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    {% for item in bill %}
+        <tr>
+            <td>
+                {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }}
+            </td>
+            <td>
+                {{ item.price }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
