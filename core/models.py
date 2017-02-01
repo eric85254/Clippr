@@ -37,20 +37,34 @@ class ItemInBill(models.Model):
 
     def __str__(self):
         if (self.item_portfolio == '' or self.item_portfolio is None) is False:
-            return str(self.appointment.date) + " || stylist: " + self.appointment.stylist.username + " || " + self.item_portfolio.name
+            return str(
+                self.appointment.date) + " || stylist: " + self.appointment.stylist.username + " || " + self.item_portfolio.name
         elif (self.item_custom == '' or self.item_custom is None) is False:
             return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_custom
         else:
             return "Unknown Entry"
 
+
 class Review(models.Model):
     reviewer = models.ForeignKey('core.User', related_name='reviewer', on_delete=models.SET_NULL, null=True)
     reviewee = models.ForeignKey('core.User', related_name='reviewee', on_delete=models.SET_NULL, null=True)
-    appointment = models.ForeignKey('core.Appointment', related_name='appointment', on_delete=models.SET_NULL, null=True)
+    appointment = models.ForeignKey('core.Appointment', related_name='appointment', on_delete=models.SET_NULL,
+                                    null=True)
     rating = models.IntegerField()
 
 
 class Appointment(models.Model):
+    STATUS_PENDING = 'PENDING'
+    STATUS_RECHEDULED_BYSTYLIST = 'RESCHEDULED_BYSTYLIST'
+    STATUS_RESCHEDULED_BYCUSTOMER = 'RESCHEDULED_BYCUSTOMER'
+    STATUS_ACCEPTED = 'ACCEPTED'
+    STATUS_DECLINED = 'DECLINED'
+
+    STATUS_CHOICES = (
+        (STATUS_PENDING, 'PENDING'), (STATUS_RECHEDULED_BYSTYLIST, 'RESCHEDULED_BYSTYLIST'),
+        (STATUS_RESCHEDULED_BYCUSTOMER, 'RESCHEDULED_BYCUSTOMER'), (STATUS_ACCEPTED, 'ACCEPTED'),
+        (STATUS_DECLINED, 'DECLINED'))
+
     # Changed it so that record of appointment can't be deleted if any user is deleted.
     # ^ removed on_delete=models.CASCADE. double check to make sure this works.
     stylist = models.ForeignKey('core.User', related_name='stylist', on_delete=models.SET_NULL, null=True)
@@ -59,6 +73,8 @@ class Appointment(models.Model):
     date = models.DateTimeField(default=datetime.now)
     # price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True) Price is included within the haircut model.
     haircut = models.ForeignKey('stylist.PortfolioHaircut', null=True, blank=True)
+
+    status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)
 
     def __str__(self):
         return self.stylist.username + "'s appointment with " + self.customer.username
