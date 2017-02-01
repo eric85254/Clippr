@@ -8,7 +8,7 @@ from core.models import User
 
 
 def index(request):
-    return render(request, 'core/home/home.html', {'form': None})
+    return render(request, 'core/home/home_core.html', {'form': None})
 
 
 # def returning_user(request):
@@ -107,7 +107,7 @@ def logout(request):
 
 
 def home(request):
-    return render(request, 'core/home/home.html')
+    return render(request, 'core/home/home_core.html')
 
 
 # def create_user(request):
