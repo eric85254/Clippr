@@ -54,37 +54,6 @@ def returning_user(request):
             return render(request, 'core/invalidLogin.html')
 
 
-# def entering_user(request):
-#     if request.method == 'POST':
-#
-#         if 'CREATE' in request.POST:
-#             create_user_form = NewUserForm(request.POST)
-#
-#             if create_user_form.is_valid():
-#                 new_user = create_user_form.save(commit=False)
-#                 new_user.profile_picture = DEFAULT_PICTURE_LOCATION
-#                 new_user.save()
-#                 return render(request, 'core/newUserLogin.html')
-#
-#             else:
-#                 print(create_user_form.errors)
-#                 return render(request, 'core/createUser.html', {'form': create_user_form})
-#
-#         elif 'LOGIN' in request.POST:
-#             username = request.POST.get('username', '')
-#             password = request.POST.get('password', '')
-#             user = auth.authenticate(username=username, password=password)
-#
-#             if user is not None:
-#                 auth.login(request, user)
-#                 if user.is_stylist == 'YES':
-#                     return redirect('stylist:profile')
-#                 else:
-#                     return redirect('customer:profile')
-#             else:
-#                 return render(request, 'core/invalidLogin.html')
-
-
 def upload_picture(request):
     if request.method == 'POST':
         if 'PICTURE' in request.POST:
