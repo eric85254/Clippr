@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from stylist.models import Application
+from stylist.models import PortfolioHaircut
 
-admin.site.register(Application)
+admin.site.register(PortfolioHaircut)

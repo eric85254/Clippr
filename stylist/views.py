@@ -1,18 +1,20 @@
 from django.shortcuts import render, redirect
 
-from stylist.models import Appointment
+from core.models import Appointment, Menu
+from stylist.forms import NewPortfolioHaircutForm
+from stylist.models import PortfolioHaircut
 
 
 def profile(request):
     if request.user.is_stylist == 'YES':
         full_name = request.user.get_full_name()
-        if request.user.profile_picture is not None:
-            stylist = request.user
-        else:
-            stylist = None
+
+        portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
+
         return render(request, 'stylist/profile.html',
                       {'full_name': full_name,
-                       'stylist': stylist})
+                       'stylist': request.user,
+                       'portfolio_haircuts': portfolio_haircuts},)
     else:
         return redirect('core:logout')
 
@@ -25,5 +27,26 @@ def dashboard(request):
             appointment_list = None
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'appointments': appointment_list})
+    else:
+        return redirect('core:logout')
+
+def upload_haircut(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            new_portfolioHaircut_form = NewPortfolioHaircutForm(request.POST)
+
+            if new_portfolioHaircut_form.is_valid():
+                new_portfolioHaircut = new_portfolioHaircut_form.save(commit=False)
+                new_portfolioHaircut.stylist = request.user
+                new_portfolioHaircut.picture = request.FILES['picture']
+                # Finding and adding selected menu option to new_portfolioHaircut
+                menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
+                new_portfolioHaircut.menu_option = menu_main
+                new_portfolioHaircut.save()
+
+            return redirect('stylist:profile')
+        else:
+            return render(request, 'stylist/upload_haircut.html')
+
     else:
         return redirect('core:logout')

@@ -1,15 +1,18 @@
 {% extends 'customer/base.html' %}
 
 {% block main_content %}
-    Search bar to search for stylists!
-    Stylist field displaying Chosen Stylist
-    Location Field
-    Date
-    Haircuts that Stylist Offers -- (Each haircut should be paired with a price) //add tax and extraneous fees. Store
-    TOTAL PRICE
-    Haircut should also be tied to appointment.
 
-    <form action="{% url 'customer:stylist_search' %}" method="get">
+
+{#    <form action="{% url 'customer:create_appointment_menuMainChoice' %}" method="post"> {% csrf_token %}#}
+{#        <button id=short_cut value="short_cut" name="menu_main">Short Cut</button>#}
+{#        <button id=long_cut type="submit" value="long_cut" name="menu_main">Long Cut</button>#}
+{#    </form>#}
+{##}
+{#    <hr>#}
+{##}
+{#    {{ menu_main.name|default_if_none:"" }}#}
+
+    <form id=create_appointment_form action="{% url 'customer:stylist_search' %}" method="get">
         <input type="search" placeholder="Search...." name="param"/> <br>
         <input type="submit" value="Stylist Search" name="SEARCH"/>
     </form>
@@ -17,15 +20,16 @@
     Chosen Stylist: {{ chosen_stylist.get_full_name }}
 
     <form action="{% url 'customer:create_appointment' %}" method="post"> {% csrf_token %}
+
         <label for="location">Location: </label>
         <input type="text" value="" name="location" id="location"/> <br>
 
         <label for="date">Date: </label>
         <input type="datetime-local" value="" name="date" id="date"/> <br>
 
-        <input type="submit" value="Make new Appointment" name="CREATE"/>
-
+        <input id=create_appointment_button type="submit" value="Make new Appointment" name="CREATE"/>
     </form>
+
 
 
 {% endblock %}

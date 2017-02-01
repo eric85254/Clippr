@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from core.models import User
+from core.models import User, Appointment
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from stylist.models import Appointment, Haircut
+from stylist.models import PortfolioHaircut
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,7 +32,7 @@ class StylistSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:appointments-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='api:appointment-detail')
 
     stylist = serializers.SlugRelatedField(many=False, read_only=False, slug_field=User.USERNAME_FIELD,
                                            queryset=User.objects.filter(is_stylist='YES'))
@@ -43,12 +43,12 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'location', 'date', 'stylist', 'customer')
 
 
-class HaircutSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:haircut-detail')
+class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
 
-    haircut_stylist = UserSerializer(many=False, read_only=True)
+    stylist = UserSerializer(many=False, read_only=True)
 
     class Meta:
-        model = Haircut
-        fields = ('url', 'haircut_stylist', 'haircut_picture', 'haircut_name', 'haircut_description')
+        model = PortfolioHaircut
+        fields = ('url', 'stylist', 'picture', 'name', 'description', 'price')
 

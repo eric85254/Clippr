@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from stylist.models import Appointment, Application
-from core.models import User
+from core.models import User, Appointment, Application, ItemInBill, Menu
 from datetime import datetime
 
 # for the search
 from functools import reduce
 from operator import __or__ as OR
+
 # from django.db.models import Q,
+from stylist.models import PortfolioHaircut
 
 
 def profile(request):
@@ -38,34 +39,12 @@ def dashboard(request):
         return redirect('core:logout')
 
 
-def create_appointment(request):
+def catch_menu_choices(request):
     if request.method == 'POST':
-        if 'SELECT' in request.POST:
-            request.session['username'] = request.POST.get('username')
-            return redirect('customer:create_appointment')
-
-        if 'CREATE' in request.POST:
-            create_appointment_form = NewAppointmentForm(request.POST)
-
-            if create_appointment_form.is_valid():
-                new_appointment = create_appointment_form.save(commit=False)
-                new_appointment.customer = request.user
-                new_appointment.stylist = User.objects.get(username=request.session['username'])
-                new_appointment.location = request.POST.get('location')  # Is this even necessary? Location should be
-                # pulled automatically.
-                new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
-                new_appointment.save()
-
-                return redirect('customer:dashboard')
-            else:
-                print(create_appointment_form.errors)
-        return redirect('customer:dashboard')
+        request.session['menu_main'] = request.POST.get('menu_main')
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
-        if 'username' in request.session:
-            chosen_stylist = User.objects.get(username=request.session['username'])
-        else:
-            chosen_stylist = 'Please select a stylist'
-        return render(request, 'customer/create_appointment.html', {'chosen_stylist': chosen_stylist})
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 def stylist_search(request):
@@ -98,10 +77,79 @@ def become_stylist(request):
             if application.application_status == 'PENDING':
                 return render(request, 'customer/stylistApplications/application_submitted.html')
             elif application.application_status == 'SCHEDULED':
-                return render(request, 'customer/stylistApplications/interview_scheduled.html', {'application': application})
+                return render(request, 'customer/stylistApplications/interview_scheduled.html',
+                              {'application': application})
             elif application.application_status == 'REJECTED':
                 return render(request, 'customer/stylistApplications/application_rejected.html')
         else:
             return render(request, 'customer/stylistApplications/become_stylist.html')
+    else:
+        return redirect('core:logout')
+
+
+def create_appointment(request):
+    if request.method == 'POST':
+        create_appointment_form = NewAppointmentForm(request.POST)
+
+        if create_appointment_form.is_valid():
+            portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
+
+            new_appointment = create_appointment_form.save(commit=False)
+            new_appointment.customer = request.user
+            new_appointment.stylist = User.objects.get(username=request.session['username'])
+            new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
+            new_appointment.haircut = portfolio_haircut
+            new_appointment.save()
+
+            bill = ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
+                                             appointment=new_appointment)
+            bill.save()
+
+            return redirect('customer:dashboard')
+        else:
+            print(create_appointment_form.errors)
+        return redirect('customer:dashboard')
+
+    if 'username' in request.session:
+        chosen_stylist = User.objects.get(username=request.session['username'])
+    else:
+        chosen_stylist = 'Please select a stylist'
+    if 'menu_main' in request.session:
+        menu_main = Menu.objects.filter(category__icontains='main').get(name__icontains=request.session['menu_main'])
+    else:
+        menu_main = None
+
+    return render(request, 'customer/create_appointment.html',
+                  {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
+
+
+def create_appointment_obtainStylistUsername(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            request.session['username'] = request.POST.get('username')
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+def create_appointment_menuMainChoice(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
+            request.session['username'] = request.POST.get('username')
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+def obtain_stylist_profile(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            if 'username' in request.GET:
+                stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
+                portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
+                return render(request, 'customer/stylist_profile.html',
+                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
+        return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')
