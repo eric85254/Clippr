@@ -20,13 +20,11 @@ def profile(request):
 
 def dashboard(request):
     if request.user.is_stylist == 'YES':
-        if Appointment.objects.filter(stylist=request.user).exists():
-            appointment_list = Appointment.objects.filter(stylist=request.user)
-
-        else:
-            appointment_list = None
+        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING)
+        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
-                                                          'appointments': appointment_list})
+                                                          'pending_appointments': pending_appointments,
+                                                          'accepted_appointments': accepted_appointments})
     else:
         return redirect('core:logout')
 
@@ -40,7 +38,10 @@ def upload_haircut(request):
                 new_portfolioHaircut.stylist = request.user
                 new_portfolioHaircut.picture = request.FILES['picture']
                 # Finding and adding selected menu option to new_portfolioHaircut
-                menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
+                if request.POST.get('menu_main') == 'none':
+                    menu_main = None
+                else:
+                    menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
                 new_portfolioHaircut.menu_option = menu_main
                 new_portfolioHaircut.save()
 
@@ -50,3 +51,12 @@ def upload_haircut(request):
 
     else:
         return redirect('core:logout')
+
+
+def accept_appointment(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_ACCEPTED
+            appointment.save()
+    return redirect(request.META.get('HTTP_REFERER'))

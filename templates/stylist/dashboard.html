@@ -1,22 +1,59 @@
 {% extends 'stylist/base.html' %}
 
 {% block main_content %}
-    <div id="appointments">
-        <h1>My Appointments</h1>
-        <ul>
-            <li>
-                {% for appointment in appointments %}
-                    --------------------------------                    <br>
-                    Appointment Details:                                <br>
-                    Customer: {{ appointment.customer.get_full_name }}  <br>
-                    Location: {{ appointment.location }}                <br>
-                    Time: {{ appointment.date|default_if_none:"" }}     <br>
-                    Price: {{ appointment.price|default_if_none:"" }}   <br>
+    <div id="accepting_appointments">
+        <h1>Accepted Appointments</h1>
+        {% for appointment in accepted_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
 
-                    --------------------------------                    <br>
-                {% endfor %}
-            </li>
-        </ul>
+                <form action="#" method="post">
+                    <input type="submit" value="Add items onto Bill"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <form action="#" method="post">
+                    <input type="submit" value="Complete"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="pending_appointments">
+        <h1>Pending Appointments</h1>
+        {% for appointment in pending_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Accept"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                <form action="#" method="post"> {% csrf_token %}
+                    <input type="submit" value="Decline"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                <form action="#" method="post">
+                    <input type="submit" value="Reschedule"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
     </div>
 
     <div id="reviews">
