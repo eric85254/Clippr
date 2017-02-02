@@ -9,34 +9,21 @@ from functools import reduce
 from operator import __or__ as OR
 
 # from django.db.models import Q,
+from customer.utils.view_logic import CustomerLogic
 from stylist.models import PortfolioHaircut
 
 
 def profile(request):
     if request.user.is_stylist == 'NO':
-        full_name = request.user.get_full_name()
-        if request.user.profile_picture is not None:
-            customer = request.user
-        else:
-            customer = None
         return render(request, 'customer/profile.html',
-                      {'full_name': full_name,
-                       'customer': customer})
+                      {'full_name': request.user.get_full_name(),
+                       'customer': request.user})
     else:
         return redirect('core:logout')
 
 
 def dashboard(request):
-    if request.user.is_stylist == 'NO':
-        if Appointment.objects.filter(customer=request.user).exists():
-            appointment_list = Appointment.objects.filter(customer=request.user)
-
-        else:
-            appointment_list = None
-        return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),
-                                                           'appointments': appointment_list})
-    else:
-        return redirect('core:logout')
+    return CustomerLogic.render_dashboard(request)
 
 
 def catch_menu_choices(request):
@@ -58,33 +45,20 @@ def stylist_search(request):
 
 
 def become_stylist(request):
-    if request.user.is_stylist == 'NO':
-        if request.method == 'POST':
-            stylist_application = StylistApplicationForm(request.POST)
+    if request.method == 'POST':
+        stylist_application = StylistApplicationForm(request.POST)
 
-            if stylist_application.is_valid():
-                stylist_application = stylist_application.save(commit=False)
-                stylist_application.applicant = request.user
-                stylist_application.save()
-                return render(request, 'customer/stylistApplications/application_submitted.html')
+        if stylist_application.is_valid():
+            stylist_application = stylist_application.save(commit=False)
+            stylist_application.applicant = request.user
+            stylist_application.save()
+            return render(request, 'customer/stylistApplications/application_submitted.html')
 
-            else:
-                return render(request, 'customer/stylistApplications/application_error.html')
-
-        application = Application.objects.filter(applicant=request.user)
-        if len(application) > 0:
-            application = Application.objects.get(applicant=request.user)
-            if application.application_status == 'PENDING':
-                return render(request, 'customer/stylistApplications/application_submitted.html')
-            elif application.application_status == 'SCHEDULED':
-                return render(request, 'customer/stylistApplications/interview_scheduled.html',
-                              {'application': application})
-            elif application.application_status == 'REJECTED':
-                return render(request, 'customer/stylistApplications/application_rejected.html')
         else:
-            return render(request, 'customer/stylistApplications/become_stylist.html')
-    else:
-        return redirect('core:logout')
+            return render(request, 'customer/stylistApplications/application_error.html')
+
+    if request.method == 'GET':
+        return CustomerLogic.render_application_status(request)
 
 
 def create_appointment(request):
