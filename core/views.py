@@ -10,11 +10,6 @@ from core.models import User
 def index(request):
     return render(request, 'core/home/home_core.html', {'form': None})
 
-
-# def returning_user(request):
-#     return render(request, 'core/login.html', {'form': None})
-
-
 def create_user(request):
     if request.method == 'POST':
         create_user_form = NewUserForm(request.POST)
@@ -32,7 +27,6 @@ def create_user(request):
             print(create_user_form.errors)
             data = create_user_form.errors
             data['success'] = False
-            # return render(request, 'core/createUser.html', {'form': create_user_form})
             return JsonResponse(data=data)
 
 def returning_user(request):
