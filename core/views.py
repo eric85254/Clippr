@@ -80,12 +80,4 @@ def update_basic_information(request):
         return UserLogic.redirect_to_profile(request.user)
 
     if request.method == 'GET':
-        return redirect(request.META.get('HTTP_REFERER'))
-
-    # else:
-    #     if request.user.is_stylist == 'YES':
-    #         stylist = request.user
-    #         return render(request, 'core/basic_information.html', {'user': stylist})
-    #     else:
-    #         customer = request.user
-    #         return render(request, 'core/basic_information.html', {'user': customer})
+        return render(request, 'core/basic_information.html', {'user': request.user})
