@@ -4,11 +4,12 @@ from django.shortcuts import render, redirect
 
 from core.forms import NewUserForm
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from core.models import User
+from core.utils.view_logic import UserLogic
 
-
-def index(request):
-    return render(request, 'core/home/home_core.html', {'form': None})
+'''
+    Create User
+        Didn't migrate code to view_logic.py because it involves JsonResponse stuff
+'''
 
 def create_user(request):
     if request.method == 'POST':
@@ -29,65 +30,62 @@ def create_user(request):
             data['success'] = False
             return JsonResponse(data=data)
 
+'''
+    Returning User
+'''
+
 def returning_user(request):
+    if request.method == 'GET':
+        return redirect('core:home')
+
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = auth.authenticate(username=username, password=password)
+        user = UserLogic.retrieve_user(request)
+        UserLogic.login(request, user)
+        return UserLogic.redirect_to_profile(user)
 
-        if user is not None:
-            auth.login(request, user)
-            if user.is_superuser:
-                return redirect('administration:profile')
-            else:
-                if user.is_stylist == 'YES':
-                    return redirect('stylist:profile')
-                else:
-                    return redirect('customer:profile')
-        else:
-            return render(request, 'core/invalidLogin.html')
-
+'''
+    Upload Picture
+'''
 
 def upload_picture(request):
-    if request.method == 'POST':
-        if 'PICTURE' in request.POST:
-            user = request.user
-            user.profile_picture = request.FILES['profile_picture']
-            user.save()
-            if request.user.is_stylist == 'YES':
-                return redirect('stylist:profile')
-            else:
-                return redirect('customer:profile')
-        else:
-            return redirect('core:upload_picture')
-    else:
+    if request.method == 'GET':
         return render(request, 'core/upload_picture.html')
 
+    if request.method == 'POST':
+        UserLogic.upload_picture(request)
+        return UserLogic.redirect_to_profile(request.user)
+
+'''
+    Logout
+'''
 
 def logout(request):
     auth.logout(request)
     return redirect('core:home')
 
+'''
+    Home
+'''
 
 def home(request):
     return render(request, 'core/home/home_core.html')
 
+'''
+    Update Basic Information
+'''
 
 def update_basic_information(request):
     if request.method == 'POST':
-        if 'BASIC' in request.POST:
-            user = request.user
-            user.location = request.POST.get('location')
-            user.biography = request.POST.get('basic_information')
-            user.save()
-            if request.user.is_stylist == 'YES':
-                return redirect('stylist:profile')
-            else:
-                return redirect('customer:profile')
-    else:
-        if request.user.is_stylist == 'YES':
-            stylist = request.user
-            return render(request, 'core/basic_information.html', {'user': stylist})
-        else:
-            customer = request.user
-            return render(request, 'core/basic_information.html', {'user': customer})
+        UserLogic.update_basic_information(request)
+        return UserLogic.redirect_to_profile(request.user)
+
+    if request.method == 'GET':
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    # else:
+    #     if request.user.is_stylist == 'YES':
+    #         stylist = request.user
+    #         return render(request, 'core/basic_information.html', {'user': stylist})
+    #     else:
+    #         customer = request.user
+    #         return render(request, 'core/basic_information.html', {'user': customer})
