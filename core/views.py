@@ -79,11 +79,7 @@ def home(request):
     return render(request, 'core/home/home_core.html')
 
 
-# def create_user(request):
-#     return render(request, 'core/createUser.html')
-
-
-def basic_information(request):
+def update_basic_information(request):
     if request.method == 'POST':
         if 'BASIC' in request.POST:
             user = request.user
