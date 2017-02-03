@@ -26,14 +26,6 @@ def dashboard(request):
     return CustomerLogic.render_dashboard(request)
 
 
-def catch_menu_choices(request):
-    if request.method == 'POST':
-        request.session['menu_main'] = request.POST.get('menu_main')
-        return redirect(request.META.get('HTTP_REFERER'))
-    else:
-        return redirect(request.META.get('HTTP_REFERER'))
-
-
 def stylist_search(request):
     if 'param' in request.GET:
         stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
@@ -57,9 +49,15 @@ def become_stylist(request):
         else:
             return render(request, 'customer/stylistApplications/application_error.html')
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         return CustomerLogic.render_application_status(request)
 
+    else:
+        return redirect('core:logout')
+
+'''
+    CREATE APPOINTMENT VIEWS
+'''
 
 def create_appointment(request):
     if request.method == 'POST':
@@ -84,10 +82,13 @@ def create_appointment(request):
             print(create_appointment_form.errors)
         return redirect('customer:dashboard')
 
+    # ToDo: You can get rid of the following if/else statement and just use template code: {{ chosen_stylist.username | default_if_none:"PleaseSelectStylsit" }}
     if 'username' in request.session:
         chosen_stylist = User.objects.get(username=request.session['username'])
     else:
         chosen_stylist = 'Please select a stylist'
+
+    # ToDo: Get Rid of this if/else statement as well.
     if 'menu_main' in request.session:
         menu_main = Menu.objects.filter(category__icontains='main').get(name__icontains=request.session['menu_main'])
     else:
@@ -95,6 +96,24 @@ def create_appointment(request):
 
     return render(request, 'customer/create_appointment.html',
                   {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
+
+
+def obtain_stylist_profile(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            if 'username' in request.GET:
+                stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
+                portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
+                return render(request, 'customer/stylist_profile.html',
+                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+'''
+    CREATE APPOINTMENT HELPERS
+'''
 
 
 def create_appointment_obtainStylistUsername(request):
@@ -116,17 +135,17 @@ def create_appointment_menuMainChoice(request):
         return redirect('core:logout')
 
 
-def obtain_stylist_profile(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
-            if 'username' in request.GET:
-                stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
-                portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
-                return render(request, 'customer/stylist_profile.html',
-                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
-        return redirect('customer:create_appointment')
+def catch_menu_choices(request):
+    if request.method == 'POST':
+        request.session['menu_main'] = request.POST.get('menu_main')
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
-        return redirect('core:logout')
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+'''
+    Adam Lynch's Portion.
+'''
 
 
 def dashboard_real(request):
