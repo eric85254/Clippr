@@ -97,8 +97,7 @@ def create_appointment(request):
     return render(request, 'customer/create_appointment.html',
                   {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
 
-
-def obtain_stylist_profile(request):
+def osp(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             if 'username' in request.GET:

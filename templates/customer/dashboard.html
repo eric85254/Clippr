@@ -1,29 +1,102 @@
 {% extends 'customer/base.html' %}
 
 {% block main_content %}
-    <div id="appointments">
-        <h1>My Appointments</h1>
-        <ul>
-            <li>
-                {% for appointment in appointments %}
-                    --------------------------------                    <br>
-                    Appointment Details:                                <br>
-                    Stylist: {{ appointment.stylist.get_full_name }}             <br>
-                    Location: {{ appointment.location }}                <br>
-                    Time: {{ appointment.date|default_if_none:"" }}     <br>
-
-                    Price: {{ appointment.haircut.price|default_if_none:"" }}   <br>
-                    What you're getting done: {{ appointment.haircut.name|default_if_none:"" }} <br>
-                    Description: {{ appointment.haircut.description|default_if_none:"" }} <br>
-                    Picture: <br>
-                    <img src="{{ appointment.haircut.picture.url }}"/> <br>
-                    --------------------------------                    <br>
-                {% endfor %}
-
-                <a href="{% url 'customer:create_appointment' %}">Create Appointment</a>
-            </li>
-        </ul>
+   <div id="accepted_appointments">
+        <h1>Accepted Appointments</h1>
+        {% for appointment in accepted_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
     </div>
+    <div id="pending_appointments">
+        <h1>Pending Appointments</h1>
+        {% for appointment in pending_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Cancel"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                <form action="{% url 'customer:reschedule_appointment' %}" method="post"> {% csrf_token %}
+                    <label for="date">Date: </label>
+                    <input type="datetime-local" value="" name="date" id="date"/> <br>
+                    <input type="submit" value="Reschedule"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="rescheduled_bystylist_appointments">
+        <h1>Appointments Waiting on Customer to Accept Rescheduling</h1>
+        {% for appointment in rescheduled_bystylist_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="{% url 'customer:accept_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Accept"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="completed_appointments">
+        <h1>Completed Appointments</h1>
+        {% for appointment in completed_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="#" method="post"> {% csrf_token %}
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="Write a Review"/>
+                </form>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="declined_appointments">
+        <h1>Declined Appointments</h1>
+        {% for appointment in declined_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'customer:create_appointment' %}">Create Appointment</a>
 
     <div id="reviews">
         <h1>Your Reviews</h1>
@@ -36,11 +109,5 @@
 
     <div id="deal">
         <h1>Transaction History</h1>
-        <ul>
-            <li>
-                List of all Deals
-            </li>
-        </ul>
-        Button to add another deal.
     </div>
 {% endblock %}
