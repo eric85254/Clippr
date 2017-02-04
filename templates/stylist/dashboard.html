@@ -16,7 +16,7 @@
                     <input type="submit" value="View the Bill"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
-                <form action="#" method="post"> {% csrf_token %}
+                <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Complete"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
@@ -80,6 +80,25 @@
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
                 <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="completed_appointments">
+        <h1>Completed Appointments</h1>
+        {% for appointment in completed_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+
+                <form action="#" method="post"> {% csrf_token %}
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="Write a Review"/>
+                </form>
                 -------------------------------- <br>
             </ul>
         {% endfor %}

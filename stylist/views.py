@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
@@ -28,11 +29,13 @@ def dashboard(request):
         declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
         rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
                                                                         status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
+        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
                                                           'accepted_appointments': accepted_appointments,
                                                           'declined_appointments': declined_appointments,
-                                                          'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments})
+                                                          'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
+                                                          'completed_appointments': completed_appointments})
     else:
         return redirect('core:logout')
 
@@ -71,6 +74,18 @@ def reschedule_appointment(request):
             appointment.save()
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('core:logout')
+
+
+def complete_appointment(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            if timezone.now() > appointment.date:
+                appointment.status = Appointment.STATUS_COMPLETED
+                appointment.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
 
 
 '''

@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'accept_appointment/$', views.accept_appointment, name='accept_appointment'),
     url(r'decline_appointment/$', views.decline_appointment, name='decline_appointment'),
     url(r'reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
+    url(r'complete_appointment/$', views.complete_appointment, name='complete_appointment'),
     url(r'view_bill/$', views.view_bill, name='view_bill'),
     url(r'delete_item/$', views.delete_item, name='delete_item'),
     url(r'add_item/$', views.add_item, name='add_item'),

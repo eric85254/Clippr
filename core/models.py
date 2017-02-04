@@ -59,11 +59,12 @@ class Appointment(models.Model):
     STATUS_RESCHEDULED_BYCUSTOMER = 'RESCHEDULED_BYCUSTOMER'
     STATUS_ACCEPTED = 'ACCEPTED'
     STATUS_DECLINED = 'DECLINED'
+    STATUS_COMPLETED = 'STATUS_COMPLETED'
 
     STATUS_CHOICES = (
         (STATUS_PENDING, 'PENDING'), (STATUS_RECHEDULED_BYSTYLIST, 'RESCHEDULED_BYSTYLIST'),
         (STATUS_RESCHEDULED_BYCUSTOMER, 'RESCHEDULED_BYCUSTOMER'), (STATUS_ACCEPTED, 'ACCEPTED'),
-        (STATUS_DECLINED, 'DECLINED'))
+        (STATUS_DECLINED, 'DECLINED'), (STATUS_COMPLETED, 'STATUS_COMPLETED'))
 
     # Changed it so that record of appointment can't be deleted if any user is deleted.
     # ^ removed on_delete=models.CASCADE. double check to make sure this works.
