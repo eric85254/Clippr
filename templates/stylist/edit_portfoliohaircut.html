@@ -1,0 +1,32 @@
+Haircut:<br>
+
+<img src="{{ haircut.picture.url }}"/><br>
+Price: {{ haircut.price }} <br>
+Description: {{ haircut.description }} <br>
+<hr>
+
+
+<form action="{% url 'stylist:edit_portfoliohaircut' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <label for="picture">Picture: </label>
+    <input id="picture" type="file" name="picture" value="{{ haircut.picture.url }}"/> <br> <br>
+
+    <label for="name">Name: </label>
+    <input id="name" type="text" name="name" value="{{ haircut.name|default_if_none:"" }}"/> <br> <br>
+
+    <label for="description">Description: </label>
+    <input type="text" id="description" name="description" value="{{ haircut.description|default_if_none:"" }}"> <br> <br>
+
+    <label for="price">Price: </label>
+    <input id="price" type="number" step=".01" min="0" name="price" value="{{ haircut.price|default_if_none:"" }}"/> <br> <br>
+
+    Menu:<br>
+    <hr>
+    <label for="menu_main">Main: </label>
+    <input id="menu_main" type="radio" name="menu_main" value="short_cut"> Short Cut
+    <input id="menu_main" type="radio" name="menu_main" value="long_cut"> Long Cut
+    <input id="menu_main" type="radio" name="menu_main" value="none"> None
+    <br> <br>
+
+    <input type="hidden" name="portfoliohaircut_pk" value="{{ haircut.pk }}"/>
+    <input type="submit" name="Submit"/>
+</form>

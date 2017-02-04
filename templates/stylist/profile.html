@@ -27,6 +27,10 @@
         Name: {{ portfolio_haircut.name }} <br>
         Price: {{ portfolio_haircut.price }} <br>
         Description: {{ portfolio_haircut.description }} <br>
+        <form action="{% url 'stylist:edit_portfoliohaircut' %}" method="get"> {% csrf_token %}
+            <input type="hidden" name="portfoliohaircut_pk" value="{{ portfolio_haircut.pk }}"/>
+            <input type="submit" value="Edit Haircut"/>
+        </form>
         <hr>
     {% endfor %}
 
