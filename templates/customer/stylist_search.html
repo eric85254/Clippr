@@ -9,7 +9,7 @@
         <br>
         {{ user.stylist.biography }}
         <br>
-        <form action="{% url 'customer:osp' %}" method="get">
+        <form action="{% url 'customer:obtain_stylist_profile' %}" method="get">
             <input type="hidden" name="username" value="{{ user.username }}"/>
             <input type="submit" name="SELECT" value="Select"/>
         </form>

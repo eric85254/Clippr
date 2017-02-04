@@ -9,7 +9,11 @@ urlpatterns = [
     url(r'stylist_search/$', views.stylist_search, name="stylist_search"),
     url(r'become_stylist/$', views.become_stylist, name="become_stylist"),
     url(r'catch_menu_choices/$', views.catch_menu_choices, name="catch_menu_choices"),
-    url(r'create_appointment_obtainStylistUsername/$', views.create_appointment_obtainStylistUsername, name='create_appointment_obtainStylistUsername'),
-    url(r'create_appointment_menuMainChoice/$', views.create_appointment_menuMainChoice, name='create_appointment_menuMainChoice'),
-    url(r'osp/$', views.osp, name='osp')
+    url(r'create_appointment_obtainStylistUsername/$', views.create_appointment_obtainStylistUsername,
+        name='create_appointment_obtainStylistUsername'),
+    url(r'create_appointment_menuMainChoice/$', views.create_appointment_menuMainChoice,
+        name='create_appointment_menuMainChoice'),
+    # why doesn't obtain_stylist_profile work?
+    # ToDo: Fix this problem - or at least understand it.
+    url(r'obtain_stylist_profil/$', views.obtain_stylist_profile, name='obtain_stylist_profile')
 ]
