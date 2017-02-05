@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, Application, ItemInBill, Menu
+from core.models import User, Appointment, Application, ItemInBill, Menu, Review
 from datetime import datetime
 
 # for the search
@@ -149,6 +149,7 @@ def catch_menu_choices(request):
     APPOINTMENT MODIFIERS
 '''
 
+
 def accept_appointment(request):
     if request.user.is_stylist == 'NO':
         if request.method == 'POST':
@@ -178,6 +179,22 @@ def reschedule_appointment(request):
             appointment.status = Appointment.STATUS_RESCHEDULED_BYCUSTOMER
             appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             appointment.save()
+            return redirect('customer:dashboard')
+    else:
+        return redirect('core:logout')
+
+
+'''
+    REVIEW
+'''
+
+
+def submit_review(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'POST':
+            review = Review.objects.get(pk=request.POST.get('review_pk'))
+            review.stylist_rating = int(request.POST.get('rating'))
+            review.save()
             return redirect('customer:dashboard')
     else:
         return redirect('core:logout')

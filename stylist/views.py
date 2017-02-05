@@ -32,7 +32,9 @@ def dashboard(request):
         rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
                                                                          status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
         completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
-        completed_review_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED_REVIEW)
+
+        incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
+        complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
                                                           'accepted_appointments': accepted_appointments,
@@ -40,7 +42,8 @@ def dashboard(request):
                                                           'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
                                                           'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
                                                           'completed_appointments': completed_appointments,
-                                                          'completed_review_appointments': completed_review_appointments})
+                                                          'incomplete_reviews': incomplete_reviews,
+                                                          'complete_reviews': complete_reviews})
     else:
         return redirect('core:logout')
 
@@ -88,6 +91,9 @@ def complete_appointment(request):
             if timezone.now() > appointment.date:
                 appointment.status = Appointment.STATUS_COMPLETED
                 appointment.save()
+
+                review = Review.objects.create(appointment=appointment)
+                review.save()
         return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
@@ -101,11 +107,8 @@ def complete_appointment(request):
 def submit_review(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
-            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
-            appointment.status = Appointment.STATUS_COMPLETED_REVIEW
-            appointment.save()
-            review = Review.objects.create(reviewer=request.user, reviewee=appointment.customer,
-                                           appointment=appointment, rating=int(request.POST.get('rating')))
+            review = Review.objects.get(pk=request.POST.get('review_pk'))
+            review.customer_rating = int(request.POST.get('rating'))
             review.save()
             return redirect('stylist:dashboard')
     else:

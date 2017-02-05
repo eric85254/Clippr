@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, Application
+from core.models import Appointment, Application, Review
 
 
 class CustomerLogic(object):
@@ -32,13 +32,18 @@ class CustomerLogic(object):
                                                                              status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
             completed_appointments = Appointment.objects.filter(customer=request.user,
                                                                 status=Appointment.STATUS_COMPLETED)
+
+            incomplete_reviews = Review.objects.filter(stylist_rating__isnull=True)
+            complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
             return render(request, 'customer/dashboard.html', {'full_name': request.user.get_full_name(),
                                                                'pending_appointments': pending_appointments,
                                                                'accepted_appointments': accepted_appointments,
                                                                'declined_appointments': declined_appointments,
                                                                'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
                                                                'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
-                                                               'completed_appointments': completed_appointments})
+                                                               'completed_appointments': completed_appointments,
+                                                               'incomplete_reviews': incomplete_reviews,
+                                                               'complete_reviews': complete_reviews})
         else:
             return redirect('core:logout')
 

@@ -129,23 +129,6 @@
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
                 Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
-
-                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
-                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                    <input type="number" name="rating" min="0"/>
-                    <input type="submit" value="Write a Review"/>
-                </form>
-                -------------------------------- <br>
-            </ul>
-        {% endfor %}
-        {% for appointment in completed_review_appointments %}
-            <ul>
-                -------------------------------- <br>
-                Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
-                Location: {{ appointment.location }} <br>
-                Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
             </ul>
         {% endfor %}
@@ -178,12 +161,38 @@
     </div>
 
     <div id="reviews">
-        <h1>Customer Reviews</h1>
-        <ul>
-            <li>
-                use loop etc. to create a list of all the reviews. Anonymous
-            </li>
-        </ul>
+        <h1>Incomplete Reviews</h1>
+        {% for review in incomplete_reviews %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                Location: {{ review.appointment.location }} <br>
+                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                    <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
+                    <input type="number" name="rating" min="0" max="5"/>
+                    <input type="submit" value="Write a Review"/>
+                </form>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+        <h1>Completed Reviews</h1>
+        {% for review in complete_reviews %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                Location: {{ review.appointment.location }} <br>
+                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+
+                How you rated customer: {{ review.customer_rating }} <br>
+                Your Rating: {{ review.stylist_rating }} <br>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
     </div>
 
     <div id="deal">

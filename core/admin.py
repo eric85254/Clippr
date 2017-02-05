@@ -1,10 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from core.models import User, Menu, ItemInBill, Questionnaire, AnsweredQuestionnaire
+from core.models import User, Menu, ItemInBill, Questionnaire, AnsweredQuestionnaire, Review
 
 admin.site.register(User)
 admin.site.register(Menu)
 admin.site.register(ItemInBill)
 admin.site.register(Questionnaire)
 admin.site.register(AnsweredQuestionnaire)
+admin.site.register(Review)

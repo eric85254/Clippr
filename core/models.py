@@ -46,11 +46,10 @@ class ItemInBill(models.Model):
 
 
 class Review(models.Model):
-    reviewer = models.ForeignKey('core.User', related_name='reviewer', on_delete=models.SET_NULL, null=True)
-    reviewee = models.ForeignKey('core.User', related_name='reviewee', on_delete=models.SET_NULL, null=True)
+    stylist_rating = models.IntegerField(null=True)
+    customer_rating = models.IntegerField(null=True)
     appointment = models.ForeignKey('core.Appointment', related_name='appointment', on_delete=models.SET_NULL,
                                     null=True)
-    rating = models.IntegerField()
 
 
 class Appointment(models.Model):
@@ -60,7 +59,6 @@ class Appointment(models.Model):
     STATUS_ACCEPTED = 'ACCEPTED'
     STATUS_DECLINED = 'DECLINED'
     STATUS_COMPLETED = 'STATUS_COMPLETED'
-    STATUS_COMPLETED_REVIEW = 'STATUS_COMPLETED_REVIEW'
 
     STATUS_CHOICES = (
         (STATUS_PENDING, 'PENDING'), (STATUS_RECHEDULED_BYSTYLIST, 'RESCHEDULED_BYSTYLIST'),
