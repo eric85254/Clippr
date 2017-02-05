@@ -29,12 +29,15 @@ def dashboard(request):
         declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
         rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
                                                                         status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
+        rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
+                                                                         status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
         completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
                                                           'accepted_appointments': accepted_appointments,
                                                           'declined_appointments': declined_appointments,
                                                           'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
+                                                          'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
                                                           'completed_appointments': completed_appointments})
     else:
         return redirect('core:logout')

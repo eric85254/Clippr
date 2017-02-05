@@ -55,9 +55,11 @@ def become_stylist(request):
     else:
         return redirect('core:logout')
 
+
 '''
     CREATE APPOINTMENT VIEWS
 '''
+
 
 def create_appointment(request):
     if request.method == 'POST':
@@ -96,6 +98,7 @@ def create_appointment(request):
 
     return render(request, 'customer/create_appointment.html',
                   {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
+
 
 def obtain_stylist_profile(request):
     if request.user.is_authenticated:
@@ -140,6 +143,44 @@ def catch_menu_choices(request):
         return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect(request.META.get('HTTP_REFERER'))
+
+
+'''
+    APPOINTMENT MODIFIERS
+'''
+
+def accept_appointment(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_ACCEPTED
+            appointment.save()
+            return redirect('customer:dashboard')
+    else:
+        return redirect('core:logout')
+
+
+def cancel_appointment(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_DECLINED
+            appointment.save()
+            return redirect('customer:dashboard')
+    else:
+        return redirect('core:logout')
+
+
+def reschedule_appointment(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_RESCHEDULED_BYCUSTOMER
+            appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
+            appointment.save()
+            return redirect('customer:dashboard')
+    else:
+        return redirect('core:logout')
 
 
 '''

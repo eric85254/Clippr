@@ -59,7 +59,7 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ('url', 'location', 'date', 'stylist', 'customer')
+        fields = ('url', 'location', 'date', 'stylist', 'customer', 'status')
 
 '''
     PortfolioHaircut Serializer

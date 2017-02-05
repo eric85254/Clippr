@@ -13,5 +13,8 @@ urlpatterns = [
         name='create_appointment_obtainStylistUsername'),
     url(r'^create_appointment_menuMainChoice/$', views.create_appointment_menuMainChoice,
         name='create_appointment_menuMainChoice'),
-    url(r'^obtain_stylist_profile/$', views.obtain_stylist_profile, name='obtain_stylist_profile')
+    url(r'^obtain_stylist_profile/$', views.obtain_stylist_profile, name='obtain_stylist_profile'),
+    url(r'^cancel_appointment/$', views.cancel_appointment, name='cancel_appointment'),
+    url(r'^reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
+    url(r'^accept_appointment/$', views.accept_appointment, name='accept_appointment')
 ]

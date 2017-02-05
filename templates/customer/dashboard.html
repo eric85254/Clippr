@@ -1,7 +1,7 @@
 {% extends 'customer/base.html' %}
 
 {% block main_content %}
-   <div id="accepted_appointments">
+    <div id="accepted_appointments">
         <h1>Accepted Appointments</h1>
         {% for appointment in accepted_appointments %}
             <ul>
@@ -42,8 +42,33 @@
             </ul>
         {% endfor %}
     </div>
+    <div id="rescheduled_bycustomer_appointments">
+        <h1>Appointments Waiting on Stylist to Accept Your Rescheduling</h1>
+        {% for appointment in rescheduled_bycustomer_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                -------------------------------- <br>
+                <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Cancel"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <br>
+                <form action="{% url 'customer:reschedule_appointment' %}" method="post"> {% csrf_token %}
+                    <label for="date">Date: </label>
+                    <input type="datetime-local" value="" name="date" id="date"/> <br>
+                    <input type="submit" value="Reschedule"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+            </ul>
+        {% endfor %}
+    </div>
     <div id="rescheduled_bystylist_appointments">
-        <h1>Appointments Waiting on Customer to Accept Rescheduling</h1>
+        <h1>Appointments Rescheduled by Stylist</h1>
         {% for appointment in rescheduled_bystylist_appointments %}
             <ul>
                 -------------------------------- <br>
@@ -52,13 +77,22 @@
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
                 Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
-
+                -------------------------------- <br>
                 <form action="{% url 'customer:accept_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Accept"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
+                <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
+                    <input type="submit" value="Cancel"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
                 <br>
-                -------------------------------- <br>
+                <form action="{% url 'customer:reschedule_appointment' %}" method="post"> {% csrf_token %}
+                    <label for="date">Date: </label>
+                    <input type="datetime-local" value="" name="date" id="date"/> <br>
+                    <input type="submit" value="Reschedule"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
             </ul>
         {% endfor %}
     </div>
