@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, Menu, ItemInBill
+from core.models import Appointment, Menu, ItemInBill, Review
 from stylist.forms import NewPortfolioHaircutForm
 from stylist.models import PortfolioHaircut
 
@@ -32,13 +32,15 @@ def dashboard(request):
         rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
                                                                          status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
         completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
+        completed_review_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED_REVIEW)
         return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
                                                           'accepted_appointments': accepted_appointments,
                                                           'declined_appointments': declined_appointments,
                                                           'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
                                                           'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
-                                                          'completed_appointments': completed_appointments})
+                                                          'completed_appointments': completed_appointments,
+                                                          'completed_review_appointments': completed_review_appointments})
     else:
         return redirect('core:logout')
 
@@ -92,6 +94,25 @@ def complete_appointment(request):
 
 
 '''
+    REVIEWS
+'''
+
+
+def submit_review(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            appointment.status = Appointment.STATUS_COMPLETED_REVIEW
+            appointment.save()
+            review = Review.objects.create(reviewer=request.user, reviewee=appointment.customer,
+                                           appointment=appointment, rating=int(request.POST.get('rating')))
+            review.save()
+            return redirect('stylist:dashboard')
+    else:
+        return redirect('core:logout')
+
+
+'''
     APPOINTMENT / BILL RELATED VIEWS
 '''
 
@@ -100,6 +121,7 @@ def view_bill(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
+
             bill = ItemInBill.objects.filter(appointment=appointment)
 
             request.session['appointment_for_bill'] = request.GET.get('appointment_pk')

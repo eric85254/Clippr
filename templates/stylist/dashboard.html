@@ -130,10 +130,22 @@
                 Time: {{ appointment.date|default_if_none:"" }} <br>
                 Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
 
-                <form action="#" method="post"> {% csrf_token %}
+                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="number" name="rating" min="0"/>
                     <input type="submit" value="Write a Review"/>
                 </form>
+                -------------------------------- <br>
+            </ul>
+        {% endfor %}
+        {% for appointment in completed_review_appointments %}
+            <ul>
+                -------------------------------- <br>
+                Appointment Details: <br>
+                Customer: {{ appointment.customer.get_full_name }} <br>
+                Location: {{ appointment.location }} <br>
+                Time: {{ appointment.date|default_if_none:"" }} <br>
+                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
             </ul>
         {% endfor %}
