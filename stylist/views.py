@@ -153,10 +153,11 @@ def add_item(request):
         if request.method == 'POST':
             if 'custom' in request.POST:
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
-                item = ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
-                                                 price=request.POST.get('price'), appointment=appointment)
-                item.save()
-                BillLogic.update_price(appointment)
+                if appointment.status is not Appointment.STATUS_COMPLETED:
+                    item = ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
+                                                     price=request.POST.get('price'), appointment=appointment)
+                    item.save()
+                    BillLogic.update_price(appointment)
                 return redirect('stylist:dashboard')
         else:
             return redirect('core:logout')
@@ -172,9 +173,10 @@ def add_haircut(request):
         if request.method == 'POST':
             haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfoliohaircut_pk'))
             appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
-            item = ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
-            item.save()
-            BillLogic.update_price(appointment)
+            if appointment.status is not Appointment.STATUS_COMPLETED:
+                item = ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
+                item.save()
+                BillLogic.update_price(appointment)
             return redirect('stylist:dashboard')
     else:
         return redirect('core:logout')

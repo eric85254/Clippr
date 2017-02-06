@@ -13,6 +13,10 @@ from customer.utils.view_logic import CustomerLogic
 from stylist.models import PortfolioHaircut
 from stylist.utils.view_logic import BillLogic
 
+'''
+    MAIN MENU OPTIONS
+'''
+
 
 def profile(request):
     if request.user.is_stylist == 'NO':
@@ -25,16 +29,6 @@ def profile(request):
 
 def dashboard(request):
     return CustomerLogic.render_dashboard(request)
-
-
-def stylist_search(request):
-    if 'param' in request.GET:
-        stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
-    else:
-        stylist_list = None
-    return render(request, 'customer/stylist_search.html', {
-        'stylist_list': stylist_list
-    })
 
 
 def become_stylist(request):
@@ -103,6 +97,21 @@ def create_appointment(request):
                   {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
 
 
+'''
+    CREATE APPOINTMENT HELPERS
+'''
+
+
+def stylist_search(request):
+    if 'param' in request.GET:
+        stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
+    else:
+        stylist_list = None
+    return render(request, 'customer/stylist_search.html', {
+        'stylist_list': stylist_list
+    })
+
+
 def obtain_stylist_profile(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -116,21 +125,7 @@ def obtain_stylist_profile(request):
         return redirect('core:logout')
 
 
-'''
-    CREATE APPOINTMENT HELPERS
-'''
-
-
-def create_appointment_obtainStylistUsername(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            request.session['username'] = request.POST.get('username')
-        return redirect('customer:create_appointment')
-    else:
-        return redirect('core:logout')
-
-
-def create_appointment_menuMainChoice(request):
+def obtain_selected_haircut(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
