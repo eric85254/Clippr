@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^delete_item/$', views.delete_item, name='delete_item'),
     url(r'^add_item/$', views.add_item, name='add_item'),
     url(r'^edit_portfoliohaircut/$', views.edit_portfoliohaircut, name='edit_portfoliohaircut'),
-    url(r'^submit_review/$', views.submit_review, name='submit_review')
+    url(r'^submit_review/$', views.submit_review, name='submit_review'),
+    url(r'^add_haircut/$', views.add_haircut, name='add_haircut')
 ]

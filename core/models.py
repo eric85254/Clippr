@@ -71,7 +71,9 @@ class Appointment(models.Model):
     customer = models.ForeignKey('core.User', related_name='customer', on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=500)
     date = models.DateTimeField(default=datetime.now)
-    # price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True) Price is included within the haircut model.
+    price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
+
+    #this field should be removed because customer's can choose more than one possible option.
     haircut = models.ForeignKey('stylist.PortfolioHaircut', null=True, blank=True)
 
     status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)

@@ -1,7 +1,6 @@
 {% extends 'stylist/base.html' %}
 
 {% block main_content %}
-    <a href="#">Add item from your portfolio</a> <br>
     -------------------------------------------- <br>
     Add Custom Item:
     <form action="{% url 'stylist:add_item' %}" method="post"> {% csrf_token %}
@@ -16,5 +15,5 @@
     --------------------------------------------<br>
     Add Selected Haircut. <br>
     Django code here <br>
-    <a href="#">Select Haircut from Portfolio</a>
+    <a href="{% url 'stylist:add_haircut' %}">Select Haircut from Portfolio</a>
 {% endblock %}

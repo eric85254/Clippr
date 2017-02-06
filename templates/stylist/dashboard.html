@@ -10,7 +10,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
                     <input type="submit" value="View the Bill"/>
@@ -34,7 +34,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Accept"/>
@@ -67,7 +67,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Accept"/>
@@ -100,7 +100,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Decline"/>
@@ -128,7 +128,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
             </ul>
         {% endfor %}
@@ -142,7 +142,7 @@
                 Customer: {{ appointment.customer.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Accept"/>
@@ -169,7 +169,7 @@
                 Customer: {{ review.appointment.customer.get_full_name }} <br>
                 Location: {{ review.appointment.location }} <br>
                 Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ review.appointment.price|default_if_none:"" }} <br>
                 <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
                     <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
                     <input type="number" name="rating" min="0" max="5"/>
@@ -186,7 +186,7 @@
                 Customer: {{ review.appointment.customer.get_full_name }} <br>
                 Location: {{ review.appointment.location }} <br>
                 Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
                 How you rated customer: {{ review.customer_rating }} <br>
                 Your Rating: {{ review.stylist_rating }} <br>

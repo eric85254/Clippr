@@ -11,6 +11,7 @@ from operator import __or__ as OR
 # from django.db.models import Q,
 from customer.utils.view_logic import CustomerLogic
 from stylist.models import PortfolioHaircut
+from stylist.utils.view_logic import BillLogic
 
 
 def profile(request):
@@ -78,6 +79,8 @@ def create_appointment(request):
             bill = ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
                                              appointment=new_appointment)
             bill.save()
+
+            BillLogic.update_price(appointment=new_appointment)
 
             return redirect('customer:dashboard')
         else:

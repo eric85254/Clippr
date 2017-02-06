@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from core.models import Appointment, Menu, ItemInBill, Review
 from stylist.forms import NewPortfolioHaircutForm
 from stylist.models import PortfolioHaircut
+from stylist.utils.view_logic import BillLogic
 
 
 def profile(request):
@@ -155,9 +156,26 @@ def add_item(request):
                 item = ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
                                                  price=request.POST.get('price'), appointment=appointment)
                 item.save()
+                BillLogic.update_price(appointment)
                 return redirect('stylist:dashboard')
         else:
             return redirect('core:logout')
+    else:
+        return redirect('core:logout')
+
+
+def add_haircut(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
+            return render(request, 'stylist/add_haircut_toBill.html', {'portfolio_haircuts': portfolio_haircuts})
+        if request.method == 'POST':
+            haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfoliohaircut_pk'))
+            appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
+            item = ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
+            item.save()
+            BillLogic.update_price(appointment)
+            return redirect('stylist:dashboard')
     else:
         return redirect('core:logout')
 
