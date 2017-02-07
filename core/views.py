@@ -68,7 +68,7 @@ def logout(request):
 '''
 
 def home(request):
-    return render(request, 'core/home/home_core.html')
+    return render(request, 'core/home/home_home.html')
 
 '''
     Update Basic Information
@@ -81,3 +81,24 @@ def update_basic_information(request):
 
     if request.method == 'GET':
         return render(request, 'core/basic_information.html', {'user': request.user})
+
+
+
+def home_style(request):
+    return render(request, 'core/home/home_findyourstyle.html')
+
+
+
+def home_stylist(request):
+    return render(request, 'core/home/home_becomeastylist.html')
+
+
+
+def home_login(request):
+    return render(request, 'core/home/home_login.html')
+
+
+
+
+def home_safety(request):
+    return render(request, 'core/home/home_safety.html')

@@ -1,4 +1,7 @@
+{% extends 'core/home/home_core.html' %}
 {% load staticfiles %}
+
+{% block main_content %}
 <div id="navHome-Link">
     <div class="jumbotron jumbotron-fluid" id="homeJumbotron">
         <div class="container">
@@ -16,6 +19,7 @@
         <div class="card">
           <div class="card-block">
             <h3 class="card-title">About</h3>
+{#              home#}
             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
             <a href="" class="btn btn-primary">Book Now</a>
           </div>
@@ -32,3 +36,4 @@
       </div>
     </div>
 </div>
+{% endblock %}
