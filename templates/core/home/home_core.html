@@ -23,22 +23,22 @@
             </a>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" id="navHome" href="home_home">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" id="navHome" href="{% url 'core:home' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navSafety" href="home_safety">Safety </a>
+                        <a class="nav-link" id="navSafety" href="{% url 'core:home_safety' %}">Safety </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navFindYourStyle" href="home_findyourstyle">Find Your Style</a>
+                        <a class="nav-link" id="navFindYourStyle" href="{% url 'core:home_style' %}">Find Your Style</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navBecomeAStylist" href="home_becomeastylist">Become a Stylist</a>
+                        <a class="nav-link" id="navBecomeAStylist" href="{% url 'core:home_stylist' %}">Become a Stylist</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navLogIn" href="home_login">Log In/Sign up</a>
+                        <a class="nav-link" id="navLogIn" href="{% url 'core:home_login' %}">Log In/Sign up</a>
                     </li>
                     <li class="nav-item">
-                        <a id="navProfile" href="home_login"></a>
+                        <a id="navProfile" href="{% url 'core:home_login' %}"></a>
                     </li>
                 </ul>
             </div>

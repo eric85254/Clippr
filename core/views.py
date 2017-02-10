@@ -11,6 +11,7 @@ from core.utils.view_logic import UserLogic
         Didn't migrate code to view_logic.py because it involves JsonResponse stuff
 '''
 
+
 def create_user(request):
     if request.method == 'POST':
         create_user_form = NewUserForm(request.POST)
@@ -30,9 +31,11 @@ def create_user(request):
             data['success'] = False
             return JsonResponse(data=data)
 
+
 '''
     Returning User
 '''
+
 
 def returning_user(request):
     if request.method == 'GET':
@@ -43,9 +46,11 @@ def returning_user(request):
         UserLogic.login(request, user)
         return UserLogic.redirect_to_profile(user)
 
+
 '''
     Upload Picture
 '''
+
 
 def upload_picture(request):
     if request.method == 'GET':
@@ -55,24 +60,21 @@ def upload_picture(request):
         UserLogic.upload_picture(request)
         return UserLogic.redirect_to_profile(request.user)
 
+
 '''
     Logout
 '''
+
 
 def logout(request):
     auth.logout(request)
     return redirect('core:home')
 
-'''
-    Home
-'''
-
-def home(request):
-    return render(request, 'core/home/home_home.html')
 
 '''
     Update Basic Information
 '''
+
 
 def update_basic_information(request):
     if request.method == 'POST':
@@ -83,21 +85,25 @@ def update_basic_information(request):
         return render(request, 'core/basic_information.html', {'user': request.user})
 
 
+'''
+    NAV BAR
+'''
+
+
+def home(request):
+    return render(request, 'core/home/home_home.html')
+
 
 def home_style(request):
     return render(request, 'core/home/home_findyourstyle.html')
-
 
 
 def home_stylist(request):
     return render(request, 'core/home/home_becomeastylist.html')
 
 
-
 def home_login(request):
     return render(request, 'core/home/home_login.html')
-
-
 
 
 def home_safety(request):
