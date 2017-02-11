@@ -13,7 +13,6 @@
 <body>
 
 {# ToDo: make nav bar a real actual navbar#}
-
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded ">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,6 +24,9 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
             </li>
         </ul>
     </div>
@@ -50,7 +52,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-{#                        ToDo: needs some style work#}
+                        {#ToDo: appointment views need some style work#}
                         {% for appointment in accepted_appointments %}
                             <ul>
                                 -------------------------------- <br>
@@ -119,9 +121,41 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Reviews</h4>
-                <p class="card-text"> Some quick example text to build on the card title
-                    and make up the bulk of the card's content.
-                </p>
+                <div id="reviews">
+                    <h6>Incomplete Reviews</h6>
+                    {% for review in incomplete_reviews %}
+                        <ul>
+                            -------------------------------- <br>
+                            Appointment Details: <br>
+                            Customer: {{ review.appointment.customer.get_full_name }} <br>
+                            Location: {{ review.appointment.location }} <br>
+                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                            <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                                <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
+                                <input type="number" name="rating" min="0" max="5"/>
+                                <input type="submit" value="Write a Review"/>
+                            </form>
+                            -------------------------------- <br>
+                        </ul>
+                    {% endfor %}
+                    {#ToDo: Not seeing any completed reviews here#}
+                    <h6>Completed Reviews</h6>
+                    {% for review in complete_reviews %}
+                        <ul>
+                            -------------------------------- <br>
+                            Appointment Details: <br>
+                            Customer: {{ review.appointment.customer.get_full_name }} <br>
+                            Location: {{ review.appointment.location }} <br>
+                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
+
+                            How you rated customer: {{ review.customer_rating }} <br>
+                            Your Rating: {{ review.stylist_rating }} <br>
+                            -------------------------------- <br>
+                        </ul>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col-md-4 hidden-md-down">
