@@ -1,3 +1,14 @@
  #map {
-        height: 250px;
+        height: 100%;
       }
+
+ .card-dashboard {
+     height: 350px;
+     /*width: 100%;*/
+     /*padding-right: 50px;*/
+ }
+
+.col-dashboard {
+    padding-right: (@spacer-y * 1.5) !important
+    min-width: 250px;
+}
