@@ -35,15 +35,36 @@
     <div class="row p-3">
         <div class="col-lg-4">
             <div class="card card-dashboard">
-                <h4 class="card-title">Appointments</h4>
-                <p class="card-text"> Some quick example text to build on the card title
-                    and make up the bulk of the card's content.
-                </p>
+                <h4 class="card-title text-center">Appointments</h4>
+                <div id="accepted_appointments">
+                    <h6>Accepted Appointments</h6>
+                    {% for appointment in accepted_appointments %}
+                        <ul>
+                            -------------------------------- <br>
+                            Appointment Details: <br>
+                            Customer: {{ appointment.customer.get_full_name }} <br>
+                            Location: {{ appointment.location }} <br>
+                            Time: {{ appointment.date|default_if_none:"" }} <br>
+                            Price: {{ appointment.price|default_if_none:"" }} <br>
+
+                            <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                                <input type="submit" value="View the Bill"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
+                                <input type="submit" value="Complete"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            -------------------------------- <br>
+                        </ul>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="card card-dashboard">
-                <h4 class="card-title">Map</h4>
+                <h4 class="card-title text-center">Map</h4>
                 <div class="card-block" id="map"></div>
             </div>
         </div>
@@ -51,7 +72,7 @@
     <div class="row p-3">
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title">Reviews</h4>
+                <h4 class="card-title text-center">Reviews</h4>
                 <p class="card-text"> Some quick example text to build on the card title
                     and make up the bulk of the card's content.
                 </p>
@@ -59,7 +80,7 @@
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title">Create a Deal</h4>
+                <h4 class="card-title text-center">Create a Deal</h4>
                 <p class="card-text"> Some quick example text to build on the card title
                     and make up the bulk of the card's content.
                 </p>
@@ -67,7 +88,7 @@
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title">Your Menu</h4>
+                <h4 class="card-title text-center">Your Menu</h4>
                 <p class="card-text"> Some quick example text to build on the card title
                     and make up the bulk of the card's content.
                 </p>
