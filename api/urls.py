@@ -12,7 +12,7 @@ router.register(r'menu', views.MenuViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'user_login/$', views.user_login),
-    url(r'user_logout/$', views.user_logout),
-    url(r'stylist_search/(?P<search>.*)$', views.stylist_search),
+    url(r'^user_login/$', views.user_login),
+    url(r'^user_logout/$', views.user_logout),
+    url(r'^stylist_search/(?P<search>.*)$', views.stylist_search),
 ]
