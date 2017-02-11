@@ -36,7 +36,7 @@ def dashboard(request):
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
-        return render(request, 'stylist/dashboard.html', {'full_name': request.user.get_full_name(),
+        return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html', {'full_name': request.user.get_full_name(),
                                                           'pending_appointments': pending_appointments,
                                                           'accepted_appointments': accepted_appointments,
                                                           'declined_appointments': declined_appointments,
