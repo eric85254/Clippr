@@ -1,0 +1,29 @@
+{% extends 'stylist/base.html' %}
+
+{% block main_content %}
+    Menu Options You Haven't Selected: <br>
+    {% for menu_option in menu_options %}
+        ------------------------------ <br>
+        Name: {{ menu_option.name }} <br>
+        Description: {{ menu_option.description }} <br>
+        <form action="{% url 'stylist:select_menu_option' %}" method="post">{% csrf_token %}
+            <input type="hidden" value="{{ menu_option.pk }}" name="menu_option_pk"/>
+            <input type="submit" value="Select"/>
+        </form>
+        ------------------------------ <br>
+    {% endfor %}
+
+    <br>
+    Menu Options You've Selected: <br>
+    {% for stylist_option in stylist_options %}
+        ---------------------------------- <br>
+        Name: {{ stylist_option.menu_option.name }} <br>
+        Description: {{ stylist_option.menu_option.description }} <br>
+        <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+            <input type="submit" value="Remove"/>
+        </form> <br>
+        ---------------------------------- <br>
+    {% endfor %}
+
+{% endblock %}

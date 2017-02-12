@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from core.models import Appointment, Menu, ItemInBill, Review
 from stylist.forms import NewPortfolioHaircutForm
-from stylist.models import PortfolioHaircut
+from stylist.models import PortfolioHaircut, StylistBridgeMenu
 from stylist.utils.view_logic import BillLogic
 
 
@@ -14,11 +14,13 @@ def profile(request):
         full_name = request.user.get_full_name()
 
         portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
+        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
 
         return render(request, 'stylist/profile.html',
                       {'full_name': full_name,
                        'stylist': request.user,
-                       'portfolio_haircuts': portfolio_haircuts}, )
+                       'portfolio_haircuts': portfolio_haircuts,
+                       'stylist_options': stylist_options}, )
     else:
         return redirect('core:logout')
 
@@ -36,15 +38,16 @@ def dashboard(request):
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
-        return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html', {'full_name': request.user.get_full_name(),
-                                                          'pending_appointments': pending_appointments,
-                                                          'accepted_appointments': accepted_appointments,
-                                                          'declined_appointments': declined_appointments,
-                                                          'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
-                                                          'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
-                                                          'completed_appointments': completed_appointments,
-                                                          'incomplete_reviews': incomplete_reviews,
-                                                          'complete_reviews': complete_reviews})
+        return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html',
+                      {'full_name': request.user.get_full_name(),
+                       'pending_appointments': pending_appointments,
+                       'accepted_appointments': accepted_appointments,
+                       'declined_appointments': declined_appointments,
+                       'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
+                       'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
+                       'completed_appointments': completed_appointments,
+                       'incomplete_reviews': incomplete_reviews,
+                       'complete_reviews': complete_reviews})
     else:
         return redirect('core:logout')
 
@@ -236,5 +239,40 @@ def edit_portfoliohaircut(request):
         if request.method == 'GET':
             haircut = PortfolioHaircut.objects.get(pk=request.GET.get('portfoliohaircut_pk'))
             return render(request, 'stylist/edit_portfoliohaircut.html', {'haircut': haircut})
+    else:
+        return redirect('core:logout')
+
+
+'''
+    MENU OPTION
+'''
+
+
+def select_menu_option(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            menu_options = Menu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
+            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            return render(request, 'stylist/select_menu_option.html',
+                          {'menu_options': menu_options, 'stylist_options': stylist_options})
+
+        elif request.method == 'POST':
+            menu_option = Menu.objects.get(pk=request.POST.get('menu_option_pk'))
+            stylist_selection = StylistBridgeMenu.objects.create(stylist=request.user, menu_option=menu_option)
+            stylist_selection.save()
+            return redirect('stylist:select_menu_option')
+    else:
+        return redirect('core:logout')
+
+
+def remove_menu_option(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            return redirect(request.META.get('HTTP_REFERER'))
+
+        if request.method == 'POST':
+            stylist_selection = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
+            stylist_selection.delete()
+            return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')

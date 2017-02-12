@@ -3,7 +3,6 @@ from django.conf.urls import url, include
 from stylist import views
 
 appointmentpatterns = [
-    url(r'^$', views.dashboard, name="dashboard"),
     url(r'^accept_appointment/$', views.accept_appointment, name='accept_appointment'),
     url(r'^decline_appointment/$', views.decline_appointment, name='decline_appointment'),
     url(r'^reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
@@ -22,10 +21,13 @@ profilepatterns = [
     url('^$', views.profile, name="profile"),
     url(r'^upload_haircut/$', views.upload_haircut, name="upload_haircut"),
     url(r'^edit_portfoliohaircut/$', views.edit_portfoliohaircut, name='edit_portfoliohaircut'),
+    url(r'select_menu_option/$', views.select_menu_option, name="select_menu_option"),
+    url(r'^remove_menu_option/$', views.remove_menu_option, name="remove_menu_option"),
 ]
 
 urlpatterns = [
     url(r'^profile/', include(profilepatterns)),
-    url(r'^appointments/', include(appointmentpatterns)),
+    url(r'^dashboard/$', views.dashboard, name="dashboard"),
+    url(r'^appointment/', include(appointmentpatterns)),
     url(r'^appointment/bill/', include(billpatterns))
 ]
