@@ -1,0 +1,37 @@
+{% extends 'stylist/base.html' %}
+
+{% block main_content %}
+    {% for appointment, bill in bills.items %}
+        Appointment Details: <br>
+        Customer: {{ appointment.customer.get_full_name }} <br>
+        Location: {{ appointment.location }} <br>
+        Time: {{ appointment.date|default_if_none:"" }} <br>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            {% for item in bill %}
+                <tr>
+                    <td>
+                        {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }}
+                    </td>
+                    <td>
+                        {{ item.price }}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                    Total Price:
+                </td>
+                <td>
+                    {{ appointment.price|default_if_none:"" }}
+                </td>
+            </tr>
+        </table>
+        -------------------------------------- <br>
+    {% endfor %}
+
+
+{% endblock %}
