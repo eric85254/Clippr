@@ -38,6 +38,7 @@ def dashboard(request):
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
+        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
         return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html',
                       {'full_name': request.user.get_full_name(),
                        'pending_appointments': pending_appointments,
@@ -47,10 +48,26 @@ def dashboard(request):
                        'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
                        'completed_appointments': completed_appointments,
                        'incomplete_reviews': incomplete_reviews,
-                       'complete_reviews': complete_reviews})
+                       'complete_reviews': complete_reviews,
+                       'stylist_options': stylist_options})
     else:
         return redirect('core:logout')
 
+
+def transactions(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'GET':
+            appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
+            bills = {}
+            for appointment in appointments:
+                items_in_bill = ItemInBill.objects.filter(appointment=appointment)
+                bills[appointment] = items_in_bill
+
+            return render(request, 'stylist/transactions.html', {'bills': bills})
+        if request.method == 'POST':
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
 
 '''
     MODIFYING APPOINTMENT & RELATED VIEWS
