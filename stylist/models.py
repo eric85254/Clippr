@@ -18,3 +18,8 @@ class PortfolioHaircut(models.Model):
 
     def __str__(self):
         return self.stylist.username + ' || ' + self.name
+
+
+class StylistBridgeMenu(models.Model):
+    stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
+    menu_option = models.ForeignKey('core.Menu', on_delete=models.CASCADE)
