@@ -5,8 +5,10 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'clippr/homeStyle.css' %}"/>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Clippr</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -15,15 +17,18 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="container" id="OuterCenter">
-        <div class="container" id="InnerCenter">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand" id="navLogo" href="{% url 'core:home' %}">
-                <img src="{% static "clippr/images/logoTransparent.png" %}" width="50" height="50" alt="">
-            </a>
+
+    <a class="navbar-brand" id="navLogo" href="{% url 'core:home' %}">
+        <img src="{% static "clippr/images/logoTransparent.png" %}" width="50" height="50" alt="">
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="container" id="OuterCenter">
+            <div class="container" id="InnerCenter">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" id="navHome" href="{% url 'core:home' %}">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" id="navHome" href="{% url 'core:home' %}">Home <span
+                                class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navSafety" href="{% url 'core:home_safety' %}">Safety </a>
@@ -32,7 +37,8 @@
                         <a class="nav-link" id="navFindYourStyle" href="{% url 'core:home_style' %}">Find Your Style</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navBecomeAStylist" href="{% url 'core:home_stylist' %}">Become a Stylist</a>
+                        <a class="nav-link" id="navBecomeAStylist" href="{% url 'core:home_stylist' %}">Become a
+                            Stylist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navLogIn" href="{% url 'core:home_login' %}">Log In/Sign up</a>
@@ -56,7 +62,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"
         integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 <script src="{% static "clippr/core.js" %}"></script>
 
 </body>
