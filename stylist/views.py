@@ -203,13 +203,14 @@ def upload_haircut(request):
                 if request.POST.get('menu_main') == 'none':
                     menu_main = None
                 else:
-                    menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
+                    menu_main = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).menu_option
                 new_portfolioHaircut.menu_option = menu_main
                 new_portfolioHaircut.save()
 
             return redirect('stylist:profile')
-        else:
-            return render(request, 'stylist/upload_haircut.html')
+        elif request.method == 'GET':
+            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            return render(request, 'stylist/upload_haircut.html', {'stylist_options': stylist_options})
 
     else:
         return redirect('core:logout')
