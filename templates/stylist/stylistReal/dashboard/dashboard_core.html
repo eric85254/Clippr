@@ -53,30 +53,35 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-                        {#ToDo: appointment views need some style work#}
+                        {% if appointment not in accepted_appointments %}
+                           You have no upcoming appointments <br>
+                        {% endif %}
                         {% for appointment in accepted_appointments %}
-                            <ul>
-                                -------------------------------- <br>
-                                Appointment Details: <br>
-                                Customer: {{ appointment.customer.get_full_name }} <br>
-                                Location: {{ appointment.location }} <br>
-                                Time: {{ appointment.date|default_if_none:"" }} <br>
-                                Price: {{ appointment.price|default_if_none:"" }} <br>
+                        <ul>
+                            -------------------------------- <br>
+                            Appointment Details: <br>
+                            Customer: {{ appointment.customer.get_full_name }} <br>
+                            Location: {{ appointment.location }} <br>
+                            Time: {{ appointment.date|default_if_none:"" }} <br>
+                            Price: {{ appointment.price|default_if_none:"" }} <br>
 
-                                <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
-                                    <input type="submit" value="View the Bill"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
-                                    <input type="submit" value="Complete"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
-                                -------------------------------- <br>
-                            </ul>
-                        {% endfor %}
+                            <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                                <input type="submit" value="View the Bill"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
+                                <input type="submit" value="Complete"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            -------------------------------- <br>
+                        </ul>
+                    {% endfor %}
                     </div>
                     <div class="tab-pane" id="pending_appointments" role="tabpanel">
+                        {% if appointment not in pending_appointments %}
+                            There are no pending appointments at this time <br>
+                        {% endif %}
                         {% for appointment in pending_appointments %}
                             <ul>
                                 -------------------------------- <br>
@@ -122,40 +127,64 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Reviews</h4>
-                <div id="reviews">
-                    <h6>Incomplete Reviews</h6>
-                    {% for review in incomplete_reviews %}
-                        <ul>
-                            -------------------------------- <br>
-                            Appointment Details: <br>
-                            Customer: {{ review.appointment.customer.get_full_name }} <br>
-                            Location: {{ review.appointment.location }} <br>
-                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
-                            <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
-                                <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
-                                <input type="number" name="rating" min="0" max="5"/>
-                                <input type="submit" value="Write a Review"/>
-                            </form>
-                            -------------------------------- <br>
-                        </ul>
-                    {% endfor %}
-                    {#ToDo: Not seeing any completed reviews here#}
-                    <h6>Completed Reviews</h6>
-                    {% for review in complete_reviews %}
-                        <ul>
-                            -------------------------------- <br>
-                            Appointment Details: <br>
-                            Customer: {{ review.appointment.customer.get_full_name }} <br>
-                            Location: {{ review.appointment.location }} <br>
-                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#complete_reviews" role="tab">
+                            Accepted
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#pending_reviews" role="tab">
+                            Requests
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="complete_reviews" role="tabpanel">
+                        <h6>Completed Reviews</h6>
+                        {% if review not in complete_reviews %}
+                            You have no reviews yet!  <br>
+                            After your first appointment your most recent <br>
+                            reviews will appear here, but only after you <br>
+                            give a review to the customer as well! <br>
+                        {% endif %}
+                        {% for review in complete_reviews %}
+                            <ul>
+                                -------------------------------- <br>
+                                Appointment Details: <br>
+                                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                                Location: {{ review.appointment.location }} <br>
+                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
-                            How you rated customer: {{ review.customer_rating }} <br>
-                            Your Rating: {{ review.stylist_rating }} <br>
-                            -------------------------------- <br>
-                        </ul>
-                    {% endfor %}
+                                How you rated customer: {{ review.customer_rating }} <br>
+                                Your Rating: {{ review.stylist_rating }} <br>
+                                -------------------------------- <br>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane" id="pending_reviews" role="tabpanel">
+                        <h6>Incomplete Reviews</h6>
+                        {% if review not in incomplete_reviews %}
+                            You have no pending reviews <br>
+                        {% endif %}
+                        {% for review in incomplete_reviews %}
+                            <ul>
+                                -------------------------------- <br>
+                                Appointment Details: <br>
+                                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                                Location: {{ review.appointment.location }} <br>
+                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                                    <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
+                                    <input type="number" name="rating" min="0" max="5"/>
+                                    <input type="submit" value="Write a Review"/>
+                                </form>
+                                -------------------------------- <br>
+                            </ul>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
