@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 
 from core.models import User
@@ -6,9 +8,11 @@ from core.models import User
 class EmailPhoneNumberOrUsernameModelBackend(object):
     def authenticate(self, username=None, password=None, **kwargs):
         UserModel = get_user_model()
+        phone_pattern = re.compile(r'^\+?1?\d{9,15}$')
+
         if '@' in username and '.' in username:
             kwargs = {'email': username}
-        elif '+' in username:
+        elif phone_pattern.match(username):
             kwargs = {'phone_number': username}
         else:
             kwargs = {'username': username}
