@@ -19,38 +19,25 @@
 // var navProfile = document.getElementById("navProfile");
 //
 // // Log in / Sign Up Page Button Variables.
-// var newUser = document.getElementById("newUser");
-// var logIn = document.getElementById("logIn");
+var newUser = document.getElementById("new_user");
+var logIn = document.getElementById("login");
 //
-// // Log in / Sign up Page Form Variables
+// Log in / Sign up Page Form Variables
 // var newUserFormDiv = document.getElementById("newUserFormDiv");
 // var logInFormDiv = document.getElementById("logInFormDiv");
-// var newUserForm = document.getElementById("newUserForm");
+var newUserForm = document.getElementById("newUserForm");
 // // var logInForm = document.getElementById("logInForm");
 //
-// // Error Variables
-// var email_error = document.getElementById("email-error");
-// var username_error = document.getElementById("username-error");
-// var password_error = document.getElementById("password-error");
-// var isStylist_error = document.getElementById("is_stylist-error");
+// Error Variables
+var email_error = document.getElementById("email-error");
+var username_error = document.getElementById("username-error");
+var password_error = document.getElementById("password-error");
+var isStylist_error = document.getElementById("is_stylist-error");
+var phone_number_error = document.getElementById("phone_number-error");
 //
-// function init() {
-//     hideAll();
-//     show_navHome_Link();
-//
-//     navLogo.onclick = show_navHome_Link;
-//     navHome.onclick = show_navHome_Link;
-//     navSafety.onclick = show_navSafety_Link;
-//     navFindYourStyle.onclick = show_navFindYourStyle_Link;
-//     navBecomeAStylist.onclick = show_navBecomeAStylist_Link;
-//     navLogIn.onclick = show_navLogIn_Link;
-//     navProfile.onclick = show_navLogIn_Link;
-//
-//     newUser.onclick = newUserButton;
-//     logIn.onclick = logInButton;
-//
-//     newUserForm.onsubmit = newUserErrorHandling;
-// }
+function init() {
+    newUserForm.onsubmit = newUserErrorHandling;
+}
 //
 // function hideAll() {
 //     if (navHome_Link) {
@@ -96,15 +83,16 @@
 //     }
 // }
 //
-// function cleanUp() {
-//     var confirmation = document.getElementById("newUserConfirmation");
-//     confirmation.innerHTML = "";
-//
-//     email_error.innerHTML = "";
-//     username_error.innerHTML = "";
-//     password_error.innerHTML = "";
-//     // isStylist_error.innerHTML = "";
-// }
+function cleanUp() {
+    var confirmation = document.getElementById("newUserConfirmation");
+    confirmation.innerHTML = "";
+
+    email_error.innerHTML = "";
+    username_error.innerHTML = "";
+    password_error.innerHTML = "";
+    isStylist_error.innerHTML = "";
+    phone_number_error.innerHTML = "";
+}
 //
 // function show_navHome_Link() {
 //     hideAll();
@@ -170,42 +158,46 @@
 //
 // ToDo: Fix all the variable name convention
 //
-// function newUserErrorHandling() {
-//     event.preventDefault();
-//     $.ajax({
-//         url: $(newUserForm).attr("action"),
-//         type: "post",
-//         data: $(newUserForm).serialize(),
-//         success: function (data) {
-//             console.log(data);
-//             // var formData = JSON.parse(data);
+function newUserErrorHandling() {
+    event.preventDefault();
+    $.ajax({
+        url: $(newUserForm).attr("action"),
+        type: "post",
+        data: $(newUserForm).serialize(),
+        success: function (data) {
+            console.log(data);
+            // var formData = JSON.parse(data);
+
+            if (data.success == true) {
+                // var confirmation = document.getElementById("newUserConfirmation");
+                // confirmation.innerHTML = "You've successfully created a new account!";
+                newUser.setAttribute("class", "tab-pane");
+                logIn.setAttribute("class", "tab-pane active");
+            } else {
+                console.log("found Errors!");
+                cleanUp();
+
+                if (data.email) {
+                    email_error.innerHTML = data.email;
+                }
+                if (data.username) {
+                    username_error.innerHTML = data.username;
+                }
+                if(data.password2) {
+                    password_error.innerHTML = data.password2;
+                }
+                if(data.is_stylist) {
+                    isStylist_error.innerHTML = data.is_stylist;
+                }
+                if(data.phone_number) {
+                    phone_number_error.innerHTML = data.phone_number;
+                }
+            }
+        }
+    });
+    console.log("form submitted!");
+}
 //
-//             if (data.success == true) {
-//                 logInButton();
-//                 var confirmation = document.getElementById("newUserConfirmation");
-//                 confirmation.innerHTML = "You've successfully created a new account!";
-//             } else {
-//                 console.log("found Errors!");
-//                 cleanUp();
-//
-//                 if (data.email) {
-//                     email_error.innerHTML = data.email;
-//                 }
-//                 if (data.username) {
-//                     username_error.innerHTML = data.username;
-//                 }
-//                 if(data.password2) {
-//                     password_error.innerHTML = data.password2;
-//                 }
-//                 if(data.is_stylist) {
-//                     isStylist_error.innerHTML = data.is_stylist;
-//                 }
-//             }
-//         }
-//     });
-//     console.log("form submitted!");
-// }
-//
-// window.onload = init;
+window.onload = init;
 //
 // ToDo: For later --> get rid of commented out portions involving is_stylist field.
