@@ -161,6 +161,9 @@ def delete_item(request):
         if request.method == 'POST':
             item = ItemInBill.objects.get(pk=request.POST.get('item_pk'))
             item.delete()
+
+            appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
+            BillLogic.update_price(appointment)
         return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
