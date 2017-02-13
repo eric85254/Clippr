@@ -24,13 +24,14 @@ def create_user(request):
                 'success': True
             }
             return JsonResponse(data=data)
+            # return redirect(request.META.get('HTTP_REFERER'))
 
         else:
             print(create_user_form.errors)
             data = create_user_form.errors
             data['success'] = False
             return JsonResponse(data=data)
-
+            # return redirect(request.META.get('HTTP_REFERER'))
 
 '''
     Returning User

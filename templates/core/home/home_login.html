@@ -2,122 +2,143 @@
 {% load staticfiles %}
 {% block main_content %}
 
-<div id="navLogIn-Link">
-    <div class="container">
-        <div class="row p-3">
-        <div class="col-lg-12">
+    <div id="navLogIn-Link">
+        <div class="container">
+            <div class="row p-3">
+                <div class="col-lg-12">
 
-            {# New User and Login Buttons #}
-            <div class="panel panel-login">
-                <div class="panel-heading">
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6">
-                        <div class="card card-dashboard">
-                            <ul class="nav nav-tabs justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                     <a class="nav-link active" data-toggle="tab" href="#login" role="tab">
-                                         Login
-                                     </a>
-                                 </li>
-                                 <li class="nav-item">
-                                     <a class="nav-link" data-toggle="tab" href="#new_user" role="tab">
-                                        New User
-                                     </a>
-                                 </li>
-                             </ul>
-                            {# New User Form #}
-                            <div class="tab-content">
-                                <div class="tab-pane" id="new_user" role="tabpanel">
-                                    <div id="newUserFormDiv">
-                                        <form id="newUserForm" action="{% url "core:create_user" %}" method="post" role="form"
-                                              style="display: block;"> {% csrf_token %}
-                                            <div class="form-group">
-                                                <input type="text" name="first_name" id="first_name" tabindex="1"
-                                                       class="form-control" placeholder="First Name" value=""/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="last_name" id="last_name" tabindex="2"
-                                                       class="form-control"
-                                                       placeholder="Last Name" value=""/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" name="email" id="email" tabindex="3" class="form-control"
-                                                       placeholder="Email" value=""/> {{ form.email.errors|default_if_none:"" }}
-                                            </div>
-                                            <div id="email-error"></div>
-                                            <div class="form-group">
-                                                <input type="text" name="username" id="username" tabindex="4"
-                                                       class="form-control"
-                                                       placeholder="Username"
-                                                       value=""/> {{ form.username.errors|default_if_none:"" }}
-                                            </div>
-                                            <div id="username-error"></div>
-                                            <div class="form-group">
-                                                <input type="password" name="password1" value="" id="password1" tabindex="5"
-                                                       class="form-control"
-                                                       placeholder="Password"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="password2" value="" id="password2" tabindex="6"
-                                                       class="form-control"
-                                                       placeholder="Re-Enter Password"/> {{ form.password2.errors|default_if_none:"" }}
-                                            </div>
-                                            <div id="password-error"></div>
-                                            <div class="row p-3 justify-content-center">
-                                            <div class="form-group">
-                                                <label class="" for="stylist">Are you a Stylist?</label>
-                                                <input type="radio" name="is_stylist" value="YES"/> Yes
-                                                <input type="radio" name="is_stylist" value="NO"/> No
-                                            </div>
-                                            </div>
-                                            <div id="is_stylist-error"></div>
-
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input id="submit" type="submit" name="CREATE" value="Submit" tabindex="7"
-                                                               class="form-control btn">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                {#  Login Form #}
-                                    <div class="tab-pane active" id="login" role="tabpanel">
-                                        <div id="logInFormDiv">
-                                            <form id="logInForm" action="{% url 'core:returning_user' %}" method="post" role="form"
-                                                  style="display: block;"> {% csrf_token %}
-                                                <div class="form-group">
-                                                    <input type="text" name="username" id="login_username" tabindex="1"
-                                                           class="form-control"
-                                                           placeholder="Username" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" name="password" id="login_password" tabindex="2"
-                                                           class="form-control" placeholder="Password" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <input id="submit" type="submit" name="LOGIN" value="Submit" tabindex="3"
-                                                                   class="form-control btn">
+                    {# New User and Login Buttons #}
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-6">
+                                    <div class="card card-dashboard">
+                                        <ul class="nav nav-tabs justify-content-center" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#login" role="tab">
+                                                    Login
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#new_user" role="tab">
+                                                    New User
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        {# New User Form #}
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="new_user" role="tabpanel">
+                                                <div id="newUserFormDiv">
+                                                    <form id="newUserForm" action="{% url "core:create_user" %}"
+                                                          method="post" role="form"
+                                                          style="display: block;"> {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="text" name="first_name" id="first_name"
+                                                                   tabindex="1"
+                                                                   class="form-control" placeholder="First Name"
+                                                                   value=""/>
                                                         </div>
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="last_name" id="last_name"
+                                                                   tabindex="2"
+                                                                   class="form-control"
+                                                                   placeholder="Last Name" value=""/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" name="email" id="email" tabindex="3"
+                                                                   class="form-control"
+                                                                   placeholder="Email"
+                                                                   value=""/> {{ form.email.errors|default_if_none:"" }}
+                                                        </div>
+                                                        <div id="email-error"></div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="phone_number" id="phone_number"
+                                                                   tabindex="4" class="form-control"
+                                                                   placeholder="Phone Number"
+                                                                   value=""/> {{ form.phone_number.errors|default_if_none:"" }}
+                                                        </div>
+                                                        <div id="phone_number-error"></div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="username" id="username"
+                                                                   tabindex="4"
+                                                                   class="form-control"
+                                                                   placeholder="Username"
+                                                                   value=""/> {{ form.username.errors|default_if_none:"" }}
+                                                        </div>
+                                                        <div id="username-error"></div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="password1" value=""
+                                                                   id="password1" tabindex="5"
+                                                                   class="form-control"
+                                                                   placeholder="Password"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="password2" value=""
+                                                                   id="password2" tabindex="6"
+                                                                   class="form-control"
+                                                                   placeholder="Re-Enter Password"/> {{ form.password2.errors|default_if_none:"" }}
+                                                        </div>
+                                                        <div id="password-error"></div>
+                                                        <div class="row p-3 justify-content-center">
+                                                            <div class="form-group">
+                                                                <label class="" for="stylist">Are you a Stylist?</label>
+                                                                <input type="radio" name="is_stylist" value="YES"/> Yes
+                                                                <input type="radio" name="is_stylist" value="NO"/> No
+                                                            </div>
+                                                        </div>
+                                                        <div id="is_stylist-error"></div>
+
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <input id="submit" type="submit" name="CREATE"
+                                                                           value="Submit" tabindex="7"
+                                                                           class="form-control btn">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                            </form>
+                                            </div>
+                                            {#  Login Form #}
+                                            <div class="tab-pane active" id="login" role="tabpanel">
+                                                <div id="logInFormDiv">
+                                                    <form id="logInForm" action="{% url 'core:returning_user' %}"
+                                                          method="post" role="form"
+                                                          style="display: block;"> {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input type="text" name="username" id="login_username"
+                                                                   tabindex="1"
+                                                                   class="form-control"
+                                                                   placeholder="Username" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="password" id="login_password"
+                                                                   tabindex="2"
+                                                                   class="form-control" placeholder="Password" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <input id="submit" type="submit" name="LOGIN"
+                                                                           value="Submit" tabindex="3"
+                                                                           class="form-control btn">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                {#                    <div id="newUserConfirmation"></div>#}
+                            </div>
                         </div>
                     </div>
-{#                    <div id="newUserConfirmation"></div>#}
-               </div>
                 </div>
             </div>
         </div>
-        </div>
     </div>
-</div>
 
 {% endblock %}
