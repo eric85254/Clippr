@@ -4,6 +4,8 @@
 
  .card-dashboard {
      height: 350px;
+     overflow-y: scroll;
+     overflow: hidden;
      /*width: 100%;*/
      /*padding-right: 50px;*/
  }

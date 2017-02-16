@@ -53,35 +53,31 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-                        {% if appointment not in accepted_appointments %}
-                           You have no upcoming appointments <br>
-                        {% endif %}
                         {% for appointment in accepted_appointments %}
-                        <ul>
-                            -------------------------------- <br>
-                            Appointment Details: <br>
-                            Customer: {{ appointment.customer.get_full_name }} <br>
-                            Location: {{ appointment.location }} <br>
-                            Time: {{ appointment.date|default_if_none:"" }} <br>
-                            Price: {{ appointment.price|default_if_none:"" }} <br>
+                            <ul>
+                                -------------------------------- <br>
+                                Appointment Details: <br>
+                                Customer: {{ appointment.customer.get_full_name }} <br>
+                                Location: {{ appointment.location }} <br>
+                                Time: {{ appointment.date|default_if_none:"" }} <br>
+                                Price: {{ appointment.price|default_if_none:"" }} <br>
 
-                            <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
-                                <input type="submit" value="View the Bill"/>
-                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                            </form>
-                            <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
-                                <input type="submit" value="Complete"/>
-                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                            </form>
-                            <br>
-                            -------------------------------- <br>
-                        </ul>
-                    {% endfor %}
+                                <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                                    <input type="submit" value="View the Bill"/>
+                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                                </form>
+                                <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
+                                    <input type="submit" value="Complete"/>
+                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                                </form>
+                                <br>
+                                -------------------------------- <br>
+                            </ul>
+                        {% empty %}
+                            You have no upcoming appointments <br>
+                        {% endfor %}
                     </div>
                     <div class="tab-pane" id="pending_appointments" role="tabpanel">
-                        {% if appointment not in pending_appointments %}
-                            There are no pending appointments at this time <br>
-                        {% endif %}
                         {% for appointment in pending_appointments %}
                             <ul>
                                 -------------------------------- <br>
@@ -111,6 +107,8 @@
                                 <br>
                                 -------------------------------- <br>
                             </ul>
+                        {% empty %}
+                            There are no pending appointments at this time <br>
                         {% endfor %}
                     </div>
                 </div>
@@ -130,24 +128,17 @@
                 <ul class="nav nav-tabs justify-content-center" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#complete_reviews" role="tab">
-                            Accepted
+                            Recent
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#pending_reviews" role="tab">
-                            Requests
+                            Incomplete
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="complete_reviews" role="tabpanel">
-                        <h6>Completed Reviews</h6>
-                        {% if review not in complete_reviews %}
-                            You have no reviews yet!  <br>
-                            After your first appointment your most recent <br>
-                            reviews will appear here, but only after you <br>
-                            give a review to the customer as well! <br>
-                        {% endif %}
                         {% for review in complete_reviews %}
                             <ul>
                                 -------------------------------- <br>
@@ -161,13 +152,14 @@
                                 Your Rating: {{ review.stylist_rating }} <br>
                                 -------------------------------- <br>
                             </ul>
+                        {% empty %}
+                            You have no reviews yet!  <br>
+                            After your first appointment your most recent <br>
+                            reviews will appear here, but only after you <br>
+                            give a review to the customer as well! <br>
                         {% endfor %}
                     </div>
                     <div class="tab-pane" id="pending_reviews" role="tabpanel">
-                        <h6>Incomplete Reviews</h6>
-                        {% if review not in incomplete_reviews %}
-                            You have no pending reviews <br>
-                        {% endif %}
                         {% for review in incomplete_reviews %}
                             <ul>
                                 -------------------------------- <br>
@@ -183,6 +175,8 @@
                                 </form>
                                 -------------------------------- <br>
                             </ul>
+                        {% empty %}
+                            You have no pending reviews <br>
                         {% endfor %}
                     </div>
                 </div>
@@ -200,6 +194,10 @@
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Your Menu</h4>
                 <p class="card-text">
+                    Menu Options you've selected: <br>
+                    ---------------------------------- <br>
+                    <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
+
                     {% for stylist_option in stylist_options %}
                         Name: {{ stylist_option.menu_option.name }} <br>
                         Description: {{ stylist_option.menu_option.description }} <br>
@@ -208,17 +206,17 @@
                             <input type="submit" value="Remove"/>
                         </form> <br>
                         ---------------------------------- <br>
+                    {% empty %}
+                        <p>no menu options chosen</p>
                     {% endfor %}
                 </p>
             </div>
         </div>
     </div>
-
-
 </div>
 
 {#ToDo: Add footer#}
-<
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
         integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7"
         crossorigin="anonymous"></script>
