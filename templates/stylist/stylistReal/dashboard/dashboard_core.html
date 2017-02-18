@@ -53,7 +53,6 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-                        {#ToDo: appointment views need some style work#}
                         {% for appointment in accepted_appointments %}
                             <ul>
                                 -------------------------------- <br>
@@ -74,6 +73,8 @@
                                 <br>
                                 -------------------------------- <br>
                             </ul>
+                        {% empty %}
+                            You have no upcoming appointments <br>
                         {% endfor %}
                     </div>
                     <div class="tab-pane" id="pending_appointments" role="tabpanel">
@@ -106,6 +107,8 @@
                                 <br>
                                 -------------------------------- <br>
                             </ul>
+                        {% empty %}
+                            There are no pending appointments at this time <br>
                         {% endfor %}
                     </div>
                 </div>
@@ -113,7 +116,7 @@
         </div>
         <div class="col-lg-8">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Map</h4>
+                <h4 class="card-title text-center" id="map-card">Map</h4>
                 <div class="card-block" id="map"></div>
             </div>
         </div>
@@ -122,74 +125,102 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Reviews</h4>
-                <div id="reviews">
-                    <h6>Incomplete Reviews</h6>
-                    {% for review in incomplete_reviews %}
-                        <ul>
-                            -------------------------------- <br>
-                            Appointment Details: <br>
-                            Customer: {{ review.appointment.customer.get_full_name }} <br>
-                            Location: {{ review.appointment.location }} <br>
-                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
-                            <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
-                                <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
-                                <input type="number" name="rating" min="0" max="5"/>
-                                <input type="submit" value="Write a Review"/>
-                            </form>
-                            -------------------------------- <br>
-                        </ul>
-                    {% endfor %}
-                    {#ToDo: Not seeing any completed reviews here#}
-                    <h6>Completed Reviews</h6>
-                    {% for review in complete_reviews %}
-                        <ul>
-                            -------------------------------- <br>
-                            Appointment Details: <br>
-                            Customer: {{ review.appointment.customer.get_full_name }} <br>
-                            Location: {{ review.appointment.location }} <br>
-                            Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                            Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#complete_reviews" role="tab">
+                            Recent
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#pending_reviews" role="tab">
+                            Incomplete
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="complete_reviews" role="tabpanel">
+                        {% for review in complete_reviews %}
+                            <ul>
+                                -------------------------------- <br>
+                                Appointment Details: <br>
+                                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                                Location: {{ review.appointment.location }} <br>
+                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
-                            How you rated customer: {{ review.customer_rating }} <br>
-                            Your Rating: {{ review.stylist_rating }} <br>
-                            -------------------------------- <br>
-                        </ul>
-                    {% endfor %}
+                                How you rated customer: {{ review.customer_rating }} <br>
+                                Your Rating: {{ review.stylist_rating }} <br>
+                                -------------------------------- <br>
+                            </ul>
+                        {% empty %}
+                            You have no reviews yet!  <br>
+                            After your first appointment your most recent <br>
+                            reviews will appear here, but only after you <br>
+                            give a review to the customer as well! <br>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane" id="pending_reviews" role="tabpanel">
+                        {% for review in incomplete_reviews %}
+                            <ul>
+                                -------------------------------- <br>
+                                Appointment Details: <br>
+                                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                                Location: {{ review.appointment.location }} <br>
+                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                                    <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
+                                    <input type="number" name="rating" min="0" max="5"/>
+                                    <input type="submit" value="Write a Review"/>
+                                </form>
+                                -------------------------------- <br>
+                            </ul>
+                        {% empty %}
+                            You have no pending reviews <br>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Create a Deal</h4>
-                <p class="card-text"> Some quick example text to build on the card title
-                    and make up the bulk of the card's content.
-                </p>
+                <div class="card-scroll">
+                    <p class="card-text"> Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Your Menu</h4>
-                <p class="card-text">
-                    {% for stylist_option in stylist_options %}
-                        Name: {{ stylist_option.menu_option.name }} <br>
-                        Description: {{ stylist_option.menu_option.description }} <br>
-                        <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                            <input type="submit" value="Remove"/>
-                        </form> <br>
+                <div class="card-scroll">
+                    <p class="card-text">
+                        Menu Options you've selected: <br>
                         ---------------------------------- <br>
-                    {% endfor %}
-                </p>
+                        <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
+
+                        {% for stylist_option in stylist_options %}
+                            Name: {{ stylist_option.menu_option.name }} <br>
+                            Description: {{ stylist_option.menu_option.description }} <br>
+                            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+                                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+                                <input type="submit" value="Remove"/>
+                            </form> <br>
+                            ---------------------------------- <br>
+                        {% empty %}
+                            <p>no menu options chosen</p>
+                        {% endfor %}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-
-
 </div>
 
 {#ToDo: Add footer#}
-<
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
         integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7"
         crossorigin="anonymous"></script>

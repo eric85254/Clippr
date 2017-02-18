@@ -220,7 +220,7 @@ def upload_haircut(request):
                 new_portfolioHaircut.stylist = request.user
                 new_portfolioHaircut.picture = request.FILES['picture']
                 # Finding and adding selected menu option to new_portfolioHaircut
-                if request.POST.get('menu_main') == 'none':
+                if request.POST.get('stylist_option_pk') == 'none':
                     menu_main = None
                 else:
                     menu_main = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).menu_option
