@@ -21,10 +21,10 @@ Description: {{ haircut.description }} <br>
 
     Menu:<br>
     <hr>
-    <label for="menu_main">Main: </label>
-    <input id="menu_main" type="radio" name="menu_main" value="short_cut"> Short Cut
-    <input id="menu_main" type="radio" name="menu_main" value="long_cut"> Long Cut
-    <input id="menu_main" type="radio" name="menu_main" value="none"> None
+    {% for stylist_option in stylist_options %}
+        <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}"> {{ stylist_option.menu_option.name }} <br>
+    {% endfor %}
+    <input type="radio" name="stylist_option_pk" value="none"> None
     <br> <br>
 
     <input type="hidden" name="portfoliohaircut_pk" value="{{ haircut.pk }}"/>

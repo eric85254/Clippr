@@ -69,6 +69,7 @@ def transactions(request):
     else:
         return redirect('core:logout')
 
+
 '''
     MODIFYING APPOINTMENT & RELATED VIEWS
 '''
@@ -247,10 +248,10 @@ def edit_portfoliohaircut(request):
             haircut.description = request.POST.get('description')
             haircut.price = request.POST.get('price')
 
-            if request.POST.get('menu_main') == 'none':
+            if request.POST.get('stylist_option_pk') == 'none':
                 menu_main = None
             else:
-                menu_main = Menu.objects.filter(category__icontains='main').get(name=request.POST.get('menu_main'))
+                menu_main = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).menu_option
 
             haircut.menu_option = menu_main
             haircut.save()
@@ -259,7 +260,9 @@ def edit_portfoliohaircut(request):
 
         if request.method == 'GET':
             haircut = PortfolioHaircut.objects.get(pk=request.GET.get('portfoliohaircut_pk'))
-            return render(request, 'stylist/edit_portfoliohaircut.html', {'haircut': haircut})
+            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            return render(request, 'stylist/edit_portfoliohaircut.html',
+                          {'haircut': haircut, 'stylist_options': stylist_options})
     else:
         return redirect('core:logout')
 
