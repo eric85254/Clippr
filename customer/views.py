@@ -104,7 +104,7 @@ def create_appointment(request):
 
 def stylist_search(request):
     if 'param' in request.GET:
-        stylist_list = User.objects.filter(username__icontains=request.GET.get('param'), is_stylist='YES')
+        stylist_list = User.objects.filter(is_stylist='YES', first_name__icontains=request.GET.get('param'))
     else:
         stylist_list = None
     return render(request, 'customer/stylist_search.html', {

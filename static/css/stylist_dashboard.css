@@ -1,21 +1,63 @@
- #map {
-        height: 100%;
-      }
+#map {
+    height: 100%;
+}
 
- .card-dashboard {
-     height: 350px;
-     /*width: 100%;*/
-     /*padding-right: 50px;*/
- }
+.card-dashboard {
+    height: 350px;
+    /*overflow-y: auto;*/
+}
 
 .col-dashboard {
-    padding-right: (@spacer-y * 1.5) !important
+    /*padding-right: (@spacer-y *1.5) !important;*/
     min-width: 250px;
 }
 
 .card-title {
-    font-size: 20px;
-    background-color: lightgray;
+    /*padding: 0;*/
+    /*margin-bottom: 5px;*/
+}
+
+#map-card {
+    margin-bottom: 1px;
+}
+
+.card-title {
+    font-size:                  20px;
+    background-color:           lightgray;
+    /*border:                     1px solid black;*/
+    border-top-right-radius:    .25rem;
+    border-top-left-radius:     .25rem;
+    /*font-size:                  15px;*/
+    box-shadow: 0 0 0 1px black;
+}
+
+.card-scroll {
+    overflow-y: auto;
+}
+
+.nav-link {
+    height: 25px;
+    padding-top: 0;
+    font-size: 15px;
+}
+
+.nav-tabs {
+    height: 25px;
+    /*padding: 0;*/
+}
+
+.nav-item {
+    height: 25px;
+    /*padding: 0;*/
+}
+
+.tab-content {
+    overflow-y: auto;
+    position: absolute;
+    top: 52px;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .appointment_block {
