@@ -3,7 +3,6 @@ from django.shortcuts import redirect
 
 
 class UserLogic(object):
-
     @staticmethod
     def retrieve_user(request):
         username = request.POST.get('username', '')
@@ -17,11 +16,14 @@ class UserLogic(object):
             auth.login(request, user)
 
     @staticmethod
-    def redirect_to_profile(user):
+    def redirect_to_profile(request, user):
         if user is None:
-            return redirect('core:home')
+            request.session['error'] = "username or password is incorrect"
+            return redirect('core:home_login')
+
         elif user.is_superuser:
             return redirect('administration:profile')
+
         else:
             if user.is_stylist == 'YES':
                 return redirect('stylist:profile')

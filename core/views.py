@@ -45,7 +45,7 @@ def returning_user(request):
     if request.method == 'POST':
         user = UserLogic.retrieve_user(request)
         UserLogic.login(request, user)
-        return UserLogic.redirect_to_profile(user)
+        return UserLogic.redirect_to_profile(request, user)
 
 
 '''
@@ -104,7 +104,14 @@ def home_stylist(request):
 
 
 def home_login(request):
-    return render(request, 'core/home/home_login.html')
+    if 'error' in request.session:
+        error = request.session['error']
+
+    else:
+        error = None
+    request.session['error'] = None
+
+    return render(request, 'core/home/home_login.html', {'error': error})
 
 
 def home_safety(request):
