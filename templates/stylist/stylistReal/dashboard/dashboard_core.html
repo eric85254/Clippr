@@ -71,6 +71,10 @@
                                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                                 </form>
                                 <br>
+
+                                <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map
+                                </button>
+                                <br>
                                 -------------------------------- <br>
                             </ul>
                         {% empty %}
