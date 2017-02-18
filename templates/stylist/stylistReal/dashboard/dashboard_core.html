@@ -116,7 +116,7 @@
         </div>
         <div class="col-lg-8">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Map</h4>
+                <h4 class="card-title text-center" id="map-card">Map</h4>
                 <div class="card-block" id="map"></div>
             </div>
         </div>
@@ -185,31 +185,35 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Create a Deal</h4>
-                <p class="card-text"> Some quick example text to build on the card title
-                    and make up the bulk of the card's content.
-                </p>
+                <div class="card-scroll">
+                    <p class="card-text"> Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Your Menu</h4>
-                <p class="card-text">
-                    Menu Options you've selected: <br>
-                    ---------------------------------- <br>
-                    <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
-
-                    {% for stylist_option in stylist_options %}
-                        Name: {{ stylist_option.menu_option.name }} <br>
-                        Description: {{ stylist_option.menu_option.description }} <br>
-                        <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                            <input type="submit" value="Remove"/>
-                        </form> <br>
+                <div class="card-scroll">
+                    <p class="card-text">
+                        Menu Options you've selected: <br>
                         ---------------------------------- <br>
-                    {% empty %}
-                        <p>no menu options chosen</p>
-                    {% endfor %}
-                </p>
+                        <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
+
+                        {% for stylist_option in stylist_options %}
+                            Name: {{ stylist_option.menu_option.name }} <br>
+                            Description: {{ stylist_option.menu_option.description }} <br>
+                            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+                                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+                                <input type="submit" value="Remove"/>
+                            </form> <br>
+                            ---------------------------------- <br>
+                        {% empty %}
+                            <p>no menu options chosen</p>
+                        {% endfor %}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
