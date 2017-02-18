@@ -19,31 +19,49 @@ function initMap() {
     });
 
     infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-        location: pyrmont,
-        radius: 500,
-        type: ['store']
-    }, callback);
-}
-
-function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-        }
-    }
-}
-
-function createMarker(place) {
-    var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
+        position: pyrmont,
         map: map,
-        position: place.geometry.location
+        title: 'Hello World!'
     });
+    marker.setMap(map);
 
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-    });
+    var geocoder = new google.maps.Geocoder();
+    address = '1050 S. Stanley Pl';
+    geocodeAddress(geocoder, map, address)
 }
+
+geocodeAddress = function geocodeAddress(geocoder, resultsMap, address) {
+    geocoder.geocode({'address': address}, function (results, status) {
+        if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+};
+
+// function callback(results, status) {
+//     if (status === google.maps.places.PlacesServiceStatus.OK) {
+//         for (var i = 0; i < results.length; i++) {
+//             createMarker(results[i]);
+//         }
+//     }
+// }
+//
+// function createMarker(place) {
+//     var placeLoc = place.geometry.location;
+//     var marker = new google.maps.Marker({
+//         map: map,
+//         position: place.geometry.location
+//     });
+//
+//     google.maps.event.addListener(marker, 'click', function () {
+//         infowindow.setContent(place.name);
+//         infowindow.open(map, this);
+//     });
+// }
