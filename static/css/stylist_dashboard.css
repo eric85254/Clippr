@@ -8,13 +8,13 @@
 }
 
 .col-dashboard {
-    padding-right: (@spacer-y *1.5) !important
+    /*padding-right: (@spacer-y *1.5) !important;*/
     min-width: 250px;
 }
 
 .card-title {
     /*padding: 0;*/
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
 }
 
 #map-card {
