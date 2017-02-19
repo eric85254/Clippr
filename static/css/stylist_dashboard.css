@@ -13,8 +13,8 @@
 }
 
 .card-title {
-    /*padding: 0;*/
-    /*margin-bottom: 5px;*/
+    padding: 0;
+    margin-bottom: 5px;
 }
 
 #map-card {
@@ -35,20 +35,20 @@
     overflow-y: auto;
 }
 
-.nav-link {
+.toggle-tabs {
+    height: 25px;
+    /*padding: 0;*/
+}
+
+.toggle-item {
+    height: 25px;
+    /*padding: 0;*/
+}
+
+.toggle-link {
     height: 25px;
     padding-top: 0;
     font-size: 15px;
-}
-
-.nav-tabs {
-    height: 25px;
-    /*padding: 0;*/
-}
-
-.nav-item {
-    height: 25px;
-    /*padding: 0;*/
 }
 
 .tab-content {
