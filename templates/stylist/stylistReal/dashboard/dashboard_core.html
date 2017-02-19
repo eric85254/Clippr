@@ -14,39 +14,50 @@
 <body>
 
 {# ToDo: make nav bar a real actual navbar#}
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded ">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+<div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+    <div class="bg-inverse p-4">
+        <h4 class="text-white">Collapsed content</h4>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="navLogoff" href="{% url 'core:logout' %}">Logoff</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+            aria-expanded="false"
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">This is a placeholder</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
-            </li>
-        </ul>
+    <div class="collapse navbar-collapse">
+        <a class="navbar-brand text-right">Clippr</a>
+        <div class="container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:logout' %}">Logoff</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
 <div class="container">
-
     <div class="row p-3">
         <div class="col-lg-4">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Appointments</h4>
-                <ul class="nav nav-tabs justify-content-center" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#accepted_appointments" role="tab">
+                <ul class="nav nav-tabs justify-content-center toggle-tabs" role="tablist">
+                    <li class="nav-item toggle-item">
+                        <a class="nav-link toggle-link active" data-toggle="tab" href="#accepted_appointments"
+                           role="tab">
                             Accepted
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#pending_appointments" role="tab">
+                    <li class="nav-item toggle-item">
+                        <a class="nav-link toggle-link" data-toggle="tab" href="#pending_appointments" role="tab">
                             Requests
                         </a>
                     </li>
@@ -125,14 +136,14 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-title text-center">Reviews</h4>
-                <ul class="nav nav-tabs justify-content-center" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#complete_reviews" role="tab">
+                <ul class="nav nav-tabs toggle-tabs justify-content-center" role="tablist">
+                    <li class="nav-item toggle-item">
+                        <a class="nav-link toggle-link active" data-toggle="tab" href="#complete_reviews" role="tab">
                             Recent
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#pending_reviews" role="tab">
+                    <li class="nav-item toggle-item">
+                        <a class="nav-link toggle-link" data-toggle="tab" href="#pending_reviews" role="tab">
                             Incomplete
                         </a>
                     </li>
