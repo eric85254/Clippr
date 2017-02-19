@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
     url(r'^appointment/', include(appointmentpatterns)),
     url(r'^appointment/bill/', include(billpatterns)),
-    url(r'^transactions/$', views.transactions, name="transactions")
+    url(r'^transactions/$', views.transactions, name="transactions"),
+    url(r'^portfolio/$', views.portfolio, name="portfolio")
 ]
