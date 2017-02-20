@@ -83,8 +83,10 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_superuser:
             return User.objects.all()
+        elif user.is_anonymous:
+            return None
         else:
-            return User.objects.filter(username=user.username)
+            return User.objects.filter(email=user.email)
 
 '''
     STYLIST VIEW SET

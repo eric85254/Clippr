@@ -9,7 +9,9 @@ from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=150, unique=True, blank=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number']
+    username = models.CharField(max_length=1, unique=False, blank=True)
 
     is_stylist = models.CharField(max_length=3, default="NO")
     profile_picture = models.FileField(upload_to='profile_pictures/%Y/%m/%d', null=True, blank=True,
