@@ -4,7 +4,7 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
-router.register(r'user', views.UserViewSet)
+router.register(r'user', views.UserViewSet, 'user')
 router.register(r'appointment', views.AppointmentViewSet)
 router.register(r'haircut', views.HaircutViewSet)
 router.register(r'stylist', views.StylistViewSet, 'stylist')

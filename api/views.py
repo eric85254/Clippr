@@ -78,7 +78,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsCurrentUserOrSuperUser,)
-    lookup_field = 'username'
 
     def get_queryset(self):
         user = self.request.user
@@ -95,7 +94,6 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
     queryset = User.objects.all()
     serializer_class = StylistSerializer
     permission_classes = (IsUserLoggedIn,)
-    lookup_field = 'username'
 
     def get_queryset(self):
         return User.objects.filter(is_stylist='YES')

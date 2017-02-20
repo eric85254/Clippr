@@ -20,7 +20,7 @@ class UserLogic(object):
     @staticmethod
     def redirect_to_profile(request):
         user = request.user
-        if user is None:
+        if user.is_anonymous:
             request.session['error'] = "username or password is incorrect"
             return redirect('core:home_login')
 
