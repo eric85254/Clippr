@@ -7,7 +7,9 @@
         {% for portfolio_haircut in portfolio_haircuts %}
             <div class="col-lg-4 col-md-6 mb-3 mt-3">
                 <div class="card portfolio-card mr-3">
-                    <img class="card-img-top portfolio-image" src="{{ portfolio_haircut.picture.url }}"/>
+                    <div class="portfolio-image-sizing">
+                        <img class="card-img-top portfolio-image" src="{{ portfolio_haircut.picture.url }}"/>
+                    </div>
                     <div class="card-block">
                         <p class="card-text"> {{ portfolio_haircut.name }}
                             Price: {{ portfolio_haircut.price }}
