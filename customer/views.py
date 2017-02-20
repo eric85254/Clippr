@@ -10,7 +10,7 @@ from operator import __or__ as OR
 
 # from django.db.models import Q,
 from customer.utils.view_logic import CustomerLogic
-from stylist.models import PortfolioHaircut
+from stylist.models import PortfolioHaircut, StylistBridgeMenu
 from stylist.utils.view_logic import BillLogic
 
 '''
@@ -67,7 +67,6 @@ def create_appointment(request):
             new_appointment.customer = request.user
             new_appointment.stylist = User.objects.get(username=request.session['username'])
             new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
-            new_appointment.haircut = portfolio_haircut
             new_appointment.save()
 
             bill = ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
@@ -112,8 +111,10 @@ def obtain_stylist_profile(request):
             if 'username' in request.GET:
                 stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
                 portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
+                stylist_options = StylistBridgeMenu.objects.filter(stylist=stylist)
                 return render(request, 'customer/stylist_profile.html',
-                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts})
+                              {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts,
+                               'stylist_options': stylist_options})
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')
@@ -180,6 +181,7 @@ def reschedule_appointment(request):
     APPOINTMENT MODIFIERS
 '''
 
+
 def view_bill(request):
     if request.user.is_stylist == 'NO':
         if request.method == 'GET':
@@ -191,6 +193,7 @@ def view_bill(request):
             return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
+
 
 '''
     REVIEW

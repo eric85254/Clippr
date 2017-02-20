@@ -5,6 +5,13 @@
     {{ stylist.get_full_name|default:stylist.username }}'s Services and Haircuts.
 
     <hr>
+    <h1>MENU OPTIONS</h1>
+    {% for stylist_option in stylist_options %}
+        Name: {{ stylist_option.menu_option.name }} <br>
+        Description: {{ stylist_option.menu_option.description }} <br>
+        ---------------------------------- <br>
+    {% endfor %}
+
     <hr>
 
     {% for portfolio_haircut in portfolio_haircuts %}
@@ -22,4 +29,5 @@
 
         <hr>
     {% endfor %}
+
 {% endblock %}

@@ -9,6 +9,8 @@ from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 
 
 class User(AbstractUser):
+    # username = models.CharField(max_length=150, unique=False, blank=True)
+
     is_stylist = models.CharField(max_length=3, default="NO")
     profile_picture = models.FileField(upload_to='profile_pictures/%Y/%m/%d', null=True, blank=True,
                                        default=DEFAULT_PICTURE_LOCATION)
@@ -42,6 +44,7 @@ class Menu(models.Model):
 
 class ItemInBill(models.Model):
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
+    item_menu = models.ForeignKey('core.Menu', related_name='item_menu', null=True, blank=True)
     item_custom = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     appointment = models.ForeignKey('core.Appointment', on_delete=models.SET_NULL, null=True)
@@ -84,9 +87,6 @@ class Appointment(models.Model):
     location = models.CharField(max_length=500)
     date = models.DateTimeField(default=datetime.now)
     price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
-
-    # this field should be removed because customer's can choose more than one possible option.
-    haircut = models.ForeignKey('stylist.PortfolioHaircut', null=True, blank=True)
 
     status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)
 
