@@ -52,9 +52,6 @@ function newUserErrorHandling() {
                 if (data.email) {
                     email_error.innerHTML = data.email;
                 }
-                if (data.username) {
-                    username_error.innerHTML = data.username;
-                }
                 if(data.password2) {
                     password_error.innerHTML = data.password2;
                 }
