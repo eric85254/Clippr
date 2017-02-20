@@ -14,7 +14,7 @@ from stylist.models import PortfolioHaircut
 from stylist.utils.view_logic import BillLogic
 
 '''
-    MAIN MENU OPTIONS
+    NAV BAR OPTION
 '''
 
 
@@ -87,14 +87,8 @@ def create_appointment(request):
     else:
         chosen_stylist = 'Please select a stylist'
 
-    # ToDo: Get Rid of this if/else statement as well.
-    if 'menu_main' in request.session:
-        menu_main = Menu.objects.filter(category__icontains='main').get(name__icontains=request.session['menu_main'])
-    else:
-        menu_main = None
-
     return render(request, 'customer/create_appointment.html',
-                  {'chosen_stylist': chosen_stylist, 'menu_main': menu_main})
+                  {'chosen_stylist': chosen_stylist})
 
 
 '''

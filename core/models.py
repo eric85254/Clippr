@@ -23,6 +23,12 @@ class User(AbstractUser):
 
 
 class Menu(models.Model):
+    ADMIN = 'ADMIN'
+    STYLIST = 'STYLIST'
+
+    CREATED_BY = ((ADMIN, 'ADMIN'), (STYLIST, 'STYLIST'))
+
+    creator = models.TextField(choices=CREATED_BY, default=ADMIN)
     name = models.CharField(max_length=20)
     category = models.TextField(default='MAIN')
     # Might get rid of price.
