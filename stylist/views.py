@@ -267,6 +267,17 @@ def edit_portfoliohaircut(request):
         return redirect('core:logout')
 
 
+def delete_portfoliohaircut(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfolio_haircut_pk'))
+            haircut.delete()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
 '''
     MENU OPTION
 '''

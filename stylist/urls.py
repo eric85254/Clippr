@@ -25,11 +25,17 @@ profilepatterns = [
     url(r'^remove_menu_option/$', views.remove_menu_option, name="remove_menu_option"),
 ]
 
+portfoliopatterns = [
+    url('^$', views.portfolio, name="portfolio"),
+    url(r'^edit_portfoliohaircut/$', views.edit_portfoliohaircut, name='edit_portfoliohaircut'),
+    url(r'^delete_portfoliohaircut/$', views.delete_portfoliohaircut, name='delete_portfoliohaircut')
+]
+
 urlpatterns = [
     url(r'^profile/', include(profilepatterns)),
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
     url(r'^appointment/', include(appointmentpatterns)),
     url(r'^appointment/bill/', include(billpatterns)),
     url(r'^transactions/$', views.transactions, name="transactions"),
-    url(r'^portfolio/$', views.portfolio, name="portfolio")
+    url(r'^portfolio/', include(portfoliopatterns))
 ]
