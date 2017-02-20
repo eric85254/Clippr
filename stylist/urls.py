@@ -14,7 +14,8 @@ billpatterns = [
     url(r'^view_bill/$', views.view_bill, name='view_bill'),
     url(r'^delete_item/$', views.delete_item, name='delete_item'),
     url(r'^add_item/$', views.add_item, name='add_item'),
-    url(r'^add_haircut/$', views.add_haircut, name='add_haircut')
+    url(r'^add_haircut/$', views.add_haircut, name='add_haircut'),
+    url(r'^add_travel_fee/$', views.add_travel_fee, name='add_travel_fee')
 ]
 
 profilepatterns = [

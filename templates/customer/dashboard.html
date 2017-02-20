@@ -7,11 +7,15 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
+                <form action="{% url 'customer:view_bill' %}" method="get">
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="View Bill"/>
+                </form>
             </ul>
         {% endfor %}
     </div>
@@ -21,10 +25,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
 
                 <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Cancel"/>
@@ -37,6 +41,10 @@
                     <input type="submit" value="Reschedule"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
+                <form action="{% url 'customer:view_bill' %}" method="get">
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="View Bill"/>
+                </form>
                 <br>
                 -------------------------------- <br>
             </ul>
@@ -48,10 +56,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
                 <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Cancel"/>
@@ -64,6 +72,10 @@
                     <input type="submit" value="Reschedule"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
+                <form action="{% url 'customer:view_bill' %}" method="get">
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="View Bill"/>
+                </form>
             </ul>
         {% endfor %}
     </div>
@@ -73,10 +85,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
                 <form action="{% url 'customer:accept_appointment' %}" method="post"> {% csrf_token %}
                     <input type="submit" value="Accept"/>
@@ -93,6 +105,10 @@
                     <input type="submit" value="Reschedule"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
+                <form action="{% url 'customer:view_bill' %}" method="get">
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="View Bill"/>
+                </form>
             </ul>
         {% endfor %}
     </div>
@@ -102,11 +118,15 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
+                <form action="{% url 'customer:view_bill' %}" method="get">
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="View Bill"/>
+                </form>
             </ul>
         {% endfor %}
     </div>
@@ -116,10 +136,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ appointment.customer.get_full_name }} <br>
+                Stylist: {{ appointment.stylist.get_full_name }} <br>
                 Location: {{ appointment.location }} <br>
                 Time: {{ appointment.date|default_if_none:"" }} <br>
-                Price: {{ appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ appointment.price|default_if_none:"" }} <br>
                 -------------------------------- <br>
             </ul>
         {% endfor %}
@@ -133,10 +153,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                Stylist: {{ review.appointment.stylist.get_full_name }} <br>
                 Location: {{ review.appointment.location }} <br>
                 Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ review.appointment.price|default_if_none:"" }} <br>
                 <form action="{% url 'customer:submit_review' %}" method="post"> {% csrf_token %}
                     <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
                     <input type="number" name="rating" min="0" max="5"/>
@@ -150,10 +170,10 @@
             <ul>
                 -------------------------------- <br>
                 Appointment Details: <br>
-                Customer: {{ review.appointment.customer.get_full_name }} <br>
+                Stylist: {{ review.appointment.stylist.get_full_name }} <br>
                 Location: {{ review.appointment.location }} <br>
                 Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                Price: {{ review.appointment.haircut.price|default_if_none:"" }} <br>
+                Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
                 How you rated stylist: {{ review.stylist_rating }} <br>
                 Your Rating: {{ review.customer_rating }} <br>

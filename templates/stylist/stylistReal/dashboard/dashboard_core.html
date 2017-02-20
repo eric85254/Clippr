@@ -108,6 +108,13 @@
                                     <input type="submit" value="Reschedule"/>
                                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                                 </form>
+                                <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
+                                    <label for="travel_price">Travel Price:</label>
+                                    <input id="travel_price" name="travel_fee" type="number" min="0" max="50"
+                                           step=".01"/>
+                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                                    <input type="submit" value="Add Travel Fee.">
+                                </form>
                                 <br>
                                 -------------------------------- <br>
                             </ul>

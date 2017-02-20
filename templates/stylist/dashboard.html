@@ -12,7 +12,7 @@
                 Time: {{ appointment.date|default_if_none:"" }} <br>
                 Price: {{ appointment.price|default_if_none:"" }} <br>
 
-                <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                <form action="{% url 'stylist:view_bill' %}" method="get">
                     <input type="submit" value="View the Bill"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                 </form>
@@ -51,6 +51,12 @@
                     <input type="datetime-local" value="" name="date" id="date"/> <br>
                     <input type="submit" value="Reschedule"/>
                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                </form>
+                <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
+                    <label for="travel_price">Travel Fee:</label>
+                    <input id="travel_price" name="travel_fee" type="number" min="0" max="50" step=".01"/>
+                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    <input type="submit" value="Add Travel Fee."/>
                 </form>
                 <br>
                 -------------------------------- <br>

@@ -206,6 +206,26 @@ def add_haircut(request):
         return redirect('core:logout')
 
 
+def add_travel_fee(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
+            if (appointment.status is not Appointment.STATUS_COMPLETED) and (
+                        appointment.status is not Appointment.STATUS_ACCEPTED):
+                if ItemInBill.objects.filter(item_custom='Travel Fee', appointment=appointment).exists():
+                    item = ItemInBill.objects.get(item_custom='Travel Fee')
+                    item.price = request.POST.get('travel_fee')
+                else:
+                    item = ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
+                                                     appointment=appointment)
+                    item.save()
+                appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
+                BillLogic.update_price(appointment)
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
 '''
     PORTFOLIO HAIRCUT VIEWS
 '''

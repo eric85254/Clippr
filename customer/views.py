@@ -183,6 +183,22 @@ def reschedule_appointment(request):
 
 
 '''
+    APPOINTMENT MODIFIERS
+'''
+
+def view_bill(request):
+    if request.user.is_stylist == 'NO':
+        if request.method == 'GET':
+            appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
+            bill = ItemInBill.objects.filter(appointment=appointment)
+            request.session['appointment_for_bill'] = request.GET.get('appointment_pk')
+            return render(request, 'customer/view_bill.html', {'bill': bill})
+        else:
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+'''
     REVIEW
 '''
 
