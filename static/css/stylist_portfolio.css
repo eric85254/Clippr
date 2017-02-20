@@ -1,0 +1,9 @@
+.portfolio-card {
+    /*height: 100px;*/
+    width: 20rem;
+}
+
+.portfolio-image {
+    height: 100%;
+    width: 100%;
+}

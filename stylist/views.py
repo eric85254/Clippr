@@ -287,6 +287,17 @@ def edit_portfoliohaircut(request):
         return redirect('core:logout')
 
 
+def delete_portfoliohaircut(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfolio_haircut_pk'))
+            haircut.delete()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
 '''
     MENU OPTION
 '''
@@ -318,5 +329,21 @@ def remove_menu_option(request):
             stylist_selection = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
             stylist_selection.delete()
             return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('core:logout')
+
+
+def portfolio(request):
+    if request.user.is_stylist == 'YES':
+        full_name = request.user.get_full_name()
+
+        portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
+        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+
+        return render(request, 'stylist/stylistReal/portfolio/portfolio_core.html',
+                      {'full_name': full_name,
+                       'stylist': request.user,
+                       'portfolio_haircuts': portfolio_haircuts,
+                       'stylist_options': stylist_options}, )
     else:
         return redirect('core:logout')
