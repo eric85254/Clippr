@@ -2,7 +2,7 @@ from django.contrib import auth
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-from core.forms import NewUserForm
+from core.forms import NewUserForm, UserInformation
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from core.utils.view_logic import UserLogic
 
@@ -33,6 +33,7 @@ def create_user(request):
             return JsonResponse(data=data)
             # return redirect(request.META.get('HTTP_REFERER'))
 
+
 '''
     Returning User
 '''
@@ -45,7 +46,7 @@ def returning_user(request):
     if request.method == 'POST':
         user = UserLogic.retrieve_user(request)
         UserLogic.login(request, user)
-        return UserLogic.redirect_to_profile(request, user)
+        return UserLogic.redirect_to_profile(request)
 
 
 '''
@@ -59,7 +60,7 @@ def upload_picture(request):
 
     if request.method == 'POST':
         UserLogic.upload_picture(request)
-        return UserLogic.redirect_to_profile(request.user)
+        return UserLogic.redirect_to_profile(request)
 
 
 '''
@@ -79,11 +80,30 @@ def logout(request):
 
 def update_basic_information(request):
     if request.method == 'POST':
-        UserLogic.update_basic_information(request)
-        return UserLogic.redirect_to_profile(request.user)
+        information = UserInformation(request.POST)
+
+        if information.is_valid(request=request):
+            user = request.user
+            user.location = request.POST.get('location')
+            user.biography = request.POST.get('basic_information')
+            user.hair_type = request.POST.get('hair_type')
+            user.email = request.POST.get('email')
+            user.phone_number = request.POST.get('phone_number')
+            user.save()
+            return UserLogic.redirect_to_profile(request)
+        else:
+            request.session['information_errors'] = information.errors
+            return redirect('core:update_basic_information')
 
     if request.method == 'GET':
-        return render(request, 'core/basic_information.html', {'user': request.user})
+        if 'information_errors' in request.session:
+            errors = request.session['information_errors']
+
+        else:
+            errors = None
+
+        request.session['information_errors'] = None
+        return render(request, 'core/basic_information.html', {'user': request.user, 'errors': errors})
 
 
 '''

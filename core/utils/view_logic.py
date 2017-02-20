@@ -1,6 +1,8 @@
 from django.contrib import auth
 from django.shortcuts import redirect
 
+from core.forms import UserInformation
+
 
 class UserLogic(object):
     @staticmethod
@@ -16,7 +18,8 @@ class UserLogic(object):
             auth.login(request, user)
 
     @staticmethod
-    def redirect_to_profile(request, user):
+    def redirect_to_profile(request):
+        user = request.user
         if user is None:
             request.session['error'] = "username or password is incorrect"
             return redirect('core:home_login')
@@ -34,11 +37,4 @@ class UserLogic(object):
     def upload_picture(request):
         user = request.user
         user.profile_picture = request.FILES['profile_picture']
-        user.save()
-
-    @staticmethod
-    def update_basic_information(request):
-        user = request.user
-        user.location = request.POST.get('location')
-        user.biography = request.POST.get('basic_information')
         user.save()
