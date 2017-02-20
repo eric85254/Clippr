@@ -11,13 +11,15 @@ from stylist.models import PortfolioHaircut
         Hashed Password is created using the create method.
 '''
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:user-detail', lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(view_name='api:user-detail')
     profile_picture = serializers.FileField(default=DEFAULT_PICTURE_LOCATION)
 
     class Meta:
         model = User
-        fields = ('url', 'first_name', 'last_name', 'email', 'password', 'username', 'is_stylist', 'profile_picture')
+        fields = ('url', 'first_name', 'last_name', 'email', 'phone_number', 'password', 'is_stylist',
+                  'profile_picture')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -30,6 +32,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         return user
 
+
 '''
     Stylist Serializer.
         Similar to User Serializer but omits many unnecessary fields.
@@ -37,18 +40,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             Thus base_name = 'stylist' in urls.py
 '''
 
+
 class StylistSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail', lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail')
 
     class Meta:
         model = User
-        fields = ('url', 'first_name', 'last_name', 'username', 'profile_picture')
+        fields = ('url', 'first_name', 'last_name', 'profile_picture')
+
 
 '''
     Appointment Serializer
         Customer's can only pick stylists from a list of stylists hence the SlugRelatedField.
         Customer ties to UserSerializer.
 '''
+
 
 class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:appointment-detail')
@@ -61,9 +67,11 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
         model = Appointment
         fields = ('url', 'location', 'date', 'stylist', 'customer', 'status')
 
+
 '''
     PortfolioHaircut Serializer
 '''
+
 
 class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
@@ -74,9 +82,11 @@ class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
         model = PortfolioHaircut
         fields = ('url', 'stylist', 'picture', 'name', 'description', 'price')
 
+
 '''
     Menu Serializer
 '''
+
 
 class MenuSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:menu-detail')
@@ -84,4 +94,3 @@ class MenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Menu
         fields = ('url', 'name', 'category', 'price', 'picture', 'description')
-
