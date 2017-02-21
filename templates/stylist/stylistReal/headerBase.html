@@ -1,16 +1,5 @@
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Clippr</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <!-- Clippr CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_dashboard.css" %}">
 
 {# ToDo: make nav bar a real actual navbar#}
 <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
@@ -35,7 +24,13 @@
         <a class="navbar-brand text-right">Clippr</a>
         <div class="container">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li>
+                    <a class="nav-link" href="{% url 'stylist:portfolio' %}">Portfolio</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'stylist:profile_test' %}">Profile</a>
+                </li>
+                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'core:logout' %}">Logoff</a>
                 </li>
             </ul>
@@ -43,4 +38,3 @@
     </div>
 </nav>
 
-</head>
