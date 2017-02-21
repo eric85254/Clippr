@@ -13,7 +13,6 @@ var logInForm = document.getElementById("logInForm");
 
 // Error Variables
 var email_error = document.getElementById("email-error");
-var username_error = document.getElementById("username-error");
 var password_error = document.getElementById("password-error");
 var isStylist_error = document.getElementById("is_stylist-error");
 var phone_number_error = document.getElementById("phone_number-error");
@@ -27,7 +26,6 @@ function cleanUp() {
     confirmation.innerHTML = "";
 
     email_error.innerHTML = "";
-    username_error.innerHTML = "";
     password_error.innerHTML = "";
     isStylist_error.innerHTML = "";
     phone_number_error.innerHTML = "";
