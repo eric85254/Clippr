@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_profile.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_profile.css" %}">
 </head>
 <body>
 
@@ -18,9 +18,21 @@
 <div class="container">
     <div class="row">
         <div class="col-4">
-            <div class="card card-profile">
-                <div class="profile-image-sizing">
-                    <img class="card-img-top profile-image" src="{{ stylist.profile_picture.url }}"/>
+            <div class="card p-0">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="profile-image-sizing">
+                            <img class="card-img-top profile-image" src="{{ stylist.profile_picture.url }}"/>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-block pt-0">
+                            <h4 class="card-title">{{ full_name }}</h4>
+                            <p class="card-text">
+                                {{ stylist.biography|default_if_none:"Basic Information goes here." }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
