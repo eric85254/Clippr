@@ -24,6 +24,7 @@ profilepatterns = [
     url(r'^edit_portfoliohaircut/$', views.edit_portfoliohaircut, name='edit_portfoliohaircut'),
     url(r'select_menu_option/$', views.select_menu_option, name="select_menu_option"),
     url(r'^remove_menu_option/$', views.remove_menu_option, name="remove_menu_option"),
+    url(r'^test/$', views.profile_test, name='profile_test')
 ]
 
 portfoliopatterns = [
@@ -38,5 +39,6 @@ urlpatterns = [
     url(r'^appointment/', include(appointmentpatterns)),
     url(r'^appointment/bill/', include(billpatterns)),
     url(r'^transactions/$', views.transactions, name="transactions"),
-    url(r'^portfolio/', include(portfoliopatterns))
+    url(r'^portfolio/', include(portfoliopatterns)),
+    url(r'^profile_test/', include(profilepatterns))
 ]

@@ -1,10 +1,51 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clippr</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_profile.css"%}">
 </head>
 <body>
+
+{% include 'stylist/stylistReal/headerBase.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card card-profile">
+                <div class="profile-image-sizing">
+                    <img class="card-img-top profile-image" src="{{ stylist.profile_picture.url }}"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-block">
+                    <h5 class="card-title">About me</h5>
+                    <div class="card-text">
+                        This is where the about me section will be placed with all of the about me things that will
+                        totally
+                        be longer than this so I'm going to continue to ramble until I feel like it is long enough to
+                        work.
+                        There is it, that is totally long enough now. Tight
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% include 'stylist/stylistReal/footerBase.html' %}
+
+{% include 'master_scripts.html' %}
 
 </body>
 </html>

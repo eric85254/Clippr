@@ -1,5 +1,18 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clippr</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Clippr CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_dashboard.css" %}">
+</head>
+
 {% include 'stylist/stylistReal/headerBase.html' %}
 <body>
 <div class="container">
@@ -202,3 +215,10 @@
 </body>
 
 {% include 'stylist/stylistReal/footerBase.html' %}
+
+{% include 'master_scripts.html' %}
+
+<!-- Google Maps API JS -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrq-NzXNcxodOPZuljB7XBou8g-RjfMW4&libraries=places&callback=initMap"
+        async defer></script>
+<script src="{% static 'javascript/stylist_dashboard.js' %}"></script>

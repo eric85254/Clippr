@@ -1,15 +1,12 @@
 .portfolio-card {
-    /*height: 100px;*/
-    width: 150px;
+    width: 300px;
 }
 
 .portfolio-image {
     width: 100%;
-
 }
 
 .portfolio-image-sizing {
-    height:150px;
-    width: 150px;
-    /*padding-top: 25%;*/
+    height:300px;
+    width: 300px;
 }
