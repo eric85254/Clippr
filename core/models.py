@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 
 # Create your models here.
-from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
+from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
 
 
 class User(AbstractUser):
@@ -36,10 +36,10 @@ class Menu(models.Model):
     name = models.CharField(max_length=20)
     # ToDo: should we get rid of category?
     category = models.TextField(default='MAIN')
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    # price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     # Get rid of the picture field? Pictures are kinda covered by PortfolioHaircuts
-    picture = models.FileField(upload_to='menu/%Y/%m/%d', null=True, blank=True)
+    picture = models.FileField(upload_to='menu/%Y/%m/%d', null=True, blank=True, default=DEFAULT_MENU_PICTURE)
     description = models.TextField(blank=True)
 
     def __str__(self):

@@ -230,6 +230,7 @@ def add_travel_fee(request):
     PORTFOLIO HAIRCUT VIEWS
 '''
 
+
 def portfolio(request):
     if request.user.is_stylist == 'YES':
         full_name = request.user.get_full_name()
@@ -244,6 +245,7 @@ def portfolio(request):
                        'stylist_options': stylist_options}, )
     else:
         return redirect('core:logout')
+
 
 def upload_haircut(request):
     if request.user.is_stylist == 'YES':
@@ -356,16 +358,56 @@ def create_menu_option(request):
                 new_option = menu_option_form.save(commit=False)
 
                 if 'picture' in request.FILES:
-                    new_option.picture = request.FILES('picture')
+                    new_option.picture = request.FILES.get('picture')
                 new_option.creator = Menu.STYLIST
                 new_option.save()
 
-                StylistBridgeMenu.objects.create(stylist=request.user, menu_option=new_option)
+                StylistBridgeMenu.objects.create(stylist=request.user, menu_option=new_option,
+                                                 price=request.POST.get('price'))
 
                 return redirect('stylist:select_menu_option')
 
         if request.method == 'GET':
             return render(request, 'stylist/create_menu_option.html')
+    else:
+        return redirect('core:logout')
+
+
+def edit_menu_option(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
+            stylist_option.price = request.POST.get('price')
+            if 'picture' in request.FILES:
+                picture = request.FILES.get('picture')
+            else:
+                picture = None
+
+            if stylist_option.menu_option.creator == Menu.STYLIST:
+                stylist_option.menu_option.name = request.POST.get('name')
+                stylist_option.menu_option.description = request.POST.get('description')
+                stylist_option.menu_option.picture = picture
+                stylist_option.menu_option.save()
+
+            else:
+                StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).delete()
+                menu_option = Menu(
+                    creator=Menu.STYLIST,
+                    name=request.POST.get('name'),
+                    picture=picture,
+                    description=request.POST.get('description')
+                )
+                menu_option.save()
+                StylistBridgeMenu.objects.create(
+                    stylist=request.user,
+                    menu_option=menu_option,
+                    price=request.POST.get('price')
+                )
+            return redirect('stylist:select_menu_option')
+
+        if request.method == 'GET':
+            stylist_option = StylistBridgeMenu.objects.get(pk=request.GET.get('stylist_option_pk'))
+            return render(request, 'stylist/edit_menu_option.html', {'stylist_option': stylist_option})
     else:
         return redirect('core:logout')
 

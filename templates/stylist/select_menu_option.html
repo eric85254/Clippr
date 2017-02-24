@@ -20,9 +20,14 @@
         ---------------------------------- <br>
         Name: {{ stylist_option.menu_option.name }} <br>
         Description: {{ stylist_option.menu_option.description }} <br>
+        Price: {{ stylist_option.price|default_if_none:"Set a price!" }}
         <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
             <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
             <input type="submit" value="Remove"/>
+        </form>
+        <form action="{% url 'stylist:edit_menu_option' %}" method="get">
+            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+            <input type="submit" value="Edit Option"/>
         </form> <br>
         ---------------------------------- <br>
     {% endfor %}

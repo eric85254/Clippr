@@ -13,4 +13,4 @@ class NewPortfolioHaircutForm(ModelForm):
 class MenuOptionForm(ModelForm):
     class Meta:
         model = Menu
-        fields = ('name', 'price', 'description')
+        fields = ('name', 'description')

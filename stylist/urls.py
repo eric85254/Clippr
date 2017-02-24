@@ -33,7 +33,8 @@ portfoliopatterns = [
 menupatterns = [
     url(r'^select_menu_option/$', views.select_menu_option, name="select_menu_option"),
     url(r'^remove_menu_option/$', views.remove_menu_option, name="remove_menu_option"),
-    url(r'^create_menu_option/$', views.create_menu_option, name="create_menu_option")
+    url(r'^create_menu_option/$', views.create_menu_option, name="create_menu_option"),
+    url(r'^edit_menu_option/$', views.edit_menu_option, name="edit_menu_option")
 ]
 
 urlpatterns = [
