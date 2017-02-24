@@ -2,13 +2,16 @@ from django.contrib import auth
 from django.db.models import Q
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn, \
     OnlySuperUsersCanModify
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
@@ -21,6 +24,7 @@ from stylist.models import PortfolioHaircut
 '''
 
 @api_view(['POST', ])
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         username = request.data.get('username', '')
@@ -38,6 +42,7 @@ def user_login(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST', ])
+@csrf_exempt
 def user_logout(request):
     if request.method == 'POST':
         auth.logout(request)
@@ -78,6 +83,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsCurrentUserOrSuperUser,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
         user = self.request.user
@@ -96,6 +102,7 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
     queryset = User.objects.all()
     serializer_class = StylistSerializer
     permission_classes = (IsUserLoggedIn,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
         return User.objects.filter(is_stylist='YES')
@@ -108,6 +115,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
     permission_classes = (IsOwnerOfAppointment,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
         user = self.request.user
@@ -126,6 +134,7 @@ class HaircutViewSet(viewsets.ModelViewSet):
     queryset = PortfolioHaircut.objects.all()
     serializer_class = PortfolioHaircutSerializer
     permission_classes = (IsOwnerOfHaircut,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
         return PortfolioHaircut.objects.filter(stylist=self.request.user)
@@ -141,4 +150,5 @@ class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = (OnlySuperUsersCanModify,)
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
