@@ -8,7 +8,7 @@
         Description: {{ portfolio_haircut.description }} <br>
         <form action="{% url 'stylist:add_haircut' %}" method="post"> {% csrf_token %}
             <input type="hidden" name="portfoliohaircut_pk" value="{{ portfolio_haircut.pk }}"/>
-            <input type="submit" value="Edit Haircut"/>
+            <input type="submit" value="Add Haircut"/>
         </form>
         <hr>
     {% endfor %}

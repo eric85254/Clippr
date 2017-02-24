@@ -150,7 +150,7 @@ def view_bill(request):
             bill = ItemInBill.objects.filter(appointment=appointment)
 
             request.session['appointment_for_bill'] = request.GET.get('appointment_pk')
-            return render(request, 'stylist/view_bill.html', {'bill': bill})
+            return render(request, 'stylist/bill/view_bill.html', {'bill': bill})
         else:
             return redirect(request.META.get('HTTP_REFERER'))
     else:
@@ -173,7 +173,7 @@ def delete_item(request):
 def add_item(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
-            return render(request, 'stylist/add_item_form.html')
+            return render(request, 'stylist/bill/add_item_form.html')
         if request.method == 'POST':
             if 'custom' in request.POST:
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
@@ -193,7 +193,7 @@ def add_haircut(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
-            return render(request, 'stylist/add_haircut_toBill.html', {'portfolio_haircuts': portfolio_haircuts})
+            return render(request, 'stylist/bill/add_haircut_toBill.html', {'portfolio_haircuts': portfolio_haircuts})
         if request.method == 'POST':
             haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfoliohaircut_pk'))
             appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
@@ -324,7 +324,7 @@ def select_menu_option(request):
         if request.method == 'GET':
             menu_options = Menu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
             stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
-            return render(request, 'stylist/select_menu_option.html',
+            return render(request, 'stylist/menu/select_menu_option.html',
                           {'menu_options': menu_options, 'stylist_options': stylist_options})
 
         elif request.method == 'POST':
@@ -368,7 +368,7 @@ def create_menu_option(request):
                 return redirect('stylist:select_menu_option')
 
         if request.method == 'GET':
-            return render(request, 'stylist/create_menu_option.html')
+            return render(request, 'stylist/menu/create_menu_option.html')
     else:
         return redirect('core:logout')
 
@@ -407,7 +407,7 @@ def edit_menu_option(request):
 
         if request.method == 'GET':
             stylist_option = StylistBridgeMenu.objects.get(pk=request.GET.get('stylist_option_pk'))
-            return render(request, 'stylist/edit_menu_option.html', {'stylist_option': stylist_option})
+            return render(request, 'stylist/menu/edit_menu_option.html', {'stylist_option': stylist_option})
     else:
         return redirect('core:logout')
 

@@ -1,16 +1,16 @@
 {% extends 'customer/base.html' %}
 
 {% block main_content %}
-    {% for user in stylist_list %}
+    {% for stylist in stylist_list %}
         --------------------------------------------------------------------------
-        <img src="{{ user.stylist.stylist_picture.url }}" height="100px" width="100px">
+        <img src="{{ stylist.stylist.stylist_picture.url }}" height="100px" width="100px">
         <br>
-        {{ user.get_full_name }}
+        {{ stylist.get_full_name }}
         <br>
-        {{ user.stylist.biography }}
+        {{ stylist.stylist.biography }}
         <br>
         <form action="{% url 'customer:obtain_stylist_profile' %}" method="get">
-            <input type="hidden" name="username" value="{{ user.username }}"/>
+            <input type="hidden" name="stylist_pk" value="{{ stylist.pk }}"/>
             <input type="submit" name="SELECT" value="Select"/>
         </form>
         ---------------------------------------------------------------------------
