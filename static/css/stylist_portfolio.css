@@ -10,3 +10,11 @@
     height:300px;
     width: 300px;
 }
+
+.modal-header {
+    height: 30px;
+}
+
+#popup-image {
+    width: 100%
+}
