@@ -1,0 +1,23 @@
+{% extends 'stylist/base.html' %}
+
+
+{% block main_content %}
+    <form action="{% url 'stylist:edit_menu_option' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" value="{{ stylist_option.menu_option.name|default_if_none:"" }}"/> <br>
+
+        <label for="price">Price: </label>
+        <input type="number" min="0" step=".01" id="price" name="price" value="{{ stylist_option.price|default_if_none:"" }}"/> <br>
+
+        <label for="description">Description: </label>
+        <input type="text" id="description" name="description" value="{{ stylist_option.menu_option.description }}"/> <br>
+
+
+        <img src="{{ stylist_option.menu_option.picture.url }}">
+        <label for="picture">Picture: </label>
+        <input type="file" id="picture" name="picture"/>
+
+        <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+        <input type="submit" value="Submit"/>
+    </form>
+{% endblock %}

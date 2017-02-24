@@ -65,7 +65,7 @@ def create_appointment(request):
 
             new_appointment = create_appointment_form.save(commit=False)
             new_appointment.customer = request.user
-            new_appointment.stylist = User.objects.get(username=request.session['username'])
+            new_appointment.stylist = User.objects.get(pk=request.session['stylist_pk'])
             new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             new_appointment.save()
 
@@ -81,8 +81,8 @@ def create_appointment(request):
         return redirect('customer:dashboard')
 
     # ToDo: You can get rid of the following if/else statement and just use template code: {{ chosen_stylist.username | default_if_none:"PleaseSelectStylsit" }}
-    if 'username' in request.session:
-        chosen_stylist = User.objects.get(username=request.session['username'])
+    if 'stylist_pk' in request.session:
+        chosen_stylist = User.objects.get(pk=request.session['stylist_pk'])
     else:
         chosen_stylist = 'Please select a stylist'
 
@@ -108,8 +108,8 @@ def stylist_search(request):
 def obtain_stylist_profile(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
-            if 'username' in request.GET:
-                stylist = User.objects.get(username__icontains=request.GET.get('username'), is_stylist='YES')
+            if 'stylist_pk' in request.GET:
+                stylist = User.objects.get(pk=request.GET.get('stylist_pk'), is_stylist='YES')
                 portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
                 stylist_options = StylistBridgeMenu.objects.filter(stylist=stylist)
                 return render(request, 'customer/stylist_profile.html',
@@ -124,7 +124,7 @@ def obtain_selected_haircut(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
-            request.session['username'] = request.POST.get('username')
+            request.session['stylist_pk'] = request.POST.get('stylist_pk')
         return redirect('customer:create_appointment')
     else:
         return redirect('core:logout')

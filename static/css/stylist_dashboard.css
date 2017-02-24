@@ -12,37 +12,18 @@
     min-width: 250px;
 }
 
-.card-title {
-    padding: 0;
-    margin-bottom: 5px;
-}
-
 #map-card {
     margin-bottom: 1px;
-}
-
-.card-title {
-    font-size:                  20px;
-    background-color:           lightgray;
-    /*border:                     1px solid black;*/
-    border-top-right-radius:    .25rem;
-    border-top-left-radius:     .25rem;
-    /*font-size:                  15px;*/
-    box-shadow: 0 0 0 1px black;
 }
 
 .card-scroll {
     overflow-y: auto;
 }
 
-.toggle-tabs {
-    height: 25px;
-    /*padding: 0;*/
-}
-
-.toggle-item {
-    height: 25px;
-    /*padding: 0;*/
+.card-header {
+    height: 30px;
+    font-size: 20px;
+    padding: 5px;
 }
 
 .toggle-link {
@@ -54,13 +35,8 @@
 .tab-content {
     overflow-y: auto;
     position: absolute;
-    top: 52px;
+    top: 55px;
     bottom: 0;
     right: 0;
     left: 0;
-}
-
-.appointment_block {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 }
