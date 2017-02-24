@@ -124,6 +124,9 @@ def home_stylist(request):
 
 
 def home_login(request):
+    if not request.user.is_anonymous:
+        return UserLogic.redirect_to_profile(request)
+
     if 'error' in request.session:
         error = request.session['error']
 
