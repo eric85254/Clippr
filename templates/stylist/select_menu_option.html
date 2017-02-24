@@ -1,6 +1,7 @@
 {% extends 'stylist/base.html' %}
 
 {% block main_content %}
+    <a href="{% url 'stylist:create_menu_option' %}">Create Menu Option?</a> <br>
     Menu Options You Haven't Selected: <br>
     {% for menu_option in menu_options %}
         ------------------------------ <br>

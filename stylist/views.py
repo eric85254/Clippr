@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 
 from core.models import Appointment, Menu, ItemInBill, Review
-from stylist.forms import NewPortfolioHaircutForm
+from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
 from stylist.models import PortfolioHaircut, StylistBridgeMenu
 from stylist.utils.view_logic import BillLogic
 
@@ -347,6 +347,32 @@ def remove_menu_option(request):
         return redirect('core:logout')
 
 
+def create_menu_option(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            menu_option_form = MenuOptionForm(request.POST)
+
+            if menu_option_form.is_valid():
+                new_option = menu_option_form.save(commit=False)
+
+                if 'picture' in request.FILES:
+                    new_option.picture = request.FILES('picture')
+                new_option.creator = Menu.STYLIST
+                new_option.save()
+
+                StylistBridgeMenu.objects.create(stylist=request.user, menu_option=new_option)
+
+                return redirect('stylist:select_menu_option')
+
+        if request.method == 'GET':
+            return render(request, 'stylist/create_menu_option.html')
+    else:
+        return redirect('core:logout')
+
+
+'''
+    NEW DEVELOPMENT
+'''
 
 
 def profile_test(request):
