@@ -1,12 +1,26 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clippr</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Clippr CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_portfolio.css" %}">
+</head>
+
 {% include 'stylist/stylistReal/headerBase.html' %}
+
 <body>
 <div class="container">
     <div class="row">
         {% for portfolio_haircut in portfolio_haircuts %}
-            <div class="col-lg-4 col-md-6 mb-3 mt-3">
-                <div class="card portfolio-card mr-3">
+            <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
+                <div class="card portfolio-card mr-md-3">
                     <div class="portfolio-image-sizing">
                         <img class="card-img-top portfolio-image" src="{{ portfolio_haircut.picture.url }}"/>
                     </div>

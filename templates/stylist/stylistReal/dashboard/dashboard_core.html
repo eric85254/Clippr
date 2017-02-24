@@ -1,12 +1,25 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clippr</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Clippr CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/stylist_dashboard.css" %}">
+</head>
+
 {% include 'stylist/stylistReal/headerBase.html' %}
 <body>
 <div class="container">
     <div class="row p-3">
         <div class="col-lg-4">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Appointments</h4>
+                <h4 class="card-header">Appointments</h4>
                 <ul class="nav nav-tabs justify-content-center toggle-tabs" role="tablist">
                     <li class="nav-item toggle-item">
                         <a class="nav-link toggle-link active" data-toggle="tab" href="#accepted_appointments"
@@ -20,7 +33,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content card-scroll">
                     <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
                         {% for appointment in accepted_appointments %}
                             <ul>
@@ -96,7 +109,7 @@
         </div>
         <div class="col-lg-8">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center" id="map-card">Map</h4>
+                <h4 class="card-header" id="map-card">Map</h4>
                 <div class="card-block" id="map"></div>
             </div>
         </div>
@@ -104,7 +117,7 @@
     <div class="row p-3">
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Reviews</h4>
+                <h4 class="card-header">Reviews</h4>
                 <ul class="nav nav-tabs toggle-tabs justify-content-center" role="tablist">
                     <li class="nav-item toggle-item">
                         <a class="nav-link toggle-link active" data-toggle="tab" href="#complete_reviews" role="tab">
@@ -164,7 +177,7 @@
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Create a Deal</h4>
+                <h4 class="card-header">Create a Deal</h4>
                 <div class="card-scroll">
                     <p class="card-text"> Some quick example text to build on the card title
                         and make up the bulk of the card's content.
@@ -174,7 +187,7 @@
         </div>
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
-                <h4 class="card-title text-center">Your Menu</h4>
+                <h4 class="card-header">Your Menu</h4>
                 <div class="card-scroll">
                     <p class="card-text">
                         Menu Options you've selected: <br>
@@ -202,3 +215,10 @@
 </body>
 
 {% include 'stylist/stylistReal/footerBase.html' %}
+
+{% include 'master_scripts.html' %}
+
+<!-- Google Maps API JS -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrq-NzXNcxodOPZuljB7XBou8g-RjfMW4&libraries=places&callback=initMap"
+        async defer></script>
+<script src="{% static 'javascript/stylist_dashboard.js' %}"></script>

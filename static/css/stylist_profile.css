@@ -1,0 +1,33 @@
+/*.profile-description {*/
+/*margin-top:0*/
+/*}*/
+
+.profile-image-sizing {
+    height: 130px;
+    width: 130px;
+}
+
+.profile-image {
+    width: 100%;
+}
+
+.card-scroll {
+    overflow-y: auto;
+}
+
+.card-menu {
+    height: 350px;
+}
+
+.portfolio-card {
+    width: 300px;
+}
+
+.portfolio-image {
+    width: 100%;
+}
+
+.portfolio-image-sizing {
+    height:300px;
+    width: 300px;
+}
