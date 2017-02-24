@@ -18,18 +18,20 @@
 <div class="container">
     <div class="row pt-3">
         <div class="col-5">
-            <div class="card p-0">
+            <div class="card p-1">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="profile-image-sizing">
-                            <img class="card-img-top profile-image" src="{{ stylist.profile_picture.url }}"/>
+                    <div class="col-0">
+                        <div class="card-block pt-0">
+                            <div class="profile-image-sizing">
+                                <img class="card-img-top profile-image" src="{{ stylist.profile_picture.url }}"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-2">
                         <div class="card-block pt-0">
                             <h4 class="card-title">{{ full_name }}</h4>
                             <p class="card-text">
-                                {{ stylist.biography|default_if_none:"Basic Information goes here." }}
+{#                                {{ stylist.biography|default_if_none:"Basic Information goes here." }}#}
                             </p>
                         </div>
                     </div>
@@ -41,22 +43,20 @@
                 <div class="card-block">
                     <h5 class="card-title">About me</h5>
                     <div class="card-text">
-                        This is where the about me section will be placed with all of the about me things that will
-                        totally be longer than this so I'm going to continue to ramble until I feel like it is long
-                        enough to work.There is it, that is totally long enough now. Tight
+                        {{ stylist.biography|default_if_none:"Basic Information goes here." }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row pt-4">
         <div class="col-3">
             <div class="card card-menu">
                 <h6 class="card-header">Menu</h6>
                 <div class="card-block card-scroll">
                     <p class="card-text">
                         Menu Options you've selected: <br>
-                        ---------------------------------- <br>
+                        ------------------------------ <br>
                         <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
 
                         {% for stylist_option in stylist_options %}
@@ -66,7 +66,7 @@
                                 <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
                                 <input type="submit" value="Remove"/>
                             </form> <br>
-                            ---------------------------------- <br>
+                            ------------------------------ <br>
                         {% empty %}
                             <p>no menu options chosen</p>
                         {% endfor %}
@@ -80,28 +80,33 @@
                 <div class="card-block">
                     <div class="row">
                         {% for portfolio_haircut in portfolio_haircuts %}
-                            <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
+                            <div class="col-lg-6 col-md-6 mb-3 mt-3 d-flex justify-content-center">
                                 <div class="card portfolio-card mr-md-3">
                                     <div class="portfolio-image-sizing">
                                         <img class="card-img-top portfolio-image"
                                              src="{{ portfolio_haircut.picture.url }}"/>
                                     </div>
                                     <div class="card-block">
-                                        <p class="card-text"> {{ portfolio_haircut.name }}
-                                            Price: {{ portfolio_haircut.price }}
-                                            Descriptrion: {{ portfolio_haircut.description }}</p>
-                                        <form action="{% url 'stylist:edit_portfoliohaircut' %}"
+                                        <p class="card-title">
+                                            {{ portfolio_haircut.name }} <br>
+                                        </p>
+                                        <p class="card-text">
+                                            Descriptrion: {{ portfolio_haircut.description }} <br>
+                                            Price: {{ portfolio_haircut.price }} <br>
+                                        </p>
+                                        <form class= action="{% url 'stylist:edit_portfoliohaircut' %}"
                                               method="get"> {% csrf_token %}
                                             <input type="hidden" name="portfoliohaircut_pk"
                                                    value="{{ portfolio_haircut.pk }}"/>
                                             <input type="submit" value="Edit Haircut"/>
+                                            <form action="{% url 'stylist:delete_portfoliohaircut' %}"
+                                                  method="post"> {% csrf_token %}
+                                                <input type="submit" value="Delete Item"/>
+                                                <input type="hidden" name="portfolio_haircut_pk"
+                                                       value="{{ portfolio_haircut.pk }}"/>
+                                            </form>
                                         </form>
-                                        <form action="{% url 'stylist:delete_portfoliohaircut' %}"
-                                              method="post"> {% csrf_token %}
-                                            <input type="submit" value="Delete Item"/>
-                                            <input type="hidden" name="portfolio_haircut_pk"
-                                                   value="{{ portfolio_haircut.pk }}"/>
-                                        </form>
+                                        </>
                                     </div>
                                 </div>
                             </div>
