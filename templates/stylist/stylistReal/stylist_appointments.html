@@ -22,11 +22,11 @@
                    role="tab">Accepted</a>
                 <a class="nav-link" data-toggle="tab" href="#pending_appointments"
                    role="tab">Requests</a>
-                <a class="nav-link" data-toggle="tab" href="#rescheduled_apointments"
+                <a class="nav-link" data-toggle="tab" href="#rescheduled_appointments"
                    role="tab">Rescheduled</a>
-                <a class="nav-link" data-toggle="tab" href="#complete_apointments"
+                <a class="nav-link" data-toggle="tab" href="#complete_appointments"
                    role="tab">Complete</a>
-                <a class="nav-link" data-toggle="tab" href="#declined_apointments"
+                <a class="nav-link" data-toggle="tab" href="#declined_appointments"
                    role="tab">Declined</a>
 
             </nav>
@@ -103,10 +103,64 @@
                         There are no pending appointments at this time <br>
                     {% endfor %}
                 </div>
-                <div class="tab-pane" id="rescheduled_apointments" role="tabpanel">
-                    Rescheduled Appointments tab
+                <div class="tab-pane" id="rescheduled_appointments" role="tabpanel">
+                    {% for appointment in rescheduled_appointments %}
+                        {% if appointment.status == customer_reschedule %}
+                            -------------------------------- <br>
+                            RESCHEDULED BY CUSTOMER <br>
+                            Appointment Details: <br>
+                            Customer: {{ appointment.customer.get_full_name }} <br>
+                            Location: {{ appointment.location }} <br>
+                            Time: {{ appointment.date|default_if_none:"" }} <br>
+                            Price: {{ appointment.price|default_if_none:"" }} <br>
+
+                            <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
+                                <input type="submit" value="Accept"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
+                                <input type="submit" value="Decline"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            <form action="{% url 'stylist:reschedule_appointment' %}" method="post"> {% csrf_token %}
+                                <label for="date">Date: </label>
+                                <input type="datetime-local" value="" name="date" id="date"/> <br>
+                                <input type="submit" value="Reschedule"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            -------------------------------- <br>
+                        {% endif %}
+                        {% if appointment.status == stylist_reschedule %}
+                            -------------------------------- <br>
+                            RESCHEDULED BY YOU <br>
+                            Appointment Details: <br>
+                            Customer: {{ appointment.customer.get_full_name }} <br>
+                            Location: {{ appointment.location }} <br>
+                            Time: {{ appointment.date|default_if_none:"" }} <br>
+                            Price: {{ appointment.price|default_if_none:"" }} <br>
+
+                            <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
+                                <input type="submit" value="Decline"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            <form action="{% url 'stylist:reschedule_appointment' %}" method="post"> {% csrf_token %}
+                                <label for="date">Date: </label>
+                                <input type="datetime-local" value="" name="date" id="date"/> <br>
+                                <input type="submit" value="Reschedule"/>
+                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                            </form>
+                            <br>
+                            -------------------------------- <br>
+                        {% endif %}
+
+
+                    {% endfor %}
                 </div>
-                <div class="tab-pane" id="complete_apointments" role="tabpanel">
+                <div class="tab-pane" id="complete_appointments" role="tabpanel">
                     {% for appointment in completed_appointments %}
                         <ul>
                             -------------------------------- <br>
@@ -121,7 +175,7 @@
                         There is nothing here yet!
                     {% endfor %}
                 </div>
-                <div class="tab-pane" id="declined_apointments" role="tabpanel">
+                <div class="tab-pane" id="declined_appointments" role="tabpanel">
                     {% for appointment in declined_appointments %}
                         <ul>
                             -------------------------------- <br>

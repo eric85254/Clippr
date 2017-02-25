@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.db.models import Q
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
@@ -80,19 +82,18 @@ def appointments(request):
         pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING)
         accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED)
         declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
-        rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
-                                                                        status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
-        rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
-                                                                         status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+
+        rescheduled_appointments = Appointment.objects.filter((Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)), stylist=request.user).order_by('-date')
         completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
 
         return render(request, 'stylist/stylistReal/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
+                       'stylist_reschedule': Appointment.STATUS_RECHEDULED_BYSTYLIST,
+                       'customer_reschedule': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
                        'pending_appointments': pending_appointments,
                        'accepted_appointments': accepted_appointments,
                        'declined_appointments': declined_appointments,
-                       'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
-                       'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
+                       'rescheduled_appointments': rescheduled_appointments,
                        'completed_appointments': completed_appointments})
     else:
         return redirect('core:logout')
