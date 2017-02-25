@@ -12,7 +12,8 @@
 }
 
 .modal-header {
-    height: 30px;
+    height: 0px;
+    border: 0;
 }
 
 #popup-image {
