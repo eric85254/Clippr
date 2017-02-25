@@ -45,5 +45,6 @@ urlpatterns = [
     url(r'^transactions/$', views.transactions, name="transactions"),
     url(r'^portfolio/', include(portfoliopatterns)),
     url(r'^profile_test/', include(profilepatterns)),
-    url(r'^menu/', include(menupatterns))
+    url(r'^menu/', include(menupatterns)),
+    url(r'^appointments/', views.appointments, name="appointments")
 ]

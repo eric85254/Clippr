@@ -12,23 +12,24 @@
     min-width: 250px;
 }
 
-#map-card {
-    margin-bottom: 1px;
-}
+/*#map-card {*/
+    /*margin-bottom: 1px;*/
+/*}*/
 
 .card-scroll {
     overflow-y: auto;
 }
 
 .card-header {
-    height: 30px;
+    height: 25px;
     font-size: 20px;
-    padding: 5px;
+    padding-top: 0 !important;
+    text-align: center;
 }
 
 .toggle-link {
     height: 25px;
-    padding-top: 0;
+    padding-top: 0 !important;
     font-size: 15px;
 }
 

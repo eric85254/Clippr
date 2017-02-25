@@ -1,20 +1,5 @@
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Clippr</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-</head>
-
-
-
-<body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -57,17 +42,6 @@
         </div>
     </div>
 </nav>
-
-{% block main_content %}
-{% endblock %}
-
-{#Add footer here#}
-
-{% include 'master_scripts.html' %}
-
-<script src="{% static "javascript/core.js" %}"></script>
-
-</body>
 
 
 

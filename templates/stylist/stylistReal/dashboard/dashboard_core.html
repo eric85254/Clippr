@@ -19,7 +19,9 @@
     <div class="row p-3">
         <div class="col-lg-4">
             <div class="card card-dashboard">
-                <h4 class="card-header">Appointments</h4>
+                <a class="card-header" href="{% url 'stylist:appointments' %}">
+                    <h4 class="card-header">Appointments</h4>
+                </a>
                 <ul class="nav nav-tabs justify-content-center toggle-tabs" role="tablist">
                     <li class="nav-item toggle-item">
                         <a class="nav-link toggle-link active" data-toggle="tab" href="#accepted_appointments"
@@ -147,9 +149,9 @@
                             </ul>
                         {% empty %}
                             You have no reviews yet!  <br>
-                            After your first appointment your most recent <br>
-                            reviews will appear here, but only after you <br>
-                            give a review to the customer as well! <br>
+                            After your first appointment your most recent
+                            reviews will appear here, but only after you
+                            give a review to the customer as well!
                         {% endfor %}
                     </div>
                     <div class="tab-pane" id="pending_reviews" role="tabpanel">
