@@ -15,7 +15,7 @@ class EmailPhoneNumberOrUsernameModelBackend(object):
         elif phone_pattern.match(username):
             kwargs = {'phone_number': username}
         else:
-            kwargs = {'username': username}
+            kwargs = {'username': None}
 
         try:
             user = UserModel.objects.get(**kwargs)
