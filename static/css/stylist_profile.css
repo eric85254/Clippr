@@ -20,7 +20,7 @@
 }
 
 .portfolio-card {
-    width: 300px;
+    width: 220px;
 }
 
 .portfolio-image {
@@ -28,8 +28,8 @@
 }
 
 .portfolio-image-sizing {
-    height:300px;
-    width: 300px;
+    height:220px;
+    width: 220px;
 }
 
 .card-header {
@@ -37,4 +37,8 @@
     font-size: 17px;
     padding-top: 2px !important;
     text-align: center;
+}
+
+#name {
+    text-align: end;
 }
