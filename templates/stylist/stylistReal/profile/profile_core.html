@@ -76,7 +76,7 @@
                 <h6 class="card-header">Portfolio</h6>
                 <div class="card-block">
                     <div class="row pl-3">
-                        {% for portfolio_haircut in portfolio_haircuts %}
+                        {% for portfolio_haircut in portfolio_haircuts|slice:":6" %}
                             <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
                                 <div class="card portfolio-card mr-md-3">
                                     <div class="portfolio-image-sizing">
@@ -108,13 +108,15 @@
             </div>
         </div>
     </div>
-
-
 </div>
+
+<!-- For popup image on click -->
+{% include 'stylist/stylistReal/portfolio/portfolio_popup.html' %}
 
 {% include 'stylist/stylistReal/footerBase.html' %}
 
 {% include 'master_scripts.html' %}
+<script src="{% static 'javascript/stylist_portfolio.js' %}"></script>
 
 </body>
 </html>

@@ -42,3 +42,12 @@
 #name {
     text-align: end;
 }
+
+.modal-header {
+    height: 0px;
+    border: 0;
+}
+
+#popup-image {
+    width: 100%
+}
