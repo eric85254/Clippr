@@ -31,3 +31,10 @@
     height:300px;
     width: 300px;
 }
+
+.card-header {
+    height: 25px;
+    font-size: 17px;
+    padding-top: 2px !important;
+    text-align: center;
+}
