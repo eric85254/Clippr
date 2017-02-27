@@ -94,5 +94,7 @@ function showMarkerOnMap(button) {
 }
 
 $(".menu-option").click(function() {
-    $("#collapseTwo").collapse('toggle');
+    var tmp = $(this).attr("role");
+    // console.log(tmp);
+    $('#' + tmp).collapse('toggle');
 })
