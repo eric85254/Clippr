@@ -190,24 +190,48 @@
         <div class="col-md-4 hidden-md-down">
             <div class="card card-dashboard">
                 <h4 class="card-header">Your Menu</h4>
-                <div class="card-scroll">
-                    <p class="card-text">
-                        Menu Options you've selected: <br>
-                        ---------------------------------- <br>
-                        <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
-
-                        {% for stylist_option in stylist_options %}
-                            Name: {{ stylist_option.menu_option.name }} <br>
-                            Description: {{ stylist_option.menu_option.description }} <br>
-                            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                                <input type="submit" value="Remove"/>
-                            </form> <br>
-                            ---------------------------------- <br>
-                        {% empty %}
-                            <p>no menu options chosen</p>
-                        {% endfor %}
-                    </p>
+                <div class="card-block card-scroll">
+                    <a href="{% url 'stylist:select_menu_option' %}">Edit your menu</a> <br>
+                    Menu Options you've selected: <br>
+                    <hr>
+                    {% for stylist_option in stylist_options %}
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <a class="menu-option" role="collapseTwo">
+                                           {{ stylist_option.menu_option.name }}
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse">
+                                    <div class="card-block">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#                        <div class="card">#}
+                        {#                            <div class="card-block">#}
+                        {#                                <p class="card-text"> Name: {{ stylist_option.menu_option.name }} </p>#}
+                        {#                                 <p class="card-text"> Description: {{ stylist_option.menu_option.description }} </p>#}
+                        {#                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}#}
+                        {#                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>#}
+                        {#                                    <input type="submit" value="Remove"/>#}
+                        {#                                </form>#}
+                        {#                                <br>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                    {% empty %}
+                        <p>no menu options chosen</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

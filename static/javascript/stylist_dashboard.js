@@ -92,3 +92,7 @@ function initMap() {
 function showMarkerOnMap(button) {
     geocodeAddress(geocoder, map, button.value); //address is located in button value
 }
+
+$(".menu-option").click(function() {
+    $("#collapseTwo").collapse('toggle');
+})
