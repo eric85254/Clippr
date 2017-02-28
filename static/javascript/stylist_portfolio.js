@@ -9,5 +9,5 @@ $(".portfolio-image").click(function() {
 })
 
 $(document).keyup(function(e) {
-        if (e.keyCode ==27) $("#popup-modal").modal("hide");
+        if ((e.keyCode ==27) && ($('#popup-modal').hasClass("show"))) $("#popup-modal").modal("hide");
     })
