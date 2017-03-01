@@ -29,6 +29,12 @@
             <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
             <input type="submit" value="Edit Option"/>
         </form> <br>
+        {% if stylist_option.menu_option.creator == creator_stylist %}
+            <form action="{% url 'stylist:delete_menu_option' %}" method="post">{% csrf_token %}
+                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+                <input type="submit" value="Delete"/>
+            </form>
+        {% endif %}
         ---------------------------------- <br>
     {% endfor %}
 

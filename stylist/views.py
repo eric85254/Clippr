@@ -349,7 +349,7 @@ def select_menu_option(request):
             menu_options = Menu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
             stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/menu/select_menu_option.html',
-                          {'menu_options': menu_options, 'stylist_options': stylist_options})
+                          {'menu_options': menu_options, 'stylist_options': stylist_options, 'creator_stylist': Menu.STYLIST})
 
         elif request.method == 'POST':
             menu_option = Menu.objects.get(pk=request.POST.get('menu_option_pk'))
@@ -432,6 +432,16 @@ def edit_menu_option(request):
         if request.method == 'GET':
             stylist_option = StylistBridgeMenu.objects.get(pk=request.GET.get('stylist_option_pk'))
             return render(request, 'stylist/menu/edit_menu_option.html', {'stylist_option': stylist_option})
+    else:
+        return redirect('core:logout')
+
+
+def delete_menu_option(request):
+    if request.user.is_stylist == 'YES':
+        if request.method == 'POST':
+            stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
+            stylist_option.menu_option.delete()
+            return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
 
