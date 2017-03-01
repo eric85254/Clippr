@@ -20,7 +20,8 @@ navbarpatterns = [
 profilepatterns = [
     url(r'^upload_picture/$', views.upload_picture, name="upload_picture"),
     url(r'^logout/$', views.logout, name="logout"),
-    url(r'^update_basic_information/$', views.update_basic_information, name="update_basic_information")
+    url(r'^update_basic_information/$', views.update_basic_information, name="update_basic_information"),
+    url(r'^change_password/$', views.change_password, name="change_password")
 ]
 
 urlpatterns = [

@@ -74,7 +74,7 @@ def logout(request):
 
 
 '''
-    Update Basic Information
+    Update Information
 '''
 
 
@@ -105,6 +105,31 @@ def update_basic_information(request):
         request.session['information_errors'] = None
         return render(request, 'core/basic_information.html', {'user': request.user, 'errors': errors})
 
+
+def change_password(request):
+    if not request.user.is_anonymous:
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            new_password_repeat = request.POST.get('new_password_repeat')
+
+            if new_password == new_password_repeat:
+                request.user.set_password(new_password)
+                request.user.save()
+                auth.login(request, request.user)
+                return UserLogic.redirect_to_profile(request)
+            else:
+                request.session['password_error'] = "Passwords don't match."
+                return redirect('core:change_password')
+
+        if request.method == 'GET':
+            if 'password_error' in request.session:
+                password_error = request.session.get('password_error')
+            else:
+                password_error = None
+            request.session['password_error'] = None
+            return render(request, 'core/change_password.html', {'password_error': password_error})
+    else:
+        return redirect('core:logout')
 
 '''
     NAV BAR
