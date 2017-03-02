@@ -41,3 +41,7 @@
     right: 0;
     left: 0;
 }
+
+.appointment-block {
+    min-height:40px;
+}

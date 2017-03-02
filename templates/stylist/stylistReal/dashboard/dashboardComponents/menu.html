@@ -5,21 +5,19 @@
     <div class="card-block card-scroll px-1">
         {% for stylist_option in stylist_options %}
             <div id="accordion" role="tablist" aria-multiselectable="true">
-{#                <div class="card">#}
-                    <div role="tab" id="headingTwo">
-                        <h5 class="mb-0">
-                            <a class="menu-option d-flex flex-nowrap justify-content-end" role="{{ forloop.counter }}">
-                                <div class="mr-auto p-0">{{ stylist_option.menu_option.name }}</div>
-                                <div class="p-0"> ${{ stylist_option.price }} </div>
-                            </a>
-                        </h5>
+                <div role="tab" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a class="menu-option d-flex flex-nowrap justify-content-end" role="{{ forloop.counter }}">
+                            <div class="mr-auto p-0">{{ stylist_option.menu_option.name }}</div>
+                            <div class="p-0"> ${{ stylist_option.price }} </div>
+                        </a>
+                    </h5>
+                </div>
+                <div id="{{ forloop.counter }}" class="collapse">
+                    <div class="card-block">
+                        {{ stylist_option.menu_option.description }}
                     </div>
-                    <div id="{{ forloop.counter }}" class="collapse">
-                        <div class="card-block">
-                            {{ stylist_option.menu_option.description }}
-                        </div>
-                    </div>
-{#                </div>#}
+                </div>
             </div>
         {% empty %}
             <p>no menu options chosen</p>
