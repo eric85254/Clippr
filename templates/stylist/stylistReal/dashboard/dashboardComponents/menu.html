@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<div class="card card-dashboard">
+    <h4 class="card-header">Your Menu</h4>
+    <div class="card-block card-scroll">
+        <a href="{% url 'stylist:select_menu_option' %}">Edit your menu</a> <br>
+        Menu Options you've selected: <br>
+        <hr>
+        {% for stylist_option in stylist_options %}
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingTwo">
+                        <h5 class="mb-0">
+                            <a class="menu-option" role="{{ forloop.counter }}">
+                                {{ stylist_option.menu_option.name }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="{{ forloop.counter }}" class="collapse">
+                        <div class="card-block">
+                            {{ stylist_option.menu_option.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>no menu options chosen</p>
+        {% endfor %}
+    </div>
+</div>

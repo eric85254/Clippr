@@ -16,7 +16,7 @@
 {% include 'stylist/stylistReal/headerBase.html' %}
 
 <div class="container">
-    <div class="row pt-3">
+    <div class="row pt-3 pb-3">
         <div class="col-5">
             <div class="card p-0">
                 <div class="row">
@@ -26,10 +26,9 @@
                         </div>
                     </div>
                     <div class="col-8">
-                        <div class="card-block pt-0">
-                            <h4 class="card-title">{{ full_name }}</h4>
+                        <div class="card-block pt-2">
+                            <h4 class="card-title" id="name">{{ full_name }}</h4>
                             <p class="card-text">
-                                {{ stylist.biography|default_if_none:"Basic Information goes here." }}
                             </p>
                         </div>
                     </div>
@@ -38,19 +37,17 @@
         </div>
         <div class="col-7">
             <div class="card">
-                <div class="card-block">
+                <div class="card-block pt-2">
                     <h5 class="card-title">About me</h5>
                     <div class="card-text">
-                        This is where the about me section will be placed with all of the about me things that will
-                        totally be longer than this so I'm going to continue to ramble until I feel like it is long
-                        enough to work.There is it, that is totally long enough now. Tight
+                        {{ stylist.biography|default_if_none:"Basic Information goes here." }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-3 px-1">
             <div class="card card-menu">
                 <h6 class="card-header">Menu</h6>
                 <div class="card-block card-scroll">
@@ -74,12 +71,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-9 px-1">
             <div class="card">
                 <h6 class="card-header">Portfolio</h6>
                 <div class="card-block">
-                    <div class="row">
-                        {% for portfolio_haircut in portfolio_haircuts %}
+                    <div class="row pl-3">
+                        {% for portfolio_haircut in portfolio_haircuts|slice:":6" %}
                             <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
                                 <div class="card portfolio-card mr-md-3">
                                     <div class="portfolio-image-sizing">
@@ -111,13 +108,15 @@
             </div>
         </div>
     </div>
-
-
 </div>
+
+<!-- For popup image on click -->
+{% include 'stylist/stylistReal/portfolio/portfolio_popup.html' %}
 
 {% include 'stylist/stylistReal/footerBase.html' %}
 
 {% include 'master_scripts.html' %}
+<script src="{% static 'javascript/stylist_portfolio.js' %}"></script>
 
 </body>
 </html>
