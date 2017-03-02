@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^user_login/$', views.user_login),
     url(r'^user_logout/$', views.user_logout),
     url(r'^stylist_search/(?P<search>.*)$', views.stylist_search),
+    url(r'^my_rating/$', views.my_rating),
 ]
