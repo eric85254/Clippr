@@ -85,29 +85,13 @@ def stylist_search(request, search):
     RATING
 '''
 
-
-@api_view(['GET', ])
-def my_rating(request):
-    if request.method == 'GET':
-        if request.user.is_stylist == 'YES':
-            average_rating = Review.objects.filter(appointment__stylist=request.user).aggregate(Avg('stylist_rating'))
-        elif request.user.is_stylist == 'NO':
-            average_rating = Review.objects.filter(appointment__customer=request.user).aggregate(Avg('customer_rating'))
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-        data = {'average_rating': average_rating.get('stylist_rating__avg')}
-        return JsonResponse(data=data)
-    else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['GET', ])
 def customer_rating(request, customer_pk):
     if request.method == 'GET':
         customer = User.objects.get(pk=int(customer_pk))
-        average_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating'))
-        data = {'average_rating': average_rating.get('customer_rating__avg')}
+        # average_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating')).get('customer_rating__avg')
+        average_rating = customer.average_customer_rating
+        data = {'average_rating': average_rating}
         return JsonResponse(data=data)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -117,8 +101,9 @@ def customer_rating(request, customer_pk):
 def stylist_rating(request, stylist_pk):
     if request.method == 'GET':
         stylist = User.objects.get(pk=int(stylist_pk))
-        average_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating'))
-        data = {'average_rating': average_rating.get('stylist_rating__avg')}
+        # average_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating')).get('stylist_rating__avg')
+        average_rating = stylist.average_stylist_rating
+        data = {'average_rating': average_rating}
         return JsonResponse(data=data)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

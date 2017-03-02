@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 
 from core.models import Appointment, Menu, ItemInBill, Review
+from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
 from stylist.models import PortfolioHaircut, StylistBridgeMenu
 from stylist.utils.view_logic import BillLogic
@@ -156,6 +157,7 @@ def submit_review(request):
             review = Review.objects.get(pk=request.POST.get('review_pk'))
             review.customer_rating = int(request.POST.get('rating'))
             review.save()
+            UserLogic.update_average(review)
             return redirect('stylist:dashboard')
     else:
         return redirect('core:logout')

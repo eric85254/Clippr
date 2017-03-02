@@ -1,5 +1,7 @@
+from django.contrib.sites import requests
 from django.shortcuts import render, redirect
 
+from core.utils.view_logic import UserLogic
 from customer.forms import NewAppointmentForm, StylistApplicationForm
 from core.models import User, Appointment, Application, ItemInBill, Menu, Review
 from datetime import datetime
@@ -206,6 +208,7 @@ def submit_review(request):
             review = Review.objects.get(pk=request.POST.get('review_pk'))
             review.stylist_rating = int(request.POST.get('rating'))
             review.save()
+            UserLogic.update_average(review)
             return redirect('customer:dashboard')
     else:
         return redirect('core:logout')
