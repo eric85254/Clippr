@@ -2,17 +2,15 @@
 
 <div class="card card-dashboard">
     <h4 class="card-header">Your Menu</h4>
-    <div class="card-block card-scroll">
-        <a href="{% url 'stylist:select_menu_option' %}">Edit your menu</a> <br>
-        Menu Options you've selected: <br>
-        <hr>
+    <div class="card-block card-scroll px-1">
         {% for stylist_option in stylist_options %}
             <div id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingTwo">
+{#                <div class="card">#}
+                    <div role="tab" id="headingTwo">
                         <h5 class="mb-0">
-                            <a class="menu-option" role="{{ forloop.counter }}">
-                                {{ stylist_option.menu_option.name }}
+                            <a class="menu-option d-flex flex-nowrap justify-content-end" role="{{ forloop.counter }}">
+                                <div class="mr-auto p-0">{{ stylist_option.menu_option.name }}</div>
+                                <div class="p-0"> ${{ stylist_option.price }} </div>
                             </a>
                         </h5>
                     </div>
@@ -21,10 +19,12 @@
                             {{ stylist_option.menu_option.description }}
                         </div>
                     </div>
-                </div>
+{#                </div>#}
             </div>
         {% empty %}
             <p>no menu options chosen</p>
         {% endfor %}
+
+        <a href="{% url 'stylist:select_menu_option' %}">Edit your menu</a> <br>
     </div>
 </div>
