@@ -1,0 +1,92 @@
+{% load staticfiles %}
+
+<div class="card card-dashboard">
+    <a href="{% url 'stylist:appointments' %}">
+        <h4 class="card-header">Appointments</h4>
+    </a>
+    <ul class="nav nav-tabs justify-content-center toggle-tabs" role="tablist">
+        <li class="nav-item toggle-item">
+            <a class="nav-link toggle-link active" data-toggle="tab" href="#accepted_appointments"
+               role="tab">
+                Accepted
+            </a>
+        </li>
+        <li class="nav-item toggle-item">
+            <a class="nav-link toggle-link" data-toggle="tab" href="#pending_appointments" role="tab">
+                Requests
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content card-scroll">
+        <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
+            {% for appointment in accepted_appointments %}
+                <ul>
+                    -------------------------------- <br>
+                    Appointment Details: <br>
+                    Customer: {{ appointment.customer.get_full_name }} <br>
+                    Location: {{ appointment.location }} <br>
+                    Time: {{ appointment.date|default_if_none:"" }} <br>
+                    Price: {{ appointment.price|default_if_none:"" }} <br>
+
+                    <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
+                        <input type="submit" value="View the Bill"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    </form>
+                    <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
+                        <input type="submit" value="Complete"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    </form>
+                    <br>
+
+                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map
+                    </button>
+                    <br>
+                    -------------------------------- <br>
+                </ul>
+            {% empty %}
+                You have no upcoming appointments <br>
+            {% endfor %}
+        </div>
+        <div class="tab-pane" id="pending_appointments" role="tabpanel">
+            {% for appointment in pending_appointments %}
+                <ul>
+                    -------------------------------- <br>
+                    Appointment Details: <br>
+                    Customer: {{ appointment.customer.get_full_name }} <br>
+                    Location: {{ appointment.location }} <br>
+                    Time: {{ appointment.date|default_if_none:"" }} <br>
+                    Price: {{ appointment.price|default_if_none:"" }} <br>
+
+                    <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
+                        <input type="submit" value="Accept"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    </form>
+                    <br>
+                    <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
+                        <input type="submit" value="Decline"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    </form>
+                    <br>
+                    <form action="{% url 'stylist:reschedule_appointment' %}"
+                          method="post"> {% csrf_token %}
+                        <label for="date">Date: </label>
+                        <input type="datetime-local" value="" name="date" id="date"/> <br>
+                        <input type="submit" value="Reschedule"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                    </form>
+                    <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
+                        <label for="travel_price">Travel Price:</label>
+                        <input id="travel_price" name="travel_fee" type="number" min="0" max="50"
+                               step=".01"/>
+                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
+                        <input type="submit" value="Add Travel Fee.">
+                    </form>
+                    <br>
+                    -------------------------------- <br>
+                </ul>
+            {% empty %}
+                There are no pending appointments at this time <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
