@@ -1,3 +1,0 @@
-
-
-User.objects.create

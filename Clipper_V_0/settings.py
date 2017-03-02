@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf.global_settings import AUTH_USER_MODEL, AUTHENTICATION_BACKENDS
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -26,8 +25,6 @@ SECRET_KEY = ')0jf_v2yjt$+3(!&9mz@wdrqopy=)v1y@64lqfnso+so8zqe$)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -134,3 +131,4 @@ MEDIA_URL = '/media/'
 ALLOWED_HOSTS = ['.ngrok.io', '127.0.0.1']
 
 AUTHENTICATION_BACKENDS = ['core.backends.EmailPhoneNumberOrUsernameModelBackend']
+
