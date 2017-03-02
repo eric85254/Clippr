@@ -12,225 +12,41 @@
     <!-- Clippr CSS -->
     <link rel="stylesheet" type="text/css" href="{% static "css/stylist_dashboard.css" %}">
 </head>
+<body>
 
 {% include 'stylist/stylistReal/headerBase.html' %}
-<body>
+
 <div class="container">
+
     <div class="row p-3">
+
         <div class="col-lg-4">
-            <div class="card card-dashboard">
-                <a href="{% url 'stylist:appointments' %}">
-                    <h4 class="card-header">Appointments</h4>
-                </a>
-                <ul class="nav nav-tabs justify-content-center toggle-tabs" role="tablist">
-                    <li class="nav-item toggle-item">
-                        <a class="nav-link toggle-link active" data-toggle="tab" href="#accepted_appointments"
-                           role="tab">
-                            Accepted
-                        </a>
-                    </li>
-                    <li class="nav-item toggle-item">
-                        <a class="nav-link toggle-link" data-toggle="tab" href="#pending_appointments" role="tab">
-                            Requests
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content card-scroll">
-                    <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-                        {% for appointment in accepted_appointments %}
-                            <ul>
-                                -------------------------------- <br>
-                                Appointment Details: <br>
-                                Customer: {{ appointment.customer.get_full_name }} <br>
-                                Location: {{ appointment.location }} <br>
-                                Time: {{ appointment.date|default_if_none:"" }} <br>
-                                Price: {{ appointment.price|default_if_none:"" }} <br>
-
-                                <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
-                                    <input type="submit" value="View the Bill"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
-                                    <input type="submit" value="Complete"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
-
-                                <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map
-                                </button>
-                                <br>
-                                -------------------------------- <br>
-                            </ul>
-                        {% empty %}
-                            You have no upcoming appointments <br>
-                        {% endfor %}
-                    </div>
-                    <div class="tab-pane" id="pending_appointments" role="tabpanel">
-                        {% for appointment in pending_appointments %}
-                            <ul>
-                                -------------------------------- <br>
-                                Appointment Details: <br>
-                                Customer: {{ appointment.customer.get_full_name }} <br>
-                                Location: {{ appointment.location }} <br>
-                                Time: {{ appointment.date|default_if_none:"" }} <br>
-                                Price: {{ appointment.price|default_if_none:"" }} <br>
-
-                                <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
-                                    <input type="submit" value="Accept"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
-                                <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
-                                    <input type="submit" value="Decline"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
-                                <form action="{% url 'stylist:reschedule_appointment' %}"
-                                      method="post"> {% csrf_token %}
-                                    <label for="date">Date: </label>
-                                    <input type="datetime-local" value="" name="date" id="date"/> <br>
-                                    <input type="submit" value="Reschedule"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
-                                    <label for="travel_price">Travel Price:</label>
-                                    <input id="travel_price" name="travel_fee" type="number" min="0" max="50"
-                                           step=".01"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                    <input type="submit" value="Add Travel Fee.">
-                                </form>
-                                <br>
-                                -------------------------------- <br>
-                            </ul>
-                        {% empty %}
-                            There are no pending appointments at this time <br>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/appointments.html' %}
         </div>
+
         <div class="col-lg-8">
-            <div class="card card-dashboard">
-                <h4 class="card-header" id="map-card">Map</h4>
-                <div class="card-block" id="map"></div>
-            </div>
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/map.html' %}
         </div>
+
     </div>
+
     <div class="row p-3">
-        <div class="col-md-4 hidden-md-down">
-            <div class="card card-dashboard">
-                <h4 class="card-header">Reviews</h4>
-                <ul class="nav nav-tabs toggle-tabs justify-content-center" role="tablist">
-                    <li class="nav-item toggle-item">
-                        <a class="nav-link toggle-link active" data-toggle="tab" href="#complete_reviews" role="tab">
-                            Recent
-                        </a>
-                    </li>
-                    <li class="nav-item toggle-item">
-                        <a class="nav-link toggle-link" data-toggle="tab" href="#pending_reviews" role="tab">
-                            Incomplete
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="complete_reviews" role="tabpanel">
-                        {% for review in complete_reviews %}
-                            <ul>
-                                -------------------------------- <br>
-                                Appointment Details: <br>
-                                Customer: {{ review.appointment.customer.get_full_name }} <br>
-                                Location: {{ review.appointment.location }} <br>
-                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
-                                How you rated customer: {{ review.customer_rating }} <br>
-                                Your Rating: {{ review.stylist_rating }} <br>
-                                -------------------------------- <br>
-                            </ul>
-                        {% empty %}
-                            You have no reviews yet!  <br>
-                            After your first appointment your most recent
-                            reviews will appear here, but only after you
-                            give a review to the customer as well!
-                        {% endfor %}
-                    </div>
-                    <div class="tab-pane" id="pending_reviews" role="tabpanel">
-                        {% for review in incomplete_reviews %}
-                            <ul>
-                                -------------------------------- <br>
-                                Appointment Details: <br>
-                                Customer: {{ review.appointment.customer.get_full_name }} <br>
-                                Location: {{ review.appointment.location }} <br>
-                                Time: {{ review.appointment.date|default_if_none:"" }} <br>
-                                Price: {{ review.appointment.price|default_if_none:"" }} <br>
-                                <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
-                                    <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
-                                    <input type="number" name="rating" min="0" max="5"/>
-                                    <input type="submit" value="Write a Review"/>
-                                </form>
-                                -------------------------------- <br>
-                            </ul>
-                        {% empty %}
-                            You have no pending reviews <br>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-md-4 hidden-md-down">
-            <div class="card card-dashboard">
-                <h4 class="card-header">Create a Deal</h4>
-                <div class="card-scroll">
-                    <p class="card-text"> Some quick example text to build on the card title
-                        and make up the bulk of the card's content.
-                    </p>
-                </div>
-            </div>
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/reviews.html' %}
         </div>
+
         <div class="col-md-4 hidden-md-down">
-            <div class="card card-dashboard">
-                <h4 class="card-header">Your Menu</h4>
-                <div class="card-block card-scroll">
-                    <a href="{% url 'stylist:select_menu_option' %}">Edit your menu</a> <br>
-                    Menu Options you've selected: <br>
-                    <hr>
-                    {% for stylist_option in stylist_options %}
-                        <div id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <a class="menu-option" role="{{ forloop.counter }}">
-                                           {{ stylist_option.menu_option.name }}
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="{{ forloop.counter }}" class="collapse">
-                                    <div class="card-block">
-                                       {{ stylist_option.menu_option.description }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {#                        <div class="card">#}
-                        {#                            <div class="card-block">#}
-                        {#                                <p class="card-text"> Name: {{ stylist_option.menu_option.name }} </p>#}
-                        {#                                 <p class="card-text"> Description: {{ stylist_option.menu_option.description }} </p>#}
-                        {#                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}#}
-                        {#                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>#}
-                        {#                                    <input type="submit" value="Remove"/>#}
-                        {#                                </form>#}
-                        {#                                <br>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                    {% empty %}
-                        <p>no menu options chosen</p>
-                    {% endfor %}
-                </div>
-            </div>
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/deals.html' %}
         </div>
+
+        <div class="col-md-4 hidden-md-down">
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/menu.html' %}
+        </div>
+
     </div>
-</div>
 
+</div>
 
 {% include 'stylist/stylistReal/footerBase.html' %}
 
