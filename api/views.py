@@ -105,7 +105,7 @@ def my_rating(request):
 @api_view(['GET', ])
 def customer_rating(request, customer_pk):
     if request.method == 'GET':
-        customer = User.objects.get(pk=customer_pk)
+        customer = User.objects.get(pk=int(customer_pk))
         average_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating'))
         data = {'average_rating': average_rating.get('customer_rating__avg')}
         return JsonResponse(data=data)
@@ -116,12 +116,13 @@ def customer_rating(request, customer_pk):
 @api_view(['GET', ])
 def stylist_rating(request, stylist_pk):
     if request.method == 'GET':
-        stylist = User.objects.get(pk=stylist_pk)
+        stylist = User.objects.get(pk=int(stylist_pk))
         average_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating'))
         data = {'average_rating': average_rating.get('stylist_rating__avg')}
         return JsonResponse(data=data)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 '''
     USER VIEW SET
