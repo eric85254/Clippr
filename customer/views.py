@@ -71,9 +71,8 @@ def create_appointment(request):
             new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             new_appointment.save()
 
-            bill = ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
+            ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
                                              appointment=new_appointment)
-            bill.save()
 
             BillLogic.update_price(appointment=new_appointment)
 

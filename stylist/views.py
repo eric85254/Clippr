@@ -139,8 +139,7 @@ def complete_appointment(request):
                 appointment.status = Appointment.STATUS_COMPLETED
                 appointment.save()
 
-                review = Review.objects.create(appointment=appointment)
-                review.save()
+                Review.objects.create(appointment=appointment)
         return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
@@ -204,9 +203,9 @@ def add_item(request):
             if 'custom' in request.POST:
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
                 if appointment.status is not Appointment.STATUS_COMPLETED:
-                    item = ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
+                    ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
                                                      price=request.POST.get('price'), appointment=appointment)
-                    item.save()
+
                     BillLogic.update_price(appointment)
                 return redirect('stylist:dashboard')
         else:
@@ -224,8 +223,7 @@ def add_haircut(request):
             haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfoliohaircut_pk'))
             appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
             if appointment.status is not Appointment.STATUS_COMPLETED:
-                item = ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
-                item.save()
+                ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
                 BillLogic.update_price(appointment)
             return redirect('stylist:dashboard')
     else:
@@ -242,9 +240,8 @@ def add_travel_fee(request):
                     item = ItemInBill.objects.get(item_custom='Travel Fee')
                     item.price = request.POST.get('travel_fee')
                 else:
-                    item = ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
+                    ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
                                                      appointment=appointment)
-                    item.save()
                 appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
                 BillLogic.update_price(appointment)
             return redirect(request.META.get('HTTP_REFERER'))
@@ -355,8 +352,7 @@ def select_menu_option(request):
 
         elif request.method == 'POST':
             menu_option = Menu.objects.get(pk=request.POST.get('menu_option_pk'))
-            stylist_selection = StylistBridgeMenu.objects.create(stylist=request.user, menu_option=menu_option)
-            stylist_selection.save()
+            StylistBridgeMenu.objects.create(stylist=request.user, menu_option=menu_option)
             return redirect('stylist:select_menu_option')
     else:
         return redirect('core:logout')
