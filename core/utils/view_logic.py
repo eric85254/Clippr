@@ -47,7 +47,7 @@ class UserLogic(object):
         customer = review.appointment.customer
 
         stylist.average_stylist_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating')).get('stylist_rating__avg')
-        customer.average_stylist_rating = Review.objects.filter(appointment__customer=stylist).aggregate(Avg('customer_rating')).get('customer_rating__avg')
+        customer.average_customer_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating')).get('customer_rating__avg')
 
         stylist.save()
         customer.save()
