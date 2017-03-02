@@ -30,14 +30,14 @@ def profile(request):
 
 def dashboard(request):
     if request.user.is_stylist == 'YES':
-        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING)
-        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED)
-        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
+        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING).order_by('-date')
+        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED).order_by('-date')
+        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
         rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
                                                                         status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
         rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
                                                                          status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
-        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
+        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
@@ -80,12 +80,12 @@ def transactions(request):
 
 def appointments(request):
     if request.user.is_stylist == 'YES':
-        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING)
-        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED)
-        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED)
+        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING).order_by('-date')
+        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED).order_by('-date')
+        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
 
         rescheduled_appointments = Appointment.objects.filter((Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)), stylist=request.user).order_by('-date')
-        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
+        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
 
         return render(request, 'stylist/stylistReal/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
