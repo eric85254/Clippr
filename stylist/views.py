@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, Menu, ItemInBill, Review
+from core.models import Appointment, GlobalMenu, ItemInBill, Review
 from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
 from stylist.models import PortfolioHaircut, StylistBridgeMenu
@@ -345,13 +345,13 @@ def delete_portfoliohaircut(request):
 def select_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
-            menu_options = Menu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
+            menu_options = GlobalMenu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
             stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/menu/select_menu_option.html',
-                          {'menu_options': menu_options, 'stylist_options': stylist_options, 'creator_stylist': Menu.STYLIST})
+                          {'menu_options': menu_options, 'stylist_options': stylist_options, 'creator_stylist': GlobalMenu.STYLIST})
 
         elif request.method == 'POST':
-            menu_option = Menu.objects.get(pk=request.POST.get('menu_option_pk'))
+            menu_option = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
             StylistBridgeMenu.objects.create(stylist=request.user, menu_option=menu_option)
             return redirect('stylist:select_menu_option')
     else:
@@ -378,10 +378,6 @@ def create_menu_option(request):
 
             if menu_option_form.is_valid():
                 new_option = menu_option_form.save(commit=False)
-
-                if 'picture' in request.FILES:
-                    new_option.picture = request.FILES.get('picture')
-                new_option.creator = Menu.STYLIST
                 new_option.save()
 
                 StylistBridgeMenu.objects.create(stylist=request.user, menu_option=new_option,
@@ -399,31 +395,21 @@ def edit_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
-            stylist_option.price = request.POST.get('price')
-            if 'picture' in request.FILES:
-                picture = request.FILES.get('picture')
-            else:
-                picture = None
 
-            if stylist_option.menu_option.creator == Menu.STYLIST:
-                stylist_option.menu_option.name = request.POST.get('name')
-                stylist_option.menu_option.description = request.POST.get('description')
-                stylist_option.menu_option.picture = picture
-                stylist_option.menu_option.save()
+            if stylist_option.stylist_menu:
+                stylist_option.stylist_menu.name = request.POST.get('name')
+                stylist_option.stylist_menu.price = request.POST.get('price')
+                stylist_option.stylist_menu.save()
 
             else:
-                StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).delete()
-                menu_option = Menu(
-                    creator=Menu.STYLIST,
+                global_menu = GlobalMenu(
                     name=request.POST.get('name'),
-                    picture=picture,
-                    description=request.POST.get('description')
+                    price=request.POST.get('price')
                 )
-                menu_option.save()
+                global_menu.save()
                 StylistBridgeMenu.objects.create(
                     stylist=request.user,
-                    menu_option=menu_option,
-                    price=request.POST.get('price')
+                    global_menu=global_menu
                 )
             return redirect('stylist:select_menu_option')
 
@@ -438,7 +424,9 @@ def delete_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
-            stylist_option.menu_option.delete()
+            if stylist_option.stylist_menu:
+                stylist_option.stylist_menu.delete()
+            stylist_option.delete()
             return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')

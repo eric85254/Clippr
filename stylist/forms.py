@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from core.models import Menu
+from core.models import GlobalMenu, StylistMenu
 from stylist.models import PortfolioHaircut
 
 
@@ -12,5 +12,5 @@ class NewPortfolioHaircutForm(ModelForm):
 
 class MenuOptionForm(ModelForm):
     class Meta:
-        model = Menu
-        fields = ('name', 'description')
+        model = StylistMenu
+        fields = ('name', 'price')

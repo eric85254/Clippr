@@ -1,9 +1,8 @@
-from django.contrib.sites import requests
 from django.shortcuts import render, redirect
 
 from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, Application, ItemInBill, Menu, Review
+from core.models import User, Appointment, ItemInBill, Review
 from datetime import datetime
 
 # for the search

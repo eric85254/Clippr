@@ -16,8 +16,8 @@ from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn, \
     OnlySuperUsersCanModify
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
-    MenuSerializer
-from core.models import User, Appointment, Menu, Review
+    GlobalMenuSerializer
+from core.models import User, Appointment, GlobalMenu, Review
 from stylist.models import PortfolioHaircut
 
 '''
@@ -190,7 +190,7 @@ class HaircutViewSet(viewsets.ModelViewSet):
 
 
 class MenuViewSet(viewsets.ModelViewSet):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = GlobalMenu.objects.all()
+    serializer_class = GlobalMenuSerializer
     permission_classes = (OnlySuperUsersCanModify,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)

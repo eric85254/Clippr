@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
+from stylist.models import StylistBridgeMenu
 
 
 class User(AbstractUser):
@@ -29,20 +30,21 @@ class User(AbstractUser):
     average_customer_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
 
 
-class Menu(models.Model):
-    ADMIN = 'ADMIN'
-    STYLIST = 'STYLIST'
-    MODIFIED = 'MODIFIED'
-
-    CREATED_BY = ((ADMIN, 'ADMIN'), (STYLIST, 'STYLIST'), (MODIFIED, 'MODIFIED'))
-
-    creator = models.TextField(choices=CREATED_BY, default=ADMIN)
+class GlobalMenu(models.Model):
     name = models.CharField(max_length=20)
-    # description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return "Category: " + self.category + " || Option: " + self.name
+        return self.name
 
+
+class StylistMenu(models.Model):
+    name = models.CharField(max_length=20)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        stylist_bridge = StylistBridgeMenu.objects.get(stylist_menu=self)
+        return "Stylist: " + stylist_bridge.stylist.get_full_name() + " || Name: " + self.name
 
 class ItemInBill(models.Model):
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)

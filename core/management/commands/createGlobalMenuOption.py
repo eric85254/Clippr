@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from core.models import Menu
+from core.models import GlobalMenu
 from core.utils.global_constants import DEFAULT_MENU_PICTURE
 
 
@@ -8,9 +8,11 @@ class Command(BaseCommand):
     help = "Create Global Menu Option."
 
     def handle(self, *args, **options):
-        Menu.objects.create(
-            creator=Menu.ADMIN,
-            name='GLOBAL_OPTION',
-            picture=DEFAULT_MENU_PICTURE,
-            description='Created by a management command.'
+        GlobalMenu.objects.create(
+            name="Girl's Haircut",
+            price=50.00
+        )
+        GlobalMenu.objects.create(
+            name="Boy's Haircut",
+            price=20.00
         )
