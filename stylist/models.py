@@ -23,6 +23,4 @@ class PortfolioHaircut(models.Model):
 class StylistBridgeMenu(models.Model):
     stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
     menu_option = models.ForeignKey('core.Menu', on_delete=models.CASCADE)
-
-    # This price should override the price of default menu_options - hard to do with template :(
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
