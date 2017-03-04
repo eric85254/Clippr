@@ -6,9 +6,10 @@ create_appointment_patterns = [
     url(r'^$', views.create_appointment, name="create_appointment"),
     url(r'^stylist_search/$', views.stylist_search, name="stylist_search"),
     url(r'^catch_menu_choices/$', views.catch_menu_choices, name="catch_menu_choices"),
-    url(r'^obtain_menu_choice/$', views.obtain_selected_haircut,
-        name='create_appointment_menuMainChoice'),
+    url(r'^obtain_selected_haircut/$', views.obtain_selected_haircut,
+        name='obtain_selected_haircut'),
     url(r'^obtain_stylist_profile/$', views.obtain_stylist_profile, name='obtain_stylist_profile'),
+    url(r'^obtain_selected_menuOption/$', views.obtain_selected_menuOption, name='obtain_selected_menuOption')
 ]
 
 appointment_modifiers = [

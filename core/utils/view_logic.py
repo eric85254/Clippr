@@ -46,9 +46,30 @@ class UserLogic(object):
         stylist = review.appointment.stylist
         customer = review.appointment.customer
 
-        stylist.average_stylist_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating')).get('stylist_rating__avg')
-        customer.average_customer_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating')).get('customer_rating__avg')
+        stylist.average_stylist_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(
+            Avg('stylist_rating')).get('stylist_rating__avg')
+        customer.average_customer_rating = Review.objects.filter(appointment__customer=customer).aggregate(
+            Avg('customer_rating')).get('customer_rating__avg')
 
         stylist.save()
         customer.save()
 
+
+class CookieClearer(object):
+    @staticmethod
+    def appointment_cookies(request):
+        cookie_names = [
+            'portfolio_haircut',
+            'stylist_option_pk',
+            'stylist_pk',
+            'menu_main'
+        ]
+
+        CookieClearer.clear(cookie_names, request)
+
+    # Helper Method
+    @staticmethod
+    def clear(cookie_names, request):
+        for name in cookie_names:
+            if name in request.session:
+                request.session[name] = None

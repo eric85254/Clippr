@@ -1,7 +1,7 @@
 from django.contrib.sites import requests
 from django.shortcuts import render, redirect
 
-from core.utils.view_logic import UserLogic
+from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
 from core.models import User, Appointment, Application, ItemInBill, Menu, Review
 from datetime import datetime
@@ -63,7 +63,6 @@ def create_appointment(request):
         create_appointment_form = NewAppointmentForm(request.POST)
 
         if create_appointment_form.is_valid():
-            portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
 
             new_appointment = create_appointment_form.save(commit=False)
             new_appointment.customer = request.user
@@ -71,11 +70,18 @@ def create_appointment(request):
             new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             new_appointment.save()
 
-            ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
+            if 'portfolio_haircut' in request.session:
+                portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
+                ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
+                                             appointment=new_appointment)
+
+            if 'stylist_option_pk' in request.session:
+                stylist_option = StylistBridgeMenu.objects.get(pk=request.session['stylist_option_pk'])
+                ItemInBill.objects.create(item_menu=stylist_option, price=stylist_option.price,
                                              appointment=new_appointment)
 
             BillLogic.update_price(appointment=new_appointment)
-
+            CookieClearer.appointment_cookies(request)
             return redirect('customer:dashboard')
         else:
             print(create_appointment_form.errors)
@@ -131,6 +137,17 @@ def obtain_selected_haircut(request):
         return redirect('core:logout')
 
 
+def obtain_selected_menuOption(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            request.session['stylist_option_pk'] = request.POST.get('stylist_option_pk')
+            request.session['stylist_pk'] = request.POST.get('stylist_pk')
+        return redirect('customer:create_appointment')
+    else:
+        return redirect('core:logout')
+
+
+#ToDo: Is this view even being used?
 def catch_menu_choices(request):
     if request.method == 'POST':
         request.session['menu_main'] = request.POST.get('menu_main')

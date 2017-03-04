@@ -1,4 +1,4 @@
-{% extends 'stylist/base.html' %}
+{% extends 'customer/base.html' %}
 
 {% block main_content %}
     <h1>The Current Bill</h1>
@@ -10,7 +10,7 @@
     {% for item in bill %}
         <tr>
             <td>
-                {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }}
+                {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }} {{ item.item_menu.menu_option.name }}
             </td>
             <td>
                 {{ item.price }}
