@@ -348,11 +348,11 @@ def select_menu_option(request):
             menu_options = GlobalMenu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
             stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/menu/select_menu_option.html',
-                          {'menu_options': menu_options, 'stylist_options': stylist_options, 'creator_stylist': GlobalMenu.STYLIST})
+                          {'menu_options': menu_options, 'stylist_options': stylist_options})
 
         elif request.method == 'POST':
-            menu_option = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
-            StylistBridgeMenu.objects.create(stylist=request.user, menu_option=menu_option)
+            global_menu = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
+            StylistBridgeMenu.objects.create(stylist=request.user, global_menu=global_menu)
             return redirect('stylist:select_menu_option')
     else:
         return redirect('core:logout')

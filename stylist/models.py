@@ -22,5 +22,5 @@ class PortfolioHaircut(models.Model):
 
 class StylistBridgeMenu(models.Model):
     stylist = models.ForeignKey('core.User', on_delete=models.CASCADE)
-    global_menu = models.ForeignKey('core.GlobalMenu', on_delete=models.CASCADE)
-    stylist_menu = models.ForeignKey('core.StylistMenu', on_delete=models.CASCADE)
+    global_menu = models.ForeignKey('core.GlobalMenu', on_delete=models.CASCADE, null=True, blank=True)
+    stylist_menu = models.ForeignKey('core.StylistMenu', on_delete=models.CASCADE, null=True, blank=True)
