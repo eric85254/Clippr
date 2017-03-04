@@ -14,15 +14,23 @@ Description: {{ haircut.description }} <br>
     <input id="name" type="text" name="name" value="{{ haircut.name|default_if_none:"" }}"/> <br> <br>
 
     <label for="description">Description: </label>
-    <input type="text" id="description" name="description" value="{{ haircut.description|default_if_none:"" }}"> <br> <br>
+    <input type="text" id="description" name="description" value="{{ haircut.description|default_if_none:"" }}"> <br>
+    <br>
 
     <label for="price">Price: </label>
-    <input id="price" type="number" step=".01" min="0" name="price" value="{{ haircut.price|default_if_none:"" }}"/> <br> <br>
+    <input id="price" type="number" step=".01" min="0" name="price" value="{{ haircut.price|default_if_none:"" }}"/>
+    <br> <br>
 
     Menu:<br>
     <hr>
     {% for stylist_option in stylist_options %}
-        <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}"> {{ stylist_option.menu_option.name }} <br>
+        {% if stylist_options %}
+            <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
+            {{ stylist_option.stylist_menu.name }} <br>
+        {% else %}
+            input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
+            {{ stylist_option.global_menu.name }} <br>
+        {% endif %}
     {% endfor %}
     <input type="radio" name="stylist_option_pk" value="none"> None
     <br> <br>

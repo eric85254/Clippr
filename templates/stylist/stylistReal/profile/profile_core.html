@@ -57,13 +57,23 @@
                         <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
 
                         {% for stylist_option in stylist_options %}
-                            Name: {{ stylist_option.menu_option.name }} <br>
-                            Description: {{ stylist_option.menu_option.description }} <br>
-                            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                                <input type="submit" value="Remove"/>
-                            </form> <br>
-                            ---------------------------------- <br>
+                            {% if stylist_option.stylist_menu %}
+                                Name: {{ stylist_option.stylist_menu.name }} <br>
+                                Description: {{ stylist_option.stylist_menu.description }} <br>
+                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+                                    <input type="submit" value="Remove"/>
+                                </form> <br>
+                                ---------------------------------- <br>
+                            {% else %}
+                                Name: {{ stylist_option.global_menu.name }} <br>
+                                Description: {{ stylist_option.global_menu.description }} <br>
+                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+                                    <input type="submit" value="Remove"/>
+                                </form> <br>
+                                ---------------------------------- <br>
+                            {% endif %}
                         {% empty %}
                             <p>no menu options chosen</p>
                         {% endfor %}

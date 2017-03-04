@@ -15,7 +15,13 @@
     <hr>
     <label for="menu_main">Main: </label>
     {% for stylist_option in stylist_options %}
-        <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}"> {{ stylist_option.menu_option.name }} <br>
+        {% if stylist_options %}
+            <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
+            {{ stylist_option.stylist_menu.name }} <br>
+        {% else %}
+            input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
+            {{ stylist_option.global_menu.name }} <br>
+        {% endif %}
     {% endfor %}
     <input type="radio" name="stylist_option_pk" value="none"> None
     <br> <br>
