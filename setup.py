@@ -12,9 +12,15 @@ apps_with_migrations = [
 '''
 
 for app in apps_with_migrations:
-    shutil.rmtree(app + '/migrations')
+    try:
+        shutil.rmtree(app + '/migrations')
+    except:
+        print("No " + app +'/migration')
 
-os.remove('db.sqlite3')
+try:
+    os.remove('db.sqlite3')
+except:
+    print("No sqlite3 database.")
 
 '''
     RECREATE MIGRATIONS FOLDERS + DATABASE
