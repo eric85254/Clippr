@@ -11,16 +11,26 @@ class Command(BaseCommand):
         stylist = User.objects.get(email="stylist@gmail.com")
         customer = User.objects.get(email="customer@gmail.com")
 
-        appointment = Appointment(
-            stylist=stylist,
-            customer=customer,
-            location="Arizona State University",
-            status=Appointment.STATUS_PENDING
-        )
-        appointment.save()
-        ItemInBill.objects.create(
-            item_custom="DEFAULT APPOINTMENT CREATED",
-            price=42.00,
-            appointment=appointment
-        )
-        BillLogic.update_price(appointment)
+        statuses = [
+            Appointment.STATUS_PENDING,
+            Appointment.STATUS_RECHEDULED_BYSTYLIST,
+            Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
+            Appointment.STATUS_ACCEPTED,
+            Appointment.STATUS_DECLINED,
+            Appointment.STATUS_COMPLETED
+        ]
+
+        for status in statuses:
+            appointment = Appointment(
+                stylist=stylist,
+                customer=customer,
+                location="Arizona State University",
+                status=status
+            )
+            appointment.save()
+            ItemInBill.objects.create(
+                item_custom=status,
+                price=42.00,
+                appointment=appointment
+            )
+            BillLogic.update_price(appointment)
