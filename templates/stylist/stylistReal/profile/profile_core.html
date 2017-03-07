@@ -48,38 +48,7 @@
     </div>
     <div class="row">
         <div class="col-3 px-1">
-            <div class="card card-menu">
-                <h6 class="card-header">Menu</h6>
-                <div class="card-block card-scroll">
-                    <p class="card-text">
-                        Menu Options you've selected: <br>
-                        ---------------------------------- <br>
-                        <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
-
-                        {% for stylist_option in stylist_options %}
-                            {% if stylist_option.stylist_menu %}
-                                Name: {{ stylist_option.stylist_menu.name }} <br>
-                                Description: {{ stylist_option.stylist_menu.description }} <br>
-                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                                    <input type="submit" value="Remove"/>
-                                </form> <br>
-                                ---------------------------------- <br>
-                            {% else %}
-                                Name: {{ stylist_option.global_menu.name }} <br>
-                                Description: {{ stylist_option.global_menu.description }} <br>
-                                <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                                    <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                                    <input type="submit" value="Remove"/>
-                                </form> <br>
-                                ---------------------------------- <br>
-                            {% endif %}
-                        {% empty %}
-                            <p>no menu options chosen</p>
-                        {% endfor %}
-                    </p>
-                </div>
-            </div>
+            {% include 'stylist/stylistReal/dashboard/dashboardComponents/menu.html' %}
         </div>
         <div class="col-9 px-1">
             <div class="card">
@@ -126,7 +95,9 @@
 {% include 'stylist/stylistReal/footerBase.html' %}
 
 {% include 'master_scripts.html' %}
+
 <script src="{% static 'javascript/stylist_portfolio.js' %}"></script>
+<script src="{% static 'javascript/stylist_dashboard.js' %}"></script>
 
 </body>
 </html>

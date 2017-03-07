@@ -20,29 +20,47 @@
     <div class="tab-content card-scroll">
         <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
             {% for appointment in accepted_appointments %}
-                <ul>
-                    -------------------------------- <br>
-                    Appointment Details: <br>
-                    Customer: {{ appointment.customer.get_full_name }} <br>
-                    Location: {{ appointment.location }} <br>
-                    Time: {{ appointment.date|default_if_none:"" }} <br>
-                    Price: {{ appointment.price|default_if_none:"" }} <br>
+                <div id="accordion" role="tablist" aria-multiselectable="true">
+                    <div role="tab" id="headingTwo">
+                        <div class="card mb-3 appointment-block">
+                            <h6 class="mb-0 mt-2">
+                                <a class="menu-option" role="{{ forloop.counter }}">
+                                    <div class="mr-auto p-0">{{ appointment.date|default_if_none:"" }}</div>
+                                </a>
+                            </h6>
+                            <div id="{{ forloop.counter }}" class="collapse">
+                                <div class="card-block p-1">
+                                    <p>Customer: {{ appointment.customer.get_full_name }}</p>
+                                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">
+                                        Show On Map
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
-                        <input type="submit" value="View the Bill"/>
-                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                    </form>
-                    <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}
-                        <input type="submit" value="Complete"/>
-                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                    </form>
-                    <br>
-
-                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map
-                    </button>
-                    <br>
-                    -------------------------------- <br>
-                </ul>
+                </div>
+                {#                    Appointment Details: <br>#}
+                {#                    Customer: {{ appointment.customer.get_full_name }} <br>#}
+                {#                    Location: {{ appointment.location }} <br>#}
+                {#                    Time: {{ appointment.date|default_if_none:"" }} <br>#}
+                {#                    Price: {{ appointment.price|default_if_none:"" }} <br>#}
+                {##}
+                {#                    <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}#}
+                {#                        <input type="submit" value="View the Bill"/>#}
+                {#                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>#}
+                {#                    </form>#}
+                {#                    <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}#}
+                {#                        <input type="submit" value="Complete"/>#}
+                {#                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>#}
+                {#                    </form>#}
+                {#                    <br>#}
+                {##}
+                {#                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map#}
+                {#                    </button>#}
+                {#                    <br>#}
+                {#                    -------------------------------- <br>#}
+                {#                </ul>#}
             {% empty %}
                 You have no upcoming appointments <br>
             {% endfor %}
