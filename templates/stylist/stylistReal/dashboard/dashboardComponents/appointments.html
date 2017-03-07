@@ -24,11 +24,11 @@
                     <div role="tab" id="headingTwo">
                         <div class="card mb-3 appointment-block">
                             <h6 class="mb-0 mt-2">
-                                <a class="appointment-option" role="appointment-{{ forloop.counter }}">
+                                <a class="appointment-option" role={{ apointment.pk }}>
                                     <div class="mr-auto p-0">{{ appointment.date|default_if_none:"" }}</div>
                                 </a>
                             </h6>
-                            <div id="appointment-{{ forloop.counter }}" class="collapse">
+                            <div id="{{ appointment.pk }}" class="collapse">
                                 <div class="card-block p-1">
                                     <p>Customer: {{ appointment.customer.get_full_name }}</p>
                                     <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">
