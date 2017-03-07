@@ -22,31 +22,31 @@
 
         <!--APPOINTMENTS-->
         <div class="col-lg-4">
-            {% include 'stylist/stylistReal/dashboard/dashboardComponents/appointments.html' %}
+            {% include 'customer/customerReal/dashboard/dashboardComponents/appointments.html' %}
         </div>
 
         <!--MAP-->
         <div class="col-lg-8">
-            {% include 'stylist/stylistReal/dashboard/dashboardComponents/map.html' %}
+            {% include 'customer/customerReal/dashboard/dashboardComponents/map.html' %}
         </div>
 
     </div>
 
     <div class="row p-3">
 
+        <!--SEARCH-->
+        <div class="col-md-4 hidden-md-down">
+            {% include 'customer/customerReal/dashboard/dashboardComponents/search.html' %}
+        </div>
+
         <!--REVIEWS-->
         <div class="col-md-4 hidden-md-down">
-            {% include 'stylist/stylistReal/dashboard/dashboardComponents/reviews.html' %}
+            {% include 'customer/customerReal/dashboard/dashboardComponents/reviews.html' %}
         </div>
 
-        <!--CREATE A DEAL-->
+        <!--FAVORITES-->
         <div class="col-md-4 hidden-md-down">
-            {% include 'stylist/stylistReal/dashboard/dashboardComponents/deals.html' %}
-        </div>
-
-        <!--MENU-->
-        <div class="col-md-4 hidden-md-down">
-            {% include 'stylist/stylistReal/dashboard/dashboardComponents/menu.html' %}
+            {% include 'customer/customerReal/dashboard/dashboardComponents/favorites.html' %}
         </div>
 
     </div>
