@@ -94,7 +94,13 @@ function showMarkerOnMap(button) {
 }
 
 $(".menu-option").click(function() {
-    var tmp = $(this).attr("role");
-    // console.log(tmp);
-    $('#' + tmp).collapse('toggle');
+    var tmp1 = $(this).attr("role");
+    // console.log(tmp1);
+    $('#' + tmp1).collapse('toggle');
+})
+
+$(".appointment-option").click(function() {
+    var tmp2 = $(this).attr("role");
+    console.log(tmp2);
+    $('#' + tmp2).collapse('toggle');
 })
