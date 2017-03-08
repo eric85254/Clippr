@@ -14,15 +14,15 @@
 </head>
 <body>
 
-{% include 'stylist/stylistReal/headerBase.html' %}
+{% include 'customer/customerReal/headerBase.html' %}
 
 <div class="container">
 
     <div class="row p-3">
 
-        <!--APPOINTMENTS-->
-        <div class="col-lg-4">
-            {% include 'customer/customerReal/dashboard/dashboardComponents/appointments.html' %}
+        <!--SEARCH-->
+        <div class="col-md-4 hidden-md-down">
+            {% include 'customer/customerReal/dashboard/dashboardComponents/search.html' %}
         </div>
 
         <!--MAP-->
@@ -34,10 +34,12 @@
 
     <div class="row p-3">
 
-        <!--SEARCH-->
-        <div class="col-md-4 hidden-md-down">
-            {% include 'customer/customerReal/dashboard/dashboardComponents/search.html' %}
+
+        <!--APPOINTMENTS-->
+        <div class="col-lg-4">
+            {% include 'customer/customerReal/dashboard/dashboardComponents/appointments.html' %}
         </div>
+
 
         <!--REVIEWS-->
         <div class="col-md-4 hidden-md-down">
