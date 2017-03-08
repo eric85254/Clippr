@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load staticfiles %}
 
-</body>
-</html>
+<div class="card card-dashboard">
+    <h4 class="card-header">Reviews</h4>
+    <ul class="nav nav-tabs toggle-tabs justify-content-center" role="tablist">
+        <li class="nav-item toggle-item">
+            <a class="nav-link toggle-link active" data-toggle="tab" href="#complete_reviews" role="tab">
+                Recent
+            </a>
+        </li>
+        <li class="nav-item toggle-item">
+            <a class="nav-link toggle-link" data-toggle="tab" href="#pending_reviews" role="tab">
+                Incomplete
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="complete_reviews" role="tabpanel">
+            {% for review in complete_reviews %}
+                <ul>
+                    -------------------------------- <br>
+                    Appointment Details: <br>
+                    Customer: {{ review.appointment.customer.get_full_name }} <br>
+                    Location: {{ review.appointment.location }} <br>
+                    Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                    Price: {{ review.appointment.price|default_if_none:"" }} <br>
+
+                    How you rated customer: {{ review.customer_rating }} <br>
+                    Your Rating: {{ review.stylist_rating }} <br>
+                    -------------------------------- <br>
+                </ul>
+            {% empty %}
+                You have no reviews yet!  <br>
+                After your first appointment your most recent
+                reviews will appear here, but only after you
+                give a review to the customer as well!
+            {% endfor %}
+        </div>
+        <div class="tab-pane" id="pending_reviews" role="tabpanel">
+            {% for review in incomplete_reviews %}
+                <ul>
+                    -------------------------------- <br>
+                    Appointment Details: <br>
+                    Customer: {{ review.appointment.customer.get_full_name }} <br>
+                    Location: {{ review.appointment.location }} <br>
+                    Time: {{ review.appointment.date|default_if_none:"" }} <br>
+                    Price: {{ review.appointment.price|default_if_none:"" }} <br>
+                    <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                        <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
+                        <input type="number" name="rating" min="0" max="5"/>
+                        <input type="submit" value="Write a Review"/>
+                    </form>
+                    -------------------------------- <br>
+                </ul>
+            {% empty %}
+                You have no pending reviews <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>

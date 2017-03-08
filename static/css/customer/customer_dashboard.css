@@ -1,0 +1,43 @@
+#map {
+    height: 100%;
+}
+
+.card-dashboard {
+    height: 350px;
+    /*overflow-y: auto;*/
+}
+
+.col-dashboard {
+    /*padding-right: (@spacer-y *1.5) !important;*/
+    min-width: 250px;
+}
+
+.card-scroll {
+    overflow-y: auto;
+}
+
+.card-header {
+    height: 25px;
+    font-size: 17px;
+    padding-top: 2px !important;
+    text-align: center;
+}
+
+.toggle-link {
+    height: 25px;
+    padding-top: 0 !important;
+    font-size: 15px;
+}
+
+.tab-content {
+    overflow-y: auto;
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.appointment-block {
+    min-height:40px;
+}
