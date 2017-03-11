@@ -93,7 +93,7 @@ function showMarkerOnMap(button) {
     geocodeAddress(geocoder, map, button.value); //address is located in button value
 }
 
-$(".menu-option").click(function() {
+$(".menu-header").click(function() {
     var tmp1 = $(this).attr("role");
     // console.log(tmp1);
     $('#' + tmp1).collapse('toggle');

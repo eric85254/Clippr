@@ -9,9 +9,9 @@
         {% for stylist_option in stylist_options %}
             <div id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="card">
-                    <div class="menu-option card-header" role="tab" id="headingTwo">
+                    <div class="menu-header card-header" role="tab" id="headingTwo">
                         <h5 class="mb-0">
-                            <a role="menu-{{ forloop.counter }}">
+                            <a class="menu-option" role="menu-{{ forloop.counter }}">
                                 {% if stylist_option.stylist_menu %}
                                     {{ stylist_option.stylist_menu.name }}
                                 {% else %}
