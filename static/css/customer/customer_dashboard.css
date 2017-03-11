@@ -16,7 +16,7 @@
     overflow-y: auto;
 }
 
-.card-header {
+.module-header {
     height: 25px;
     font-size: 17px;
     padding-top: 2px !important;

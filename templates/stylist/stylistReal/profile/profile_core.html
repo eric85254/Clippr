@@ -17,18 +17,25 @@
 
 <div class="container">
     <div class="row pt-3 pb-3">
-        <div class="col-5">
+
+        <div class="col-md-5">
+            <!-- Profile pic and name -->
             {% include 'stylist/stylistReal/profile/profile_components/profile_image.html' %}
         </div>
-        <div class="col-7">
-           {% include 'stylist/stylistReal/profile/profile_components/about.html' %}
+
+        <div class="col-md-7">
+            <!-- About section -->
+            {% include 'stylist/stylistReal/profile/profile_components/about.html' %}
         </div>
+
     </div>
     <div class="row">
-        <div class="col-3 px-1">
+        <div class="col-md-3 px-1">
+            <!-- Menu -->
             {% include 'stylist/stylistReal/dashboard/dashboardComponents/menu.html' %}
         </div>
-        <div class="col-9 px-1">
+        <div class="col-md-9 px-1">
+            <!-- Portfolio -->
             {% include 'stylist/stylistReal/profile/profile_components/portfolio.html' %}
         </div>
     </div>
