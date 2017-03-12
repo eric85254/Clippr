@@ -12,33 +12,29 @@
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="container" id="OuterCenter">
-            <div class="container" id="InnerCenter">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" id="styleNavPortfolio" href="{% url 'stylist:portfolio' %}">Portfolio <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavProfile" href="{% url 'stylist:profile_test' %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavDashboard" href="{% url 'stylist:dashboard' %}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavTransactions" href="{% url 'stylist:transactions' %}">Transactions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavReviews" href="{% url 'stylist:transactions' %}">Reviews</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavDeal" href="{% url 'stylist:transactions' %}">Create a Deal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="styleNavLogoff" href="{% url 'core:logout' %}">Logoff</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavPortfolio" href="{% url 'stylist:portfolio' %}">Portfolio <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavProfile" href="{% url 'stylist:profile_test' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavDashboard" href="{% url 'stylist:dashboard' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavTransactions" href="{% url 'stylist:transactions' %}">Transactions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavReviews" href="{% url 'stylist:transactions' %}">Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavDeal" href="{% url 'stylist:transactions' %}">Create a Deal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="styleNavLogoff" href="{% url 'core:logout' %}">Logoff</a>
+            </li>
+        </ul>
     </div>
 </nav>
