@@ -104,3 +104,7 @@ $(".appointment-option").click(function() {
     console.log(tmp2);
     $('#' + tmp2).collapse('toggle');
 })
+
+$('.appointment-location').click(function () {
+    geocodeAddress(geocoder, map, $(this).attr('role'));
+})

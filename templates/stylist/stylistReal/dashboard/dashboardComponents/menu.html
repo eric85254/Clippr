@@ -10,23 +10,27 @@
             <div id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="card">
                     <div class="menu-header card-header">
-                        <h5 class="mb-0">
-                            <a class="menu-option" role="menu-{{ forloop.counter }}">
+                        <h5 class="menu-option mb-0 d-flex justify-content-end" role="menu-{{ forloop.counter }}">
+                            <a class="mr-auto">
                                 {% if stylist_option.stylist_menu %}
-                                    {{ stylist_option.stylist_menu.name }}
+                                    {{ stylist_option.stylist_menu.name }}<br>
+                                    {{ stylist_option.stylist_menu.price }}
                                 {% else %}
-                                    {{ stylist_option.global_menu.name }}
+                                    {{ stylist_option.global_menu.name }}<br>
+                                {% endif %}
+                            </a>
+                            <a>
+                                {% if stylist_option.stylist_menu %}
+                                    ${{ stylist_option.stylist_menu.price }}
+                                {% else %}
+                                    ${{ stylist_option.global_menu.price }}
                                 {% endif %}
                             </a>
                         </h5>
                     </div>
                     <div id="menu-{{ forloop.counter }}" class="collapse">
                         <div class="card-block">
-                            {% if stylist_option.stylist_menu %}
-                                {{ stylist_option.global_menu.price }}
-                            {% else %}
-                                {{ stylist_option.stylist_menu.price }}
-                            {% endif %}
+                            <!-- drop down content -->
                         </div>
                     </div>
                 </div>
