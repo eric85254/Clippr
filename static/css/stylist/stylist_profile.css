@@ -1,4 +1,12 @@
 
+.test-card {
+    height: 150px;
+}
+
+.test-card2 {
+    height: 50px;
+}
+
 .profile-image-sizing {
     height: 130px;
     width: 130px;

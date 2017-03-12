@@ -2,7 +2,7 @@
  * Created by Adam on 3/8/2017.
  */
 
-$(".menu-option").click(function() {
+$(".menu-option").click(function () {
     var tmp1 = $(this).attr("role");
     // console.log(tmp1);
     $('#' + tmp1).collapse('toggle');
@@ -31,3 +31,20 @@ $(".portfolio-image").click(function () {
 $(document).keyup(function (e) {
     if ((e.keyCode == 27) && ($('#popup-modal').hasClass("show"))) $("#popup-modal").modal("hide");
 })
+
+$(window).resize(function () {
+    console.log('resize called');
+    var width = $(window).width();
+    if (width <= 575) {
+        $('#profile-portfolio').removeClass('show')
+
+        $("#portfolio-header").click(function () {
+            $('#profile-portfolio').collapse('toggle');
+        })
+    }
+    else {
+        $('#profile-portfolio').addClass('show');
+    }
+})
+
+    .resize();//trigger the resize event on page load.

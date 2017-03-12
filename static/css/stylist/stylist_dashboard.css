@@ -23,6 +23,14 @@
     text-align: center;
 }
 
+.menu-header {
+    min-height: 25px !important;
+    font-size: 17px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
 .toggle-link {
     height: 25px;
     padding-top: 0 !important;
