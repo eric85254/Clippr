@@ -46,7 +46,7 @@ def returning_user(request):
     if request.method == 'POST':
         user = UserLogic.retrieve_user(request)
         UserLogic.login(request, user)
-        return UserLogic.redirect_to_profile(request)
+        return UserLogic.redirect_to_dashboard(request)
 
 
 '''
@@ -60,7 +60,7 @@ def upload_picture(request):
 
     if request.method == 'POST':
         UserLogic.upload_picture(request)
-        return UserLogic.redirect_to_profile(request)
+        return UserLogic.redirect_to_dashboard(request)
 
 
 '''
@@ -90,7 +90,7 @@ def update_basic_information(request):
             user.email = request.POST.get('email')
             user.phone_number = request.POST.get('phone_number')
             user.save()
-            return UserLogic.redirect_to_profile(request)
+            return UserLogic.redirect_to_dashboard(request)
         else:
             request.session['information_errors'] = information.errors
             return redirect('core:update_basic_information')
@@ -116,7 +116,7 @@ def change_password(request):
                 request.user.set_password(new_password)
                 request.user.save()
                 auth.login(request, request.user)
-                return UserLogic.redirect_to_profile(request)
+                return UserLogic.redirect_to_dashboard(request)
             else:
                 request.session['password_error'] = "Passwords don't match."
                 return redirect('core:change_password')
@@ -150,7 +150,7 @@ def home_stylist(request):
 
 def home_login(request):
     if not request.user.is_anonymous:
-        return UserLogic.redirect_to_profile(request)
+        return UserLogic.redirect_to_dashboard(request)
 
     if 'error' in request.session:
         error = request.session['error']

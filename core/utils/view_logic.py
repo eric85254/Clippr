@@ -20,7 +20,7 @@ class UserLogic(object):
             auth.login(request, user)
 
     @staticmethod
-    def redirect_to_profile(request):
+    def redirect_to_dashboard(request):
         user = request.user
         if user.is_anonymous:
             request.session['error'] = "username or password is incorrect"
@@ -31,9 +31,9 @@ class UserLogic(object):
 
         else:
             if user.is_stylist == 'YES':
-                return redirect('stylist:profile')
+                return redirect('stylist:dashboard')
             else:
-                return redirect('customer:profile')
+                return redirect('customer:dashboard')
 
     @staticmethod
     def upload_picture(request):
