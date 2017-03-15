@@ -8,7 +8,8 @@ router.register(r'user', views.UserViewSet, 'user')
 router.register(r'appointment', views.AppointmentViewSet)
 router.register(r'haircut', views.HaircutViewSet)
 router.register(r'stylist', views.StylistViewSet, 'stylist')
-router.register(r'menu', views.MenuViewSet)
+router.register(r'global_menu', views.GlobalMenuViewSet)
+router.register(r'stylist_menu', views.StylistMenuViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

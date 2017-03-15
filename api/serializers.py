@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Appointment, GlobalMenu
+from core.models import User, Appointment, GlobalMenu, StylistMenu
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from stylist.models import PortfolioHaircut
 
@@ -94,3 +94,13 @@ class GlobalMenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GlobalMenu
         fields = ('url', 'name', 'price')
+
+
+class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
+    modified_global = serializers.SlugRelatedField(many=False, read_only=False, allow_null=True, slug_field='name',
+                                                   queryset=GlobalMenu.objects.all())
+
+    class Meta:
+        model = StylistMenu
+        fields = ('url', 'name', 'price', 'modified_global')

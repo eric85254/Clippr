@@ -39,8 +39,10 @@ class GlobalMenu(models.Model):
 
 
 class StylistMenu(models.Model):
+    stylist = models.ForeignKey('core.User', related_name='owner')
     name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
 
     def __str__(self):
         stylist_bridge = StylistBridgeMenu.objects.get(stylist_menu=self)
