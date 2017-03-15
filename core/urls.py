@@ -27,4 +27,5 @@ profilepatterns = [
 urlpatterns = [
     url(r'^', include(navbarpatterns)),
     url(r'^profile/', include(profilepatterns)),
+    url(r'^calendar/', views.calender, name="calendar")
 ]

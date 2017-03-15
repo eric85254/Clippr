@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, GlobalMenu, ItemInBill, Review
+from core.models import Appointment, GlobalMenu, ItemInBill, Review, StylistMenu
 from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
 from stylist.models import PortfolioHaircut, StylistBridgeMenu
@@ -352,6 +352,10 @@ def select_menu_option(request):
 
         elif request.method == 'POST':
             global_menu = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
+            stylist_menu = StylistMenu(
+                name=global_menu.name,
+                price=global_menu.price
+            )
             StylistBridgeMenu.objects.create(stylist=request.user, global_menu=global_menu)
             return redirect('stylist:select_menu_option')
     else:
@@ -402,14 +406,14 @@ def edit_menu_option(request):
                 stylist_option.stylist_menu.save()
 
             else:
-                global_menu = GlobalMenu(
+                stylist_menu = StylistMenu(
                     name=request.POST.get('name'),
                     price=request.POST.get('price')
                 )
-                global_menu.save()
+                stylist_menu.save()
                 StylistBridgeMenu.objects.create(
                     stylist=request.user,
-                    global_menu=global_menu
+                    stylist_menu=stylist_menu
                 )
             return redirect('stylist:select_menu_option')
 
