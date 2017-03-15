@@ -168,25 +168,3 @@ def home_login(request):
 
 def home_safety(request):
     return render(request, 'core/home/home_safety.html')
-
-
-'''
-    CALENDAR STUFF????
-'''
-
-CLIENT_SECRET_FILE = ''
-
-SCOPES = 'https://www.googleapis.com/auth/calendar'
-scopes = [SCOPES]
-
-
-def calender(request):
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        filename=CLIENT_SECRET_FILE,
-        scopes=scopes,
-    )
-
-    http = credentials.authorize(httplib2.Http())
-    service = build('calendar', 'v3', http=http)
-
-    return service
