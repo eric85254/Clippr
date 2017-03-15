@@ -1,12 +1,6 @@
 /**
- * Created by adaml on 2/10/2017.
+ * Created by Adam on 3/7/2017.
  */
-
-
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
 
 // variables
 var map;
@@ -92,9 +86,3 @@ function initMap() {
 function showMarkerOnMap(button) {
     geocodeAddress(geocoder, map, button.value); //address is located in button value
 }
-
-$(".menu-option").click(function() {
-    var tmp = $(this).attr("role");
-    // console.log(tmp);
-    $('#' + tmp).collapse('toggle');
-})

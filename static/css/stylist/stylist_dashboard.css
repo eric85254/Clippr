@@ -12,18 +12,22 @@
     min-width: 250px;
 }
 
-/*#map-card {*/
-    /*margin-bottom: 1px;*/
-/*}*/
-
 .card-scroll {
     overflow-y: auto;
 }
 
-.card-header {
+.module-header {
     height: 25px;
     font-size: 17px;
     padding-top: 2px !important;
+    text-align: center;
+}
+
+.menu-header {
+    min-height: 25px !important;
+    font-size: 17px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     text-align: center;
 }
 
@@ -40,4 +44,8 @@
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+.appointment-block {
+    min-height:40px;
 }

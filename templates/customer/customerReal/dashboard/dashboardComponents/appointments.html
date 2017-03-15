@@ -30,26 +30,12 @@
                             </h6>
                             <div id="appointment-{{ forloop.counter }}" class="collapse">
                                 <div class="card-block p-1">
-                                    <p>Who: {{ appointment.customer.get_full_name }}</p>
-                                    <p class="appointment-location" role="{{ appointment.location }}">
-                                        Where: {{ appointment.location }} </p>
-                                    <p>What:</p>
-                                    <ul class="list-group">
-                                        {% for item in bill %}
-                                            <li class="list-group-item">{{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }}</li>
-                                        {% endfor %}
-                                    </ul>
-
-                                    <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
-                                        <input type="submit" value="View the Bill"/>
-                                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                    </form>
-                                    <form action="{% url 'stylist:complete_appointment' %}"
-                                          method="post"> {% csrf_token %}
-                                        <input type="submit" value="Complete"/>
-                                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                    </form>
-                                    <br>
+                                    <p>Customer: {{ appointment.customer.get_full_name }}<br>
+                                        Location: {{ appointment.location }}
+                                    </p>
+                                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">
+                                        Show On Map
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -68,33 +54,23 @@
                     Location: {{ appointment.location }} <br>
                     Time: {{ appointment.date|default_if_none:"" }} <br>
                     Price: {{ appointment.price|default_if_none:"" }} <br>
+                    -------------------------------- <br>
 
-                    <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
-                        <input type="submit" value="Accept"/>
+                    <form action="{% url 'customer:cancel_appointment' %}" method="post"> {% csrf_token %}
+                        <input type="submit" value="Cancel"/>
                         <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                     </form>
                     <br>
-                    <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
-                        <input type="submit" value="Decline"/>
-                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                    </form>
-                    <br>
-                    <form action="{% url 'stylist:reschedule_appointment' %}"
-                          method="post"> {% csrf_token %}
+                    <form action="{% url 'customer:reschedule_appointment' %}" method="post"> {% csrf_token %}
                         <label for="date">Date: </label>
                         <input type="datetime-local" value="" name="date" id="date"/> <br>
                         <input type="submit" value="Reschedule"/>
                         <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                     </form>
-                    <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
-                        <label for="travel_price">Travel Price:</label>
-                        <input id="travel_price" name="travel_fee" type="number" min="0" max="50"
-                               step=".01"/>
+                    <form action="{% url 'customer:view_bill' %}" method="get">
                         <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                        <input type="submit" value="Add Travel Fee.">
+                        <input type="submit" value="View Bill"/>
                     </form>
-                    <br>
-                    -------------------------------- <br>
                 </ul>
             {% empty %}
                 There are no pending appointments at this time <br>

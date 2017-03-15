@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "clippr-1486792824446",
+  "private_key_id": "acdc161a5237d8c966121f2231fa8828b2530954",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDg5R/cYfDUIKDS\n5qkRTdZWb7U/42aCAkRyDh3XYNg52gi7oA/WQR47PQcF9OIIWQkUOyJAo9D2ow7e\nkzjfw63QP4nEpQ0gQ2dZ8Mo+ACsgnHe42kXuA6+uW1iFq7FeE0lzaUxKxb9ZsBVl\nqwdbDLyCGKBBrSqHX4ccB/Fh32iVCAxU2dHDx0b1GT1bQlfiW3PZPM6xxjIaTDCC\n/aIwVqvT5ecqztrf8BZEsoryf3S8fknx46a8otPhCg6jPQVcpRCvaYGzjGGF0jOH\nUY1RhBkMXKNgroKO6k+w4h3fM4FtHqBtDR8KQ5RwGJ1rpJBqDvgnSAqLGzV3D3le\n2kR8gjlRAgMBAAECggEAXzEcl0/tfByDdkGj9msX+mY2NeCvFwCWsCBBiVS4sWQU\npjZN/cZ6YWCnhGHu+tGVAjc1fF7aqErElHmEbVKKU8dRLScfszRUnsFJGY1AtAEG\nu/vH9cMhrY+EnK/b15IaWPuNC2lAYVoi9HG8H1H4yKhbzPDbO4m3yqmiBmdmAQ4n\n5hXzu/+SJ0s/lo2Bg2T1+bgLxScx/Kt2wlGKA/7BX0Jss4UOeBlkY/FpzA0mwNSA\nPjqbwiGRuhukaDYEMpdrH38mhUqCNGePxoOUGSsAR9mTrcsnHfRQqOzzmyAUGFt6\n3dfhXgvHX1ESCiSm+9pOctBBE4VDHRw1R5XfKrT8QQKBgQDyyvbb3YGIWi+ZWPqm\nxhptKDP7vDX2RFLwCBEqXQMd3ala2UGLRVKFo1hGR2lYYtnDqpvv1WBYw6VXFWsk\nCuEAuwYWgOQwXyy0hkDPJ360T/jhdRbHlOujN49iEHNesPwSd/qQ77TbVuPzPNoN\nKYnBBasvf4qFpk+6jOSlFYlchQKBgQDtIOwiqI7s8WPDXo4yhfQVlISe3LrNwkj0\ndRaobWYu//vWf4fnMy7kQ/rdqgaLQlHdHMP8etSWsVU6DAtHKPqt9RsMXHimsiEC\nZkpEmUnuB8nK7uOLMwhSNQ3PVaNQGTMZaC66WJmGm7F/ABtOt+0IpV8ZZTVMwLKU\n9hs2fJo5XQKBgB43HBmoq2IotxvCcw8mQEutYSrG9YA8aIXuuxQmlyi0WUsxFnMa\noXZ4KZg1curJAojTRqzGRUNGteDsjXTi1bWdkNhkGgHbFlkxDAe7xozyFusYA0m7\nQsgBNhriKTlzlStHOyumaT+SxLOUsx5IORiIeBFlMfwIAowY1Kumzn1xAoGBAOEj\nQ+94GBMw8KZajSm88szWcMAgFCAtWXT4AmYxUDZJhsLV3KOPffLt9C4nMwVfFziX\nCiEaQeM9RQzSyJZseu1U7LRky4yBTUPo+JR+8alUravF+jZ8YmcixhTXWzI+aryx\npMP6QPGDuxc4c7Tefeeak1saM2vG/QbfT2EBFrBlAoGBANC55ZddQDmaBHOWZlO6\nVzjTUgQhcrGt3uvWZ8MdXrhw+6/8D11LEJNIH0Oi7cJ7gvbYPuYl1G/Z3m2yggaO\nsBAn/d7aUIQetQ+GR0TA0zRDXT3d9n+sywxSUWymk2dkASyWihg65Jx4ztrKDscy\n0ks9zsJH/NK5GhPnXe6chc1l\n-----END PRIVATE KEY-----\n",
+  "client_email": "clippr-test@clippr-1486792824446.iam.gserviceaccount.com",
+  "client_id": "107559795577982771039",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/clippr-test%40clippr-1486792824446.iam.gserviceaccount.com"
+}

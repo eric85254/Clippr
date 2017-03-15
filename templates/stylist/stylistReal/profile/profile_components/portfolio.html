@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<div class="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <h6 class="card-header module-header" id="portfolio-header">Portfolio</h6>
+        <div class="collapse show" id="profile-portfolio">
+            <div class="card-block">
+                <div class="row pl-3">
+                    {% for portfolio_haircut in portfolio_haircuts|slice:":6" %}
+                        <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
+                            <div class="card portfolio-card mr-md-3">
+                                <div class="portfolio-image-sizing">
+                                    <img class="card-img-top portfolio-image"
+                                         src="{{ portfolio_haircut.picture.url }}"/>
+                                </div>
+                                <div class="card-block">
+                                    <p class="card-text"> {{ portfolio_haircut.name }}
+                                        Price: {{ portfolio_haircut.price }}
+                                        Description: {{ portfolio_haircut.description }}</p>
+                                    <form action="{% url 'stylist:edit_portfoliohaircut' %}"
+                                          method="get"> {% csrf_token %}
+                                        <input type="hidden" name="portfoliohaircut_pk"
+                                               value="{{ portfolio_haircut.pk }}"/>
+                                        <input type="submit" value="Edit Haircut"/>
+                                    </form>
+                                    <form action="{% url 'stylist:delete_portfoliohaircut' %}"
+                                          method="post"> {% csrf_token %}
+                                        <input type="submit" value="Delete Item"/>
+                                        <input type="hidden" name="portfolio_haircut_pk"
+                                               value="{{ portfolio_haircut.pk }}"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

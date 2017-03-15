@@ -207,7 +207,7 @@ def add_item(request):
                                                      price=request.POST.get('price'), appointment=appointment)
 
                     BillLogic.update_price(appointment)
-                return redirect('stylist:dashboard')
+                return redirect('stylist:view_bill')
         else:
             return redirect('core:logout')
     else:
@@ -225,7 +225,7 @@ def add_haircut(request):
             if appointment.status is not Appointment.STATUS_COMPLETED:
                 ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
                 BillLogic.update_price(appointment)
-            return redirect('stylist:dashboard')
+            return redirect('stylist:view_bill')
     else:
         return redirect('core:logout')
 

@@ -1,0 +1,10 @@
+{% load staticfiles %}
+
+<div class="card">
+    <div class="card-block pt-2">
+        <h5 class="card-title">About me</h5>
+        <div class="card-text">
+            {{ stylist.biography|default_if_none:"Basic Information goes here." }}
+        </div>
+    </div>
+</div>

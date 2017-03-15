@@ -1,6 +1,11 @@
-/*.profile-description {*/
-/*margin-top:0*/
-/*}*/
+
+.test-card {
+    height: 150px;
+}
+
+.test-card2 {
+    height: 50px;
+}
 
 .profile-image-sizing {
     height: 130px;
@@ -15,27 +20,27 @@
     overflow-y: auto;
 }
 
-.card-menu {
-    height: 350px;
-}
-
 .portfolio-card {
     width: 220px;
 }
 
-.portfolio-image {
-    width: 100%;
-}
-
 .portfolio-image-sizing {
-    height:220px;
+    height: 220px;
     width: 220px;
 }
 
-.card-header {
+.module-header {
     height: 25px;
     font-size: 17px;
     padding-top: 2px !important;
+    text-align: center;
+}
+
+.menu-header {
+    min-height: 25px !important;
+    font-size: 17px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     text-align: center;
 }
 
