@@ -30,9 +30,16 @@
                             </h6>
                             <div id="appointment-{{ forloop.counter }}" class="collapse">
                                 <div class="card-block p-1">
-                                    <p>Customer: {{ appointment.customer.get_full_name }}</p>
+                                    <p>Who: {{ appointment.customer.get_full_name }}</p>
                                     <p class="appointment-location" role="{{ appointment.location }}">
-                                        Location: {{ appointment.location }} </p>
+                                        Where: {{ appointment.location }} </p>
+                                    <p>What:</p>
+                                    <ul class="list-group">
+                                        {% for item in bill %}
+                                            <li class="list-group-item">{{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }}</li>
+                                        {% endfor %}
+                                    </ul>
+
                                     <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
                                         <input type="submit" value="View the Bill"/>
                                         <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
@@ -47,29 +54,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                {#                    Appointment Details: <br>#}
-                {#                    Customer: {{ appointment.customer.get_full_name }} <br>#}
-                {#                    Location: {{ appointment.location }} <br>#}
-                {#                    Time: {{ appointment.date|default_if_none:"" }} <br>#}
-                {#                    Price: {{ appointment.price|default_if_none:"" }} <br>#}
-                {##}
-                {#                                    <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}#}
-                {#                                        <input type="submit" value="View the Bill"/>#}
-                {#                                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>#}
-                {#                                    </form>#}
-                {#                                    <form action="{% url 'stylist:complete_appointment' %}" method="post"> {% csrf_token %}#}
-                {#                                        <input type="submit" value="Complete"/>#}
-                {#                                        <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>#}
-                {#                                    </form>#}
-                {#                                    <br>#}
-                {##}
-                {#                    <button onclick="showMarkerOnMap(this)" value="{{ appointment.location }}">Show On Map#}
-                {#                    </button>#}
-                {#                    <br>#}
-                {#                    -------------------------------- <br>#}
-                {#                </ul>#}
             {% empty %}
                 You have no upcoming appointments <br>
             {% endfor %}
