@@ -7,8 +7,7 @@
     <hr>
     <h1>MENU OPTIONS</h1>
     {% for stylist_option in stylist_options %}
-        Name: {{ stylist_option.menu_option.name }} <br>
-        Description: {{ stylist_option.menu_option.description }} <br>
+        Name: {{ stylist_option.name }} <br>
         Price: ${{ stylist_option.price }}
 
         <form action="{% url 'customer:obtain_selected_menuOption' %}" method="post">{% csrf_token %}

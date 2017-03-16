@@ -10,7 +10,7 @@
     {% for item in bill %}
         <tr>
             <td>
-                {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }} {{ item.item_menu.menu_option.name }}
+                {{ item.item_portfolio.name|default_if_none:"" }} {{ item.item_custom|default_if_none:"" }} {{ item.item_menu.name }}
             </td>
             <td>
                 {{ item.price }}
