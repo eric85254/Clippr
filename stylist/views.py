@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from core.models import Appointment, GlobalMenu, ItemInBill, Review, StylistMenu
 from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
-from stylist.models import PortfolioHaircut, StylistBridgeMenu
+from stylist.models import PortfolioHaircut
 from stylist.utils.view_logic import BillLogic
 
 
@@ -17,7 +17,7 @@ def profile(request):
         full_name = request.user.get_full_name()
 
         portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
-        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+        stylist_options = StylistMenu.objects.filter(stylist=request.user)
 
         return render(request, 'stylist/profile.html',
                       {'full_name': full_name,
@@ -30,18 +30,22 @@ def profile(request):
 
 def dashboard(request):
     if request.user.is_stylist == 'YES':
-        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING).order_by('-date')
-        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED).order_by('-date')
-        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
+        pending_appointments = Appointment.objects.filter(stylist=request.user,
+                                                          status=Appointment.STATUS_PENDING).order_by('-date')
+        accepted_appointments = Appointment.objects.filter(stylist=request.user,
+                                                           status=Appointment.STATUS_ACCEPTED).order_by('-date')
+        declined_appointments = Appointment.objects.filter(stylist=request.user,
+                                                           status=Appointment.STATUS_DECLINED).order_by('-date')
         rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
                                                                         status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
         rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
                                                                          status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
-        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
+        completed_appointments = Appointment.objects.filter(stylist=request.user,
+                                                            status=Appointment.STATUS_COMPLETED).order_by('-date')
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
-        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+        stylist_options = StylistMenu.objects.filter(stylist=request.user)
         return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html',
                       {'full_name': request.user.get_full_name(),
                        'pending_appointments': pending_appointments,
@@ -80,12 +84,18 @@ def transactions(request):
 
 def appointments(request):
     if request.user.is_stylist == 'YES':
-        pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING).order_by('-date')
-        accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED).order_by('-date')
-        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
+        pending_appointments = Appointment.objects.filter(stylist=request.user,
+                                                          status=Appointment.STATUS_PENDING).order_by('-date')
+        accepted_appointments = Appointment.objects.filter(stylist=request.user,
+                                                           status=Appointment.STATUS_ACCEPTED).order_by('-date')
+        declined_appointments = Appointment.objects.filter(stylist=request.user,
+                                                           status=Appointment.STATUS_DECLINED).order_by('-date')
 
-        rescheduled_appointments = Appointment.objects.filter((Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)), stylist=request.user).order_by('-date')
-        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
+        rescheduled_appointments = Appointment.objects.filter(
+            (Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)),
+            stylist=request.user).order_by('-date')
+        completed_appointments = Appointment.objects.filter(stylist=request.user,
+                                                            status=Appointment.STATUS_COMPLETED).order_by('-date')
 
         return render(request, 'stylist/stylistReal/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
@@ -204,7 +214,7 @@ def add_item(request):
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
                 if appointment.status is not Appointment.STATUS_COMPLETED:
                     ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
-                                                     price=request.POST.get('price'), appointment=appointment)
+                                              price=request.POST.get('price'), appointment=appointment)
 
                     BillLogic.update_price(appointment)
                 return redirect('stylist:view_bill')
@@ -241,7 +251,7 @@ def add_travel_fee(request):
                     item.price = request.POST.get('travel_fee')
                 else:
                     ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
-                                                     appointment=appointment)
+                                              appointment=appointment)
                 appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
                 BillLogic.update_price(appointment)
             return redirect(request.META.get('HTTP_REFERER'))
@@ -259,7 +269,7 @@ def portfolio(request):
         full_name = request.user.get_full_name()
 
         portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
-        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+        stylist_options = StylistMenu.objects.filter(stylist=request.user)
 
         return render(request, 'stylist/stylistReal/portfolio/portfolio_core.html',
                       {'full_name': full_name,
@@ -283,13 +293,13 @@ def upload_haircut(request):
                 if request.POST.get('stylist_option_pk') == 'none':
                     menu_main = None
                 else:
-                    menu_main = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).menu_option
+                    menu_main = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
                 new_portfolioHaircut.menu_option = menu_main
                 new_portfolioHaircut.save()
 
             return redirect('stylist:profile')
         elif request.method == 'GET':
-            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            stylist_options = StylistMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/upload_haircut.html', {'stylist_options': stylist_options})
 
     else:
@@ -310,7 +320,7 @@ def edit_portfoliohaircut(request):
             if request.POST.get('stylist_option_pk') == 'none':
                 menu_main = None
             else:
-                menu_main = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk')).menu_option
+                menu_main = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
 
             haircut.menu_option = menu_main
             haircut.save()
@@ -319,7 +329,7 @@ def edit_portfoliohaircut(request):
 
         if request.method == 'GET':
             haircut = PortfolioHaircut.objects.get(pk=request.GET.get('portfoliohaircut_pk'))
-            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            stylist_options = StylistMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/edit_portfoliohaircut.html',
                           {'haircut': haircut, 'stylist_options': stylist_options})
     else:
@@ -345,18 +355,20 @@ def delete_portfoliohaircut(request):
 def select_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
-            menu_options = GlobalMenu.objects.all().exclude(stylistbridgemenu__stylist=request.user)
-            stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+            menu_options = GlobalMenu.objects.all().exclude(modified_global__stylist=request.user)
+            stylist_options = StylistMenu.objects.filter(stylist=request.user)
             return render(request, 'stylist/menu/select_menu_option.html',
                           {'menu_options': menu_options, 'stylist_options': stylist_options})
 
         elif request.method == 'POST':
             global_menu = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
             stylist_menu = StylistMenu(
+                stylist=request.user,
                 name=global_menu.name,
-                price=global_menu.price
+                price=global_menu.price,
+                modified_global=global_menu
             )
-            StylistBridgeMenu.objects.create(stylist=request.user, global_menu=global_menu)
+            stylist_menu.save()
             return redirect('stylist:select_menu_option')
     else:
         return redirect('core:logout')
@@ -368,13 +380,14 @@ def remove_menu_option(request):
             return redirect(request.META.get('HTTP_REFERER'))
 
         if request.method == 'POST':
-            stylist_selection = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
+            stylist_selection = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
             stylist_selection.delete()
             return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect('core:logout')
 
 
+# ToDo: difference between select menu_option and create_menu_option??
 def create_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
@@ -382,10 +395,9 @@ def create_menu_option(request):
 
             if menu_option_form.is_valid():
                 new_option = menu_option_form.save(commit=False)
+                new_option.save(commit=False)
+                new_option.stylist = request.user
                 new_option.save()
-
-                StylistBridgeMenu.objects.create(stylist=request.user, menu_option=new_option,
-                                                 price=request.POST.get('price'))
 
                 return redirect('stylist:select_menu_option')
 
@@ -398,27 +410,17 @@ def create_menu_option(request):
 def edit_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
-            stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
+            stylist_option = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
 
-            if stylist_option.stylist_menu:
-                stylist_option.stylist_menu.name = request.POST.get('name')
-                stylist_option.stylist_menu.price = request.POST.get('price')
-                stylist_option.stylist_menu.save()
+            stylist_option.name = request.POST.get('name')
+            stylist_option.price = request.POST.get('price')
+            stylist_option.stylist = request.user
+            stylist_option.save()
 
-            else:
-                stylist_menu = StylistMenu(
-                    name=request.POST.get('name'),
-                    price=request.POST.get('price')
-                )
-                stylist_menu.save()
-                StylistBridgeMenu.objects.create(
-                    stylist=request.user,
-                    stylist_menu=stylist_menu
-                )
             return redirect('stylist:select_menu_option')
 
         if request.method == 'GET':
-            stylist_option = StylistBridgeMenu.objects.get(pk=request.GET.get('stylist_option_pk'))
+            stylist_option = StylistMenu.objects.get(pk=request.GET.get('stylist_option_pk'))
             return render(request, 'stylist/menu/edit_menu_option.html', {'stylist_option': stylist_option})
     else:
         return redirect('core:logout')
@@ -427,9 +429,7 @@ def edit_menu_option(request):
 def delete_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
-            stylist_option = StylistBridgeMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
-            if stylist_option.stylist_menu:
-                stylist_option.stylist_menu.delete()
+            stylist_option = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
             stylist_option.delete()
             return redirect(request.META.get('HTTP_REFERER'))
     else:
@@ -446,7 +446,7 @@ def profile_test(request):
         full_name = request.user.get_full_name()
 
         portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
-        stylist_options = StylistBridgeMenu.objects.filter(stylist=request.user)
+        stylist_options = StylistMenu.objects.filter(stylist=request.user)
 
         return render(request, 'stylist/stylistReal/profile/profile_core.html',
                       {'full_name': full_name,

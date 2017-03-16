@@ -6,7 +6,6 @@ from django.db import models
 
 # Create your models here.
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
-from stylist.models import StylistBridgeMenu
 
 
 class User(AbstractUser):
@@ -50,7 +49,7 @@ class StylistMenu(models.Model):
 
 class ItemInBill(models.Model):
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
-    item_menu = models.ForeignKey('stylist.StylistBridgeMenu', related_name='item_menu', null=True, blank=True)
+    item_menu = models.ForeignKey('core.StylistMenu', related_name='item_menu', null=True, blank=True)
     item_custom = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     appointment = models.ForeignKey('core.Appointment', on_delete=models.SET_NULL, null=True)

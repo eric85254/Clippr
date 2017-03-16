@@ -36,8 +36,8 @@
             ---------------------------------- <br>
         {% else %}
             ---------------------------------- <br>
-            Name: {{ stylist_option.global_menu.name }} <br>
-            Price: {{ stylist_option.global_menu.price|default_if_none:"Set a price!" }}
+            Name: {{ stylist_option.name }} <br>
+            Price: {{ stylist_option.price|default_if_none:"Set a price!" }}
             <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
                 <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
                 <input type="submit" value="Remove"/>

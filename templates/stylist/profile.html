@@ -23,8 +23,8 @@
     <a href="{% url 'stylist:select_menu_option' %}">Select a Menu Option</a> <br>
 
     {% for stylist_option in stylist_options %}
-        Name: {{ stylist_option.menu_option.name }} <br>
-        Description: {{ stylist_option.menu_option.description }} <br>
+        Name: {{ stylist_option.name }} <br>
+        Price: {{ stylist_option.price }}
         <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
             <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
             <input type="submit" value="Remove"/>

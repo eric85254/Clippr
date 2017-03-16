@@ -12,19 +12,13 @@
                     <div class="menu-header card-header">
                         <h5 class="menu-option mb-0 d-flex justify-content-end" role="menu-{{ forloop.counter }}">
                             <a class="mr-auto">
-                                {% if stylist_option.stylist_menu %}
-                                    {{ stylist_option.stylist_menu.name }}<br>
-                                    {{ stylist_option.stylist_menu.price }}
-                                {% else %}
-                                    {{ stylist_option.global_menu.name }}<br>
-                                {% endif %}
+                                {{ stylist_option.name }}<br>
+                                {{ stylist_option.price }}
                             </a>
                             <a>
-                                {% if stylist_option.stylist_menu %}
-                                    ${{ stylist_option.stylist_menu.price }}
-                                {% else %}
-                                    ${{ stylist_option.global_menu.price }}
-                                {% endif %}
+
+                                ${{ stylist_option.price }}
+
                             </a>
                         </h5>
                     </div>

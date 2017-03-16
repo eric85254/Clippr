@@ -2,31 +2,22 @@
 
 
 {% block main_content %}
-    {% if stylist_option.stylist_menu %}
-        <form action="{% url 'stylist:edit_menu_option' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <form action="{% url 'stylist:edit_menu_option' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% if stylist_option.modified_global %}
             <label for="name">Name: </label>
-            <input type="text" id="name" name="name" value="{{ stylist_option.stylist_menu.name|default_if_none:"" }}"/>
+            {{ stylist_option.name }}
             <br>
-
-            <label for="price">Price: </label>
-            <input type="number" min="0" step=".01" id="price" name="price"
-                   value="{{ stylist_option.stylist_menu.price|default_if_none:"" }}"/> <br>
-
-            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-            <input type="submit" value="Submit"/>
-        </form>
-    {% else %}
-        <form action="{% url 'stylist:edit_menu_option' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% else %}
             <label for="name">Name: </label>
-            <input type="text" id="name" name="name" value="{{ stylist_option.global_menu.name|default_if_none:"" }}"/>
+            <input type="text" id="name" name="name" value="{{ stylist_option.name|default_if_none:"" }}"/>
             <br>
+        {% endif %}
 
-            <label for="price">Price: </label>
-            <input type="number" min="0" step=".01" id="price" name="price"
-                   value="{{ stylist_option.global_menu.price|default_if_none:"" }}"/> <br>
+        <label for="price">Price: </label>
+        <input type="number" min="0" step=".01" id="price" name="price"
+               value="{{ stylist_option.stylist_menu.price|default_if_none:"" }}"/> <br>
 
-            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-            <input type="submit" value="Submit"/>
-        </form>
-    {% endif %}
+        <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+        <input type="submit" value="Submit"/>
+    </form>
 {% endblock %}

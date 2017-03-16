@@ -24,13 +24,8 @@ Description: {{ haircut.description }} <br>
     Menu:<br>
     <hr>
     {% for stylist_option in stylist_options %}
-        {% if stylist_options %}
-            <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
-            {{ stylist_option.stylist_menu.name }} <br>
-        {% else %}
-            input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
-            {{ stylist_option.global_menu.name }} <br>
-        {% endif %}
+        <input name="stylist_option_pk" type="radio" value="{{ stylist_option.pk }}">
+        {{ stylist_option.name }} <br>
     {% endfor %}
     <input type="radio" name="stylist_option_pk" value="none"> None
     <br> <br>

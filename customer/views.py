@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, ItemInBill, Review
+from core.models import User, Appointment, ItemInBill, Review, StylistMenu
 from datetime import datetime
 
 # for the search
@@ -11,7 +11,7 @@ from operator import __or__ as OR
 
 # from django.db.models import Q,
 from customer.utils.view_logic import CustomerLogic
-from stylist.models import PortfolioHaircut, StylistBridgeMenu
+from stylist.models import PortfolioHaircut
 from stylist.utils.view_logic import BillLogic
 
 '''
@@ -74,8 +74,8 @@ def create_appointment(request):
                 ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
                                              appointment=new_appointment)
 
-            if 'stylist_option_pk' in request.session:
-                stylist_option = StylistBridgeMenu.objects.get(pk=request.session['stylist_option_pk'])
+            if 'stylist_menu_pk' in request.session:
+                stylist_option = StylistMenu.objects.get(pk=request.session['stylist_menu_pk'])
                 ItemInBill.objects.create(item_menu=stylist_option, price=stylist_option.price,
                                              appointment=new_appointment)
 
@@ -117,7 +117,7 @@ def obtain_stylist_profile(request):
             if 'stylist_pk' in request.GET:
                 stylist = User.objects.get(pk=request.GET.get('stylist_pk'), is_stylist='YES')
                 portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=stylist)
-                stylist_options = StylistBridgeMenu.objects.filter(stylist=stylist)
+                stylist_options = StylistMenu.objects.filter(stylist=stylist)
                 return render(request, 'customer/stylist_profile.html',
                               {'stylist': stylist, 'portfolio_haircuts': portfolio_haircuts,
                                'stylist_options': stylist_options})
@@ -139,7 +139,7 @@ def obtain_selected_haircut(request):
 def obtain_selected_menuOption(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            request.session['stylist_option_pk'] = request.POST.get('stylist_option_pk')
+            request.session['stylist_menu_pk'] = request.POST.get('stylist_option_pk')
             request.session['stylist_pk'] = request.POST.get('stylist_pk')
         return redirect('customer:create_appointment')
     else:
