@@ -82,20 +82,19 @@ def appointments(request):
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_PENDING).order_by('-date')
         accepted_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_ACCEPTED).order_by('-date')
-        declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
+        # declined_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_DECLINED).order_by('-date')
 
-        rescheduled_appointments = Appointment.objects.filter((Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)), stylist=request.user).order_by('-date')
-        completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
+        pending_appointments_bill = BillLogic.combine_appointment_bill(pending_appointments)
+        accepted_appointments_bill = BillLogic.combine_appointment_bill(accepted_appointments)
+
+        # rescheduled_appointments = Appointment.objects.filter((Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)), stylist=request.user).order_by('-date')
+        # completed_appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED).order_by('-date')
 
         return render(request, 'stylist/stylistReal/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
                        'stylist_reschedule': Appointment.STATUS_RECHEDULED_BYSTYLIST,
                        'customer_reschedule': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
-                       'pending_appointments': pending_appointments,
-                       'accepted_appointments': accepted_appointments,
-                       'declined_appointments': declined_appointments,
-                       'rescheduled_appointments': rescheduled_appointments,
-                       'completed_appointments': completed_appointments})
+                       'pending_appointments': pending_appointments})
     else:
         return redirect('core:logout')
 
@@ -207,7 +206,7 @@ def add_item(request):
                                                      price=request.POST.get('price'), appointment=appointment)
 
                     BillLogic.update_price(appointment)
-                return redirect('stylist:view_bill')
+                return redirect('stylist:dashboard')
         else:
             return redirect('core:logout')
     else:
@@ -225,7 +224,7 @@ def add_haircut(request):
             if appointment.status is not Appointment.STATUS_COMPLETED:
                 ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
                 BillLogic.update_price(appointment)
-            return redirect('stylist:view_bill')
+            return redirect('stylist:dashboard')
     else:
         return redirect('core:logout')
 
