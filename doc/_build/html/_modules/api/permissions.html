@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api.permissions &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for api.permissions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">permissions</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    APPOINTMENT PERMISSION</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="IsOwnerOfAppointment"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment">[docs]</a><span class="k">class</span> <span class="nc">IsOwnerOfAppointment</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+<div class="viewcode-block" id="IsOwnerOfAppointment.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">customer</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">stylist</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="IsOwnerOfAppointment.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    PORTFOLIO HAIRCUT PERMISSIONS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="IsOwnerOfHaircut"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfHaircut">[docs]</a><span class="k">class</span> <span class="nc">IsOwnerOfHaircut</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+<div class="viewcode-block" id="IsOwnerOfHaircut.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfHaircut.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">haircut_stylist</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="IsOwnerOfHaircut.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfHaircut.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    USER PERMISSIONS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="IsCurrentUserOrSuperUser"><a class="viewcode-back" href="../../api.html#api.permissions.IsCurrentUserOrSuperUser">[docs]</a><span class="k">class</span> <span class="nc">IsCurrentUserOrSuperUser</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="c1"># General Permissions: Everyone can &#39;GET&#39; &amp; &#39;POST&#39;</span>
+    <span class="c1"># Object Permissions: Users &#39;GET&#39; &#39;POST&#39; &#39;PUT&#39; &#39;DELETE&#39; their object || Superuser&#39;s can access or modify anything</span>
+
+<div class="viewcode-block" id="IsCurrentUserOrSuperUser.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsCurrentUserOrSuperUser.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    MISCELLANEOUS PERMISSIONS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="IsUserLoggedIn"><a class="viewcode-back" href="../../api.html#api.permissions.IsUserLoggedIn">[docs]</a><span class="k">class</span> <span class="nc">IsUserLoggedIn</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="c1"># General Permissions: Only logged in users can &#39;GET&#39; or &#39;POST&#39;</span>
+
+<div class="viewcode-block" id="IsUserLoggedIn.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsUserLoggedIn.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="OnlySuperUsersCanModify"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify">[docs]</a><span class="k">class</span> <span class="nc">OnlySuperUsersCanModify</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="c1"># General Permissions: Public can &#39;GET&#39; || Superuser can &#39;PUT&#39; &#39;POST&#39; &#39;DELETE&#39;</span>
+    <span class="c1"># Object Permissions: General Permissions</span>
+
+<div class="viewcode-block" id="OnlySuperUsersCanModify.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span></div>
+
+<div class="viewcode-block" id="OnlySuperUsersCanModify.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

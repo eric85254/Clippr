@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.utils package &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="customer package" href="customer.html" />
+    <link rel="prev" title="core.migrations package" href="core.migrations.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="core-utils-package">
+<h1>core.utils package<a class="headerlink" href="#core-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.utils.global_constants">
+<span id="core-utils-global-constants-module"></span><h2>core.utils.global_constants module<a class="headerlink" href="#module-core.utils.global_constants" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.utils.view_logic">
+<span id="core-utils-view-logic-module"></span><h2>core.utils.view_logic module<a class="headerlink" href="#module-core.utils.view_logic" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.utils.view_logic.CookieClearer">
+<em class="property">class </em><code class="descclassname">core.utils.view_logic.</code><code class="descname">CookieClearer</code><a class="reference internal" href="_modules/core/utils/view_logic.html#CookieClearer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.CookieClearer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.CookieClearer.appointment_cookies">
+<em class="property">static </em><code class="descname">appointment_cookies</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#CookieClearer.appointment_cookies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.CookieClearer.appointment_cookies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.CookieClearer.clear">
+<em class="property">static </em><code class="descname">clear</code><span class="sig-paren">(</span><em>cookie_names</em>, <em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#CookieClearer.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.CookieClearer.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.utils.view_logic.UserLogic">
+<em class="property">class </em><code class="descclassname">core.utils.view_logic.</code><code class="descname">UserLogic</code><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.UserLogic.login">
+<em class="property">static </em><code class="descname">login</code><span class="sig-paren">(</span><em>request</em>, <em>user</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.UserLogic.redirect_to_dashboard">
+<em class="property">static </em><code class="descname">redirect_to_dashboard</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.redirect_to_dashboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.redirect_to_dashboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.UserLogic.retrieve_user">
+<em class="property">static </em><code class="descname">retrieve_user</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.retrieve_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.retrieve_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.UserLogic.update_average">
+<em class="property">static </em><code class="descname">update_average</code><span class="sig-paren">(</span><em>review</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.update_average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.update_average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.utils.view_logic.UserLogic.upload_picture">
+<em class="property">static </em><code class="descname">upload_picture</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.upload_picture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.upload_picture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core.utils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-core.utils.global_constants">core.utils.global_constants module</a></li>
+<li><a class="reference internal" href="#module-core.utils.view_logic">core.utils.view_logic module</a></li>
+<li><a class="reference internal" href="#module-core.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="core.html">core package</a><ul>
+      <li>Previous: <a href="core.migrations.html" title="previous chapter">core.migrations package</a></li>
+      <li>Next: <a href="customer.html" title="next chapter">customer package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/core.utils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/core.utils.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

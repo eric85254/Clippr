@@ -1,0 +1,1372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core package &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.management package" href="core.management.html" />
+    <link rel="prev" title="api package" href="api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="core-package">
+<h1>core package<a class="headerlink" href="#core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core.management.html">core.management package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.management.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.management.commands.html">core.management.commands package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.management.commands.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.management.commands.html#module-core.management.commands.createDefaultUsers">core.management.commands.createDefaultUsers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.management.commands.html#module-core.management.commands.createGlobalMenuOption">core.management.commands.createGlobalMenuOption module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.management.commands.html#module-core.management.commands">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.management.html#module-core.management">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.migrations.html">core.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.migrations.html#module-core.migrations.0001_initial">core.migrations.0001_initial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.migrations.html#module-core.migrations.0002_auto_20170316_0030">core.migrations.0002_auto_20170316_0030 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.migrations.html#module-core.migrations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.utils.html">core.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.utils.html#module-core.utils.global_constants">core.utils.global_constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.utils.html#module-core.utils.view_logic">core.utils.view_logic module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.utils.html#module-core.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.admin">
+<span id="core-admin-module"></span><h2>core.admin module<a class="headerlink" href="#module-core.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.apps">
+<span id="core-apps-module"></span><h2>core.apps module<a class="headerlink" href="#module-core.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.apps.CoreConfig">
+<em class="property">class </em><code class="descclassname">core.apps.</code><code class="descname">CoreConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/apps.html#CoreConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.apps.CoreConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="core.apps.CoreConfig.name">
+<code class="descname">name</code><em class="property"> = 'core'</em><a class="headerlink" href="#core.apps.CoreConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.backends">
+<span id="core-backends-module"></span><h2>core.backends module<a class="headerlink" href="#module-core.backends" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.backends.EmailPhoneNumberOrUsernameModelBackend">
+<em class="property">class </em><code class="descclassname">core.backends.</code><code class="descname">EmailPhoneNumberOrUsernameModelBackend</code><a class="reference internal" href="_modules/core/backends.html#EmailPhoneNumberOrUsernameModelBackend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.backends.EmailPhoneNumberOrUsernameModelBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="core.backends.EmailPhoneNumberOrUsernameModelBackend.authenticate">
+<code class="descname">authenticate</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/backends.html#EmailPhoneNumberOrUsernameModelBackend.authenticate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.backends.EmailPhoneNumberOrUsernameModelBackend.authenticate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.backends.EmailPhoneNumberOrUsernameModelBackend.get_user">
+<code class="descname">get_user</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/backends.html#EmailPhoneNumberOrUsernameModelBackend.get_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.backends.EmailPhoneNumberOrUsernameModelBackend.get_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.forms">
+<span id="core-forms-module"></span><h2>core.forms module<a class="headerlink" href="#module-core.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.forms.NewUserForm">
+<em class="property">class </em><code class="descclassname">core.forms.</code><code class="descname">NewUserForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/forms.html#NewUserForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.forms.NewUserForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.forms.UserCreationForm</span></code></p>
+<dl class="class">
+<dt id="core.forms.NewUserForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/core/forms.html#NewUserForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.forms.NewUserForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="core.forms.NewUserForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2', 'phone_number', 'is_stylist')</em><a class="headerlink" href="#core.forms.NewUserForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.NewUserForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#core.forms.NewUserForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.NewUserForm.base_fields">
+<code class="descclassname">NewUserForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('first_name', &lt;django.forms.fields.CharField object&gt;), ('last_name', &lt;django.forms.fields.CharField object&gt;), ('email', &lt;django.forms.fields.EmailField object&gt;), ('username', &lt;django.forms.fields.CharField object&gt;), ('password1', &lt;django.forms.fields.CharField object&gt;), ('password2', &lt;django.forms.fields.CharField object&gt;), ('phone_number', &lt;django.forms.fields.CharField object&gt;), ('is_stylist', &lt;django.forms.fields.CharField object&gt;)])</em><a class="headerlink" href="#core.forms.NewUserForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.NewUserForm.declared_fields">
+<code class="descclassname">NewUserForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('password1', &lt;django.forms.fields.CharField object&gt;), ('password2', &lt;django.forms.fields.CharField object&gt;)])</em><a class="headerlink" href="#core.forms.NewUserForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.NewUserForm.media">
+<code class="descclassname">NewUserForm.</code><code class="descname">media</code><a class="headerlink" href="#core.forms.NewUserForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.forms.UserInformation">
+<em class="property">class </em><code class="descclassname">core.forms.</code><code class="descname">UserInformation</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em>, <em>use_required_attribute=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/forms.html#UserInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.forms.UserInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<dl class="class">
+<dt id="core.forms.UserInformation.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/core/forms.html#UserInformation.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.forms.UserInformation.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="core.forms.UserInformation.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('location', 'biography', 'hair_type', 'email', 'phone_number')</em><a class="headerlink" href="#core.forms.UserInformation.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.UserInformation.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#core.forms.UserInformation.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.UserInformation.base_fields">
+<code class="descclassname">UserInformation.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('location', &lt;django.forms.fields.CharField object&gt;), ('biography', &lt;django.forms.fields.CharField object&gt;), ('hair_type', &lt;django.forms.fields.CharField object&gt;), ('email', &lt;django.forms.fields.EmailField object&gt;), ('phone_number', &lt;django.forms.fields.CharField object&gt;)])</em><a class="headerlink" href="#core.forms.UserInformation.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.UserInformation.declared_fields">
+<code class="descclassname">UserInformation.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#core.forms.UserInformation.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.forms.UserInformation.is_valid">
+<code class="descclassname">UserInformation.</code><code class="descname">is_valid</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/forms.html#UserInformation.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.forms.UserInformation.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.forms.UserInformation.media">
+<code class="descclassname">UserInformation.</code><code class="descname">media</code><a class="headerlink" href="#core.forms.UserInformation.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.models">
+<span id="core-models-module"></span><h2>core.models module<a class="headerlink" href="#module-core.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.models.AnsweredQuestionnaire">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">AnsweredQuestionnaire</code><span class="sig-paren">(</span><em>id</em>, <em>user</em>, <em>questionnaire</em>, <em>response</em>, <em>time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#AnsweredQuestionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.AnsweredQuestionnaire" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.AnsweredQuestionnaire.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.AnsweredQuestionnaire.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.AnsweredQuestionnaire.get_next_by_time">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">get_next_by_time</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.AnsweredQuestionnaire.get_next_by_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.AnsweredQuestionnaire.get_previous_by_time">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">get_previous_by_time</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.AnsweredQuestionnaire.get_previous_by_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.id">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">id</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.objects">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.AnsweredQuestionnaire.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.questionnaire">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">questionnaire</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.questionnaire" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.questionnaire_id">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">questionnaire_id</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.questionnaire_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.response">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">response</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.response" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.time">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">time</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.user">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">user</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.AnsweredQuestionnaire.user_id">
+<code class="descclassname">AnsweredQuestionnaire.</code><code class="descname">user_id</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Application">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Application</code><span class="sig-paren">(</span><em>id</em>, <em>applicant</em>, <em>application_status</em>, <em>denied_reason</em>, <em>reason</em>, <em>interview_time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Application"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.Application.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Application.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.Application.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Application.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.Application.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.applicant">
+<code class="descclassname">Application.</code><code class="descname">applicant</code><a class="headerlink" href="#core.models.Application.applicant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.applicant_id">
+<code class="descclassname">Application.</code><code class="descname">applicant_id</code><a class="headerlink" href="#core.models.Application.applicant_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.application_status">
+<code class="descclassname">Application.</code><code class="descname">application_status</code><a class="headerlink" href="#core.models.Application.application_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.denied_reason">
+<code class="descclassname">Application.</code><code class="descname">denied_reason</code><a class="headerlink" href="#core.models.Application.denied_reason" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.id">
+<code class="descclassname">Application.</code><code class="descname">id</code><a class="headerlink" href="#core.models.Application.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.interview_time">
+<code class="descclassname">Application.</code><code class="descname">interview_time</code><a class="headerlink" href="#core.models.Application.interview_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.objects">
+<code class="descclassname">Application.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.Application.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Application.reason">
+<code class="descclassname">Application.</code><code class="descname">reason</code><a class="headerlink" href="#core.models.Application.reason" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Appointment">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Appointment</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>customer</em>, <em>location</em>, <em>date</em>, <em>price</em>, <em>status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.Appointment.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Appointment.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.Appointment.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Appointment.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.Appointment.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_ACCEPTED">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_ACCEPTED</code><em class="property"> = 'ACCEPTED'</em><a class="headerlink" href="#core.models.Appointment.STATUS_ACCEPTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_CHOICES">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_CHOICES</code><em class="property"> = (('PENDING', 'PENDING'), ('RESCHEDULED_BYSTYLIST', 'RESCHEDULED_BYSTYLIST'), ('RESCHEDULED_BYCUSTOMER', 'RESCHEDULED_BYCUSTOMER'), ('ACCEPTED', 'ACCEPTED'), ('DECLINED', 'DECLINED'), ('STATUS_COMPLETED', 'STATUS_COMPLETED'))</em><a class="headerlink" href="#core.models.Appointment.STATUS_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_COMPLETED">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_COMPLETED</code><em class="property"> = 'STATUS_COMPLETED'</em><a class="headerlink" href="#core.models.Appointment.STATUS_COMPLETED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_DECLINED">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_DECLINED</code><em class="property"> = 'DECLINED'</em><a class="headerlink" href="#core.models.Appointment.STATUS_DECLINED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_PENDING">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_PENDING</code><em class="property"> = 'PENDING'</em><a class="headerlink" href="#core.models.Appointment.STATUS_PENDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_RECHEDULED_BYSTYLIST">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_RECHEDULED_BYSTYLIST</code><em class="property"> = 'RESCHEDULED_BYSTYLIST'</em><a class="headerlink" href="#core.models.Appointment.STATUS_RECHEDULED_BYSTYLIST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.STATUS_RESCHEDULED_BYCUSTOMER">
+<code class="descclassname">Appointment.</code><code class="descname">STATUS_RESCHEDULED_BYCUSTOMER</code><em class="property"> = 'RESCHEDULED_BYCUSTOMER'</em><a class="headerlink" href="#core.models.Appointment.STATUS_RESCHEDULED_BYCUSTOMER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.appointment">
+<code class="descclassname">Appointment.</code><code class="descname">appointment</code><a class="headerlink" href="#core.models.Appointment.appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.customer">
+<code class="descclassname">Appointment.</code><code class="descname">customer</code><a class="headerlink" href="#core.models.Appointment.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.customer_id">
+<code class="descclassname">Appointment.</code><code class="descname">customer_id</code><a class="headerlink" href="#core.models.Appointment.customer_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.date">
+<code class="descclassname">Appointment.</code><code class="descname">date</code><a class="headerlink" href="#core.models.Appointment.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.Appointment.get_next_by_date">
+<code class="descclassname">Appointment.</code><code class="descname">get_next_by_date</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Appointment.get_next_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.Appointment.get_previous_by_date">
+<code class="descclassname">Appointment.</code><code class="descname">get_previous_by_date</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Appointment.get_previous_by_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.Appointment.get_status_display">
+<code class="descclassname">Appointment.</code><code class="descname">get_status_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Appointment.get_status_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.id">
+<code class="descclassname">Appointment.</code><code class="descname">id</code><a class="headerlink" href="#core.models.Appointment.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.iteminbill_set">
+<code class="descclassname">Appointment.</code><code class="descname">iteminbill_set</code><a class="headerlink" href="#core.models.Appointment.iteminbill_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.location">
+<code class="descclassname">Appointment.</code><code class="descname">location</code><a class="headerlink" href="#core.models.Appointment.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.objects">
+<code class="descclassname">Appointment.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.Appointment.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.price">
+<code class="descclassname">Appointment.</code><code class="descname">price</code><a class="headerlink" href="#core.models.Appointment.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.status">
+<code class="descclassname">Appointment.</code><code class="descname">status</code><a class="headerlink" href="#core.models.Appointment.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.stylist">
+<code class="descclassname">Appointment.</code><code class="descname">stylist</code><a class="headerlink" href="#core.models.Appointment.stylist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Appointment.stylist_id">
+<code class="descclassname">Appointment.</code><code class="descname">stylist_id</code><a class="headerlink" href="#core.models.Appointment.stylist_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.GlobalMenu">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">GlobalMenu</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>price</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#GlobalMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.GlobalMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.GlobalMenu.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.GlobalMenu.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.GlobalMenu.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">GlobalMenu.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.GlobalMenu.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.id">
+<code class="descclassname">GlobalMenu.</code><code class="descname">id</code><a class="headerlink" href="#core.models.GlobalMenu.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.modified_global">
+<code class="descclassname">GlobalMenu.</code><code class="descname">modified_global</code><a class="headerlink" href="#core.models.GlobalMenu.modified_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.name">
+<code class="descclassname">GlobalMenu.</code><code class="descname">name</code><a class="headerlink" href="#core.models.GlobalMenu.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.objects">
+<code class="descclassname">GlobalMenu.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.GlobalMenu.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.portfoliohaircut_set">
+<code class="descclassname">GlobalMenu.</code><code class="descname">portfoliohaircut_set</code><a class="headerlink" href="#core.models.GlobalMenu.portfoliohaircut_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.GlobalMenu.price">
+<code class="descclassname">GlobalMenu.</code><code class="descname">price</code><a class="headerlink" href="#core.models.GlobalMenu.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.ItemInBill">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">ItemInBill</code><span class="sig-paren">(</span><em>id</em>, <em>item_portfolio</em>, <em>item_menu</em>, <em>item_custom</em>, <em>price</em>, <em>appointment</em>, <em>charged</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#ItemInBill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.ItemInBill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.ItemInBill.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.ItemInBill.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.ItemInBill.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">ItemInBill.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.ItemInBill.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.appointment">
+<code class="descclassname">ItemInBill.</code><code class="descname">appointment</code><a class="headerlink" href="#core.models.ItemInBill.appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.appointment_id">
+<code class="descclassname">ItemInBill.</code><code class="descname">appointment_id</code><a class="headerlink" href="#core.models.ItemInBill.appointment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.charged">
+<code class="descclassname">ItemInBill.</code><code class="descname">charged</code><a class="headerlink" href="#core.models.ItemInBill.charged" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.id">
+<code class="descclassname">ItemInBill.</code><code class="descname">id</code><a class="headerlink" href="#core.models.ItemInBill.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.item_custom">
+<code class="descclassname">ItemInBill.</code><code class="descname">item_custom</code><a class="headerlink" href="#core.models.ItemInBill.item_custom" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.item_menu">
+<code class="descclassname">ItemInBill.</code><code class="descname">item_menu</code><a class="headerlink" href="#core.models.ItemInBill.item_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.item_menu_id">
+<code class="descclassname">ItemInBill.</code><code class="descname">item_menu_id</code><a class="headerlink" href="#core.models.ItemInBill.item_menu_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.item_portfolio">
+<code class="descclassname">ItemInBill.</code><code class="descname">item_portfolio</code><a class="headerlink" href="#core.models.ItemInBill.item_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.item_portfolio_id">
+<code class="descclassname">ItemInBill.</code><code class="descname">item_portfolio_id</code><a class="headerlink" href="#core.models.ItemInBill.item_portfolio_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.objects">
+<code class="descclassname">ItemInBill.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.ItemInBill.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.ItemInBill.price">
+<code class="descclassname">ItemInBill.</code><code class="descname">price</code><a class="headerlink" href="#core.models.ItemInBill.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Questionnaire">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Questionnaire</code><span class="sig-paren">(</span><em>id</em>, <em>question</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Questionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Questionnaire" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.Questionnaire.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Questionnaire.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.Questionnaire.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Questionnaire.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.Questionnaire.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Questionnaire.answeredquestionnaire_set">
+<code class="descclassname">Questionnaire.</code><code class="descname">answeredquestionnaire_set</code><a class="headerlink" href="#core.models.Questionnaire.answeredquestionnaire_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Questionnaire.id">
+<code class="descclassname">Questionnaire.</code><code class="descname">id</code><a class="headerlink" href="#core.models.Questionnaire.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Questionnaire.objects">
+<code class="descclassname">Questionnaire.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.Questionnaire.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Questionnaire.question">
+<code class="descclassname">Questionnaire.</code><code class="descname">question</code><a class="headerlink" href="#core.models.Questionnaire.question" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Review">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Review</code><span class="sig-paren">(</span><em>id</em>, <em>stylist_rating</em>, <em>customer_rating</em>, <em>appointment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Review"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Review" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.Review.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Review.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.Review.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">Review.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.Review.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.appointment">
+<code class="descclassname">Review.</code><code class="descname">appointment</code><a class="headerlink" href="#core.models.Review.appointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.appointment_id">
+<code class="descclassname">Review.</code><code class="descname">appointment_id</code><a class="headerlink" href="#core.models.Review.appointment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.customer_rating">
+<code class="descclassname">Review.</code><code class="descname">customer_rating</code><a class="headerlink" href="#core.models.Review.customer_rating" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.id">
+<code class="descclassname">Review.</code><code class="descname">id</code><a class="headerlink" href="#core.models.Review.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.objects">
+<code class="descclassname">Review.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.Review.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.Review.stylist_rating">
+<code class="descclassname">Review.</code><code class="descname">stylist_rating</code><a class="headerlink" href="#core.models.Review.stylist_rating" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.StylistMenu">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">StylistMenu</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>name</em>, <em>price</em>, <em>modified_global</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#StylistMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.StylistMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="exception">
+<dt id="core.models.StylistMenu.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.StylistMenu.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.StylistMenu.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">StylistMenu.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.StylistMenu.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.id">
+<code class="descclassname">StylistMenu.</code><code class="descname">id</code><a class="headerlink" href="#core.models.StylistMenu.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.item_menu">
+<code class="descclassname">StylistMenu.</code><code class="descname">item_menu</code><a class="headerlink" href="#core.models.StylistMenu.item_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.modified_global">
+<code class="descclassname">StylistMenu.</code><code class="descname">modified_global</code><a class="headerlink" href="#core.models.StylistMenu.modified_global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.modified_global_id">
+<code class="descclassname">StylistMenu.</code><code class="descname">modified_global_id</code><a class="headerlink" href="#core.models.StylistMenu.modified_global_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.name">
+<code class="descclassname">StylistMenu.</code><code class="descname">name</code><a class="headerlink" href="#core.models.StylistMenu.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.objects">
+<code class="descclassname">StylistMenu.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#core.models.StylistMenu.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.price">
+<code class="descclassname">StylistMenu.</code><code class="descname">price</code><a class="headerlink" href="#core.models.StylistMenu.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.stylist">
+<code class="descclassname">StylistMenu.</code><code class="descname">stylist</code><a class="headerlink" href="#core.models.StylistMenu.stylist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">child.parent</span></code> is a <code class="docutils literal"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.StylistMenu.stylist_id">
+<code class="descclassname">StylistMenu.</code><code class="descname">stylist_id</code><a class="headerlink" href="#core.models.StylistMenu.stylist_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.User">
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>id</em>, <em>password</em>, <em>last_login</em>, <em>is_superuser</em>, <em>first_name</em>, <em>last_name</em>, <em>is_staff</em>, <em>is_active</em>, <em>date_joined</em>, <em>username</em>, <em>is_stylist</em>, <em>profile_picture</em>, <em>biography</em>, <em>location</em>, <em>hair_type</em>, <em>hidden_hair_type</em>, <em>email</em>, <em>phone_number</em>, <em>average_stylist_rating</em>, <em>average_customer_rating</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></p>
+<dl class="exception">
+<dt id="core.models.User.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.User.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.models.User.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descclassname">User.</code><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#core.models.User.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.REQUIRED_FIELDS">
+<code class="descclassname">User.</code><code class="descname">REQUIRED_FIELDS</code><em class="property"> = ['first_name', 'last_name', 'phone_number']</em><a class="headerlink" href="#core.models.User.REQUIRED_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.USERNAME_FIELD">
+<code class="descclassname">User.</code><code class="descname">USERNAME_FIELD</code><em class="property"> = 'email'</em><a class="headerlink" href="#core.models.User.USERNAME_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.answeredquestionnaire_set">
+<code class="descclassname">User.</code><code class="descname">answeredquestionnaire_set</code><a class="headerlink" href="#core.models.User.answeredquestionnaire_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.application_set">
+<code class="descclassname">User.</code><code class="descname">application_set</code><a class="headerlink" href="#core.models.User.application_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.average_customer_rating">
+<code class="descclassname">User.</code><code class="descname">average_customer_rating</code><a class="headerlink" href="#core.models.User.average_customer_rating" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.average_stylist_rating">
+<code class="descclassname">User.</code><code class="descname">average_stylist_rating</code><a class="headerlink" href="#core.models.User.average_stylist_rating" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.biography">
+<code class="descclassname">User.</code><code class="descname">biography</code><a class="headerlink" href="#core.models.User.biography" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.customer">
+<code class="descclassname">User.</code><code class="descname">customer</code><a class="headerlink" href="#core.models.User.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.deal_set">
+<code class="descclassname">User.</code><code class="descname">deal_set</code><a class="headerlink" href="#core.models.User.deal_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.User.get_next_by_date_joined">
+<code class="descclassname">User.</code><code class="descname">get_next_by_date_joined</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.User.get_next_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.User.get_previous_by_date_joined">
+<code class="descclassname">User.</code><code class="descname">get_previous_by_date_joined</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.User.get_previous_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.groups">
+<code class="descclassname">User.</code><code class="descname">groups</code><a class="headerlink" href="#core.models.User.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">pizza.toppings</span></code> and <code class="docutils literal"><span class="pre">topping.pizzas</span></code> are <code class="docutils literal"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.hair_type">
+<code class="descclassname">User.</code><code class="descname">hair_type</code><a class="headerlink" href="#core.models.User.hair_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.hidden_hair_type">
+<code class="descclassname">User.</code><code class="descname">hidden_hair_type</code><a class="headerlink" href="#core.models.User.hidden_hair_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.id">
+<code class="descclassname">User.</code><code class="descname">id</code><a class="headerlink" href="#core.models.User.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.is_stylist">
+<code class="descclassname">User.</code><code class="descname">is_stylist</code><a class="headerlink" href="#core.models.User.is_stylist" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.location">
+<code class="descclassname">User.</code><code class="descname">location</code><a class="headerlink" href="#core.models.User.location" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.logentry_set">
+<code class="descclassname">User.</code><code class="descname">logentry_set</code><a class="headerlink" href="#core.models.User.logentry_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.owner">
+<code class="descclassname">User.</code><code class="descname">owner</code><a class="headerlink" href="#core.models.User.owner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.phone_number">
+<code class="descclassname">User.</code><code class="descname">phone_number</code><a class="headerlink" href="#core.models.User.phone_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.phone_regex">
+<code class="descclassname">User.</code><code class="descname">phone_regex</code><em class="property"> = &lt;django.core.validators.RegexValidator object&gt;</em><a class="headerlink" href="#core.models.User.phone_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.portfoliohaircut_set">
+<code class="descclassname">User.</code><code class="descname">portfoliohaircut_set</code><a class="headerlink" href="#core.models.User.portfoliohaircut_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.profile_picture">
+<code class="descclassname">User.</code><code class="descname">profile_picture</code><a class="headerlink" href="#core.models.User.profile_picture" title="Permalink to this definition">¶</a></dt>
+<dd><p>The descriptor for the file attribute on the model instance. Returns a
+FieldFile when accessed so you can do stuff like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">myapp.models</span> <span class="k">import</span> <span class="n">MyModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+</div>
+<p>Assigns a file object on assignment so you can do:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/hello.world&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">instance</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.stylist">
+<code class="descclassname">User.</code><code class="descname">stylist</code><a class="headerlink" href="#core.models.User.stylist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">parent.children</span></code> is a <code class="docutils literal"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.models.User.user_permissions">
+<code class="descclassname">User.</code><code class="descname">user_permissions</code><a class="headerlink" href="#core.models.User.user_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">pizza.toppings</span></code> and <code class="docutils literal"><span class="pre">topping.pizzas</span></code> are <code class="docutils literal"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.tests">
+<span id="core-tests-module"></span><h2>core.tests module<a class="headerlink" href="#module-core.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.urls">
+<span id="core-urls-module"></span><h2>core.urls module<a class="headerlink" href="#module-core.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.views">
+<span id="core-views-module"></span><h2>core.views module<a class="headerlink" href="#module-core.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="core.views.change_password">
+<code class="descclassname">core.views.</code><code class="descname">change_password</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#change_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.change_password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.create_user">
+<code class="descclassname">core.views.</code><code class="descname">create_user</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#create_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.create_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.home">
+<code class="descclassname">core.views.</code><code class="descname">home</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.home" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.home_login">
+<code class="descclassname">core.views.</code><code class="descname">home_login</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.home_login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.home_safety">
+<code class="descclassname">core.views.</code><code class="descname">home_safety</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home_safety"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.home_safety" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.home_style">
+<code class="descclassname">core.views.</code><code class="descname">home_style</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home_style"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.home_style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.home_stylist">
+<code class="descclassname">core.views.</code><code class="descname">home_stylist</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#home_stylist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.home_stylist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.logout">
+<code class="descclassname">core.views.</code><code class="descname">logout</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.logout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.returning_user">
+<code class="descclassname">core.views.</code><code class="descname">returning_user</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#returning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.returning_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.update_basic_information">
+<code class="descclassname">core.views.</code><code class="descname">update_basic_information</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#update_basic_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.update_basic_information" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.views.upload_picture">
+<code class="descclassname">core.views.</code><code class="descname">upload_picture</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#upload_picture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.upload_picture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-core.admin">core.admin module</a></li>
+<li><a class="reference internal" href="#module-core.apps">core.apps module</a></li>
+<li><a class="reference internal" href="#module-core.backends">core.backends module</a></li>
+<li><a class="reference internal" href="#module-core.forms">core.forms module</a></li>
+<li><a class="reference internal" href="#module-core.models">core.models module</a></li>
+<li><a class="reference internal" href="#module-core.tests">core.tests module</a></li>
+<li><a class="reference internal" href="#module-core.urls">core.urls module</a></li>
+<li><a class="reference internal" href="#module-core.views">core.views module</a></li>
+<li><a class="reference internal" href="#module-core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api.html" title="previous chapter">api package</a></li>
+      <li>Next: <a href="core.management.html" title="next chapter">core.management package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/core.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

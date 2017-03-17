@@ -1,0 +1,645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api package &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core package" href="core.html" />
+    <link rel="prev" title="administration package" href="administration.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-package">
+<h1>api package<a class="headerlink" href="#api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.admin">
+<span id="api-admin-module"></span><h2>api.admin module<a class="headerlink" href="#module-api.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.apps">
+<span id="api-apps-module"></span><h2>api.apps module<a class="headerlink" href="#module-api.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.apps.ApiConfig">
+<em class="property">class </em><code class="descclassname">api.apps.</code><code class="descname">ApiConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/apps.html#ApiConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.apps.ApiConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="api.apps.ApiConfig.name">
+<code class="descname">name</code><em class="property"> = 'api'</em><a class="headerlink" href="#api.apps.ApiConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.backends">
+<span id="api-backends-module"></span><h2>api.backends module<a class="headerlink" href="#module-api.backends" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.backends.CsrfExemptSessionAuthentication">
+<em class="property">class </em><code class="descclassname">api.backends.</code><code class="descname">CsrfExemptSessionAuthentication</code><a class="reference internal" href="_modules/api/backends.html#CsrfExemptSessionAuthentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.backends.CsrfExemptSessionAuthentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.authentication.SessionAuthentication</span></code></p>
+<dl class="method">
+<dt id="api.backends.CsrfExemptSessionAuthentication.enforce_csrf">
+<code class="descname">enforce_csrf</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/backends.html#CsrfExemptSessionAuthentication.enforce_csrf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.backends.CsrfExemptSessionAuthentication.enforce_csrf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.models">
+<span id="api-models-module"></span><h2>api.models module<a class="headerlink" href="#module-api.models" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.permissions">
+<span id="api-permissions-module"></span><h2>api.permissions module<a class="headerlink" href="#module-api.permissions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.permissions.IsCurrentUserOrSuperUser">
+<em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsCurrentUserOrSuperUser</code><a class="reference internal" href="_modules/api/permissions.html#IsCurrentUserOrSuperUser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsCurrentUserOrSuperUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="api.permissions.IsCurrentUserOrSuperUser.has_object_permission">
+<code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsCurrentUserOrSuperUser.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsCurrentUserOrSuperUser.has_object_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.permissions.IsOwnerOfAppointment">
+<em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsOwnerOfAppointment</code><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="api.permissions.IsOwnerOfAppointment.has_object_permission">
+<code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment.has_object_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.permissions.IsOwnerOfAppointment.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.permissions.IsOwnerOfHaircut">
+<em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsOwnerOfHaircut</code><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="api.permissions.IsOwnerOfHaircut.has_object_permission">
+<code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut.has_object_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.permissions.IsOwnerOfHaircut.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.permissions.IsUserLoggedIn">
+<em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsUserLoggedIn</code><a class="reference internal" href="_modules/api/permissions.html#IsUserLoggedIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsUserLoggedIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="api.permissions.IsUserLoggedIn.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsUserLoggedIn.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsUserLoggedIn.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.permissions.OnlySuperUsersCanModify">
+<em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">OnlySuperUsersCanModify</code><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<dl class="method">
+<dt id="api.permissions.OnlySuperUsersCanModify.has_object_permission">
+<code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify.has_object_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.permissions.OnlySuperUsersCanModify.has_permission">
+<code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify.has_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.serializers">
+<span id="api-serializers-module"></span><h2>api.serializers module<a class="headerlink" href="#module-api.serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.serializers.AppointmentSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">AppointmentSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.AppointmentSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.AppointmentSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'location', 'date', 'stylist', 'customer', 'status')</em><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.AppointmentSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Appointment</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.serializers.GlobalMenuSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">GlobalMenuSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#GlobalMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.GlobalMenuSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.GlobalMenuSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#GlobalMenuSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.GlobalMenuSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.GlobalMenuSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'name', 'price')</em><a class="headerlink" href="#api.serializers.GlobalMenuSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.GlobalMenuSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.GlobalMenuSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">GlobalMenu</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.serializers.PortfolioHaircutSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">PortfolioHaircutSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#PortfolioHaircutSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.PortfolioHaircutSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#PortfolioHaircutSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.PortfolioHaircutSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'stylist', 'picture', 'name', 'description', 'price')</em><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.PortfolioHaircutSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">PortfolioHaircut</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.serializers.StylistMenuSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">StylistMenuSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#StylistMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistMenuSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.StylistMenuSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#StylistMenuSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistMenuSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.StylistMenuSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'name', 'price', 'modified_global')</em><a class="headerlink" href="#api.serializers.StylistMenuSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.StylistMenuSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.StylistMenuSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">StylistMenu</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.serializers.StylistSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">StylistSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#StylistSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.StylistSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#StylistSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.StylistSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'first_name', 'last_name', 'profile_picture')</em><a class="headerlink" href="#api.serializers.StylistSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.StylistSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.StylistSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.serializers.UserSerializer">
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#UserSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="api.serializers.UserSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#UserSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="api.serializers.UserSerializer.Meta.extra_kwargs">
+<code class="descname">extra_kwargs</code><em class="property"> = {'password': {'write_only': True}}</em><a class="headerlink" href="#api.serializers.UserSerializer.Meta.extra_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.UserSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('url', 'first_name', 'last_name', 'email', 'phone_number', 'password', 'is_stylist', 'profile_picture')</em><a class="headerlink" href="#api.serializers.UserSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.serializers.UserSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#api.serializers.UserSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="api.serializers.UserSerializer.create">
+<code class="descclassname">UserSerializer.</code><code class="descname">create</code><span class="sig-paren">(</span><em>validated_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#UserSerializer.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.tests">
+<span id="api-tests-module"></span><h2>api.tests module<a class="headerlink" href="#module-api.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.urls">
+<span id="api-urls-module"></span><h2>api.urls module<a class="headerlink" href="#module-api.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-api.views">
+<span id="api-views-module"></span><h2>api.views module<a class="headerlink" href="#module-api.views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="api.views.AppointmentViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">AppointmentViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="attribute">
+<dt id="api.views.AppointmentViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.AppointmentViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.AppointmentViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.AppointmentViewSet.perform_create">
+<code class="descname">perform_create</code><span class="sig-paren">(</span><em>serializer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet.perform_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet.perform_create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.AppointmentViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'api.permissions.IsOwnerOfAppointment'&gt;,)</em><a class="headerlink" href="#api.views.AppointmentViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.AppointmentViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;]&gt;</em><a class="headerlink" href="#api.views.AppointmentViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.AppointmentViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.AppointmentViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">AppointmentSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.AppointmentViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.AppointmentViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.views.GlobalMenuViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">GlobalMenuViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#GlobalMenuViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.GlobalMenuViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="attribute">
+<dt id="api.views.GlobalMenuViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.GlobalMenuViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.GlobalMenuViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'api.permissions.OnlySuperUsersCanModify'&gt;,)</em><a class="headerlink" href="#api.views.GlobalMenuViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.GlobalMenuViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;GlobalMenu: Girl's Haircut&gt;, &lt;GlobalMenu: Boy's Haircut&gt;]&gt;</em><a class="headerlink" href="#api.views.GlobalMenuViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.GlobalMenuViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.GlobalMenuViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">GlobalMenuSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.GlobalMenuViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.GlobalMenuViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.views.HaircutViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">HaircutViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#HaircutViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.HaircutViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="attribute">
+<dt id="api.views.HaircutViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.HaircutViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.HaircutViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#HaircutViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.HaircutViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.HaircutViewSet.perform_create">
+<code class="descname">perform_create</code><span class="sig-paren">(</span><em>serializer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#HaircutViewSet.perform_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.HaircutViewSet.perform_create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.HaircutViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'api.permissions.IsOwnerOfHaircut'&gt;,)</em><a class="headerlink" href="#api.views.HaircutViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.HaircutViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;PortfolioHaircut:  || Default Haircut One&gt;, &lt;PortfolioHaircut:  || Default Haircut Two&gt;, &lt;PortfolioHaircut:  || Default Haircut Three&gt;]&gt;</em><a class="headerlink" href="#api.views.HaircutViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.HaircutViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.HaircutViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">PortfolioHaircutSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.HaircutViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.HaircutViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.views.StylistMenuViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">StylistMenuViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistMenuViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistMenuViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="method">
+<dt id="api.views.StylistMenuViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistMenuViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistMenuViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.StylistMenuViewSet.perform_create">
+<code class="descname">perform_create</code><span class="sig-paren">(</span><em>serializer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistMenuViewSet.perform_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistMenuViewSet.perform_create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistMenuViewSet.queryset">
+<code class="descname">queryset</code><a class="headerlink" href="#api.views.StylistMenuViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistMenuViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.StylistMenuViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">StylistMenuSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistMenuViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.StylistMenuViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.views.StylistViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">StylistViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<dl class="attribute">
+<dt id="api.views.StylistViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.StylistViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.StylistViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'api.permissions.IsUserLoggedIn'&gt;,)</em><a class="headerlink" href="#api.views.StylistViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;User: stylist&#64;gmail.com&gt;, &lt;User: customer&#64;gmail.com&gt;, &lt;User: development&#64;clippr.org&gt;]&gt;</em><a class="headerlink" href="#api.views.StylistViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.StylistViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">StylistSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.StylistViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.StylistViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="api.views.UserViewSet">
+<em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">UserViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#UserViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.UserViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<dl class="attribute">
+<dt id="api.views.UserViewSet.authentication_classes">
+<code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.UserViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="api.views.UserViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#UserViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.UserViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.UserViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'api.permissions.IsCurrentUserOrSuperUser'&gt;,)</em><a class="headerlink" href="#api.views.UserViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.UserViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;User: stylist&#64;gmail.com&gt;, &lt;User: customer&#64;gmail.com&gt;, &lt;User: development&#64;clippr.org&gt;]&gt;</em><a class="headerlink" href="#api.views.UserViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.UserViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#api.views.UserViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">UserSerializer</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="api.views.UserViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#api.views.UserViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="api.views.customer_rating">
+<code class="descclassname">api.views.</code><code class="descname">customer_rating</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#customer_rating"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.customer_rating" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api.views.stylist_rating">
+<code class="descclassname">api.views.</code><code class="descname">stylist_rating</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#stylist_rating"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.stylist_rating" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api.views.stylist_search">
+<code class="descclassname">api.views.</code><code class="descname">stylist_search</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#stylist_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.stylist_search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api.views.user_login">
+<code class="descclassname">api.views.</code><code class="descname">user_login</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#user_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.user_login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="api.views.user_logout">
+<code class="descclassname">api.views.</code><code class="descname">user_logout</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#user_logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.user_logout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">api package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-api.admin">api.admin module</a></li>
+<li><a class="reference internal" href="#module-api.apps">api.apps module</a></li>
+<li><a class="reference internal" href="#module-api.backends">api.backends module</a></li>
+<li><a class="reference internal" href="#module-api.models">api.models module</a></li>
+<li><a class="reference internal" href="#module-api.permissions">api.permissions module</a></li>
+<li><a class="reference internal" href="#module-api.serializers">api.serializers module</a></li>
+<li><a class="reference internal" href="#module-api.tests">api.tests module</a></li>
+<li><a class="reference internal" href="#module-api.urls">api.urls module</a></li>
+<li><a class="reference internal" href="#module-api.views">api.views module</a></li>
+<li><a class="reference internal" href="#module-api">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="administration.html" title="previous chapter">administration package</a></li>
+      <li>Next: <a href="core.html" title="next chapter">core package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

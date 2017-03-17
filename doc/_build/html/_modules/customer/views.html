@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>customer.views &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for customer.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">core.utils.view_logic</span> <span class="k">import</span> <span class="n">UserLogic</span><span class="p">,</span> <span class="n">CookieClearer</span>
+<span class="kn">from</span> <span class="nn">customer.forms</span> <span class="k">import</span> <span class="n">NewAppointmentForm</span><span class="p">,</span> <span class="n">StylistApplicationForm</span>
+<span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Appointment</span><span class="p">,</span> <span class="n">ItemInBill</span><span class="p">,</span> <span class="n">Review</span><span class="p">,</span> <span class="n">StylistMenu</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+<span class="c1"># for the search</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="fm">__or__</span> <span class="k">as</span> <span class="n">OR</span>
+
+<span class="c1"># from django.db.models import Q,</span>
+<span class="kn">from</span> <span class="nn">customer.utils.view_logic</span> <span class="k">import</span> <span class="n">CustomerLogic</span>
+<span class="kn">from</span> <span class="nn">stylist.models</span> <span class="k">import</span> <span class="n">PortfolioHaircut</span>
+<span class="kn">from</span> <span class="nn">stylist.utils.view_logic</span> <span class="k">import</span> <span class="n">BillLogic</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    NAV BAR OPTION</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../customer.html#customer.views.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/profile.html&#39;</span><span class="p">,</span>
+                      <span class="p">{</span><span class="s1">&#39;full_name&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">(),</span>
+                       <span class="s1">&#39;customer&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dashboard"><a class="viewcode-back" href="../../customer.html#customer.views.dashboard">[docs]</a><span class="k">def</span> <span class="nf">dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">render_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="become_stylist"><a class="viewcode-back" href="../../customer.html#customer.views.become_stylist">[docs]</a><span class="k">def</span> <span class="nf">become_stylist</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">stylist_application</span> <span class="o">=</span> <span class="n">StylistApplicationForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stylist_application</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">stylist_application</span> <span class="o">=</span> <span class="n">stylist_application</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">stylist_application</span><span class="o">.</span><span class="n">applicant</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">stylist_application</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/stylistApplications/application_submitted.html&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/stylistApplications/application_error.html&#39;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">render_application_status</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    CREATE APPOINTMENT VIEWS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="create_appointment"><a class="viewcode-back" href="../../customer.html#customer.views.create_appointment">[docs]</a><span class="k">def</span> <span class="nf">create_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">create_appointment_form</span> <span class="o">=</span> <span class="n">NewAppointmentForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">create_appointment_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+
+            <span class="n">new_appointment</span> <span class="o">=</span> <span class="n">create_appointment_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">new_appointment</span><span class="o">.</span><span class="n">customer</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">new_appointment</span><span class="o">.</span><span class="n">stylist</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">])</span>
+            <span class="n">new_appointment</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">),</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M&#39;</span><span class="p">)</span>
+            <span class="n">new_appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="s1">&#39;portfolio_haircut&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+                <span class="n">portfolio_haircut</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">])</span>
+                <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">item_portfolio</span><span class="o">=</span><span class="n">portfolio_haircut</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">portfolio_haircut</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
+                                             <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;stylist_menu_pk&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+                <span class="n">stylist_option</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_menu_pk&#39;</span><span class="p">])</span>
+                <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">item_menu</span><span class="o">=</span><span class="n">stylist_option</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">stylist_option</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
+                                             <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
+
+            <span class="n">BillLogic</span><span class="o">.</span><span class="n">update_price</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
+            <span class="n">CookieClearer</span><span class="o">.</span><span class="n">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">create_appointment_form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+
+    <span class="c1"># ToDo: You can get rid of the following if/else statement and just use template code: {{ chosen_stylist.username | default_if_none:&quot;PleaseSelectStylsit&quot; }}</span>
+    <span class="k">if</span> <span class="s1">&#39;stylist_pk&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+        <span class="n">chosen_stylist</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">chosen_stylist</span> <span class="o">=</span> <span class="s1">&#39;Please select a stylist&#39;</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/create_appointment.html&#39;</span><span class="p">,</span>
+                  <span class="p">{</span><span class="s1">&#39;chosen_stylist&#39;</span><span class="p">:</span> <span class="n">chosen_stylist</span><span class="p">})</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    CREATE APPOINTMENT HELPERS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="stylist_search"><a class="viewcode-back" href="../../customer.html#customer.views.stylist_search">[docs]</a><span class="k">def</span> <span class="nf">stylist_search</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;param&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+        <span class="n">stylist_list</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">,</span> <span class="n">first_name__icontains</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;param&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">stylist_list</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/stylist_search.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;stylist_list&#39;</span><span class="p">:</span> <span class="n">stylist_list</span>
+    <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="obtain_stylist_profile"><a class="viewcode-back" href="../../customer.html#customer.views.obtain_stylist_profile">[docs]</a><span class="k">def</span> <span class="nf">obtain_stylist_profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;stylist_pk&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+                <span class="n">stylist</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">),</span> <span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">)</span>
+                <span class="n">portfolio_haircuts</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">)</span>
+                <span class="n">stylist_options</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/stylist_profile.html&#39;</span><span class="p">,</span>
+                              <span class="p">{</span><span class="s1">&#39;stylist&#39;</span><span class="p">:</span> <span class="n">stylist</span><span class="p">,</span> <span class="s1">&#39;portfolio_haircuts&#39;</span><span class="p">:</span> <span class="n">portfolio_haircuts</span><span class="p">,</span>
+                               <span class="s1">&#39;stylist_options&#39;</span><span class="p">:</span> <span class="n">stylist_options</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:create_appointment&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="obtain_selected_haircut"><a class="viewcode-back" href="../../customer.html#customer.views.obtain_selected_haircut">[docs]</a><span class="k">def</span> <span class="nf">obtain_selected_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">)</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:create_appointment&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="obtain_selected_menuOption"><a class="viewcode-back" href="../../customer.html#customer.views.obtain_selected_menuOption">[docs]</a><span class="k">def</span> <span class="nf">obtain_selected_menuOption</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_menu_pk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">)</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:create_appointment&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<span class="c1">#ToDo: Is this view even being used?</span>
+<div class="viewcode-block" id="catch_menu_choices"><a class="viewcode-back" href="../../customer.html#customer.views.catch_menu_choices">[docs]</a><span class="k">def</span> <span class="nf">catch_menu_choices</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;menu_main&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;menu_main&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    APPOINTMENT MODIFIERS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="accept_appointment"><a class="viewcode-back" href="../../customer.html#customer.views.accept_appointment">[docs]</a><span class="k">def</span> <span class="nf">accept_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_ACCEPTED</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cancel_appointment"><a class="viewcode-back" href="../../customer.html#customer.views.cancel_appointment">[docs]</a><span class="k">def</span> <span class="nf">cancel_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_DECLINED</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="reschedule_appointment"><a class="viewcode-back" href="../../customer.html#customer.views.reschedule_appointment">[docs]</a><span class="k">def</span> <span class="nf">reschedule_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_RESCHEDULED_BYCUSTOMER</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">),</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M&#39;</span><span class="p">)</span>
+            <span class="n">appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    APPOINTMENT MODIFIERS</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="view_bill"><a class="viewcode-back" href="../../customer.html#customer.views.view_bill">[docs]</a><span class="k">def</span> <span class="nf">view_bill</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
+            <span class="n">bill</span> <span class="o">=</span> <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">appointment</span><span class="p">)</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;appointment_for_bill&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/view_bill.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;bill&#39;</span><span class="p">:</span> <span class="n">bill</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    REVIEW</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="submit_review"><a class="viewcode-back" href="../../customer.html#customer.views.submit_review">[docs]</a><span class="k">def</span> <span class="nf">submit_review</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">review</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;review_pk&#39;</span><span class="p">))</span>
+            <span class="n">review</span><span class="o">.</span><span class="n">stylist_rating</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rating&#39;</span><span class="p">))</span>
+            <span class="n">review</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">UserLogic</span><span class="o">.</span><span class="n">update_average</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Adam Lynch&#39;s Portion.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="dashboard_real"><a class="viewcode-back" href="../../customer.html#customer.views.dashboard_real">[docs]</a><span class="k">def</span> <span class="nf">dashboard_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/dashboard/dashboard_core.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="profile_real"><a class="viewcode-back" href="../../customer.html#customer.views.profile_real">[docs]</a><span class="k">def</span> <span class="nf">profile_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/profile/profile_core.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="search_real"><a class="viewcode-back" href="../../customer.html#customer.views.search_real">[docs]</a><span class="k">def</span> <span class="nf">search_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/search/search_core.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="settings_real"><a class="viewcode-back" href="../../customer.html#customer.views.settings_real">[docs]</a><span class="k">def</span> <span class="nf">settings_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/settings/settings_core.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

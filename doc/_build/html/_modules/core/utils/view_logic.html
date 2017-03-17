@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.utils.view_logic &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for core.utils.view_logic</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">auth</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Avg</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
+
+<span class="kn">from</span> <span class="nn">core.forms</span> <span class="k">import</span> <span class="n">UserInformation</span>
+<span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">Review</span>
+
+
+<div class="viewcode-block" id="UserLogic"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic">[docs]</a><span class="k">class</span> <span class="nc">UserLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="UserLogic.retrieve_user"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.retrieve_user">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">user</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="UserLogic.login"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">auth</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="UserLogic.redirect_to_dashboard"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.redirect_to_dashboard">[docs]</a>    <span class="k">def</span> <span class="nf">redirect_to_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;username or password is incorrect&quot;</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:home_login&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;administration:profile&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;stylist:dashboard&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="UserLogic.upload_picture"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.upload_picture">[docs]</a>    <span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">profile_picture</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;profile_picture&#39;</span><span class="p">]</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="UserLogic.update_average"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.update_average">[docs]</a>    <span class="k">def</span> <span class="nf">update_average</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+        <span class="n">stylist</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">stylist</span>
+        <span class="n">customer</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">customer</span>
+
+        <span class="n">stylist</span><span class="o">.</span><span class="n">average_stylist_rating</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment__stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span>
+            <span class="n">Avg</span><span class="p">(</span><span class="s1">&#39;stylist_rating&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_rating__avg&#39;</span><span class="p">)</span>
+        <span class="n">customer</span><span class="o">.</span><span class="n">average_customer_rating</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment__customer</span><span class="o">=</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span>
+            <span class="n">Avg</span><span class="p">(</span><span class="s1">&#39;customer_rating&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;customer_rating__avg&#39;</span><span class="p">)</span>
+
+        <span class="n">stylist</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">customer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CookieClearer"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer">[docs]</a><span class="k">class</span> <span class="nc">CookieClearer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="CookieClearer.appointment_cookies"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer.appointment_cookies">[docs]</a>    <span class="k">def</span> <span class="nf">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">cookie_names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;stylist_pk&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;menu_main&#39;</span>
+        <span class="p">]</span>
+
+        <span class="n">CookieClearer</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="n">cookie_names</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></div>
+
+    <span class="c1"># Helper Method</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="CookieClearer.clear"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cookie_names</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">cookie_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

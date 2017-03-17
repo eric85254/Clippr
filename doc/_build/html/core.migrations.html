@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.migrations package &#8212; Clippr 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.utils package" href="core.utils.html" />
+    <link rel="prev" title="core.management.commands package" href="core.management.commands.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="core-migrations-package">
+<h1>core.migrations package<a class="headerlink" href="#core-migrations-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.migrations.0001_initial">
+<span id="core-migrations-0001-initial-module"></span><h2>core.migrations.0001_initial module<a class="headerlink" href="#module-core.migrations.0001_initial" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.migrations.0001_initial.Migration">
+<em class="property">class </em><code class="descclassname">core.migrations.0001_initial.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/migrations/0001_initial.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.migrations.0001_initial.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="core.migrations.0001_initial.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = []</em><a class="headerlink" href="#core.migrations.0001_initial.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.migrations.0001_initial.Migration.initial">
+<code class="descname">initial</code><em class="property"> = True</em><a class="headerlink" href="#core.migrations.0001_initial.Migration.initial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.migrations.0001_initial.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;CreateModel  name='User', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('password', &lt;django.db.models.fields.CharField&gt;), ('last_login', &lt;django.db.models.fields.DateTimeField&gt;), ('is_superuser', &lt;django.db.models.fields.BooleanField&gt;), ('first_name', &lt;django.db.models.fields.CharField&gt;), ('last_name', &lt;django.db.models.fields.CharField&gt;), ('is_staff', &lt;django.db.models.fields.BooleanField&gt;), ('is_active', &lt;django.db.models.fields.BooleanField&gt;), ('date_joined', &lt;django.db.models.fields.DateTimeField&gt;), ('username', &lt;django.db.models.fields.CharField&gt;), ('is_stylist', &lt;django.db.models.fields.CharField&gt;), ('profile_picture', &lt;django.db.models.fields.files.FileField&gt;), ('biography', &lt;django.db.models.fields.TextField&gt;), ('location', &lt;django.db.models.fields.TextField&gt;), ('hair_type', &lt;django.db.models.fields.TextField&gt;), ('hidden_hair_type', &lt;django.db.models.fields.TextField&gt;), ('email', &lt;django.db.models.fields.EmailField&gt;), ('phone_number', &lt;django.db.models.fields.CharField&gt;), ('average_stylist_rating', &lt;django.db.models.fields.DecimalField&gt;), ('average_customer_rating', &lt;django.db.models.fields.DecimalField&gt;)], options={'verbose_name': 'user', 'verbose_name_plural': 'users', 'abstract': False}, managers=[('objects', &lt;django.contrib.auth.models.UserManager object&gt;)]&gt;, &lt;CreateModel  name='AnsweredQuestionnaire', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('response', &lt;django.db.models.fields.TextField&gt;), ('time', &lt;django.db.models.fields.DateTimeField&gt;)]&gt;, &lt;CreateModel  name='Application', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('application_status', &lt;django.db.models.fields.TextField&gt;), ('denied_reason', &lt;django.db.models.fields.TextField&gt;), ('reason', &lt;django.db.models.fields.TextField&gt;), ('interview_time', &lt;django.db.models.fields.DateTimeField&gt;)]&gt;, &lt;CreateModel  name='Appointment', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('location', &lt;django.db.models.fields.CharField&gt;), ('date', &lt;django.db.models.fields.DateTimeField&gt;), ('price', &lt;django.db.models.fields.DecimalField&gt;), ('status', &lt;django.db.models.fields.TextField&gt;)]&gt;, &lt;CreateModel  name='GlobalMenu', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('price', &lt;django.db.models.fields.DecimalField&gt;)]&gt;, &lt;CreateModel  name='ItemInBill', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('item_custom', &lt;django.db.models.fields.TextField&gt;), ('price', &lt;django.db.models.fields.DecimalField&gt;), ('charged', &lt;django.db.models.fields.BooleanField&gt;), ('appointment', &lt;django.db.models.fields.related.ForeignKey&gt;)]&gt;, &lt;CreateModel  name='Questionnaire', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('question', &lt;django.db.models.fields.TextField&gt;)]&gt;, &lt;CreateModel  name='Review', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('stylist_rating', &lt;django.db.models.fields.IntegerField&gt;), ('customer_rating', &lt;django.db.models.fields.IntegerField&gt;), ('appointment', &lt;django.db.models.fields.related.ForeignKey&gt;)]&gt;, &lt;CreateModel  name='StylistMenu', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('price', &lt;django.db.models.fields.DecimalField&gt;), ('modified_global', &lt;django.db.models.fields.related.ForeignKey&gt;), ('stylist', &lt;django.db.models.fields.related.ForeignKey&gt;)]&gt;, &lt;AddField  model_name='iteminbill', name='item_menu', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;]</em><a class="headerlink" href="#core.migrations.0001_initial.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.migrations.0002_auto_20170316_0030">
+<span id="core-migrations-0002-auto-20170316-0030-module"></span><h2>core.migrations.0002_auto_20170316_0030 module<a class="headerlink" href="#module-core.migrations.0002_auto_20170316_0030" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.migrations.0002_auto_20170316_0030.Migration">
+<em class="property">class </em><code class="descclassname">core.migrations.0002_auto_20170316_0030.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/migrations/0002_auto_20170316_0030.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.migrations.0002_auto_20170316_0030.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="core.migrations.0002_auto_20170316_0030.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('auth', '0008_alter_user_username_max_length'), ('core', '0001_initial'), ('stylist', '0001_initial')]</em><a class="headerlink" href="#core.migrations.0002_auto_20170316_0030.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.migrations.0002_auto_20170316_0030.Migration.initial">
+<code class="descname">initial</code><em class="property"> = True</em><a class="headerlink" href="#core.migrations.0002_auto_20170316_0030.Migration.initial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="core.migrations.0002_auto_20170316_0030.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AddField  model_name='iteminbill', name='item_portfolio', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='appointment', name='customer', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='appointment', name='stylist', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='application', name='applicant', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='answeredquestionnaire', name='questionnaire', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='answeredquestionnaire', name='user', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='user', name='groups', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='user', name='user_permissions', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;]</em><a class="headerlink" href="#core.migrations.0002_auto_20170316_0030.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.migrations">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.migrations" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core.migrations package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-core.migrations.0001_initial">core.migrations.0001_initial module</a></li>
+<li><a class="reference internal" href="#module-core.migrations.0002_auto_20170316_0030">core.migrations.0002_auto_20170316_0030 module</a></li>
+<li><a class="reference internal" href="#module-core.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="core.html">core package</a><ul>
+      <li>Previous: <a href="core.management.commands.html" title="previous chapter">core.management.commands package</a></li>
+      <li>Next: <a href="core.utils.html" title="next chapter">core.utils package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/core.migrations.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Sanketh Kamath.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/core.migrations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
