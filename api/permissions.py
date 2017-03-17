@@ -53,22 +53,25 @@ class IsOwnerOfAppointment(permissions.BasePermission):
 class IsOwnerOfHaircut(permissions.BasePermission):
     """
         Permission for Haircut View - checks for the owner of the haircut.
-        DO NOT USE
     """
 
     def has_object_permission(self, request, view, obj):
-        if obj.haircut_stylist == request.user:
+        """
+            Returns True if the Stylist is the owner of the haircut.
+        """
+        if obj.stylist == request.user:
             return True
         else:
             return False
 
     def has_permission(self, request, view):
+        """
+            Returns True if the user is not anonymous.
+        """
         if request.user.is_anonymous:
             return False
-        elif request.user.is_stylist == 'YES':
-            return True
         else:
-            return False
+            return True
 
 
 '''

@@ -161,6 +161,9 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         return Appointment.objects.filter(Q(stylist=user) | Q(customer=user))
 
     def perform_create(self, serializer):
+        """
+            Before saving the Appointment the customer is set to the current user.
+        """
         serializer.save(customer=self.request.user)
 
 
@@ -176,7 +179,10 @@ class HaircutViewSet(viewsets.ModelViewSet):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
-        return PortfolioHaircut.objects.filter(stylist=self.request.user)
+        stylist = self.request.query_params.get('stylist_pk', None)
+        if stylist is None:
+            stylist = self.request.user
+        return PortfolioHaircut.objects.filter(stylist=stylist)
 
     def perform_create(self, serializer):
         serializer.save(stylist=self.request.user)
