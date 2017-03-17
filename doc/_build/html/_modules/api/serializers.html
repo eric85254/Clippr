@@ -57,6 +57,19 @@
 
 
 <div class="viewcode-block" id="UserSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.UserSerializer">[docs]</a><span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        UserSerializer (serializer for User Model)</span>
+
+<span class="sd">        - **fields**::</span>
+<span class="sd">            :url: Url for a specific object</span>
+<span class="sd">            :first_name: First name</span>
+<span class="sd">            :last_name: Last name</span>
+<span class="sd">            :email: Email Address</span>
+<span class="sd">            :phone_number: Phone Number (no dashes, spaces, or any other separators except for &#39;+&#39; at beginning)</span>
+<span class="sd">            :password: Unhashed password if posting - hashed if GET (&#39;write_only&#39;: True}</span>
+<span class="sd">            :is_stylist: YES or NO</span>
+<span class="sd">            :profile_picture: Profile Picture (storage type is FileField) Default is assigned here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:user-detail&#39;</span><span class="p">)</span>
     <span class="n">profile_picture</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">DEFAULT_PICTURE_LOCATION</span><span class="p">)</span>
 
@@ -69,6 +82,7 @@
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="UserSerializer.create"><a class="viewcode-back" href="../../api.html#api.serializers.UserSerializer.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">validated_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method overrides the default create method. Ensures that password is hashed before stored.&quot;&quot;&quot;</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">validated_data</span><span class="p">)</span>
         <span class="n">user</span><span class="o">.</span><span class="n">set_password</span><span class="p">(</span><span class="n">validated_data</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span>
         <span class="c1"># user.profile_picture = DEFAULT_PICTURE_LOCATION</span>
@@ -86,6 +100,11 @@
 
 
 <div class="viewcode-block" id="StylistSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.StylistSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StylistSerializer (serializer for User Model) Omits many unneeded fields of the User Model.</span>
+
+<span class="sd">        Fields are not listed because corresponding view should not accept POST, PUT, or DELETE.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:stylist-detail&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StylistSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.StylistSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
@@ -101,6 +120,16 @@
 
 
 <div class="viewcode-block" id="AppointmentSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.AppointmentSerializer">[docs]</a><span class="k">class</span> <span class="nc">AppointmentSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        AppointmentSerializer (serializer for Appointment Model)</span>
+
+<span class="sd">        - **fields**::</span>
+<span class="sd">            :url: Url for a specific object</span>
+<span class="sd">            :location: Text field for the location</span>
+<span class="sd">            :date: Date Field</span>
+<span class="sd">            :stylist: SlugRelatedField (ensures that you can only select a stylist from the given options)</span>
+<span class="sd">            :customer: UserSerialzer(many=False, read_only=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:appointment-detail&#39;</span><span class="p">)</span>
 
     <span class="n">stylist</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">SlugRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">slug_field</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">USERNAME_FIELD</span><span class="p">,</span>
@@ -109,18 +138,30 @@
 
 <div class="viewcode-block" id="AppointmentSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.AppointmentSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Appointment</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;stylist&#39;</span><span class="p">,</span> <span class="s1">&#39;customer&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">)</span></div></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;stylist&#39;</span><span class="p">,</span> <span class="s1">&#39;customer&#39;</span><span class="p">)</span></div></div>
 
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    PortfolioHaircut Serializer</span>
+<span class="sd">    To get a specific stylist haircut use: http://127.0.0.1:8000/api/haircut/?stylist_pk=1</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 
 <div class="viewcode-block" id="PortfolioHaircutSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.PortfolioHaircutSerializer">[docs]</a><span class="k">class</span> <span class="nc">PortfolioHaircutSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        PortfolioHaircutSerializer (serializer for PortfolioHaircut Model)</span>
+
+<span class="sd">        - **fields**::</span>
+<span class="sd">            :url: Url for a specific object</span>
+<span class="sd">            :stylist: StylistSerializer(many=False, read_only=True)</span>
+<span class="sd">            :picture: FileField?</span>
+<span class="sd">            :name: CharField</span>
+<span class="sd">            :description: TextField or CharField</span>
+<span class="sd">            :price: DecimalField</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:portfoliohaircut-detail&#39;</span><span class="p">)</span>
 
-    <span class="n">stylist</span> <span class="o">=</span> <span class="n">UserSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">stylist</span> <span class="o">=</span> <span class="n">StylistSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PortfolioHaircutSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.PortfolioHaircutSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span>
@@ -133,6 +174,14 @@
 
 
 <div class="viewcode-block" id="GlobalMenuSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.GlobalMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        GlobalMenuSerializer (serializer for GlobalMenu Model)</span>
+
+<span class="sd">        - **fields**::</span>
+<span class="sd">            :url: Url for a specific object</span>
+<span class="sd">            :name: CharField</span>
+<span class="sd">            :price: DecimalField</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:globalmenu-detail&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GlobalMenuSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.GlobalMenuSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
@@ -141,6 +190,15 @@
 
 
 <div class="viewcode-block" id="StylistMenuSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.StylistMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StylistMenuSerializer (serializer for StylistMenu Model)</span>
+
+<span class="sd">        - **fields**::</span>
+<span class="sd">            :url: Url for a specific object</span>
+<span class="sd">            :name: CharField</span>
+<span class="sd">            :price: DecimalField</span>
+<span class="sd">            :modified_global: SlugRelatedField to GlobalMenu.objects.all() slug_field=&#39;name&#39; allow_null=True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:stylistmenu-detail&#39;</span><span class="p">)</span>
     <span class="n">modified_global</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">SlugRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slug_field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span>
                                                    <span class="n">queryset</span><span class="o">=</span><span class="n">GlobalMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>

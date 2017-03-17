@@ -17,14 +17,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         UserSerializer (serializer for User Model)
 
         - **fields**::
-            :param url: Url for a specific object
-            :param first_name: First name
-            :param last_name: Last name
-            :param email: Email Address
-            :param phone_number: Phone Number
-            :param password: Unhashed password if posting - hashed if GET ('write_only': True}
-            :param is_stylist: YES or NO
-            :param profile_picture: Profile Picture (storage type is FileField) Default is assigned here.
+            :url: Url for a specific object
+            :first_name: First name
+            :last_name: Last name
+            :email: Email Address
+            :phone_number: Phone Number (no dashes, spaces, or any other separators except for '+' at beginning)
+            :password: Unhashed password if posting - hashed if GET ('write_only': True}
+            :is_stylist: YES or NO
+            :profile_picture: Profile Picture (storage type is FileField) Default is assigned here.
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:user-detail')
     profile_picture = serializers.FileField(default=DEFAULT_PICTURE_LOCATION)
@@ -80,11 +80,11 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
         AppointmentSerializer (serializer for Appointment Model)
 
         - **fields**::
-            :param url: Url for a specific object
-            :param location: Text field for the location
-            :param date: Date Field
-            :param stylist: SlugRelatedField (ensures that you can only select a stylist from the given options)
-            :param customer: UserSerialzer(many=False, read_only=True)
+            :url: Url for a specific object
+            :location: Text field for the location
+            :date: Date Field
+            :stylist: SlugRelatedField (ensures that you can only select a stylist from the given options)
+            :customer: UserSerialzer(many=False, read_only=True)
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:appointment-detail')
 
@@ -108,12 +108,12 @@ class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
         PortfolioHaircutSerializer (serializer for PortfolioHaircut Model)
 
         - **fields**::
-            :param url: Url for a specific object
-            :param stylist: StylistSerializer(many=False, read_only=True)
-            :param picture: FileField?
-            :param name: CharField
-            :param description: TextField or CharField
-            :param price: DecimalField
+            :url: Url for a specific object
+            :stylist: StylistSerializer(many=False, read_only=True)
+            :picture: FileField?
+            :name: CharField
+            :description: TextField or CharField
+            :price: DecimalField
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
 
@@ -134,9 +134,9 @@ class GlobalMenuSerializer(serializers.HyperlinkedModelSerializer):
         GlobalMenuSerializer (serializer for GlobalMenu Model)
 
         - **fields**::
-            :param url: Url for a specific object
-            :param name: CharField
-            :param price: DecimalField
+            :url: Url for a specific object
+            :name: CharField
+            :price: DecimalField
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:globalmenu-detail')
 
@@ -150,10 +150,10 @@ class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
         StylistMenuSerializer (serializer for StylistMenu Model)
 
         - **fields**::
-            :param url: Url for a specific object
-            :param name: CharField
-            :param price: DecimalField
-            :param modified_global: SlugRelatedField to GlobalMenu.objects.all() slug_field='name' allow_null=True
+            :url: Url for a specific object
+            :name: CharField
+            :price: DecimalField
+            :modified_global: SlugRelatedField to GlobalMenu.objects.all() slug_field='name' allow_null=True
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
     modified_global = serializers.SlugRelatedField(many=False, read_only=False, allow_null=True, slug_field='name',

@@ -114,17 +114,18 @@ Ensures that super users can view any User object.</p>
 <dt id="api.permissions.IsOwnerOfHaircut">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsOwnerOfHaircut</code><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
-<p>Permission for Haircut View - checks for the owner of the haircut.
-DO NOT USE</p>
+<p>Permission for Haircut View - checks for the owner of the haircut.</p>
 <dl class="method">
 <dt id="api.permissions.IsOwnerOfHaircut.has_object_permission">
 <code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut.has_object_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the Stylist is the owner of the haircut.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="api.permissions.IsOwnerOfHaircut.has_permission">
 <code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the user is not anonymous.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -165,15 +166,38 @@ DO NOT USE</p>
 <span id="api-serializers"></span><h2>api.serializers<a class="headerlink" href="#module-api.serializers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="api.serializers.AppointmentSerializer">
-<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">AppointmentSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">AppointmentSerializer</code><span class="sig-paren">(</span><em>serializer for Appointment Model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>fields</strong>::</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">Url for a specific object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">location:</th><td class="field-body">Text field for the location</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">date:</th><td class="field-body">Date Field</td>
+</tr>
+<tr class="field-even field"><th class="field-name">stylist:</th><td class="field-body">SlugRelatedField (ensures that you can only select a stylist from the given options)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">customer:</th><td class="field-body">UserSerialzer(many=False, read_only=True)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="class">
 <dt id="api.serializers.AppointmentSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="api.serializers.AppointmentSerializer.Meta.fields">
-<code class="descname">fields</code><em class="property"> = ('url', 'location', 'date', 'stylist', 'customer', 'status')</em><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fields</code><em class="property"> = ('url', 'location', 'date', 'stylist', 'customer')</em><a class="headerlink" href="#api.serializers.AppointmentSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -188,8 +212,27 @@ DO NOT USE</p>
 
 <dl class="class">
 <dt id="api.serializers.GlobalMenuSerializer">
-<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">GlobalMenuSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#GlobalMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.GlobalMenuSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">GlobalMenuSerializer</code><span class="sig-paren">(</span><em>serializer for GlobalMenu Model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#GlobalMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.GlobalMenuSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>fields</strong>::</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">Url for a specific object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">CharField</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">price:</th><td class="field-body">DecimalField</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="class">
 <dt id="api.serializers.GlobalMenuSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#GlobalMenuSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.GlobalMenuSerializer.Meta" title="Permalink to this definition">¶</a></dt>
@@ -211,8 +254,33 @@ DO NOT USE</p>
 
 <dl class="class">
 <dt id="api.serializers.PortfolioHaircutSerializer">
-<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">PortfolioHaircutSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#PortfolioHaircutSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">PortfolioHaircutSerializer</code><span class="sig-paren">(</span><em>serializer for PortfolioHaircut Model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#PortfolioHaircutSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>fields</strong>::</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">Url for a specific object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">stylist:</th><td class="field-body">StylistSerializer(many=False, read_only=True)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">picture:</th><td class="field-body">FileField?</td>
+</tr>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">CharField</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">description:</th><td class="field-body">TextField or CharField</td>
+</tr>
+<tr class="field-even field"><th class="field-name">price:</th><td class="field-body">DecimalField</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="class">
 <dt id="api.serializers.PortfolioHaircutSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#PortfolioHaircutSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.PortfolioHaircutSerializer.Meta" title="Permalink to this definition">¶</a></dt>
@@ -234,8 +302,30 @@ DO NOT USE</p>
 
 <dl class="class">
 <dt id="api.serializers.StylistMenuSerializer">
-<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">StylistMenuSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#StylistMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistMenuSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">StylistMenuSerializer</code><span class="sig-paren">(</span><em>serializer for StylistMenu Model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#StylistMenuSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistMenuSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>fields</strong>::</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">Url for a specific object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">CharField</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">price:</th><td class="field-body">DecimalField</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">modified_global:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">SlugRelatedField to GlobalMenu.objects.all() slug_field=&#8217;name&#8217; allow_null=True</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="class">
 <dt id="api.serializers.StylistMenuSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#StylistMenuSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistMenuSerializer.Meta" title="Permalink to this definition">¶</a></dt>
@@ -259,6 +349,8 @@ DO NOT USE</p>
 <dt id="api.serializers.StylistSerializer">
 <em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">StylistSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#StylistSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<p>StylistSerializer (serializer for User Model) Omits many unneeded fields of the User Model.</p>
+<p>Fields are not listed because corresponding view should not accept POST, PUT, or DELETE.</p>
 <dl class="class">
 <dt id="api.serializers.StylistSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#StylistSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.StylistSerializer.Meta" title="Permalink to this definition">¶</a></dt>
@@ -280,8 +372,38 @@ DO NOT USE</p>
 
 <dl class="class">
 <dt id="api.serializers.UserSerializer">
-<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#UserSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>serializer for User Model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#UserSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>fields</strong>::</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">Url for a specific object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">first_name:</th><td class="field-body">First name</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">last_name:</th><td class="field-body">Last name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">email:</th><td class="field-body">Email Address</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">phone_number:</th><td class="field-body">Phone Number (no dashes, spaces, or any other separators except for &#8216;+&#8217; at beginning)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">password:</th><td class="field-body">Unhashed password if posting - hashed if GET (&#8216;write_only&#8217;: True}</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">is_stylist:</th><td class="field-body">YES or NO</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">profile_picture:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Profile Picture (storage type is FileField) Default is assigned here.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="class">
 <dt id="api.serializers.UserSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="_modules/api/serializers.html#UserSerializer.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
@@ -307,7 +429,8 @@ DO NOT USE</p>
 <dl class="method">
 <dt id="api.serializers.UserSerializer.create">
 <code class="descclassname">UserSerializer.</code><code class="descname">create</code><span class="sig-paren">(</span><em>validated_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#UserSerializer.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.UserSerializer.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method overrides the default create method. Ensures that password is hashed before stored.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -334,7 +457,8 @@ DO NOT USE</p>
 <dl class="method">
 <dt id="api.views.AppointmentViewSet.perform_create">
 <code class="descname">perform_create</code><span class="sig-paren">(</span><em>serializer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet.perform_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet.perform_create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Before saving the Appointment the customer is set to the current user.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="api.views.AppointmentViewSet.permission_classes">
@@ -343,7 +467,7 @@ DO NOT USE</p>
 
 <dl class="attribute">
 <dt id="api.views.AppointmentViewSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;]&gt;</em><a class="headerlink" href="#api.views.AppointmentViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;, &lt;Appointment: 's appointment with &gt;]&gt;</em><a class="headerlink" href="#api.views.AppointmentViewSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -417,7 +541,7 @@ DO NOT USE</p>
 
 <dl class="attribute">
 <dt id="api.views.HaircutViewSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;PortfolioHaircut:  || Default Haircut One&gt;, &lt;PortfolioHaircut:  || Default Haircut Two&gt;, &lt;PortfolioHaircut:  || Default Haircut Three&gt;]&gt;</em><a class="headerlink" href="#api.views.HaircutViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;PortfolioHaircut:  || Default Haircut One&gt;, &lt;PortfolioHaircut:  || Default Haircut Two&gt;, &lt;PortfolioHaircut:  || Default Haircut Three&gt;, &lt;PortfolioHaircut:  || eh&gt;, &lt;PortfolioHaircut:  || eh&gt;, &lt;PortfolioHaircut:  || eh&gt;, &lt;PortfolioHaircut:  || eh&gt;, &lt;PortfolioHaircut:  || test&gt;]&gt;</em><a class="headerlink" href="#api.views.HaircutViewSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

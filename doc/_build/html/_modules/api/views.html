@@ -205,6 +205,9 @@
         <span class="k">return</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">user</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="n">user</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="AppointmentViewSet.perform_create"><a class="viewcode-back" href="../../api.html#api.views.AppointmentViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Before saving the Appointment the customer is set to the current user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div></div>
 
 
@@ -220,7 +223,10 @@
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span>
 
 <div class="viewcode-block" id="HaircutViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.HaircutViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div>
+        <span class="n">stylist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stylist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stylist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">return</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HaircutViewSet.perform_create"><a class="viewcode-back" href="../../api.html#api.views.HaircutViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
         <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div></div>
