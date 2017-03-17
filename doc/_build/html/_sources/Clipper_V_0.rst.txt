@@ -1,38 +1,27 @@
-Clipper_V_0 package
-===================
+Clipper_V_0
+===========
 
-Submodules
-----------
-
-Clipper_V_0.settings module
----------------------------
+Clipper_V_0.settings
+--------------------
 
 .. automodule:: Clipper_V_0.settings
     :members:
     :undoc-members:
     :show-inheritance:
 
-Clipper_V_0.urls module
------------------------
+Clipper_V_0.urls
+----------------
 
 .. automodule:: Clipper_V_0.urls
     :members:
     :undoc-members:
     :show-inheritance:
 
-Clipper_V_0.wsgi module
------------------------
+Clipper_V_0.wsgi
+----------------
 
 .. automodule:: Clipper_V_0.wsgi
     :members:
     :undoc-members:
     :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: Clipper_V_0
-    :members:
-    :undoc-members:
-    :show-inheritance:

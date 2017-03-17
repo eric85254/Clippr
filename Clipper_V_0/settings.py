@@ -117,12 +117,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+#: The STATICFILES_DIRS and STATIC_URL can be modified if you don't want to store static files locally.
+#: Whitenoise allows us to store static files locally for Heroku otherwise we would need to utilize Amazon web services.
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+#: Tells Django to utilize the custome User Model that's been constructed.
 AUTH_USER_MODEL = 'core.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
