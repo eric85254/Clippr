@@ -42,22 +42,36 @@
           <div class="body" role="main">
             
   <h1>Source code for administration.views</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    These views are for the custom administration page. They are used to schedule interviews and approve new stylists.</span>
+<span class="sd">    To access this page the user must be a super user. (This requirement should eventually be downgraded to staff).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 <span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 
-
 <span class="c1"># Create your views here.</span>
-<span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Application</span>
+<span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">Application</span>
 
 
 <div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../administration.html#administration.views.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+
+<span class="sd">        This view redirects the user to the administration profile/home page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;administration/profile.html&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="view_stylist_applications"><a class="viewcode-back" href="../../administration.html#administration.views.view_stylist_applications">[docs]</a><span class="k">def</span> <span class="nf">view_stylist_applications</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+
+<span class="sd">        Pulls all the applications with the status *PENDING* and renders the view page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="n">applications</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">application_status</span><span class="o">=</span><span class="s2">&quot;PENDING&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;administration/unread_applications.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;applications&#39;</span><span class="p">:</span> <span class="n">applications</span><span class="p">})</span>
@@ -66,6 +80,17 @@
 
 
 <div class="viewcode-block" id="schedule_interview"><a class="viewcode-back" href="../../administration.html#administration.views.schedule_interview">[docs]</a><span class="k">def</span> <span class="nf">schedule_interview</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        Allows the staff to schedule an interview with a potential stylist.</span>
+
+<span class="sd">        | First the correct application is pulled using the *application_id* sent via POST</span>
+<span class="sd">        | Next the interview_time is set by stripping the date string sent via POST</span>
+<span class="sd">        | The application_status is modified to *SCHEDULED* and finally saved.</span>
+
+<span class="sd">        The user is redirected to the page they were originally on.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">application</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;application_id&#39;</span><span class="p">)))</span>
@@ -78,6 +103,11 @@
 
 
 <div class="viewcode-block" id="view_interviews"><a class="viewcode-back" href="../../administration.html#administration.views.view_interviews">[docs]</a><span class="k">def</span> <span class="nf">view_interviews</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+
+<span class="sd">        Renders all applications with the application_status of *SCHEDULED*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># ToDo: Separate applicants into upcoming interviews and passed interviews. Only give the passed interviews the option of &#39;approval&#39;.</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="n">applications</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">application_status</span><span class="o">=</span><span class="s2">&quot;SCHEDULED&quot;</span><span class="p">)</span>
@@ -87,6 +117,11 @@
 
 
 <div class="viewcode-block" id="view_rejects"><a class="viewcode-back" href="../../administration.html#administration.views.view_rejects">[docs]</a><span class="k">def</span> <span class="nf">view_rejects</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+
+<span class="sd">        Renders all applications with the application_status of *REJECTED*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="n">applications</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">application_status</span><span class="o">=</span><span class="s1">&#39;REJECTED&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;administration/view_rejects.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;applications&#39;</span><span class="p">:</span> <span class="n">applications</span><span class="p">})</span>
@@ -95,6 +130,15 @@
 
 
 <div class="viewcode-block" id="reinstate_application"><a class="viewcode-back" href="../../administration.html#administration.views.reinstate_application">[docs]</a><span class="k">def</span> <span class="nf">reinstate_application</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        - **Post Params:**</span>
+<span class="sd">            :param application_id: utlized to obtain the correct application from the database</span>
+
+<span class="sd">        The application_status is updated to *PENDING*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">application</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;application_id&#39;</span><span class="p">)))</span>
@@ -106,6 +150,23 @@
 
 
 <div class="viewcode-block" id="reject_applicant"><a class="viewcode-back" href="../../administration.html#administration.views.reject_applicant">[docs]</a><span class="k">def</span> <span class="nf">reject_applicant</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        - **Post Params:**</span>
+<span class="sd">            :param application_id: utlized to obtain the correct application from the database</span>
+<span class="sd">            :param denied_reason: reason why application was denied</span>
+
+<span class="sd">        | The correct application is pulled.</span>
+<span class="sd">        | The status is updated to *REJECTED*</span>
+<span class="sd">        | The denied_reason field is filled</span>
+<span class="sd">        | The application is saved</span>
+<span class="sd">        |</span>
+<span class="sd">        | The applicant is pulled from the application and the is_stylist field is changed to NO</span>
+<span class="sd">        | The applicant is saved</span>
+<span class="sd">        |</span>
+<span class="sd">        | User is redirected to their prior page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">application</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;application_id&#39;</span><span class="p">)))</span>

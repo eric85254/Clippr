@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>administration package &#8212; Clippr 1.0 documentation</title>
+    <title>Administration &#8212; Clippr 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -43,44 +43,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="administration-package">
-<h1>administration package<a class="headerlink" href="#administration-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-</div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-administration.admin">
-<span id="administration-admin-module"></span><h2>administration.admin module<a class="headerlink" href="#module-administration.admin" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-administration.apps">
-<span id="administration-apps-module"></span><h2>administration.apps module<a class="headerlink" href="#module-administration.apps" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="administration.apps.AdministrationConfig">
-<em class="property">class </em><code class="descclassname">administration.apps.</code><code class="descname">AdministrationConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/apps.html#AdministrationConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.apps.AdministrationConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
-<dl class="attribute">
-<dt id="administration.apps.AdministrationConfig.name">
-<code class="descname">name</code><em class="property"> = 'administration'</em><a class="headerlink" href="#administration.apps.AdministrationConfig.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-administration.models">
-<span id="administration-models-module"></span><h2>administration.models module<a class="headerlink" href="#module-administration.models" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-administration.tests">
-<span id="administration-tests-module"></span><h2>administration.tests module<a class="headerlink" href="#module-administration.tests" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="administration">
+<h1>Administration<a class="headerlink" href="#administration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-administration.urls">
-<span id="administration-urls-module"></span><h2>administration.urls module<a class="headerlink" href="#module-administration.urls" title="Permalink to this headline">¶</a></h2>
+<span id="administration-urls"></span><h2>administration.urls<a class="headerlink" href="#module-administration.urls" title="Permalink to this headline">¶</a></h2>
+<p>Url Patterns for Administration App - note not catogerized.</p>
 </div>
 <div class="section" id="module-administration.views">
-<span id="administration-views-module"></span><h2>administration.views module<a class="headerlink" href="#module-administration.views" title="Permalink to this headline">¶</a></h2>
+<span id="administration-views"></span><h2>administration.views<a class="headerlink" href="#module-administration.views" title="Permalink to this headline">¶</a></h2>
+<p>These views are for the custom administration page. They are used to schedule interviews and approve new stylists.
+To access this page the user must be a super user. (This requirement should eventually be downgraded to staff).</p>
 <dl class="function">
 <dt id="administration.views.approve_applicant">
 <code class="descclassname">administration.views.</code><code class="descname">approve_applicant</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#approve_applicant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.approve_applicant" title="Permalink to this definition">¶</a></dt>
@@ -89,46 +61,108 @@
 <dl class="function">
 <dt id="administration.views.profile">
 <code class="descclassname">administration.views.</code><code class="descname">profile</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [GET]</p>
+<p>This view redirects the user to the administration profile/home page.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.reinstate_application">
 <code class="descclassname">administration.views.</code><code class="descname">reinstate_application</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#reinstate_application"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.reinstate_application" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>Post Params:</strong></dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param application_id:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">utlized to obtain the correct application from the database</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The application_status is updated to <em>PENDING</em></p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.reject_applicant">
 <code class="descclassname">administration.views.</code><code class="descname">reject_applicant</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#reject_applicant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.reject_applicant" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>Post Params:</strong></dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param application_id:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">utlized to obtain the correct application from the database</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param denied_reason:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">reason why application was denied</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line">The correct application is pulled.</div>
+<div class="line">The status is updated to <em>REJECTED</em></div>
+<div class="line">The denied_reason field is filled</div>
+<div class="line">The application is saved</div>
+<div class="line"><br /></div>
+<div class="line">The applicant is pulled from the application and the is_stylist field is changed to NO</div>
+<div class="line">The applicant is saved</div>
+<div class="line"><br /></div>
+<div class="line">User is redirected to their prior page.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.schedule_interview">
 <code class="descclassname">administration.views.</code><code class="descname">schedule_interview</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#schedule_interview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.schedule_interview" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<p>Allows the staff to schedule an interview with a potential stylist.</p>
+<div class="line-block">
+<div class="line">First the correct application is pulled using the <em>application_id</em> sent via POST</div>
+<div class="line">Next the interview_time is set by stripping the date string sent via POST</div>
+<div class="line">The application_status is modified to <em>SCHEDULED</em> and finally saved.</div>
+</div>
+<p>The user is redirected to the page they were originally on.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.view_interviews">
 <code class="descclassname">administration.views.</code><code class="descname">view_interviews</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#view_interviews"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.view_interviews" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [GET]</p>
+<p>Renders all applications with the application_status of <em>SCHEDULED</em></p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.view_rejects">
 <code class="descclassname">administration.views.</code><code class="descname">view_rejects</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#view_rejects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.view_rejects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [GET]</p>
+<p>Renders all applications with the application_status of <em>REJECTED</em></p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.view_stylist_applications">
 <code class="descclassname">administration.views.</code><code class="descname">view_stylist_applications</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#view_stylist_applications"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.view_stylist_applications" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [GET]</p>
+<p>Pulls all the applications with the status <em>PENDING</em> and renders the view page.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.view_stylists">
 <code class="descclassname">administration.views.</code><code class="descname">view_stylists</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#view_stylists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.view_stylists" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-administration">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-administration" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -140,16 +174,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">administration package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-administration.admin">administration.admin module</a></li>
-<li><a class="reference internal" href="#module-administration.apps">administration.apps module</a></li>
-<li><a class="reference internal" href="#module-administration.models">administration.models module</a></li>
-<li><a class="reference internal" href="#module-administration.tests">administration.tests module</a></li>
-<li><a class="reference internal" href="#module-administration.urls">administration.urls module</a></li>
-<li><a class="reference internal" href="#module-administration.views">administration.views module</a></li>
-<li><a class="reference internal" href="#module-administration">Module contents</a></li>
+<li><a class="reference internal" href="#">Administration</a><ul>
+<li><a class="reference internal" href="#module-administration.urls">administration.urls</a></li>
+<li><a class="reference internal" href="#module-administration.views">administration.views</a></li>
 </ul>
 </li>
 </ul>
