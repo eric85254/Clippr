@@ -158,8 +158,6 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_anonymous or not user.is_authenticated:
-            return None
         return Appointment.objects.filter(Q(stylist=user) | Q(customer=user))
 
     def perform_create(self, serializer):

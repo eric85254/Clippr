@@ -154,7 +154,7 @@
 <span class="sd">        METHODS ALLOWED = [POST]</span>
 
 <span class="sd">        - **Post Params:**</span>
-<span class="sd">            :param application_id: utlized to obtain the correct application from the database</span>
+<span class="sd">            :param application_id: utilized to obtain the correct application from the database</span>
 <span class="sd">            :param denied_reason: reason why application was denied</span>
 
 <span class="sd">        | The correct application is pulled.</span>
@@ -182,6 +182,20 @@
 
 
 <div class="viewcode-block" id="approve_applicant"><a class="viewcode-back" href="../../administration.html#administration.views.approve_applicant">[docs]</a><span class="k">def</span> <span class="nf">approve_applicant</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        - **Post Params:**</span>
+<span class="sd">            :param application_id: utilized to obtain the correct application from the database</span>
+
+<span class="sd">        | The correct application is pulled</span>
+<span class="sd">        | Status is updated to *APPROVED*</span>
+<span class="sd">        | Application is saved</span>
+
+<span class="sd">        | Applicant is pulled from the Application</span>
+<span class="sd">        | Applicant&#39;s is_stylist field is changed to YES</span>
+<span class="sd">        | Applicant is saved</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">application</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;application_id&#39;</span><span class="p">)))</span>
@@ -196,6 +210,11 @@
 
 
 <div class="viewcode-block" id="view_stylists"><a class="viewcode-back" href="../../administration.html#administration.views.view_stylists">[docs]</a><span class="k">def</span> <span class="nf">view_stylists</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+
+<span class="sd">        Applications with the status *APPROVED* are rendered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
         <span class="n">applications</span> <span class="o">=</span> <span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">application_status</span><span class="o">=</span><span class="s1">&#39;APPROVED&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;administration/view_stylists.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;applications&#39;</span><span class="p">:</span> <span class="n">applications</span><span class="p">})</span>

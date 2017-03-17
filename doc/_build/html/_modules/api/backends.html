@@ -42,9 +42,16 @@
           <div class="body" role="main">
             
   <h1>Source code for api.backends</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">rest_framework.authentication</span> <span class="k">import</span> <span class="n">SessionAuthentication</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom backends are specified here.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rest_framework.authentication</span> <span class="k">import</span> <span class="n">SessionAuthentication</span>
 
 <div class="viewcode-block" id="CsrfExemptSessionAuthentication"><a class="viewcode-back" href="../../api.html#api.backends.CsrfExemptSessionAuthentication">[docs]</a><span class="k">class</span> <span class="nc">CsrfExemptSessionAuthentication</span><span class="p">(</span><span class="n">SessionAuthentication</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This backend allows the class based views to not require a CSRF Token when accepting a POST request.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CsrfExemptSessionAuthentication.enforce_csrf"><a class="viewcode-back" href="../../api.html#api.backends.CsrfExemptSessionAuthentication.enforce_csrf">[docs]</a>    <span class="k">def</span> <span class="nf">enforce_csrf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">return</span></div></div>

@@ -42,15 +42,35 @@
           <div class="body" role="main">
             
   <h1>Source code for api.permissions</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">permissions</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module dictates who is allowed to submit GET, POST, PUT, and DELETE requests to the api views.</span>
 
+<span class="sd">    | There are typically two functions:</span>
+<span class="sd">    |   has_object_permission(self, request, view, obj)</span>
+<span class="sd">    |   has_permission(self, request, view)</span>
+
+<span class="sd">    | The initial defines the authentication necessary to view/modify a particular object of the corresponding model.</span>
+<span class="sd">    The latter function defines the authentication necessary to view a list of all the objects</span>
+<span class="sd">    or create a new object (POST)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">permissions</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    APPOINTMENT PERMISSION</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+
 <div class="viewcode-block" id="IsOwnerOfAppointment"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment">[docs]</a><span class="k">class</span> <span class="nc">IsOwnerOfAppointment</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Permission for Appointment View - checks for the owner of the appointment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="IsOwnerOfAppointment.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ensures that only the customer and stylist of an appointment may view or modify the appointment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">customer</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">stylist</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
@@ -59,6 +79,9 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="IsOwnerOfAppointment.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfAppointment.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ensures that no anonymous user can view or create an appointment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
@@ -69,7 +92,14 @@
 <span class="sd">    PORTFOLIO HAIRCUT PERMISSIONS</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+
+<span class="c1"># Todo: Problem. Only Stylists can see their PortfolioHaircuts. No one else - not even customers can see them.</span>
 <div class="viewcode-block" id="IsOwnerOfHaircut"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfHaircut">[docs]</a><span class="k">class</span> <span class="nc">IsOwnerOfHaircut</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Permission for Haircut View - checks for the owner of the haircut.</span>
+<span class="sd">        DO NOT USE</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="IsOwnerOfHaircut.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsOwnerOfHaircut.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">haircut_stylist</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -84,15 +114,25 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div></div>
 
+
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    USER PERMISSIONS</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+
 <div class="viewcode-block" id="IsCurrentUserOrSuperUser"><a class="viewcode-back" href="../../api.html#api.permissions.IsCurrentUserOrSuperUser">[docs]</a><span class="k">class</span> <span class="nc">IsCurrentUserOrSuperUser</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Basic User Permissions. You can only view your own User information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># General Permissions: Everyone can &#39;GET&#39; &amp; &#39;POST&#39;</span>
     <span class="c1"># Object Permissions: Users &#39;GET&#39; &#39;POST&#39; &#39;PUT&#39; &#39;DELETE&#39; their object || Superuser&#39;s can access or modify anything</span>
 
 <div class="viewcode-block" id="IsCurrentUserOrSuperUser.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsCurrentUserOrSuperUser.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Ensures that only User object a current user can view is their own.</span>
+<span class="sd">            Ensures that super users can view any User object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
@@ -100,14 +140,23 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div></div>
 
+
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    MISCELLANEOUS PERMISSIONS</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+
 <div class="viewcode-block" id="IsUserLoggedIn"><a class="viewcode-back" href="../../api.html#api.permissions.IsUserLoggedIn">[docs]</a><span class="k">class</span> <span class="nc">IsUserLoggedIn</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Miscellaneous Permissions. Checks to ensure the user is logged in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># General Permissions: Only logged in users can &#39;GET&#39; or &#39;POST&#39;</span>
 
 <div class="viewcode-block" id="IsUserLoggedIn.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.IsUserLoggedIn.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns true only if the user is not anonymous.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
@@ -115,16 +164,26 @@
 
 
 <div class="viewcode-block" id="OnlySuperUsersCanModify"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify">[docs]</a><span class="k">class</span> <span class="nc">OnlySuperUsersCanModify</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Miscellaneous Permissions. Checks to ensure that the user is a super user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># General Permissions: Public can &#39;GET&#39; || Superuser can &#39;PUT&#39; &#39;POST&#39; &#39;DELETE&#39;</span>
     <span class="c1"># Object Permissions: General Permissions</span>
 
 <div class="viewcode-block" id="OnlySuperUsersCanModify.has_permission"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify.has_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            No restrictions on GET request. If the request is not a GET, then it may only be submitted by a superuser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span></div>
 
 <div class="viewcode-block" id="OnlySuperUsersCanModify.has_object_permission"><a class="viewcode-back" href="../../api.html#api.permissions.OnlySuperUsersCanModify.has_object_permission">[docs]</a>    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            No restrictions on GET request. If the request is not a GET, then it may only be submitted by a superuser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 

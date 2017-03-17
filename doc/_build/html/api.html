@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>api package &#8212; Clippr 1.0 documentation</title>
+    <title>Api &#8212; Clippr 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -43,39 +43,17 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-package">
-<h1>api package<a class="headerlink" href="#api-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-</div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-api.admin">
-<span id="api-admin-module"></span><h2>api.admin module<a class="headerlink" href="#module-api.admin" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-api.apps">
-<span id="api-apps-module"></span><h2>api.apps module<a class="headerlink" href="#module-api.apps" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="api.apps.ApiConfig">
-<em class="property">class </em><code class="descclassname">api.apps.</code><code class="descname">ApiConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/apps.html#ApiConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.apps.ApiConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.apps.config.AppConfig</span></code></p>
-<dl class="attribute">
-<dt id="api.apps.ApiConfig.name">
-<code class="descname">name</code><em class="property"> = 'api'</em><a class="headerlink" href="#api.apps.ApiConfig.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
+  <div class="section" id="api">
+<h1>Api<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>This app is made specifically for REST calls. Namely it provides a RESTful interface for mobile application to interact with</p>
 <div class="section" id="module-api.backends">
-<span id="api-backends-module"></span><h2>api.backends module<a class="headerlink" href="#module-api.backends" title="Permalink to this headline">¶</a></h2>
+<span id="api-backends"></span><h2>api.backends<a class="headerlink" href="#module-api.backends" title="Permalink to this headline">¶</a></h2>
+<p>Custom backends are specified here.</p>
 <dl class="class">
 <dt id="api.backends.CsrfExemptSessionAuthentication">
 <em class="property">class </em><code class="descclassname">api.backends.</code><code class="descname">CsrfExemptSessionAuthentication</code><a class="reference internal" href="_modules/api/backends.html#CsrfExemptSessionAuthentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.backends.CsrfExemptSessionAuthentication" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.authentication.SessionAuthentication</span></code></p>
+<p>This backend allows the class based views to not require a CSRF Token when accepting a POST request.</p>
 <dl class="method">
 <dt id="api.backends.CsrfExemptSessionAuthentication.enforce_csrf">
 <code class="descname">enforce_csrf</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/backends.html#CsrfExemptSessionAuthentication.enforce_csrf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.backends.CsrfExemptSessionAuthentication.enforce_csrf" title="Permalink to this definition">¶</a></dt>
@@ -84,19 +62,32 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-api.models">
-<span id="api-models-module"></span><h2>api.models module<a class="headerlink" href="#module-api.models" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-api.permissions">
-<span id="api-permissions-module"></span><h2>api.permissions module<a class="headerlink" href="#module-api.permissions" title="Permalink to this headline">¶</a></h2>
+<span id="api-permissions"></span><h2>api.permissions<a class="headerlink" href="#module-api.permissions" title="Permalink to this headline">¶</a></h2>
+<p>This module dictates who is allowed to submit GET, POST, PUT, and DELETE requests to the api views.</p>
+<div class="line-block">
+<div class="line">There are typically two functions:</div>
+<div class="line-block">
+<div class="line">has_object_permission(self, request, view, obj)</div>
+<div class="line">has_permission(self, request, view)</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">The initial defines the authentication necessary to view/modify a particular object of the corresponding model.</div>
+</div>
+<p>The latter function defines the authentication necessary to view a list of all the objects
+or create a new object (POST)</p>
 <dl class="class">
 <dt id="api.permissions.IsCurrentUserOrSuperUser">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsCurrentUserOrSuperUser</code><a class="reference internal" href="_modules/api/permissions.html#IsCurrentUserOrSuperUser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsCurrentUserOrSuperUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<p>Basic User Permissions. You can only view your own User information.</p>
 <dl class="method">
 <dt id="api.permissions.IsCurrentUserOrSuperUser.has_object_permission">
 <code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsCurrentUserOrSuperUser.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsCurrentUserOrSuperUser.has_object_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ensures that only User object a current user can view is their own.
+Ensures that super users can view any User object.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -104,15 +95,18 @@
 <dt id="api.permissions.IsOwnerOfAppointment">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsOwnerOfAppointment</code><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<p>Permission for Appointment View - checks for the owner of the appointment.</p>
 <dl class="method">
 <dt id="api.permissions.IsOwnerOfAppointment.has_object_permission">
 <code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment.has_object_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ensures that only the customer and stylist of an appointment may view or modify the appointment.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="api.permissions.IsOwnerOfAppointment.has_permission">
 <code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfAppointment.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfAppointment.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Ensures that no anonymous user can view or create an appointment.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -120,6 +114,8 @@
 <dt id="api.permissions.IsOwnerOfHaircut">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsOwnerOfHaircut</code><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<p>Permission for Haircut View - checks for the owner of the haircut.
+DO NOT USE</p>
 <dl class="method">
 <dt id="api.permissions.IsOwnerOfHaircut.has_object_permission">
 <code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsOwnerOfHaircut.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsOwnerOfHaircut.has_object_permission" title="Permalink to this definition">¶</a></dt>
@@ -136,10 +132,12 @@
 <dt id="api.permissions.IsUserLoggedIn">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">IsUserLoggedIn</code><a class="reference internal" href="_modules/api/permissions.html#IsUserLoggedIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsUserLoggedIn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<p>Miscellaneous Permissions. Checks to ensure the user is logged in.</p>
 <dl class="method">
 <dt id="api.permissions.IsUserLoggedIn.has_permission">
 <code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#IsUserLoggedIn.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.IsUserLoggedIn.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns true only if the user is not anonymous.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -147,21 +145,24 @@
 <dt id="api.permissions.OnlySuperUsersCanModify">
 <em class="property">class </em><code class="descclassname">api.permissions.</code><code class="descname">OnlySuperUsersCanModify</code><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.permissions.BasePermission</span></code></p>
+<p>Miscellaneous Permissions. Checks to ensure that the user is a super user.</p>
 <dl class="method">
 <dt id="api.permissions.OnlySuperUsersCanModify.has_object_permission">
 <code class="descname">has_object_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify.has_object_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify.has_object_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>No restrictions on GET request. If the request is not a GET, then it may only be submitted by a superuser.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="api.permissions.OnlySuperUsersCanModify.has_permission">
 <code class="descname">has_permission</code><span class="sig-paren">(</span><em>request</em>, <em>view</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/permissions.html#OnlySuperUsersCanModify.has_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.permissions.OnlySuperUsersCanModify.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>No restrictions on GET request. If the request is not a GET, then it may only be submitted by a superuser.</p>
+</dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="module-api.serializers">
-<span id="api-serializers-module"></span><h2>api.serializers module<a class="headerlink" href="#module-api.serializers" title="Permalink to this headline">¶</a></h2>
+<span id="api-serializers"></span><h2>api.serializers<a class="headerlink" href="#module-api.serializers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="api.serializers.AppointmentSerializer">
 <em class="property">class </em><code class="descclassname">api.serializers.</code><code class="descname">AppointmentSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/serializers.html#AppointmentSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.serializers.AppointmentSerializer" title="Permalink to this definition">¶</a></dt>
@@ -311,14 +312,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-api.tests">
-<span id="api-tests-module"></span><h2>api.tests module<a class="headerlink" href="#module-api.tests" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-api.urls">
-<span id="api-urls-module"></span><h2>api.urls module<a class="headerlink" href="#module-api.urls" title="Permalink to this headline">¶</a></h2>
+<span id="api-urls"></span><h2>api.urls<a class="headerlink" href="#module-api.urls" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-api.views">
-<span id="api-views-module"></span><h2>api.views module<a class="headerlink" href="#module-api.views" title="Permalink to this headline">¶</a></h2>
+<span id="api-views"></span><h2>api.views<a class="headerlink" href="#module-api.views" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="api.views.AppointmentViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">AppointmentViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet" title="Permalink to this definition">¶</a></dt>
@@ -567,9 +565,6 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-api">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 
@@ -580,19 +575,12 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">api package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-api.admin">api.admin module</a></li>
-<li><a class="reference internal" href="#module-api.apps">api.apps module</a></li>
-<li><a class="reference internal" href="#module-api.backends">api.backends module</a></li>
-<li><a class="reference internal" href="#module-api.models">api.models module</a></li>
-<li><a class="reference internal" href="#module-api.permissions">api.permissions module</a></li>
-<li><a class="reference internal" href="#module-api.serializers">api.serializers module</a></li>
-<li><a class="reference internal" href="#module-api.tests">api.tests module</a></li>
-<li><a class="reference internal" href="#module-api.urls">api.urls module</a></li>
-<li><a class="reference internal" href="#module-api.views">api.views module</a></li>
-<li><a class="reference internal" href="#module-api">Module contents</a></li>
+<li><a class="reference internal" href="#">Api</a><ul>
+<li><a class="reference internal" href="#module-api.backends">api.backends</a></li>
+<li><a class="reference internal" href="#module-api.permissions">api.permissions</a></li>
+<li><a class="reference internal" href="#module-api.serializers">api.serializers</a></li>
+<li><a class="reference internal" href="#module-api.urls">api.urls</a></li>
+<li><a class="reference internal" href="#module-api.views">api.views</a></li>
 </ul>
 </li>
 </ul>

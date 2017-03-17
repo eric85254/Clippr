@@ -56,7 +56,34 @@ To access this page the user must be a super user. (This requirement should even
 <dl class="function">
 <dt id="administration.views.approve_applicant">
 <code class="descclassname">administration.views.</code><code class="descname">approve_applicant</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#approve_applicant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.approve_applicant" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>Post Params:</strong></dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param application_id:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">utilized to obtain the correct application from the database</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line">The correct application is pulled</div>
+<div class="line">Status is updated to <em>APPROVED</em></div>
+<div class="line">Application is saved</div>
+</div>
+<div class="line-block">
+<div class="line">Applicant is pulled from the Application</div>
+<div class="line">Applicant&#8217;s is_stylist field is changed to YES</div>
+<div class="line">Applicant is saved</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="administration.views.profile">
@@ -100,7 +127,7 @@ To access this page the user must be a super user. (This requirement should even
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">param application_id:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">utlized to obtain the correct application from the database</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">utilized to obtain the correct application from the database</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">param denied_reason:</th></tr>
 <tr class="field-even field"><td>&#160;</td><td class="field-body">reason why application was denied</td>
@@ -161,7 +188,9 @@ To access this page the user must be a super user. (This requirement should even
 <dl class="function">
 <dt id="administration.views.view_stylists">
 <code class="descclassname">administration.views.</code><code class="descname">view_stylists</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/administration/views.html#view_stylists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#administration.views.view_stylists" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [GET]</p>
+<p>Applications with the status <em>APPROVED</em> are rendered.</p>
+</dd></dl>
 
 </div>
 </div>
