@@ -1,3 +1,9 @@
+"""
+    Method views are decorated with @api_view(<Array of allowable methods>) and
+    @csrf_exempt (so that the mobile app doesn't need to retrieve a csrf token before submitting a POST)
+
+    CSRF exemption is done on the class based views by setting CsrfExemptSessionAuthentication to its list of authentication_classes
+"""
 from django.contrib import auth
 from django.db.models import Q, Avg
 
@@ -28,6 +34,17 @@ from stylist.models import PortfolioHaircut
 @api_view(['POST', ])
 @csrf_exempt
 def user_login(request):
+    """
+        Simple view for user's to be able to log in.
+
+        - **Post Params:**
+            :param username: String
+            :param password: String, Raw Password
+            :return: Response(UserSerializer(instance=request.user, context=context).data)
+
+        Authentication is run on the given username and password.
+        If authentication is successful the user is logged in.
+    """
     if request.method == 'POST':
         username = request.data.get('username', '')
         password = request.data.get('password', '')
@@ -62,6 +79,13 @@ def user_logout(request):
 
 @api_view(['GET', ])
 def stylist_search(request, search):
+    """
+        Method based view that takes a parameter called search
+            :param search: http://www.<domain>.com/api/stylist_search/<search parameter goes here> | The search parameter can be any string
+
+        If the search parameter is blank then the method returns every Stylist
+        If the search parameter is not blank then the method returns every Stylist whose username, first_name, or last_name contains the parameter.
+    """
     context = {'request': request}
     if request.method == 'GET':
         stylists = User.objects.filter(is_stylist='YES')
@@ -85,8 +109,19 @@ def stylist_search(request, search):
     RATING
 '''
 
+
 @api_view(['GET', ])
 def customer_rating(request, customer_pk):
+    """
+        This method has a search parameter:
+            :param customer_pk: The pk value of a user.
+
+        Every user (including stylists) have a customer_rating. The customer_rating is simply the rating they get as a customer.
+
+        | The customer's user object is pulled using the customer_pk
+        | The average_rating is obtained from the average_rating field of the Customer.
+        | The rating is then sent back as a JsonResponse
+    """
     if request.method == 'GET':
         customer = User.objects.get(pk=int(customer_pk))
         # average_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg('customer_rating')).get('customer_rating__avg')
@@ -99,6 +134,13 @@ def customer_rating(request, customer_pk):
 
 @api_view(['GET', ])
 def stylist_rating(request, stylist_pk):
+    """
+        This method has a search parameter:
+            :param stylist_pk: The pk value of a stylist
+
+        Only stylists will have a stylist_rating. Users that aren't stylists will have a default stylist_rating of zero.
+        The steps to display the stylist ratings are similar to the steps that display a customer_rating.
+    """
     if request.method == 'GET':
         stylist = User.objects.get(pk=int(stylist_pk))
         # average_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg('stylist_rating')).get('stylist_rating__avg')

@@ -1,3 +1,7 @@
+"""
+    The Urls from the ViewSets are registered through a router. Standalone method views are manually registered through urlpatterns.
+    The manually registered views (in url patterns) don't show up in the home page of /api.
+"""
 from django.conf.urls import url, include
 from rest_framework import routers
 

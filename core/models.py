@@ -25,6 +25,7 @@ class User(AbstractUser):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], blank=True, max_length=15, unique=True)
 
+    #Todo: maybe don't show this until a certain number of people have rated?
     average_stylist_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
     average_customer_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
 
