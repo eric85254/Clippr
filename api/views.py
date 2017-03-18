@@ -157,6 +157,11 @@ def stylist_rating(request, stylist_pk):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+        This class handles the interactions with the User database.
+        | permission_classes = (IsCurrentUserOrSuperUser)
+        | authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsCurrentUserOrSuperUser,)
