@@ -42,7 +42,13 @@
           <div class="body" role="main">
             
   <h1>Source code for api.views</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">auth</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method views are decorated with @api_view(&lt;Array of allowable methods&gt;) and</span>
+<span class="sd">    @csrf_exempt (so that the mobile app doesn&#39;t need to retrieve a csrf token before submitting a POST)</span>
+
+<span class="sd">    CSRF exemption is done on the class based views by setting CsrfExemptSessionAuthentication to its list of authentication_classes</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">auth</span>
 <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span><span class="p">,</span> <span class="n">Avg</span>
 
 <span class="c1"># Create your views here.</span>
@@ -72,6 +78,17 @@
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="p">])</span>
 <span class="nd">@csrf_exempt</span>
 <div class="viewcode-block" id="user_login"><a class="viewcode-back" href="../../api.html#api.views.user_login">[docs]</a><span class="k">def</span> <span class="nf">user_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Simple view for user&#39;s to be able to log in.</span>
+
+<span class="sd">        - **Post Params:**</span>
+<span class="sd">            :param username: String</span>
+<span class="sd">            :param password: String, Raw Password</span>
+<span class="sd">            :return: Response(UserSerializer(instance=request.user, context=context).data)</span>
+
+<span class="sd">        Authentication is run on the given username and password.</span>
+<span class="sd">        If authentication is successful the user is logged in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -106,6 +123,13 @@
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
 <div class="viewcode-block" id="stylist_search"><a class="viewcode-back" href="../../api.html#api.views.stylist_search">[docs]</a><span class="k">def</span> <span class="nf">stylist_search</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">search</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method based view that takes a parameter called search</span>
+<span class="sd">            :param search: http://www.&lt;domain&gt;.com/api/stylist_search/&lt;search parameter goes here&gt; | The search parameter can be any string</span>
+
+<span class="sd">        If the search parameter is blank then the method returns every Stylist</span>
+<span class="sd">        If the search parameter is not blank then the method returns every Stylist whose username, first_name, or last_name contains the parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">request</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="n">stylists</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">)</span>
@@ -129,8 +153,19 @@
 <span class="sd">    RATING</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
 <div class="viewcode-block" id="customer_rating"><a class="viewcode-back" href="../../api.html#api.views.customer_rating">[docs]</a><span class="k">def</span> <span class="nf">customer_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">customer_pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method has a search parameter:</span>
+<span class="sd">            :param customer_pk: The pk value of a user.</span>
+
+<span class="sd">        Every user (including stylists) have a customer_rating. The customer_rating is simply the rating they get as a customer.</span>
+
+<span class="sd">        | The customer&#39;s user object is pulled using the customer_pk</span>
+<span class="sd">        | The average_rating is obtained from the average_rating field of the Customer.</span>
+<span class="sd">        | The rating is then sent back as a JsonResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="n">customer</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">customer_pk</span><span class="p">))</span>
         <span class="c1"># average_rating = Review.objects.filter(appointment__customer=customer).aggregate(Avg(&#39;customer_rating&#39;)).get(&#39;customer_rating__avg&#39;)</span>
@@ -143,6 +178,13 @@
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
 <div class="viewcode-block" id="stylist_rating"><a class="viewcode-back" href="../../api.html#api.views.stylist_rating">[docs]</a><span class="k">def</span> <span class="nf">stylist_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">stylist_pk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method has a search parameter:</span>
+<span class="sd">            :param stylist_pk: The pk value of a stylist</span>
+
+<span class="sd">        Only stylists will have a stylist_rating. Users that aren&#39;t stylists will have a default stylist_rating of zero.</span>
+<span class="sd">        The steps to display the stylist ratings are similar to the steps that display a customer_rating.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="n">stylist</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stylist_pk</span><span class="p">))</span>
         <span class="c1"># average_rating = Review.objects.filter(appointment__stylist=stylist).aggregate(Avg(&#39;stylist_rating&#39;)).get(&#39;stylist_rating__avg&#39;)</span>
@@ -159,6 +201,11 @@
 
 
 <div class="viewcode-block" id="UserViewSet"><a class="viewcode-back" href="../../api.html#api.views.UserViewSet">[docs]</a><span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class handles the interactions with the User database.</span>
+<span class="sd">        | permission_classes = (IsCurrentUserOrSuperUser)</span>
+<span class="sd">        | authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsCurrentUserOrSuperUser</span><span class="p">,)</span>

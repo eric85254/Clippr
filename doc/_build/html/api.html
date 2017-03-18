@@ -437,9 +437,14 @@ Ensures that super users can view any User object.</p>
 </div>
 <div class="section" id="module-api.urls">
 <span id="api-urls"></span><h2>api.urls<a class="headerlink" href="#module-api.urls" title="Permalink to this headline">¶</a></h2>
+<p>The Urls from the ViewSets are registered through a router. Standalone method views are manually registered through urlpatterns.
+The manually registered views (in url patterns) don&#8217;t show up in the home page of /api.</p>
 </div>
 <div class="section" id="module-api.views">
 <span id="api-views"></span><h2>api.views<a class="headerlink" href="#module-api.views" title="Permalink to this headline">¶</a></h2>
+<p>Method views are decorated with &#64;api_view(&lt;Array of allowable methods&gt;) and
+&#64;csrf_exempt (so that the mobile app doesn&#8217;t need to retrieve a csrf token before submitting a POST)</p>
+<p>CSRF exemption is done on the class based views by setting CsrfExemptSessionAuthentication to its list of authentication_classes</p>
 <dl class="class">
 <dt id="api.views.AppointmentViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">AppointmentViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet" title="Permalink to this definition">¶</a></dt>
@@ -630,6 +635,9 @@ Ensures that super users can view any User object.</p>
 <dt id="api.views.UserViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">UserViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#UserViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.UserViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>This class handles the interactions with the User database.
+| permission_classes = (IsCurrentUserOrSuperUser)
+| authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)</p>
 <dl class="attribute">
 <dt id="api.views.UserViewSet.authentication_classes">
 <code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.UserViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
@@ -666,22 +674,92 @@ Ensures that super users can view any User object.</p>
 <dl class="function">
 <dt id="api.views.customer_rating">
 <code class="descclassname">api.views.</code><code class="descname">customer_rating</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#customer_rating"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.customer_rating" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>This method has a search parameter:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param customer_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The pk value of a user.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>Every user (including stylists) have a customer_rating. The customer_rating is simply the rating they get as a customer.</p>
+<div class="line-block">
+<div class="line">The customer&#8217;s user object is pulled using the customer_pk</div>
+<div class="line">The average_rating is obtained from the average_rating field of the Customer.</div>
+<div class="line">The rating is then sent back as a JsonResponse</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="api.views.stylist_rating">
 <code class="descclassname">api.views.</code><code class="descname">stylist_rating</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#stylist_rating"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.stylist_rating" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>This method has a search parameter:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param stylist_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The pk value of a stylist</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>Only stylists will have a stylist_rating. Users that aren&#8217;t stylists will have a default stylist_rating of zero.
+The steps to display the stylist ratings are similar to the steps that display a customer_rating.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="api.views.stylist_search">
 <code class="descclassname">api.views.</code><code class="descname">stylist_search</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#stylist_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.stylist_search" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>Method based view that takes a parameter called search</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param search:</th><td class="field-body"><a class="reference external" href="http://www">http://www</a>.&lt;domain&gt;.com/api/stylist_search/&lt;search parameter goes here&gt; | The search parameter can be any string</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>If the search parameter is blank then the method returns every Stylist
+If the search parameter is not blank then the method returns every Stylist whose username, first_name, or last_name contains the parameter.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="api.views.user_login">
 <code class="descclassname">api.views.</code><code class="descname">user_login</code><span class="sig-paren">(</span><em>self</em>, <em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#user_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.user_login" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Simple view for user&#8217;s to be able to log in.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>Post Params:</strong></dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param username:</th><td class="field-body">String</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param password:</th><td class="field-body">String, Raw Password</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Response(UserSerializer(instance=request.user, context=context).data)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Authentication is run on the given username and password.
+If authentication is successful the user is logged in.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="api.views.user_logout">
