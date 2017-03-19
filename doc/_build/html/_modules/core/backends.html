@@ -171,6 +171,13 @@
 
 
 <div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend">[docs]</a><span class="k">class</span> <span class="nc">EmailPhoneNumberOrUsernameModelBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A custom backend created to by pass the traditional username &amp; password login.</span>
+<span class="sd">        | This backend allows the user to login with either a phone number or an email address.</span>
+<span class="sd">        | The phone_number or email is still sent through the &#39;username&#39; parameter</span>
+<span class="sd">        | The code utilizes regex to identify a phone_number and a simpler check for email address.</span>
+<span class="sd">        | Once the username is correctly identified as either a phone_number or email address the user model is pulled and the password is checked.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.authenticate"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.authenticate">[docs]</a>    <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">UserModel</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
         <span class="n">phone_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\+?1?\d{9,15}$&#39;</span><span class="p">)</span>
@@ -191,7 +198,11 @@
         <span class="k">except</span> <span class="n">User</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
+    <span class="c1">#Todo: learn what this method does.</span>
 <div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.get_user"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.get_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Not entirely sure what this does. Found it on stackoverflow and it seemed to have fixed my issue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">get_user_model</span><span class="p">()</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">get_user_model</span><span class="p">()</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>

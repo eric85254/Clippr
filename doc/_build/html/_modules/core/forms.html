@@ -163,7 +163,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for core.forms</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="k">import</span> <span class="n">UserCreationForm</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Forms are a class that can be utilized within a django template to quickly render the correct fields.</span>
+<span class="sd">    They can also be utilized to catch data from a POST.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="k">import</span> <span class="n">UserCreationForm</span>
 <span class="kn">from</span> <span class="nn">django.forms</span> <span class="k">import</span> <span class="n">ModelForm</span>
 
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">User</span>
@@ -176,7 +180,14 @@
 
 
 <div class="viewcode-block" id="UserInformation"><a class="viewcode-back" href="../../Core.html#core.forms.UserInformation">[docs]</a><span class="k">class</span> <span class="nc">UserInformation</span><span class="p">(</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is how the user can change their basic information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#Todo: You need to remember why this is here.</span>
 <div class="viewcode-block" id="UserInformation.is_valid"><a class="viewcode-back" href="../../Core.html#core.forms.UserInformation.is_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            I forgot what this does. But it&#39;s pretty important.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">valid</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UserInformation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
