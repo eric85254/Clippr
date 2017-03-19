@@ -1,7 +1,10 @@
+"""
+    This module creates two Global Menu Options for Stylists to choose from.
+    The two options are "Girl's Haircut" and "Boy's Haircut" for $50.00 each.
+"""
 from django.core.management import BaseCommand
 
 from core.models import GlobalMenu
-from core.utils.global_constants import DEFAULT_MENU_PICTURE
 
 
 class Command(BaseCommand):

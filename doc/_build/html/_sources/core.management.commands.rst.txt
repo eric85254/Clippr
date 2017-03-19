@@ -1,30 +1,18 @@
-core.management.commands package
-================================
+core.management.commands
+========================
 
-Submodules
-----------
-
-core.management.commands.createDefaultUsers module
---------------------------------------------------
+core.management.commands.createDefaultUsers
+-------------------------------------------
 
 .. automodule:: core.management.commands.createDefaultUsers
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.management.commands.createGlobalMenuOption module
-------------------------------------------------------
+core.management.commands.createGlobalMenuOption
+-----------------------------------------------
 
 .. automodule:: core.management.commands.createGlobalMenuOption
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: core.management.commands
     :members:
     :undoc-members:
     :show-inheritance:

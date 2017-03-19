@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Clippr 1.0 documentation" href="index.html"/>
-        <link rel="next" title="core package" href="core.html"/>
+        <link rel="next" title="core" href="core.html"/>
         <link rel="prev" title="Administration" href="administration.html"/> 
 
   
@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-api.views">api.views</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
@@ -576,6 +576,9 @@ The manually registered views (in url patterns) don&#8217;t show up in the home 
 <dt id="api.views.AppointmentViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">AppointmentViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppointmentViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.AppointmentViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>This class handles the interactions with the Appointment database.
+| The query set only returns Appointments where the stylist or customer of that appointment is the current user.
+| Before saving a new appointment the customer field is set to be the current user.</p>
 <dl class="attribute">
 <dt id="api.views.AppointmentViewSet.authentication_classes">
 <code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.AppointmentViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
@@ -619,6 +622,8 @@ The manually registered views (in url patterns) don&#8217;t show up in the home 
 <dt id="api.views.GlobalMenuViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">GlobalMenuViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#GlobalMenuViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.GlobalMenuViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>This class handles interactions with the GlobalMenu model.
+| Nothing special here.</p>
 <dl class="attribute">
 <dt id="api.views.GlobalMenuViewSet.authentication_classes">
 <code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.GlobalMenuViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
@@ -651,6 +656,12 @@ The manually registered views (in url patterns) don&#8217;t show up in the home 
 <dt id="api.views.HaircutViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">HaircutViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#HaircutViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.HaircutViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>This class handles the interactions with the PortfolioHaircut model.
+| It&#8217;s important that a parameter is fed to the url like so:
+| <a class="reference external" href="http://www">http://www</a>.&lt;domain&gt;.com/api/haircut?stylist_pk=1
+|   Where the stylist_pk is simply the pk value of the stylist whose haircuts you are trying to view.
+| If a stylist_pk value is not given then it will retrieve all the PortfolioHaircuts of the current user.
+|   - zero if they&#8217;re a customer.</p>
 <dl class="attribute">
 <dt id="api.views.HaircutViewSet.authentication_classes">
 <code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.HaircutViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
@@ -693,6 +704,9 @@ The manually registered views (in url patterns) don&#8217;t show up in the home 
 <dt id="api.views.StylistMenuViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">StylistMenuViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistMenuViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistMenuViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>This class handles interactions with the StylistMenu model.
+| The queryset returns all of the stylist&#8217;s menu options
+| Before saving a new menu option the stylist field is set to the current user.</p>
 <dl class="method">
 <dt id="api.views.StylistMenuViewSet.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistMenuViewSet.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistMenuViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
@@ -725,6 +739,8 @@ The manually registered views (in url patterns) don&#8217;t show up in the home 
 <dt id="api.views.StylistViewSet">
 <em class="property">class </em><code class="descclassname">api.views.</code><code class="descname">StylistViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#StylistViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api.views.StylistViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This class handles the interactions with the Stylists in the User database. (The StylistSerializer)
+| The queryset returns all Users if their is_stylist field equals &#8216;YES&#8217;</p>
 <dl class="attribute">
 <dt id="api.views.StylistViewSet.authentication_classes">
 <code class="descname">authentication_classes</code><em class="property"> = (&lt;class 'api.backends.CsrfExemptSessionAuthentication'&gt;, &lt;class 'rest_framework.authentication.BasicAuthentication'&gt;)</em><a class="headerlink" href="#api.views.StylistViewSet.authentication_classes" title="Permalink to this definition">¶</a></dt>
@@ -906,7 +922,7 @@ If authentication is successful the user is logged in.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="core.html" class="btn btn-neutral float-right" title="core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="core.html" class="btn btn-neutral float-right" title="core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="administration.html" class="btn btn-neutral" title="Administration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

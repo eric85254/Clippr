@@ -1,76 +1,70 @@
-core package
-============
-
-Subpackages
------------
+core
+====
 
 .. toctree::
 
-    core.management
+    core.management.commands
     core.migrations
-    core.utils
+    core.util
 
-Submodules
+core.admin
 ----------
-
-core.admin module
------------------
 
 .. automodule:: core.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.apps module
-----------------
+core.apps
+---------
 
 .. automodule:: core.apps
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.backends module
---------------------
+core.backends
+-------------
 
 .. automodule:: core.backends
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.forms module
------------------
+core.forms
+----------
 
 .. automodule:: core.forms
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.models module
-------------------
+core.models
+-----------
 
 .. automodule:: core.models
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.tests module
------------------
+core.tests
+----------
 
 .. automodule:: core.tests
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.urls module
-----------------
+core.urls
+---------
 
 .. automodule:: core.urls
     :members:
     :undoc-members:
     :show-inheritance:
 
-core.views module
------------------
+core.views
+----------
 
 .. automodule:: core.views
     :members:
@@ -78,10 +72,10 @@ core.views module
     :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: core
-    :members:
-    :undoc-members:
-    :show-inheritance:
+
+
+
+
+
+

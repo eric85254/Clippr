@@ -1,5 +1,12 @@
-from optparse import make_option
+"""
+    This module creates three default users for testing purposes.
+    | The password is 'clippr' for every user.
 
+    | The three user's are as follows:
+    1. Stylist (email = "stylist@gmail.com")
+    2. Customer (email = "stylist@gmail.com")
+    3. Superuser (email = "development@clippr.org")
+"""
 from django.core.management import BaseCommand
 
 
