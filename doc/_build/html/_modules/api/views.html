@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
@@ -198,7 +198,7 @@
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="p">])</span>
 <span class="nd">@csrf_exempt</span>
-<div class="viewcode-block" id="user_login"><a class="viewcode-back" href="../../api.html#api.views.user_login">[docs]</a><span class="k">def</span> <span class="nf">user_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="user_login"><a class="viewcode-back" href="../../Api.html#api.views.user_login">[docs]</a><span class="k">def</span> <span class="nf">user_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simple view for user&#39;s to be able to log in.</span>
 
@@ -228,7 +228,7 @@
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="p">])</span>
 <span class="nd">@csrf_exempt</span>
-<div class="viewcode-block" id="user_logout"><a class="viewcode-back" href="../../api.html#api.views.user_logout">[docs]</a><span class="k">def</span> <span class="nf">user_logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="user_logout"><a class="viewcode-back" href="../../Api.html#api.views.user_logout">[docs]</a><span class="k">def</span> <span class="nf">user_logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">auth</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
@@ -243,7 +243,7 @@
 
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
-<div class="viewcode-block" id="stylist_search"><a class="viewcode-back" href="../../api.html#api.views.stylist_search">[docs]</a><span class="k">def</span> <span class="nf">stylist_search</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">search</span><span class="p">):</span>
+<div class="viewcode-block" id="stylist_search"><a class="viewcode-back" href="../../Api.html#api.views.stylist_search">[docs]</a><span class="k">def</span> <span class="nf">stylist_search</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">search</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method based view that takes a parameter called search</span>
 <span class="sd">            :param search: http://www.&lt;domain&gt;.com/api/stylist_search/&lt;search parameter goes here&gt; | The search parameter can be any string</span>
@@ -276,7 +276,7 @@
 
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
-<div class="viewcode-block" id="customer_rating"><a class="viewcode-back" href="../../api.html#api.views.customer_rating">[docs]</a><span class="k">def</span> <span class="nf">customer_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">customer_pk</span><span class="p">):</span>
+<div class="viewcode-block" id="customer_rating"><a class="viewcode-back" href="../../Api.html#api.views.customer_rating">[docs]</a><span class="k">def</span> <span class="nf">customer_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">customer_pk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method has a search parameter:</span>
 <span class="sd">            :param customer_pk: The pk value of a user.</span>
@@ -298,7 +298,7 @@
 
 
 <span class="nd">@api_view</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="p">])</span>
-<div class="viewcode-block" id="stylist_rating"><a class="viewcode-back" href="../../api.html#api.views.stylist_rating">[docs]</a><span class="k">def</span> <span class="nf">stylist_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">stylist_pk</span><span class="p">):</span>
+<div class="viewcode-block" id="stylist_rating"><a class="viewcode-back" href="../../Api.html#api.views.stylist_rating">[docs]</a><span class="k">def</span> <span class="nf">stylist_rating</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">stylist_pk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method has a search parameter:</span>
 <span class="sd">            :param stylist_pk: The pk value of a stylist</span>
@@ -321,7 +321,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="UserViewSet"><a class="viewcode-back" href="../../api.html#api.views.UserViewSet">[docs]</a><span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="UserViewSet"><a class="viewcode-back" href="../../Api.html#api.views.UserViewSet">[docs]</a><span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles the interactions with the User database.</span>
 <span class="sd">        | permission_classes = (IsCurrentUserOrSuperUser)</span>
@@ -332,7 +332,7 @@
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsCurrentUserOrSuperUser</span><span class="p">,)</span>
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UserViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.UserViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UserViewSet.get_queryset"><a class="viewcode-back" href="../../Api.html#api.views.UserViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -347,7 +347,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="StylistViewSet"><a class="viewcode-back" href="../../api.html#api.views.StylistViewSet">[docs]</a><span class="k">class</span> <span class="nc">StylistViewSet</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">RetrieveModelMixin</span><span class="p">,</span> <span class="n">mixins</span><span class="o">.</span><span class="n">ListModelMixin</span><span class="p">,</span> <span class="n">GenericViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistViewSet"><a class="viewcode-back" href="../../Api.html#api.views.StylistViewSet">[docs]</a><span class="k">class</span> <span class="nc">StylistViewSet</span><span class="p">(</span><span class="n">mixins</span><span class="o">.</span><span class="n">RetrieveModelMixin</span><span class="p">,</span> <span class="n">mixins</span><span class="o">.</span><span class="n">ListModelMixin</span><span class="p">,</span> <span class="n">GenericViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles the interactions with the Stylists in the User database. (The StylistSerializer)</span>
 <span class="sd">        | The queryset returns all Users if their is_stylist field equals &#39;YES&#39;</span>
@@ -357,7 +357,7 @@
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsUserLoggedIn</span><span class="p">,)</span>
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span>
 
-<div class="viewcode-block" id="StylistViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.StylistViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistViewSet.get_queryset"><a class="viewcode-back" href="../../Api.html#api.views.StylistViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">)</span></div></div>
 
 
@@ -366,7 +366,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="AppointmentViewSet"><a class="viewcode-back" href="../../api.html#api.views.AppointmentViewSet">[docs]</a><span class="k">class</span> <span class="nc">AppointmentViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="AppointmentViewSet"><a class="viewcode-back" href="../../Api.html#api.views.AppointmentViewSet">[docs]</a><span class="k">class</span> <span class="nc">AppointmentViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles the interactions with the Appointment database.</span>
 <span class="sd">        | The query set only returns Appointments where the stylist or customer of that appointment is the current user.</span>
@@ -377,11 +377,11 @@
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOfAppointment</span><span class="p">,)</span>
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AppointmentViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.AppointmentViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AppointmentViewSet.get_queryset"><a class="viewcode-back" href="../../Api.html#api.views.AppointmentViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="k">return</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">user</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="n">user</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="AppointmentViewSet.perform_create"><a class="viewcode-back" href="../../api.html#api.views.AppointmentViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
+<div class="viewcode-block" id="AppointmentViewSet.perform_create"><a class="viewcode-back" href="../../Api.html#api.views.AppointmentViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Before saving the Appointment the customer is set to the current user.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -393,7 +393,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="HaircutViewSet"><a class="viewcode-back" href="../../api.html#api.views.HaircutViewSet">[docs]</a><span class="k">class</span> <span class="nc">HaircutViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="HaircutViewSet"><a class="viewcode-back" href="../../Api.html#api.views.HaircutViewSet">[docs]</a><span class="k">class</span> <span class="nc">HaircutViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles the interactions with the PortfolioHaircut model.</span>
 <span class="sd">        | It&#39;s important that a parameter is fed to the url like so:</span>
@@ -407,13 +407,13 @@
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsOwnerOfHaircut</span><span class="p">,)</span>
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span>
 
-<div class="viewcode-block" id="HaircutViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.HaircutViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HaircutViewSet.get_queryset"><a class="viewcode-back" href="../../Api.html#api.views.HaircutViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">stylist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_pk&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">stylist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">stylist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="k">return</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HaircutViewSet.perform_create"><a class="viewcode-back" href="../../api.html#api.views.HaircutViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
+<div class="viewcode-block" id="HaircutViewSet.perform_create"><a class="viewcode-back" href="../../Api.html#api.views.HaircutViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
         <span class="c1">#Todo make it so that only Stylists can save a haircut.</span>
         <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div></div>
 
@@ -423,7 +423,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="GlobalMenuViewSet"><a class="viewcode-back" href="../../api.html#api.views.GlobalMenuViewSet">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenuViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="GlobalMenuViewSet"><a class="viewcode-back" href="../../Api.html#api.views.GlobalMenuViewSet">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenuViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles interactions with the GlobalMenu model.</span>
 <span class="sd">        | Nothing special here.</span>
@@ -434,7 +434,7 @@
     <span class="n">authentication_classes</span> <span class="o">=</span> <span class="p">(</span><span class="n">CsrfExemptSessionAuthentication</span><span class="p">,</span> <span class="n">BasicAuthentication</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StylistMenuViewSet"><a class="viewcode-back" href="../../api.html#api.views.StylistMenuViewSet">[docs]</a><span class="k">class</span> <span class="nc">StylistMenuViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenuViewSet"><a class="viewcode-back" href="../../Api.html#api.views.StylistMenuViewSet">[docs]</a><span class="k">class</span> <span class="nc">StylistMenuViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class handles interactions with the StylistMenu model.</span>
 <span class="sd">        | The queryset returns all of the stylist&#39;s menu options</span>
@@ -443,10 +443,10 @@
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">StylistMenuSerializer</span>
 
-<div class="viewcode-block" id="StylistMenuViewSet.get_queryset"><a class="viewcode-back" href="../../api.html#api.views.StylistMenuViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenuViewSet.get_queryset"><a class="viewcode-back" href="../../Api.html#api.views.StylistMenuViewSet.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="StylistMenuViewSet.perform_create"><a class="viewcode-back" href="../../api.html#api.views.StylistMenuViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenuViewSet.perform_create"><a class="viewcode-back" href="../../Api.html#api.views.StylistMenuViewSet.perform_create">[docs]</a>    <span class="k">def</span> <span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
         <span class="c1">#Todo: currently there&#39;s nothing stoping customer&#39;s from creating a stylist menu option.</span>
         <span class="n">serializer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div></div>
 </pre></div>

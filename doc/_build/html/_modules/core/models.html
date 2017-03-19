@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
@@ -173,7 +173,7 @@
 <span class="kn">from</span> <span class="nn">core.utils.global_constants</span> <span class="k">import</span> <span class="n">DEFAULT_PICTURE_LOCATION</span><span class="p">,</span> <span class="n">DEFAULT_MENU_PICTURE</span>
 
 
-<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../core.html#api.serializers.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../Core.html#api.serializers.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
     <span class="n">USERNAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;email&#39;</span>
     <span class="n">REQUIRED_FIELDS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;phone_number&#39;</span><span class="p">]</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -195,7 +195,7 @@
     <span class="n">average_customer_rating</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="GlobalMenu"><a class="viewcode-back" href="../../core.html#api.serializers.GlobalMenu">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="GlobalMenu"><a class="viewcode-back" href="../../Core.html#api.serializers.GlobalMenu">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
@@ -203,7 +203,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
 
 
-<div class="viewcode-block" id="StylistMenu"><a class="viewcode-back" href="../../core.html#api.serializers.StylistMenu">[docs]</a><span class="k">class</span> <span class="nc">StylistMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenu"><a class="viewcode-back" href="../../Core.html#api.serializers.StylistMenu">[docs]</a><span class="k">class</span> <span class="nc">StylistMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">stylist</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.User&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;owner&#39;</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -213,7 +213,7 @@
         <span class="n">stylist_bridge</span> <span class="o">=</span> <span class="n">StylistBridgeMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stylist_menu</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Stylist: &quot;</span> <span class="o">+</span> <span class="n">stylist_bridge</span><span class="o">.</span><span class="n">stylist</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; || Name: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
 
-<div class="viewcode-block" id="ItemInBill"><a class="viewcode-back" href="../../core.html#api.serializers.ItemInBill">[docs]</a><span class="k">class</span> <span class="nc">ItemInBill</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="ItemInBill"><a class="viewcode-back" href="../../Core.html#api.serializers.ItemInBill">[docs]</a><span class="k">class</span> <span class="nc">ItemInBill</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">item_portfolio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;stylist.PortfolioHaircut&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;item_portfolio&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">item_menu</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.StylistMenu&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;item_menu&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">item_custom</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -231,14 +231,14 @@
             <span class="k">return</span> <span class="s2">&quot;Unknown Entry&quot;</span></div>
 
 
-<div class="viewcode-block" id="Review"><a class="viewcode-back" href="../../core.html#api.serializers.Review">[docs]</a><span class="k">class</span> <span class="nc">Review</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Review"><a class="viewcode-back" href="../../Core.html#api.serializers.Review">[docs]</a><span class="k">class</span> <span class="nc">Review</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">stylist_rating</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">customer_rating</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">appointment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.Appointment&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;appointment&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">,</span>
                                     <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Appointment"><a class="viewcode-back" href="../../core.html#api.serializers.Appointment">[docs]</a><span class="k">class</span> <span class="nc">Appointment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Appointment"><a class="viewcode-back" href="../../Core.html#api.serializers.Appointment">[docs]</a><span class="k">class</span> <span class="nc">Appointment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">STATUS_PENDING</span> <span class="o">=</span> <span class="s1">&#39;PENDING&#39;</span>
     <span class="n">STATUS_RECHEDULED_BYSTYLIST</span> <span class="o">=</span> <span class="s1">&#39;RESCHEDULED_BYSTYLIST&#39;</span>
     <span class="n">STATUS_RESCHEDULED_BYCUSTOMER</span> <span class="o">=</span> <span class="s1">&#39;RESCHEDULED_BYCUSTOMER&#39;</span>
@@ -265,7 +265,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stylist</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;&#39;s appointment with &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer</span><span class="o">.</span><span class="n">username</span></div>
 
 
-<div class="viewcode-block" id="Application"><a class="viewcode-back" href="../../core.html#api.serializers.Application">[docs]</a><span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Application"><a class="viewcode-back" href="../../Core.html#api.serializers.Application">[docs]</a><span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">applicant</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.User&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">application_status</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;PENDING&#39;</span><span class="p">)</span>
     <span class="n">denied_reason</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -274,11 +274,11 @@
     <span class="c1"># ToDo: Figure out what fields we want for a stylist application</span>
 
 
-<div class="viewcode-block" id="Questionnaire"><a class="viewcode-back" href="../../core.html#api.serializers.Questionnaire">[docs]</a><span class="k">class</span> <span class="nc">Questionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Questionnaire"><a class="viewcode-back" href="../../Core.html#api.serializers.Questionnaire">[docs]</a><span class="k">class</span> <span class="nc">Questionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="AnsweredQuestionnaire"><a class="viewcode-back" href="../../core.html#api.serializers.AnsweredQuestionnaire">[docs]</a><span class="k">class</span> <span class="nc">AnsweredQuestionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="AnsweredQuestionnaire"><a class="viewcode-back" href="../../Core.html#api.serializers.AnsweredQuestionnaire">[docs]</a><span class="k">class</span> <span class="nc">AnsweredQuestionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.User&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">questionnaire</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.Questionnaire&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

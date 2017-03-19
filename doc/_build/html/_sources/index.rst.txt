@@ -11,9 +11,9 @@ Welcome to Clippr's documentation!
    :caption: Contents:
 
    Clipper_V_0
-   administration
-   api
-   core
+   Administration
+   Api
+   Core
    customer
    manage
    setup

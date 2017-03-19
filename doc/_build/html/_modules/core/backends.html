@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
@@ -170,8 +170,8 @@
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">User</span>
 
 
-<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend"><a class="viewcode-back" href="../../core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend">[docs]</a><span class="k">class</span> <span class="nc">EmailPhoneNumberOrUsernameModelBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.authenticate"><a class="viewcode-back" href="../../core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.authenticate">[docs]</a>    <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend">[docs]</a><span class="k">class</span> <span class="nc">EmailPhoneNumberOrUsernameModelBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.authenticate"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.authenticate">[docs]</a>    <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">UserModel</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
         <span class="n">phone_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\+?1?\d{9,15}$&#39;</span><span class="p">)</span>
 
@@ -191,7 +191,7 @@
         <span class="k">except</span> <span class="n">User</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.get_user"><a class="viewcode-back" href="../../core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.get_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<div class="viewcode-block" id="EmailPhoneNumberOrUsernameModelBackend.get_user"><a class="viewcode-back" href="../../Core.html#core.backends.EmailPhoneNumberOrUsernameModelBackend.get_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">get_user_model</span><span class="p">()</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">get_user_model</span><span class="p">()</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>

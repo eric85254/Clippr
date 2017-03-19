@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">setup module</a></li>
@@ -172,10 +172,10 @@
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">GlobalMenu</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../core.management.commands.html#core.management.commands.createGlobalMenuOption.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../Core.management.commands.html#core.management.commands.createGlobalMenuOption.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
     <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Create Global Menu Option.&quot;</span>
 
-<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../core.management.commands.html#core.management.commands.createGlobalMenuOption.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../Core.management.commands.html#core.management.commands.createGlobalMenuOption.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
         <span class="n">GlobalMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Girl&#39;s Haircut&quot;</span><span class="p">,</span>
             <span class="n">price</span><span class="o">=</span><span class="mf">50.00</span>

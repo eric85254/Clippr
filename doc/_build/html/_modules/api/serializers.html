@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
@@ -177,7 +177,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="UserSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.UserSerializer">[docs]</a><span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="UserSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.UserSerializer">[docs]</a><span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        UserSerializer (serializer for User Model)</span>
 
@@ -194,7 +194,7 @@
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:user-detail&#39;</span><span class="p">)</span>
     <span class="n">profile_picture</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">DEFAULT_PICTURE_LOCATION</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UserSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.UserSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="UserSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.UserSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;phone_number&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;is_stylist&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;profile_picture&#39;</span><span class="p">)</span>
@@ -202,7 +202,7 @@
             <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;write_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
         <span class="p">}</span></div>
 
-<div class="viewcode-block" id="UserSerializer.create"><a class="viewcode-back" href="../../api.html#api.serializers.UserSerializer.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">validated_data</span><span class="p">):</span>
+<div class="viewcode-block" id="UserSerializer.create"><a class="viewcode-back" href="../../Api.html#api.serializers.UserSerializer.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">validated_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Method overrides the default create method. Ensures that password is hashed before stored.&quot;&quot;&quot;</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">validated_data</span><span class="p">)</span>
         <span class="n">user</span><span class="o">.</span><span class="n">set_password</span><span class="p">(</span><span class="n">validated_data</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span>
@@ -220,7 +220,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="StylistSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.StylistSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.StylistSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        StylistSerializer (serializer for User Model) Omits many unneeded fields of the User Model.</span>
 
@@ -228,7 +228,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:stylist-detail&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="StylistSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.StylistSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="StylistSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.StylistSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;profile_picture&#39;</span><span class="p">)</span></div></div>
 
@@ -240,7 +240,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="AppointmentSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.AppointmentSerializer">[docs]</a><span class="k">class</span> <span class="nc">AppointmentSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="AppointmentSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.AppointmentSerializer">[docs]</a><span class="k">class</span> <span class="nc">AppointmentSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        AppointmentSerializer (serializer for Appointment Model)</span>
 
@@ -257,7 +257,7 @@
                                            <span class="n">queryset</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">))</span>
     <span class="n">customer</span> <span class="o">=</span> <span class="n">UserSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AppointmentSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.AppointmentSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="AppointmentSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.AppointmentSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Appointment</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;stylist&#39;</span><span class="p">,</span> <span class="s1">&#39;customer&#39;</span><span class="p">)</span></div></div>
 
@@ -268,7 +268,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="PortfolioHaircutSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.PortfolioHaircutSerializer">[docs]</a><span class="k">class</span> <span class="nc">PortfolioHaircutSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="PortfolioHaircutSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.PortfolioHaircutSerializer">[docs]</a><span class="k">class</span> <span class="nc">PortfolioHaircutSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PortfolioHaircutSerializer (serializer for PortfolioHaircut Model)</span>
 
@@ -284,7 +284,7 @@
 
     <span class="n">stylist</span> <span class="o">=</span> <span class="n">StylistSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PortfolioHaircutSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.PortfolioHaircutSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="PortfolioHaircutSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.PortfolioHaircutSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;stylist&#39;</span><span class="p">,</span> <span class="s1">&#39;picture&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">)</span></div></div>
 
@@ -294,7 +294,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="GlobalMenuSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.GlobalMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="GlobalMenuSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.GlobalMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        GlobalMenuSerializer (serializer for GlobalMenu Model)</span>
 
@@ -305,12 +305,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedIdentityField</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s1">&#39;api:globalmenu-detail&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="GlobalMenuSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.GlobalMenuSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="GlobalMenuSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.GlobalMenuSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">GlobalMenu</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="StylistMenuSerializer"><a class="viewcode-back" href="../../api.html#api.serializers.StylistMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenuSerializer"><a class="viewcode-back" href="../../Api.html#api.serializers.StylistMenuSerializer">[docs]</a><span class="k">class</span> <span class="nc">StylistMenuSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        StylistMenuSerializer (serializer for StylistMenu Model)</span>
 
@@ -324,7 +324,7 @@
     <span class="n">modified_global</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">SlugRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slug_field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span>
                                                    <span class="n">queryset</span><span class="o">=</span><span class="n">GlobalMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
 
-<div class="viewcode-block" id="StylistMenuSerializer.Meta"><a class="viewcode-back" href="../../api.html#api.serializers.StylistMenuSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="StylistMenuSerializer.Meta"><a class="viewcode-back" href="../../Api.html#api.serializers.StylistMenuSerializer.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">StylistMenu</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="s1">&#39;modified_global&#39;</span><span class="p">)</span></div></div>
 </pre></div>

@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
@@ -180,7 +180,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="create_user"><a class="viewcode-back" href="../../core.html#core.views.create_user">[docs]</a><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="create_user"><a class="viewcode-back" href="../../Core.html#core.views.create_user">[docs]</a><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">create_user_form</span> <span class="o">=</span> <span class="n">NewUserForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
@@ -207,7 +207,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="returning_user"><a class="viewcode-back" href="../../core.html#core.views.returning_user">[docs]</a><span class="k">def</span> <span class="nf">returning_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="returning_user"><a class="viewcode-back" href="../../Core.html#core.views.returning_user">[docs]</a><span class="k">def</span> <span class="nf">returning_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:home&#39;</span><span class="p">)</span>
 
@@ -222,7 +222,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="upload_picture"><a class="viewcode-back" href="../../core.html#core.views.upload_picture">[docs]</a><span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="upload_picture"><a class="viewcode-back" href="../../Core.html#core.views.upload_picture">[docs]</a><span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/upload_picture.html&#39;</span><span class="p">)</span>
 
@@ -236,7 +236,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../core.html#core.views.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../Core.html#core.views.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="n">auth</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:home&#39;</span><span class="p">)</span></div>
 
@@ -246,7 +246,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="update_basic_information"><a class="viewcode-back" href="../../core.html#core.views.update_basic_information">[docs]</a><span class="k">def</span> <span class="nf">update_basic_information</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="update_basic_information"><a class="viewcode-back" href="../../Core.html#core.views.update_basic_information">[docs]</a><span class="k">def</span> <span class="nf">update_basic_information</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">information</span> <span class="o">=</span> <span class="n">UserInformation</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
@@ -274,7 +274,7 @@
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/basic_information.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s1">&#39;errors&#39;</span><span class="p">:</span> <span class="n">errors</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="change_password"><a class="viewcode-back" href="../../core.html#core.views.change_password">[docs]</a><span class="k">def</span> <span class="nf">change_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="change_password"><a class="viewcode-back" href="../../Core.html#core.views.change_password">[docs]</a><span class="k">def</span> <span class="nf">change_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">new_password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_password&#39;</span><span class="p">)</span>
@@ -305,19 +305,19 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../core.html#core.views.home">[docs]</a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../Core.html#core.views.home">[docs]</a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/home/home_home.html&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="home_style"><a class="viewcode-back" href="../../core.html#core.views.home_style">[docs]</a><span class="k">def</span> <span class="nf">home_style</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="home_style"><a class="viewcode-back" href="../../Core.html#core.views.home_style">[docs]</a><span class="k">def</span> <span class="nf">home_style</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/home/home_findyourstyle.html&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="home_stylist"><a class="viewcode-back" href="../../core.html#core.views.home_stylist">[docs]</a><span class="k">def</span> <span class="nf">home_stylist</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="home_stylist"><a class="viewcode-back" href="../../Core.html#core.views.home_stylist">[docs]</a><span class="k">def</span> <span class="nf">home_stylist</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/home/home_becomeastylist.html&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="home_login"><a class="viewcode-back" href="../../core.html#core.views.home_login">[docs]</a><span class="k">def</span> <span class="nf">home_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="home_login"><a class="viewcode-back" href="../../Core.html#core.views.home_login">[docs]</a><span class="k">def</span> <span class="nf">home_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">UserLogic</span><span class="o">.</span><span class="n">redirect_to_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
@@ -331,7 +331,7 @@
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/home/home_login.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="n">error</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="home_safety"><a class="viewcode-back" href="../../core.html#core.views.home_safety">[docs]</a><span class="k">def</span> <span class="nf">home_safety</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="home_safety"><a class="viewcode-back" href="../../Core.html#core.views.home_safety">[docs]</a><span class="k">def</span> <span class="nf">home_safety</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/home/home_safety.html&#39;</span><span class="p">)</span></div>
 </pre></div>
 

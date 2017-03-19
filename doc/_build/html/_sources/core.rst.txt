@@ -1,10 +1,10 @@
-core
+Core
 ====
 
 .. toctree::
 
-    core.management.commands
-    core.utils
+    Core.management.commands
+    Core.utils
 
 core.admin
 ----------

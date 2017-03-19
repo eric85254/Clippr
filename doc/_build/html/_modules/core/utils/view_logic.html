@@ -92,9 +92,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../core.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Core.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../customer.html">customer package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
@@ -174,24 +174,24 @@
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">Review</span>
 
 
-<div class="viewcode-block" id="UserLogic"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic">[docs]</a><span class="k">class</span> <span class="nc">UserLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic">[docs]</a><span class="k">class</span> <span class="nc">UserLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Common methods relating to User</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="UserLogic.retrieve_user"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.retrieve_user">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic.retrieve_user"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic.retrieve_user">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">user</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="UserLogic.login"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic.login"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">auth</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="UserLogic.redirect_to_dashboard"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.redirect_to_dashboard">[docs]</a>    <span class="k">def</span> <span class="nf">redirect_to_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic.redirect_to_dashboard"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic.redirect_to_dashboard">[docs]</a>    <span class="k">def</span> <span class="nf">redirect_to_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Directs the user to the proper dashboard or profile page depending on their is_stylist or superuser status.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -211,7 +211,7 @@
 
     <span class="c1">#Todo: Should remove this method</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="UserLogic.upload_picture"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.upload_picture">[docs]</a>    <span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic.upload_picture"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic.upload_picture">[docs]</a>    <span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redundant - should remove.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -221,7 +221,7 @@
 
     <span class="c1">#Todo: Make this documentation a bit clearer.</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="UserLogic.update_average"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.update_average">[docs]</a>    <span class="k">def</span> <span class="nf">update_average</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+<div class="viewcode-block" id="UserLogic.update_average"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.UserLogic.update_average">[docs]</a>    <span class="k">def</span> <span class="nf">update_average</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This method is called whenever a new review is made.</span>
 <span class="sd">            | It takes the given review and pulls the stylist and customer users from it.</span>
@@ -240,7 +240,7 @@
         <span class="n">customer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
 
 
-<div class="viewcode-block" id="CookieClearer"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer">[docs]</a><span class="k">class</span> <span class="nc">CookieClearer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CookieClearer"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.CookieClearer">[docs]</a><span class="k">class</span> <span class="nc">CookieClearer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class is important because of how cookies are used. For example, the stylist_pk is stored in a cookie and is used</span>
 <span class="sd">        to retrieve the stylist and the stylist&#39;s information at different pages. However, this same cookie might be used in a different setting,</span>
@@ -249,7 +249,7 @@
 <span class="sd">        | After a big function (such as creating an appointment) is completed the cookies are all cleared by invoking the method in this class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="CookieClearer.appointment_cookies"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer.appointment_cookies">[docs]</a>    <span class="k">def</span> <span class="nf">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="CookieClearer.appointment_cookies"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.CookieClearer.appointment_cookies">[docs]</a>    <span class="k">def</span> <span class="nf">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="n">cookie_names</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">,</span>
             <span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">,</span>
@@ -261,7 +261,7 @@
 
     <span class="c1"># Helper Method</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="CookieClearer.clear"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cookie_names</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="CookieClearer.clear"><a class="viewcode-back" href="../../../Core.utils.html#core.utils.view_logic.CookieClearer.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cookie_names</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">cookie_names</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
                 <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div></div>
