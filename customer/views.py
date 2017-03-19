@@ -1,3 +1,6 @@
+"""
+    Customer Views.
+"""
 from django.shortcuts import render, redirect
 
 from core.utils.view_logic import UserLogic, CookieClearer
@@ -33,6 +36,9 @@ def dashboard(request):
 
 
 def become_stylist(request):
+    """
+        View that handles a user's application to be a stylist.
+    """
     if request.method == 'POST':
         stylist_application = StylistApplicationForm(request.POST)
 
@@ -58,6 +64,18 @@ def become_stylist(request):
 
 
 def create_appointment(request):
+    """
+        Probably the most complicated method in this app.
+        | A lot of information is required before a POST can be succesfully sent to this view.
+        |
+        | Information necessary for this method:
+            :param stylist_pk: pk value of the stylist
+            :param portfolio_haircut: pk value of the selected haircut (optional)
+            :param stylist_menu_pk: pk value of an option in the stylist's menu (optional)
+        | Either the portfolio_haircut or the stylist_menu_pk should be included
+        | Once the appointment is created the price of the appointment is updated.
+        | The cookies are then finally cleared.
+    """
     if request.method == 'POST':
         create_appointment_form = NewAppointmentForm(request.POST)
 
@@ -100,8 +118,11 @@ def create_appointment(request):
     CREATE APPOINTMENT HELPERS
 '''
 
-
+#Todo: add more functionality
 def stylist_search(request):
+    """
+
+    """
     if 'param' in request.GET:
         stylist_list = User.objects.filter(is_stylist='YES', first_name__icontains=request.GET.get('param'))
     else:

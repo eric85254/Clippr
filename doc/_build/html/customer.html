@@ -305,6 +305,7 @@
 </div>
 <div class="section" id="module-customer.views">
 <span id="customer-views"></span><h2>customer.views<a class="headerlink" href="#module-customer.views" title="Permalink to this headline">¶</a></h2>
+<p>Customer Views.</p>
 <dl class="function">
 <dt id="customer.views.accept_appointment">
 <code class="descclassname">customer.views.</code><code class="descname">accept_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#accept_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.accept_appointment" title="Permalink to this definition">¶</a></dt>
@@ -313,7 +314,8 @@
 <dl class="function">
 <dt id="customer.views.become_stylist">
 <code class="descclassname">customer.views.</code><code class="descname">become_stylist</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#become_stylist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.become_stylist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>View that handles a user&#8217;s application to be a stylist.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.cancel_appointment">
@@ -328,7 +330,33 @@
 <dl class="function">
 <dt id="customer.views.create_appointment">
 <code class="descclassname">customer.views.</code><code class="descname">create_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#create_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.create_appointment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Probably the most complicated method in this app.
+| A lot of information is required before a POST can be succesfully sent to this view.
+|
+| Information necessary for this method:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param stylist_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the stylist</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param portfolio_haircut:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">pk value of the selected haircut (optional)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param stylist_menu_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of an option in the stylist&#8217;s menu (optional)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Either the portfolio_haircut or the stylist_menu_pk should be included</div>
+<div class="line">Once the appointment is created the price of the appointment is updated.</div>
+<div class="line">The cookies are then finally cleared.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.dashboard">

@@ -163,7 +163,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for customer.views</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Customer Views.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 
 <span class="kn">from</span> <span class="nn">core.utils.view_logic</span> <span class="k">import</span> <span class="n">UserLogic</span><span class="p">,</span> <span class="n">CookieClearer</span>
 <span class="kn">from</span> <span class="nn">customer.forms</span> <span class="k">import</span> <span class="n">NewAppointmentForm</span><span class="p">,</span> <span class="n">StylistApplicationForm</span>
@@ -198,6 +201,9 @@
 
 
 <div class="viewcode-block" id="become_stylist"><a class="viewcode-back" href="../../Customer.html#customer.views.become_stylist">[docs]</a><span class="k">def</span> <span class="nf">become_stylist</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View that handles a user&#39;s application to be a stylist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">stylist_application</span> <span class="o">=</span> <span class="n">StylistApplicationForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
@@ -223,6 +229,18 @@
 
 
 <div class="viewcode-block" id="create_appointment"><a class="viewcode-back" href="../../Customer.html#customer.views.create_appointment">[docs]</a><span class="k">def</span> <span class="nf">create_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Probably the most complicated method in this app.</span>
+<span class="sd">        | A lot of information is required before a POST can be succesfully sent to this view.</span>
+<span class="sd">        |</span>
+<span class="sd">        | Information necessary for this method:</span>
+<span class="sd">            :param stylist_pk: pk value of the stylist</span>
+<span class="sd">            :param portfolio_haircut: pk value of the selected haircut (optional)</span>
+<span class="sd">            :param stylist_menu_pk: pk value of an option in the stylist&#39;s menu (optional)</span>
+<span class="sd">        | Either the portfolio_haircut or the stylist_menu_pk should be included</span>
+<span class="sd">        | Once the appointment is created the price of the appointment is updated.</span>
+<span class="sd">        | The cookies are then finally cleared.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">create_appointment_form</span> <span class="o">=</span> <span class="n">NewAppointmentForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
