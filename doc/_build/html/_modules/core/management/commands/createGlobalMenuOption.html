@@ -163,10 +163,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for core.management.commands.createGlobalMenuOption</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module creates two Global Menu Options for Stylists to choose from.</span>
+<span class="sd">    The two options are &quot;Girl&#39;s Haircut&quot; and &quot;Boy&#39;s Haircut&quot; for $50.00 each.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
 
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">GlobalMenu</span>
-<span class="kn">from</span> <span class="nn">core.utils.global_constants</span> <span class="k">import</span> <span class="n">DEFAULT_MENU_PICTURE</span>
 
 
 <div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../core.management.commands.html#core.management.commands.createGlobalMenuOption.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>

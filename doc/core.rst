@@ -4,8 +4,7 @@ core
 .. toctree::
 
     core.management.commands
-    core.migrations
-    core.util
+    core.utils
 
 core.admin
 ----------

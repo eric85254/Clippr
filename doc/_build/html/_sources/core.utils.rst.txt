@@ -1,8 +1,5 @@
-core.utils package
-==================
-
-Submodules
-----------
+core.utils
+==========
 
 core.utils.global_constants module
 ----------------------------------
@@ -16,15 +13,6 @@ core.utils.view_logic module
 ----------------------------
 
 .. automodule:: core.utils.view_logic
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: core.utils
     :members:
     :undoc-members:
     :show-inheritance:
