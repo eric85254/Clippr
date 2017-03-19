@@ -72,6 +72,7 @@ def create_appointment(request):
             :param stylist_pk: pk value of the stylist
             :param portfolio_haircut: pk value of the selected haircut (optional)
             :param stylist_menu_pk: pk value of an option in the stylist's menu (optional)
+            :param date: Appointment date
         | Either the portfolio_haircut or the stylist_menu_pk should be included
         | Once the appointment is created the price of the appointment is updated.
         | The cookies are then finally cleared.
@@ -90,12 +91,12 @@ def create_appointment(request):
             if 'portfolio_haircut' in request.session:
                 portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
                 ItemInBill.objects.create(item_portfolio=portfolio_haircut, price=portfolio_haircut.price,
-                                             appointment=new_appointment)
+                                          appointment=new_appointment)
 
             if 'stylist_menu_pk' in request.session:
                 stylist_option = StylistMenu.objects.get(pk=request.session['stylist_menu_pk'])
                 ItemInBill.objects.create(item_menu=stylist_option, price=stylist_option.price,
-                                             appointment=new_appointment)
+                                          appointment=new_appointment)
 
             BillLogic.update_price(appointment=new_appointment)
             CookieClearer.appointment_cookies(request)
@@ -118,10 +119,15 @@ def create_appointment(request):
     CREATE APPOINTMENT HELPERS
 '''
 
-#Todo: add more functionality
+
+# Todo: add more functionality
 def stylist_search(request):
     """
+        METHODS ALLOWED = [GET]
+            :param param: search parameter
 
+        The very first step in creating an appointment is finding a stylist. This view renders a list of stylists that
+        match the search parameter.
     """
     if 'param' in request.GET:
         stylist_list = User.objects.filter(is_stylist='YES', first_name__icontains=request.GET.get('param'))
@@ -133,6 +139,15 @@ def stylist_search(request):
 
 
 def obtain_stylist_profile(request):
+    """
+        METHODS ALLOWED = [GET]
+            :param stylist_pk: pk value of stylist
+
+        The second step in creating an appointment.
+        | After the customer clicks on a stylist from the stylist search page they need to view the stylist's profile.
+        | This view renders the stylist's portfolio.
+        | From the stylist's portfolio the customer can then select a haircut or menu option.
+    """
     if request.user.is_authenticated:
         if request.method == 'GET':
             if 'stylist_pk' in request.GET:
@@ -148,6 +163,12 @@ def obtain_stylist_profile(request):
 
 
 def obtain_selected_haircut(request):
+    """
+        METHODS ALLOWED = [POST]
+
+        The pk value of the selected haircut and the stylist are stored in Django sessions.
+        | The user is redirected to the create appointment view to set a date for the appointment.
+    """
     if request.user.is_authenticated:
         if request.method == 'POST':
             request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
@@ -158,6 +179,12 @@ def obtain_selected_haircut(request):
 
 
 def obtain_selected_menuOption(request):
+    """
+        METHODS ALLOWED = [POST]
+
+        The pk value of the selected menu option and the stylist are stored in Django sessions.
+        | The user is redirected to the create appointment view to set a date for the appointment.
+    """
     if request.user.is_authenticated:
         if request.method == 'POST':
             request.session['stylist_menu_pk'] = request.POST.get('stylist_option_pk')
@@ -167,22 +194,19 @@ def obtain_selected_menuOption(request):
         return redirect('core:logout')
 
 
-#ToDo: Is this view even being used?
-def catch_menu_choices(request):
-    if request.method == 'POST':
-        request.session['menu_main'] = request.POST.get('menu_main')
-        return redirect(request.META.get('HTTP_REFERER'))
-    else:
-        return redirect(request.META.get('HTTP_REFERER'))
-
-
 '''
     APPOINTMENT MODIFIERS
 '''
 
-
+#todo: can this be utilized by both stylist's and customers?
 def accept_appointment(request):
-    if request.user.is_stylist == 'NO':
+    """
+        METHODS ALLOWED = [POST]
+            :param appointment_pk: pk value of the appointment
+
+        Only available to customers. When a stylist makes a schedule change the customer needs to 'accept' it.
+    """
+    if CustomerLogic.is_customer(request):
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
             appointment.status = Appointment.STATUS_ACCEPTED
@@ -193,7 +217,13 @@ def accept_appointment(request):
 
 
 def cancel_appointment(request):
-    if request.user.is_stylist == 'NO':
+    """
+        METHODS ALLOWED = [POST]
+            :param appointment_pk: pk value of the appointment
+
+        Customers can cancel or decline an appointment by sending a POST request to this view.
+    """
+    if CustomerLogic.is_customer(request):
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
             appointment.status = Appointment.STATUS_DECLINED
@@ -204,6 +234,13 @@ def cancel_appointment(request):
 
 
 def reschedule_appointment(request):
+    """
+        METHODS ALLOWED = [POST]
+            :param appointment_pk: pk value of the appointment
+            :param date: new appointment date
+
+        Customers intending on rescheduling the appointment must send a POST request to this view.
+    """
     if request.user.is_stylist == 'NO':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
@@ -219,9 +256,16 @@ def reschedule_appointment(request):
     APPOINTMENT MODIFIERS
 '''
 
-
+#todo: should customers be able to modify the bill (add or remove items) before the appointment is accepted?
+#todo: why is the appointment_pk value stored in sessions here?
 def view_bill(request):
-    if request.user.is_stylist == 'NO':
+    """
+        METHODS ALLOWED = [GET]
+            :param appointment_pk: pk value of the appointment.
+
+        All ItemInBill entries are retrieved for the particular appointment and the appointment_pk value is saved.
+    """
+    if CustomerLogic.is_customer(request):
         if request.method == 'GET':
             appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
             bill = ItemInBill.objects.filter(appointment=appointment)
@@ -239,7 +283,14 @@ def view_bill(request):
 
 
 def submit_review(request):
-    if request.user.is_stylist == 'NO':
+    """
+        METHODS ALLOWED = [POST]
+            :param review_pk: pk value of the review
+
+        The stylist_rating on the review object is updated through this review. Once the stylist_rating is updated
+        all the averages are recalculated through UserLogic.update_average(review).
+    """
+    if CustomerLogic.is_customer(request):
         if request.method == 'POST':
             review = Review.objects.get(pk=request.POST.get('review_pk'))
             review.stylist_rating = int(request.POST.get('rating'))
@@ -256,28 +307,28 @@ def submit_review(request):
 
 
 def dashboard_real(request):
-    if request.user.is_stylist == 'NO':
+    if CustomerLogic.is_customer(request):
         return render(request, 'customer/customerReal/dashboard/dashboard_core.html')
     else:
         return redirect('core:logout')
 
 
 def profile_real(request):
-    if request.user.is_stylist == 'NO':
+    if CustomerLogic.is_customer(request):
         return render(request, 'customer/customerReal/profile/profile_core.html')
     else:
         return redirect('core:logout')
 
 
 def search_real(request):
-    if request.user.is_stylist == 'NO':
+    if CustomerLogic.is_customer(request):
         return render(request, 'customer/customerReal/search/search_core.html')
     else:
         return redirect('core:logout')
 
 
 def settings_real(request):
-    if request.user.is_stylist == 'NO':
+    if CustomerLogic.is_customer(request):
         return render(request, 'customer/customerReal/settings/settings_core.html')
     else:
         return redirect('core:logout')

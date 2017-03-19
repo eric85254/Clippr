@@ -237,6 +237,7 @@
 <span class="sd">            :param stylist_pk: pk value of the stylist</span>
 <span class="sd">            :param portfolio_haircut: pk value of the selected haircut (optional)</span>
 <span class="sd">            :param stylist_menu_pk: pk value of an option in the stylist&#39;s menu (optional)</span>
+<span class="sd">            :param date: Appointment date</span>
 <span class="sd">        | Either the portfolio_haircut or the stylist_menu_pk should be included</span>
 <span class="sd">        | Once the appointment is created the price of the appointment is updated.</span>
 <span class="sd">        | The cookies are then finally cleared.</span>
@@ -255,12 +256,12 @@
             <span class="k">if</span> <span class="s1">&#39;portfolio_haircut&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
                 <span class="n">portfolio_haircut</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">])</span>
                 <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">item_portfolio</span><span class="o">=</span><span class="n">portfolio_haircut</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">portfolio_haircut</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
-                                             <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
+                                          <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="s1">&#39;stylist_menu_pk&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
                 <span class="n">stylist_option</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_menu_pk&#39;</span><span class="p">])</span>
                 <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">item_menu</span><span class="o">=</span><span class="n">stylist_option</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="n">stylist_option</span><span class="o">.</span><span class="n">price</span><span class="p">,</span>
-                                             <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
+                                          <span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
 
             <span class="n">BillLogic</span><span class="o">.</span><span class="n">update_price</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">new_appointment</span><span class="p">)</span>
             <span class="n">CookieClearer</span><span class="o">.</span><span class="n">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
@@ -284,7 +285,15 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
+<span class="c1"># Todo: add more functionality</span>
 <div class="viewcode-block" id="stylist_search"><a class="viewcode-back" href="../../Customer.html#customer.views.stylist_search">[docs]</a><span class="k">def</span> <span class="nf">stylist_search</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+<span class="sd">            :param param: search parameter</span>
+
+<span class="sd">        The very first step in creating an appointment is finding a stylist. This view renders a list of stylists that</span>
+<span class="sd">        match the search parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;param&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
         <span class="n">stylist_list</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_stylist</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="p">,</span> <span class="n">first_name__icontains</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;param&#39;</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
@@ -295,6 +304,15 @@
 
 
 <div class="viewcode-block" id="obtain_stylist_profile"><a class="viewcode-back" href="../../Customer.html#customer.views.obtain_stylist_profile">[docs]</a><span class="k">def</span> <span class="nf">obtain_stylist_profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+<span class="sd">            :param stylist_pk: pk value of stylist</span>
+
+<span class="sd">        The second step in creating an appointment.</span>
+<span class="sd">        | After the customer clicks on a stylist from the stylist search page they need to view the stylist&#39;s profile.</span>
+<span class="sd">        | This view renders the stylist&#39;s portfolio.</span>
+<span class="sd">        | From the stylist&#39;s portfolio the customer can then select a haircut or menu option.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;stylist_pk&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
@@ -310,6 +328,12 @@
 
 
 <div class="viewcode-block" id="obtain_selected_haircut"><a class="viewcode-back" href="../../Customer.html#customer.views.obtain_selected_haircut">[docs]</a><span class="k">def</span> <span class="nf">obtain_selected_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        The pk value of the selected haircut and the stylist are stored in Django sessions.</span>
+<span class="sd">        | The user is redirected to the create appointment view to set a date for the appointment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;portfolio_haircut&#39;</span><span class="p">)</span>
@@ -320,6 +344,12 @@
 
 
 <div class="viewcode-block" id="obtain_selected_menuOption"><a class="viewcode-back" href="../../Customer.html#customer.views.obtain_selected_menuOption">[docs]</a><span class="k">def</span> <span class="nf">obtain_selected_menuOption</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+
+<span class="sd">        The pk value of the selected menu option and the stylist are stored in Django sessions.</span>
+<span class="sd">        | The user is redirected to the create appointment view to set a date for the appointment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;stylist_menu_pk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">)</span>
@@ -329,22 +359,19 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<span class="c1">#ToDo: Is this view even being used?</span>
-<div class="viewcode-block" id="catch_menu_choices"><a class="viewcode-back" href="../../Customer.html#customer.views.catch_menu_choices">[docs]</a><span class="k">def</span> <span class="nf">catch_menu_choices</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;menu_main&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;menu_main&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span></div>
-
-
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    APPOINTMENT MODIFIERS</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-
+<span class="c1">#todo: can this be utilized by both stylist&#39;s and customers?</span>
 <div class="viewcode-block" id="accept_appointment"><a class="viewcode-back" href="../../Customer.html#customer.views.accept_appointment">[docs]</a><span class="k">def</span> <span class="nf">accept_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+<span class="sd">            :param appointment_pk: pk value of the appointment</span>
+
+<span class="sd">        Only available to customers. When a stylist makes a schedule change the customer needs to &#39;accept&#39; it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
             <span class="n">appointment</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_ACCEPTED</span>
@@ -355,7 +382,13 @@
 
 
 <div class="viewcode-block" id="cancel_appointment"><a class="viewcode-back" href="../../Customer.html#customer.views.cancel_appointment">[docs]</a><span class="k">def</span> <span class="nf">cancel_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+<span class="sd">            :param appointment_pk: pk value of the appointment</span>
+
+<span class="sd">        Customers can cancel or decline an appointment by sending a POST request to this view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
             <span class="n">appointment</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_DECLINED</span>
@@ -366,6 +399,13 @@
 
 
 <div class="viewcode-block" id="reschedule_appointment"><a class="viewcode-back" href="../../Customer.html#customer.views.reschedule_appointment">[docs]</a><span class="k">def</span> <span class="nf">reschedule_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+<span class="sd">            :param appointment_pk: pk value of the appointment</span>
+<span class="sd">            :param date: new appointment date</span>
+
+<span class="sd">        Customers intending on rescheduling the appointment must send a POST request to this view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -381,9 +421,16 @@
 <span class="sd">    APPOINTMENT MODIFIERS</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-
+<span class="c1">#todo: should customers be able to modify the bill (add or remove items) before the appointment is accepted?</span>
+<span class="c1">#todo: why is the appointment_pk value stored in sessions here?</span>
 <div class="viewcode-block" id="view_bill"><a class="viewcode-back" href="../../Customer.html#customer.views.view_bill">[docs]</a><span class="k">def</span> <span class="nf">view_bill</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [GET]</span>
+<span class="sd">            :param appointment_pk: pk value of the appointment.</span>
+
+<span class="sd">        All ItemInBill entries are retrieved for the particular appointment and the appointment_pk value is saved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
             <span class="n">bill</span> <span class="o">=</span> <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">appointment</span><span class="p">)</span>
@@ -401,7 +448,14 @@
 
 
 <div class="viewcode-block" id="submit_review"><a class="viewcode-back" href="../../Customer.html#customer.views.submit_review">[docs]</a><span class="k">def</span> <span class="nf">submit_review</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        METHODS ALLOWED = [POST]</span>
+<span class="sd">            :param review_pk: pk value of the review</span>
+
+<span class="sd">        The stylist_rating on the review object is updated through this review. Once the stylist_rating is updated</span>
+<span class="sd">        all the averages are recalculated through UserLogic.update_average(review).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">review</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;review_pk&#39;</span><span class="p">))</span>
             <span class="n">review</span><span class="o">.</span><span class="n">stylist_rating</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rating&#39;</span><span class="p">))</span>
@@ -418,28 +472,28 @@
 
 
 <div class="viewcode-block" id="dashboard_real"><a class="viewcode-back" href="../../Customer.html#customer.views.dashboard_real">[docs]</a><span class="k">def</span> <span class="nf">dashboard_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/dashboard/dashboard_core.html&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="profile_real"><a class="viewcode-back" href="../../Customer.html#customer.views.profile_real">[docs]</a><span class="k">def</span> <span class="nf">profile_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/profile/profile_core.html&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="search_real"><a class="viewcode-back" href="../../Customer.html#customer.views.search_real">[docs]</a><span class="k">def</span> <span class="nf">search_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/search/search_core.html&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="settings_real"><a class="viewcode-back" href="../../Customer.html#customer.views.settings_real">[docs]</a><span class="k">def</span> <span class="nf">settings_real</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">CustomerLogic</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/settings/settings_core.html&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>

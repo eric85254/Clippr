@@ -309,7 +309,21 @@
 <dl class="function">
 <dt id="customer.views.accept_appointment">
 <code class="descclassname">customer.views.</code><code class="descname">accept_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#accept_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.accept_appointment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [POST]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param appointment_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the appointment</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>Only available to customers. When a stylist makes a schedule change the customer needs to &#8216;accept&#8217; it.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.become_stylist">
@@ -320,12 +334,21 @@
 <dl class="function">
 <dt id="customer.views.cancel_appointment">
 <code class="descclassname">customer.views.</code><code class="descname">cancel_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#cancel_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.cancel_appointment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="customer.views.catch_menu_choices">
-<code class="descclassname">customer.views.</code><code class="descname">catch_menu_choices</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#catch_menu_choices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.catch_menu_choices" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [POST]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param appointment_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the appointment</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>Customers can cancel or decline an appointment by sending a POST request to this view.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.create_appointment">
@@ -347,6 +370,8 @@
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">param stylist_menu_pk:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of an option in the stylist&#8217;s menu (optional)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param date:</th><td class="field-body">Appointment date</td>
 </tr>
 </tbody>
 </table>
@@ -371,17 +396,40 @@
 <dl class="function">
 <dt id="customer.views.obtain_selected_haircut">
 <code class="descclassname">customer.views.</code><code class="descname">obtain_selected_haircut</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#obtain_selected_haircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.obtain_selected_haircut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<p>The pk value of the selected haircut and the stylist are stored in Django sessions.
+| The user is redirected to the create appointment view to set a date for the appointment.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.obtain_selected_menuOption">
 <code class="descclassname">customer.views.</code><code class="descname">obtain_selected_menuOption</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#obtain_selected_menuOption"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.obtain_selected_menuOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>METHODS ALLOWED = [POST]</p>
+<p>The pk value of the selected menu option and the stylist are stored in Django sessions.
+| The user is redirected to the create appointment view to set a date for the appointment.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.obtain_stylist_profile">
 <code class="descclassname">customer.views.</code><code class="descname">obtain_stylist_profile</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#obtain_stylist_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.obtain_stylist_profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [GET]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param stylist_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of stylist</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>The second step in creating an appointment.
+| After the customer clicks on a stylist from the stylist search page they need to view the stylist&#8217;s profile.
+| This view renders the stylist&#8217;s portfolio.
+| From the stylist&#8217;s portfolio the customer can then select a haircut or menu option.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.profile">
@@ -396,7 +444,23 @@
 <dl class="function">
 <dt id="customer.views.reschedule_appointment">
 <code class="descclassname">customer.views.</code><code class="descname">reschedule_appointment</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#reschedule_appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.reschedule_appointment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [POST]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param appointment_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the appointment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param date:</th><td class="field-body">new appointment date</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>Customers intending on rescheduling the appointment must send a POST request to this view.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.search_real">
@@ -411,17 +475,60 @@
 <dl class="function">
 <dt id="customer.views.stylist_search">
 <code class="descclassname">customer.views.</code><code class="descname">stylist_search</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#stylist_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.stylist_search" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [GET]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param param:</th><td class="field-body">search parameter</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>The very first step in creating an appointment is finding a stylist. This view renders a list of stylists that
+match the search parameter.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.submit_review">
 <code class="descclassname">customer.views.</code><code class="descname">submit_review</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#submit_review"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.submit_review" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [POST]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param review_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the review</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>The stylist_rating on the review object is updated through this review. Once the stylist_rating is updated
+all the averages are recalculated through UserLogic.update_average(review).</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="customer.views.view_bill">
 <code class="descclassname">customer.views.</code><code class="descname">view_bill</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/views.html#view_bill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.views.view_bill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>METHODS ALLOWED = [GET]</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param appointment_pk:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">pk value of the appointment.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>All ItemInBill entries are retrieved for the particular appointment and the appointment_pk value is saved.</p>
+</dd></dl>
 
 </div>
 </div>
