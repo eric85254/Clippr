@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>customer.management.commands package &mdash; Clippr 1.0 documentation</title>
+  <title>customer.management.commands &mdash; Clippr 1.0 documentation</title>
   
 
   
@@ -36,9 +36,9 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Clippr 1.0 documentation" href="index.html"/>
-        <link rel="up" title="customer.management package" href="customer.management.html"/>
-        <link rel="next" title="customer.utils package" href="customer.utils.html"/>
-        <link rel="prev" title="customer.management package" href="customer.management.html"/> 
+        <link rel="up" title="Customer" href="Customer.html"/>
+        <link rel="next" title="customer.utils" href="Customer.utils.html"/>
+        <link rel="prev" title="Customer" href="Customer.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -94,28 +94,22 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Clipper_V_0.html">Clipper_V_0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="administration.html">Administration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">core package</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="customer.html">customer package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="customer.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="customer.management.html">customer.management package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="customer.management.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="customer.management.html#module-customer.management">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Administration.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Core.html">Core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Customer.html">Customer</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">customer.management.commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-customer.management.commands.createDefaultAppointment">customer.management.commands.createDefaultAppointment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="customer.utils.html">customer.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.admin">customer.admin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.apps">customer.apps module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.forms">customer.forms module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.models">customer.models module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.tests">customer.tests module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.urls">customer.urls module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer.views">customer.views module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customer.html#module-customer">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.utils.html">customer.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.admin">customer.admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.apps">customer.apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.forms">customer.forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.models">customer.models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.tests">customer.tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.urls">customer.urls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customer.html#module-customer.views">customer.views</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a></li>
@@ -165,17 +159,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="customer.html">customer package</a> &raquo;</li>
+          <li><a href="Customer.html">Customer</a> &raquo;</li>
         
-          <li><a href="customer.management.html">customer.management package</a> &raquo;</li>
-        
-      <li>customer.management.commands package</li>
+      <li>customer.management.commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/customer.management.commands.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/Customer.management.commands.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -188,13 +180,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="customer-management-commands-package">
-<h1>customer.management.commands package<a class="headerlink" href="#customer-management-commands-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="customer-management-commands">
+<h1>customer.management.commands<a class="headerlink" href="#customer-management-commands" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-customer.management.commands.createDefaultAppointment">
-<span id="customer-management-commands-createdefaultappointment-module"></span><h2>customer.management.commands.createDefaultAppointment module<a class="headerlink" href="#module-customer.management.commands.createDefaultAppointment" title="Permalink to this headline">¶</a></h2>
+<span id="customer-management-commands-createdefaultappointment"></span><h2>customer.management.commands.createDefaultAppointment<a class="headerlink" href="#module-customer.management.commands.createDefaultAppointment" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="customer.management.commands.createDefaultAppointment.Command">
 <em class="property">class </em><code class="descclassname">customer.management.commands.createDefaultAppointment.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>stdout=None</em>, <em>stderr=None</em>, <em>no_color=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/management/commands/createDefaultAppointment.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.management.commands.createDefaultAppointment.Command" title="Permalink to this definition">¶</a></dt>
@@ -212,9 +201,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-customer.management.commands">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-customer.management.commands" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 
@@ -227,10 +213,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="customer.utils.html" class="btn btn-neutral float-right" title="customer.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Customer.utils.html" class="btn btn-neutral float-right" title="customer.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="customer.management.html" class="btn btn-neutral" title="customer.management package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Customer.html" class="btn btn-neutral" title="Customer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

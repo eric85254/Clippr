@@ -1,79 +1,63 @@
-customer package
-================
-
-Subpackages
------------
+Customer
+========
 
 .. toctree::
 
-    customer.management
-    customer.migrations
-    customer.utils
+    Customer.management.commands
+    Customer.utils
 
-Submodules
-----------
-
-customer.admin module
----------------------
+customer.admin
+--------------
 
 .. automodule:: customer.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.apps module
---------------------
+customer.apps
+-------------
 
 .. automodule:: customer.apps
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.forms module
----------------------
+customer.forms
+--------------
 
 .. automodule:: customer.forms
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.models module
-----------------------
+customer.models
+---------------
 
 .. automodule:: customer.models
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.tests module
----------------------
+customer.tests
+--------------
 
 .. automodule:: customer.tests
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.urls module
---------------------
+customer.urls
+-------------
 
 .. automodule:: customer.urls
     :members:
     :undoc-members:
     :show-inheritance:
 
-customer.views module
----------------------
+customer.views
+--------------
 
 .. automodule:: customer.views
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: customer
     :members:
     :undoc-members:
     :show-inheritance:

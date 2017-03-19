@@ -14,7 +14,7 @@ Welcome to Clippr's documentation!
    Administration
    Api
    Core
-   customer
+   Customer
    manage
    setup
    stylist

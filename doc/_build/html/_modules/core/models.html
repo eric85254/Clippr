@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Administration.html">Administration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Api.html">Api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Core.html">Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../customer.html">customer package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../stylist.html">stylist package</a></li>
@@ -176,7 +176,7 @@
 <span class="kn">from</span> <span class="nn">core.utils.global_constants</span> <span class="k">import</span> <span class="n">DEFAULT_PICTURE_LOCATION</span><span class="p">,</span> <span class="n">DEFAULT_MENU_PICTURE</span>
 
 
-<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../Core.html#core.forms.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../Core.html#api.serializers.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">AbstractUser</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extends the AbstractUser class.</span>
 <span class="sd">        | Changed the USERNAME_FIELD to be &#39;email&#39;</span>
@@ -204,7 +204,7 @@
     <span class="n">average_customer_rating</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="GlobalMenu"><a class="viewcode-back" href="../../Core.html#core.forms.GlobalMenu">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="GlobalMenu"><a class="viewcode-back" href="../../Core.html#api.serializers.GlobalMenu">[docs]</a><span class="k">class</span> <span class="nc">GlobalMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Global Menu options available to all stylists are stored here.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -215,7 +215,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
 
 
-<div class="viewcode-block" id="StylistMenu"><a class="viewcode-back" href="../../Core.html#core.forms.StylistMenu">[docs]</a><span class="k">class</span> <span class="nc">StylistMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="StylistMenu"><a class="viewcode-back" href="../../Core.html#api.serializers.StylistMenu">[docs]</a><span class="k">class</span> <span class="nc">StylistMenu</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A stylist&#39;s unique menu option.</span>
 <span class="sd">        | If the stylist makes a modification to the Global Menu option then their modification is stored here</span>
@@ -229,7 +229,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;Stylist: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">stylist</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; || Name: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
 
-<div class="viewcode-block" id="ItemInBill"><a class="viewcode-back" href="../../Core.html#core.forms.ItemInBill">[docs]</a><span class="k">class</span> <span class="nc">ItemInBill</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="ItemInBill"><a class="viewcode-back" href="../../Core.html#api.serializers.ItemInBill">[docs]</a><span class="k">class</span> <span class="nc">ItemInBill</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Each ItemInBill is tied to a particular appointment. To get the total cost of the appointment you must</span>
 <span class="sd">        sum up the ItemInBill.price of all the ItemInBill items that are tied to it.</span>
@@ -251,7 +251,7 @@
             <span class="k">return</span> <span class="s2">&quot;Unknown Entry&quot;</span></div>
 
 
-<div class="viewcode-block" id="Review"><a class="viewcode-back" href="../../Core.html#core.forms.Review">[docs]</a><span class="k">class</span> <span class="nc">Review</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Review"><a class="viewcode-back" href="../../Core.html#api.serializers.Review">[docs]</a><span class="k">class</span> <span class="nc">Review</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Tied to an appointment. There exists a field for both stylist and customer ratings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -261,7 +261,7 @@
                                     <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Appointment"><a class="viewcode-back" href="../../Core.html#core.forms.Appointment">[docs]</a><span class="k">class</span> <span class="nc">Appointment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Appointment"><a class="viewcode-back" href="../../Core.html#api.serializers.Appointment">[docs]</a><span class="k">class</span> <span class="nc">Appointment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Appointments all have a particular status that describes their current state.</span>
 <span class="sd">        | They are all tied to a customer and a stylist.</span>
@@ -293,7 +293,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stylist</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;&#39;s appointment with &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer</span><span class="o">.</span><span class="n">username</span></div>
 
 
-<div class="viewcode-block" id="Application"><a class="viewcode-back" href="../../Core.html#core.forms.Application">[docs]</a><span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Application"><a class="viewcode-back" href="../../Core.html#api.serializers.Application">[docs]</a><span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Where user&#39;s stylists applications are stored.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -305,14 +305,14 @@
     <span class="c1"># ToDo: Figure out what fields we want for a stylist application</span>
 
 
-<div class="viewcode-block" id="Questionnaire"><a class="viewcode-back" href="../../Core.html#core.forms.Questionnaire">[docs]</a><span class="k">class</span> <span class="nc">Questionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Questionnaire"><a class="viewcode-back" href="../../Core.html#api.serializers.Questionnaire">[docs]</a><span class="k">class</span> <span class="nc">Questionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Model to store any questionnaire&#39;s that you want users to fill out.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="AnsweredQuestionnaire"><a class="viewcode-back" href="../../Core.html#core.forms.AnsweredQuestionnaire">[docs]</a><span class="k">class</span> <span class="nc">AnsweredQuestionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="AnsweredQuestionnaire"><a class="viewcode-back" href="../../Core.html#api.serializers.AnsweredQuestionnaire">[docs]</a><span class="k">class</span> <span class="nc">AnsweredQuestionnaire</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Model to store a User&#39;s response to a particular questionaire.</span>
 <span class="sd">        | The current date is also stored.</span>
