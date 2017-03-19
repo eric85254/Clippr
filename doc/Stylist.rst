@@ -1,79 +1,64 @@
-stylist package
-===============
-
-Subpackages
------------
+Stylist
+=======
 
 .. toctree::
 
-    stylist.management
-    stylist.migrations
-    stylist.utils
+    Stylist.management.commands
+    Stylist.utils
 
-Submodules
-----------
-
-stylist.admin module
---------------------
+stylist.admin
+-------------
 
 .. automodule:: stylist.admin
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.apps module
--------------------
+stylist.apps
+------------
 
 .. automodule:: stylist.apps
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.forms module
---------------------
+stylist.forms
+-------------
 
 .. automodule:: stylist.forms
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.models module
----------------------
+stylist.models
+--------------
 
 .. automodule:: stylist.models
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.tests module
---------------------
+stylist.tests
+-------------
 
 .. automodule:: stylist.tests
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.urls module
--------------------
+stylist.urls
+------------
 
 .. automodule:: stylist.urls
     :members:
     :undoc-members:
     :show-inheritance:
 
-stylist.views module
---------------------
+stylist.views
+-------------
 
 .. automodule:: stylist.views
     :members:
     :undoc-members:
     :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: stylist
-    :members:
-    :undoc-members:
-    :show-inheritance:

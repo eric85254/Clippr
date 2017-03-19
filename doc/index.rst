@@ -17,7 +17,7 @@ Welcome to Clippr's documentation!
    Customer
    manage
    setup
-   stylist
+   Stylist
 
 
 Indices and tables

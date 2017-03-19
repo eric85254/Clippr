@@ -98,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../stylist.html">stylist package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Stylist.html">Stylist</a></li>
 </ul>
 
             
@@ -167,13 +167,13 @@
 
 
 <span class="c1"># Change price_modifier field name to price</span>
-<div class="viewcode-block" id="Deal"><a class="viewcode-back" href="../../stylist.html#api.serializers.Deal">[docs]</a><span class="k">class</span> <span class="nc">Deal</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="Deal"><a class="viewcode-back" href="../../Stylist.html#api.serializers.Deal">[docs]</a><span class="k">class</span> <span class="nc">Deal</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">stylist</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.User&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
     <span class="n">price_modifier</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span></div>
 
 
-<div class="viewcode-block" id="PortfolioHaircut"><a class="viewcode-back" href="../../stylist.html#api.serializers.PortfolioHaircut">[docs]</a><span class="k">class</span> <span class="nc">PortfolioHaircut</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="PortfolioHaircut"><a class="viewcode-back" href="../../Stylist.html#api.serializers.PortfolioHaircut">[docs]</a><span class="k">class</span> <span class="nc">PortfolioHaircut</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">stylist</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;core.User&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">picture</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s1">&#39;haircuts/%Y/%m/</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>

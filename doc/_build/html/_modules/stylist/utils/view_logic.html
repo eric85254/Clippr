@@ -98,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../Customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../stylist.html">stylist package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Stylist.html">Stylist</a></li>
 </ul>
 
             
@@ -168,10 +168,10 @@
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">ItemInBill</span>
 
 
-<div class="viewcode-block" id="BillLogic"><a class="viewcode-back" href="../../../stylist.utils.html#stylist.utils.view_logic.BillLogic">[docs]</a><span class="k">class</span> <span class="nc">BillLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BillLogic"><a class="viewcode-back" href="../../../Stylist.utils.html#stylist.utils.view_logic.BillLogic">[docs]</a><span class="k">class</span> <span class="nc">BillLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="BillLogic.update_price"><a class="viewcode-back" href="../../../stylist.utils.html#stylist.utils.view_logic.BillLogic.update_price">[docs]</a>    <span class="k">def</span> <span class="nf">update_price</span><span class="p">(</span><span class="n">appointment</span><span class="p">):</span>
+<div class="viewcode-block" id="BillLogic.update_price"><a class="viewcode-back" href="../../../Stylist.utils.html#stylist.utils.view_logic.BillLogic.update_price">[docs]</a>    <span class="k">def</span> <span class="nf">update_price</span><span class="p">(</span><span class="n">appointment</span><span class="p">):</span>
         <span class="n">total</span> <span class="o">=</span> <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">appointment</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">))[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span>
         <span class="n">appointment</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">total</span>
         <span class="n">appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>

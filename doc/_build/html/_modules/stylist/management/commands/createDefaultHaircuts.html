@@ -98,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../Customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">setup module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stylist.html">stylist package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Stylist.html">Stylist</a></li>
 </ul>
 
             
@@ -170,10 +170,10 @@
 <span class="kn">from</span> <span class="nn">stylist.models</span> <span class="k">import</span> <span class="n">PortfolioHaircut</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../stylist.management.commands.html#stylist.management.commands.createDefaultHaircuts.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../Stylist.management.commands.html#stylist.management.commands.createDefaultHaircuts.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
     <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Create Default Haircuts... You need to create default stylists first!&quot;</span>
 
-<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../stylist.management.commands.html#stylist.management.commands.createDefaultHaircuts.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../Stylist.management.commands.html#stylist.management.commands.createDefaultHaircuts.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
         <span class="n">stylist</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="s1">&#39;stylist@gmail.com&#39;</span><span class="p">)</span>
         <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">stylist</span><span class="o">=</span><span class="n">stylist</span><span class="p">,</span>

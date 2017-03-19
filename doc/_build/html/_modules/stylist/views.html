@@ -98,7 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Customer.html">Customer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manage.html">manage module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../setup.html">setup module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../stylist.html">stylist package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Stylist.html">Stylist</a></li>
 </ul>
 
             
@@ -177,7 +177,7 @@
 <span class="kn">from</span> <span class="nn">stylist.utils.view_logic</span> <span class="k">import</span> <span class="n">BillLogic</span>
 
 
-<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../stylist.html#stylist.views.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../Stylist.html#stylist.views.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="n">full_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
 
@@ -193,7 +193,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dashboard"><a class="viewcode-back" href="../../stylist.html#stylist.views.dashboard">[docs]</a><span class="k">def</span> <span class="nf">dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="dashboard"><a class="viewcode-back" href="../../Stylist.html#stylist.views.dashboard">[docs]</a><span class="k">def</span> <span class="nf">dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="n">pending_appointments</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
                                                           <span class="n">status</span><span class="o">=</span><span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_PENDING</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-date&#39;</span><span class="p">)</span>
@@ -226,7 +226,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactions"><a class="viewcode-back" href="../../stylist.html#stylist.views.transactions">[docs]</a><span class="k">def</span> <span class="nf">transactions</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="transactions"><a class="viewcode-back" href="../../Stylist.html#stylist.views.transactions">[docs]</a><span class="k">def</span> <span class="nf">transactions</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">appointments</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_COMPLETED</span><span class="p">)</span>
@@ -247,7 +247,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="appointments"><a class="viewcode-back" href="../../stylist.html#stylist.views.appointments">[docs]</a><span class="k">def</span> <span class="nf">appointments</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="appointments"><a class="viewcode-back" href="../../Stylist.html#stylist.views.appointments">[docs]</a><span class="k">def</span> <span class="nf">appointments</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="n">pending_appointments</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
                                                           <span class="n">status</span><span class="o">=</span><span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_PENDING</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-date&#39;</span><span class="p">)</span>
@@ -275,7 +275,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="accept_appointment"><a class="viewcode-back" href="../../stylist.html#stylist.views.accept_appointment">[docs]</a><span class="k">def</span> <span class="nf">accept_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="accept_appointment"><a class="viewcode-back" href="../../Stylist.html#stylist.views.accept_appointment">[docs]</a><span class="k">def</span> <span class="nf">accept_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -285,7 +285,7 @@
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="decline_appointment"><a class="viewcode-back" href="../../stylist.html#stylist.views.decline_appointment">[docs]</a><span class="k">def</span> <span class="nf">decline_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="decline_appointment"><a class="viewcode-back" href="../../Stylist.html#stylist.views.decline_appointment">[docs]</a><span class="k">def</span> <span class="nf">decline_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -295,7 +295,7 @@
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="reschedule_appointment"><a class="viewcode-back" href="../../stylist.html#stylist.views.reschedule_appointment">[docs]</a><span class="k">def</span> <span class="nf">reschedule_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="reschedule_appointment"><a class="viewcode-back" href="../../Stylist.html#stylist.views.reschedule_appointment">[docs]</a><span class="k">def</span> <span class="nf">reschedule_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -306,7 +306,7 @@
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="complete_appointment"><a class="viewcode-back" href="../../stylist.html#stylist.views.complete_appointment">[docs]</a><span class="k">def</span> <span class="nf">complete_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="complete_appointment"><a class="viewcode-back" href="../../Stylist.html#stylist.views.complete_appointment">[docs]</a><span class="k">def</span> <span class="nf">complete_appointment</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -325,7 +325,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="submit_review"><a class="viewcode-back" href="../../stylist.html#stylist.views.submit_review">[docs]</a><span class="k">def</span> <span class="nf">submit_review</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="submit_review"><a class="viewcode-back" href="../../Stylist.html#stylist.views.submit_review">[docs]</a><span class="k">def</span> <span class="nf">submit_review</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">review</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;review_pk&#39;</span><span class="p">))</span>
@@ -342,7 +342,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="view_bill"><a class="viewcode-back" href="../../stylist.html#stylist.views.view_bill">[docs]</a><span class="k">def</span> <span class="nf">view_bill</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="view_bill"><a class="viewcode-back" href="../../Stylist.html#stylist.views.view_bill">[docs]</a><span class="k">def</span> <span class="nf">view_bill</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -357,7 +357,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="delete_item"><a class="viewcode-back" href="../../stylist.html#stylist.views.delete_item">[docs]</a><span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="delete_item"><a class="viewcode-back" href="../../Stylist.html#stylist.views.delete_item">[docs]</a><span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">item</span> <span class="o">=</span> <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;item_pk&#39;</span><span class="p">))</span>
@@ -370,7 +370,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_item"><a class="viewcode-back" href="../../stylist.html#stylist.views.add_item">[docs]</a><span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="add_item"><a class="viewcode-back" href="../../Stylist.html#stylist.views.add_item">[docs]</a><span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;stylist/bill/add_item_form.html&#39;</span><span class="p">)</span>
@@ -389,7 +389,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_haircut"><a class="viewcode-back" href="../../stylist.html#stylist.views.add_haircut">[docs]</a><span class="k">def</span> <span class="nf">add_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="add_haircut"><a class="viewcode-back" href="../../Stylist.html#stylist.views.add_haircut">[docs]</a><span class="k">def</span> <span class="nf">add_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">portfolio_haircuts</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
@@ -405,7 +405,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_travel_fee"><a class="viewcode-back" href="../../stylist.html#stylist.views.add_travel_fee">[docs]</a><span class="k">def</span> <span class="nf">add_travel_fee</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="add_travel_fee"><a class="viewcode-back" href="../../Stylist.html#stylist.views.add_travel_fee">[docs]</a><span class="k">def</span> <span class="nf">add_travel_fee</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">appointment</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;appointment_pk&#39;</span><span class="p">))</span>
@@ -429,7 +429,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="portfolio"><a class="viewcode-back" href="../../stylist.html#stylist.views.portfolio">[docs]</a><span class="k">def</span> <span class="nf">portfolio</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="portfolio"><a class="viewcode-back" href="../../Stylist.html#stylist.views.portfolio">[docs]</a><span class="k">def</span> <span class="nf">portfolio</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="n">full_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
 
@@ -445,7 +445,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="upload_haircut"><a class="viewcode-back" href="../../stylist.html#stylist.views.upload_haircut">[docs]</a><span class="k">def</span> <span class="nf">upload_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="upload_haircut"><a class="viewcode-back" href="../../Stylist.html#stylist.views.upload_haircut">[docs]</a><span class="k">def</span> <span class="nf">upload_haircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">new_portfolioHaircut_form</span> <span class="o">=</span> <span class="n">NewPortfolioHaircutForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
@@ -471,7 +471,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="edit_portfoliohaircut"><a class="viewcode-back" href="../../stylist.html#stylist.views.edit_portfoliohaircut">[docs]</a><span class="k">def</span> <span class="nf">edit_portfoliohaircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="edit_portfoliohaircut"><a class="viewcode-back" href="../../Stylist.html#stylist.views.edit_portfoliohaircut">[docs]</a><span class="k">def</span> <span class="nf">edit_portfoliohaircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">haircut</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;portfoliohaircut_pk&#39;</span><span class="p">))</span>
@@ -501,7 +501,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="delete_portfoliohaircut"><a class="viewcode-back" href="../../stylist.html#stylist.views.delete_portfoliohaircut">[docs]</a><span class="k">def</span> <span class="nf">delete_portfoliohaircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="delete_portfoliohaircut"><a class="viewcode-back" href="../../Stylist.html#stylist.views.delete_portfoliohaircut">[docs]</a><span class="k">def</span> <span class="nf">delete_portfoliohaircut</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">haircut</span> <span class="o">=</span> <span class="n">PortfolioHaircut</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;portfolio_haircut_pk&#39;</span><span class="p">))</span>
@@ -517,7 +517,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="select_menu_option"><a class="viewcode-back" href="../../stylist.html#stylist.views.select_menu_option">[docs]</a><span class="k">def</span> <span class="nf">select_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="select_menu_option"><a class="viewcode-back" href="../../Stylist.html#stylist.views.select_menu_option">[docs]</a><span class="k">def</span> <span class="nf">select_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">menu_options</span> <span class="o">=</span> <span class="n">GlobalMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">modified_global__stylist</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
@@ -539,7 +539,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="remove_menu_option"><a class="viewcode-back" href="../../stylist.html#stylist.views.remove_menu_option">[docs]</a><span class="k">def</span> <span class="nf">remove_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_menu_option"><a class="viewcode-back" href="../../Stylist.html#stylist.views.remove_menu_option">[docs]</a><span class="k">def</span> <span class="nf">remove_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">))</span>
@@ -553,7 +553,7 @@
 
 
 <span class="c1"># ToDo: difference between select menu_option and create_menu_option??</span>
-<div class="viewcode-block" id="create_menu_option"><a class="viewcode-back" href="../../stylist.html#stylist.views.create_menu_option">[docs]</a><span class="k">def</span> <span class="nf">create_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="create_menu_option"><a class="viewcode-back" href="../../Stylist.html#stylist.views.create_menu_option">[docs]</a><span class="k">def</span> <span class="nf">create_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">menu_option_form</span> <span class="o">=</span> <span class="n">MenuOptionForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
@@ -572,7 +572,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="edit_menu_option"><a class="viewcode-back" href="../../stylist.html#stylist.views.edit_menu_option">[docs]</a><span class="k">def</span> <span class="nf">edit_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="edit_menu_option"><a class="viewcode-back" href="../../Stylist.html#stylist.views.edit_menu_option">[docs]</a><span class="k">def</span> <span class="nf">edit_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">stylist_option</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">))</span>
@@ -591,7 +591,7 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="delete_menu_option"><a class="viewcode-back" href="../../stylist.html#stylist.views.delete_menu_option">[docs]</a><span class="k">def</span> <span class="nf">delete_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="delete_menu_option"><a class="viewcode-back" href="../../Stylist.html#stylist.views.delete_menu_option">[docs]</a><span class="k">def</span> <span class="nf">delete_menu_option</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">stylist_option</span> <span class="o">=</span> <span class="n">StylistMenu</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stylist_option_pk&#39;</span><span class="p">))</span>
@@ -606,7 +606,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="profile_test"><a class="viewcode-back" href="../../stylist.html#stylist.views.profile_test">[docs]</a><span class="k">def</span> <span class="nf">profile_test</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="profile_test"><a class="viewcode-back" href="../../Stylist.html#stylist.views.profile_test">[docs]</a><span class="k">def</span> <span class="nf">profile_test</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;YES&#39;</span><span class="p">:</span>
         <span class="n">full_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
 
