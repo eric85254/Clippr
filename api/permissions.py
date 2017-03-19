@@ -49,7 +49,6 @@ class IsOwnerOfAppointment(permissions.BasePermission):
 '''
 
 
-# Todo: Problem. Only Stylists can see their PortfolioHaircuts. No one else - not even customers can see them.
 class IsOwnerOfHaircut(permissions.BasePermission):
     """
         Permission for Haircut View - checks for the owner of the haircut.

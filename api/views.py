@@ -183,6 +183,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+    """
+        This class handles the interactions with the Stylists in the User database. (The StylistSerializer)
+        | The queryset returns all Users if their is_stylist field equals 'YES'
+    """
     queryset = User.objects.all()
     serializer_class = StylistSerializer
     permission_classes = (IsUserLoggedIn,)
@@ -198,6 +202,11 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):
+    """
+        This class handles the interactions with the Appointment database.
+        | The query set only returns Appointments where the stylist or customer of that appointment is the current user.
+        | Before saving a new appointment the customer field is set to be the current user.
+    """
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
     permission_classes = (IsOwnerOfAppointment,)
@@ -220,6 +229,14 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
 
 class HaircutViewSet(viewsets.ModelViewSet):
+    """
+        This class handles the interactions with the PortfolioHaircut model.
+        | It's important that a parameter is fed to the url like so:
+        | http://www.<domain>.com/api/haircut?stylist_pk=1
+        |   Where the stylist_pk is simply the pk value of the stylist whose haircuts you are trying to view.
+        | If a stylist_pk value is not given then it will retrieve all the PortfolioHaircuts of the current user.
+        |   - zero if they're a customer.
+    """
     queryset = PortfolioHaircut.objects.all()
     serializer_class = PortfolioHaircutSerializer
     permission_classes = (IsOwnerOfHaircut,)
@@ -232,6 +249,7 @@ class HaircutViewSet(viewsets.ModelViewSet):
         return PortfolioHaircut.objects.filter(stylist=stylist)
 
     def perform_create(self, serializer):
+        #Todo make it so that only Stylists can save a haircut.
         serializer.save(stylist=self.request.user)
 
 
@@ -241,6 +259,10 @@ class HaircutViewSet(viewsets.ModelViewSet):
 
 
 class GlobalMenuViewSet(viewsets.ModelViewSet):
+    """
+        This class handles interactions with the GlobalMenu model.
+        | Nothing special here.
+    """
     queryset = GlobalMenu.objects.all()
     serializer_class = GlobalMenuSerializer
     permission_classes = (OnlySuperUsersCanModify,)
@@ -248,6 +270,11 @@ class GlobalMenuViewSet(viewsets.ModelViewSet):
 
 
 class StylistMenuViewSet(viewsets.ModelViewSet):
+    """
+        This class handles interactions with the StylistMenu model.
+        | The queryset returns all of the stylist's menu options
+        | Before saving a new menu option the stylist field is set to the current user.
+    """
     queryset = StylistMenu.objects.all()
     serializer_class = StylistMenuSerializer
 
@@ -255,4 +282,5 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
         return StylistMenu.objects.filter(stylist=self.request.user)
 
     def perform_create(self, serializer):
+        #Todo: currently there's nothing stoping customer's from creating a stylist menu option.
         serializer.save(stylist=self.request.user)
