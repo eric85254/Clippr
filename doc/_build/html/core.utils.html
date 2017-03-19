@@ -186,13 +186,22 @@
 <h1>core.utils<a class="headerlink" href="#core-utils" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-core.utils.global_constants">
 <span id="core-utils-global-constants-module"></span><h2>core.utils.global_constants module<a class="headerlink" href="#module-core.utils.global_constants" title="Permalink to this headline">¶</a></h2>
+<p>This is where global constants are stored.
+Default Picture locations and Default Haircut Locations are stored here.</p>
 </div>
 <div class="section" id="module-core.utils.view_logic">
 <span id="core-utils-view-logic-module"></span><h2>core.utils.view_logic module<a class="headerlink" href="#module-core.utils.view_logic" title="Permalink to this headline">¶</a></h2>
+<p>This class contains a series of common methods that are utilized throughout the core app.</p>
 <dl class="class">
 <dt id="core.utils.view_logic.CookieClearer">
 <em class="property">class </em><code class="descclassname">core.utils.view_logic.</code><code class="descname">CookieClearer</code><a class="reference internal" href="_modules/core/utils/view_logic.html#CookieClearer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.CookieClearer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class is important because of how cookies are used. For example, the stylist_pk is stored in a cookie and is used
+to retrieve the stylist and the stylist&#8217;s information at different pages. However, this same cookie might be used in a different setting,
+a setting where you might not want to see the same stylist that you scheduled the appointment with.</p>
+<div class="line-block">
+<div class="line">After a big function (such as creating an appointment) is completed the cookies are all cleared by invoking the method in this class.</div>
+</div>
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.CookieClearer.appointment_cookies">
 <em class="property">static </em><code class="descname">appointment_cookies</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#CookieClearer.appointment_cookies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.CookieClearer.appointment_cookies" title="Permalink to this definition">¶</a></dt>
@@ -209,6 +218,7 @@
 <dt id="core.utils.view_logic.UserLogic">
 <em class="property">class </em><code class="descclassname">core.utils.view_logic.</code><code class="descname">UserLogic</code><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Common methods relating to User</p>
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.UserLogic.login">
 <em class="property">static </em><code class="descname">login</code><span class="sig-paren">(</span><em>request</em>, <em>user</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.login" title="Permalink to this definition">¶</a></dt>
@@ -217,7 +227,8 @@
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.UserLogic.redirect_to_dashboard">
 <em class="property">static </em><code class="descname">redirect_to_dashboard</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.redirect_to_dashboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.redirect_to_dashboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Directs the user to the proper dashboard or profile page depending on their is_stylist or superuser status.</p>
+</dd></dl>
 
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.UserLogic.retrieve_user">
@@ -227,12 +238,17 @@
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.UserLogic.update_average">
 <em class="property">static </em><code class="descname">update_average</code><span class="sig-paren">(</span><em>review</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.update_average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.update_average" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method is called whenever a new review is made.
+| It takes the given review and pulls the stylist and customer users from it.
+| Then every review pertaining to the customer and stylist is pulled.
+| The ratings of all these reviews are averaged then stored to the stylist&#8217;s or customer&#8217;s average rating field.</p>
+</dd></dl>
 
 <dl class="staticmethod">
 <dt id="core.utils.view_logic.UserLogic.upload_picture">
 <em class="property">static </em><code class="descname">upload_picture</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/view_logic.html#UserLogic.upload_picture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.utils.view_logic.UserLogic.upload_picture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Redundant - should remove.</p>
+</dd></dl>
 
 </dd></dl>
 

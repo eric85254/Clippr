@@ -163,7 +163,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for core.utils.view_logic</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">auth</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class contains a series of common methods that are utilized throughout the core app.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">auth</span>
 <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Avg</span>
 <span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
 
@@ -172,6 +175,9 @@
 
 
 <div class="viewcode-block" id="UserLogic"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic">[docs]</a><span class="k">class</span> <span class="nc">UserLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Common methods relating to User</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="UserLogic.retrieve_user"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.retrieve_user">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -186,6 +192,9 @@
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="UserLogic.redirect_to_dashboard"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.redirect_to_dashboard">[docs]</a>    <span class="k">def</span> <span class="nf">redirect_to_dashboard</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Directs the user to the proper dashboard or profile page depending on their is_stylist or superuser status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;username or password is incorrect&quot;</span>
@@ -200,14 +209,25 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;customer:dashboard&#39;</span><span class="p">)</span></div>
 
+    <span class="c1">#Todo: Should remove this method</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="UserLogic.upload_picture"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.upload_picture">[docs]</a>    <span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Redundant - should remove.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="n">user</span><span class="o">.</span><span class="n">profile_picture</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;profile_picture&#39;</span><span class="p">]</span>
         <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
+    <span class="c1">#Todo: Make this documentation a bit clearer.</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="UserLogic.update_average"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.UserLogic.update_average">[docs]</a>    <span class="k">def</span> <span class="nf">update_average</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            This method is called whenever a new review is made.</span>
+<span class="sd">            | It takes the given review and pulls the stylist and customer users from it.</span>
+<span class="sd">            | Then every review pertaining to the customer and stylist is pulled.</span>
+<span class="sd">            | The ratings of all these reviews are averaged then stored to the stylist&#39;s or customer&#39;s average rating field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stylist</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">stylist</span>
         <span class="n">customer</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">customer</span>
 
@@ -221,6 +241,13 @@
 
 
 <div class="viewcode-block" id="CookieClearer"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer">[docs]</a><span class="k">class</span> <span class="nc">CookieClearer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class is important because of how cookies are used. For example, the stylist_pk is stored in a cookie and is used</span>
+<span class="sd">        to retrieve the stylist and the stylist&#39;s information at different pages. However, this same cookie might be used in a different setting,</span>
+<span class="sd">        a setting where you might not want to see the same stylist that you scheduled the appointment with.</span>
+
+<span class="sd">        | After a big function (such as creating an appointment) is completed the cookies are all cleared by invoking the method in this class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="CookieClearer.appointment_cookies"><a class="viewcode-back" href="../../../core.utils.html#core.utils.view_logic.CookieClearer.appointment_cookies">[docs]</a>    <span class="k">def</span> <span class="nf">appointment_cookies</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="n">cookie_names</span> <span class="o">=</span> <span class="p">[</span>
