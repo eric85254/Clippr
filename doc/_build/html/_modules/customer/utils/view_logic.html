@@ -163,12 +163,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for customer.utils.view_logic</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains logic that is used throughout the Customer app.</span>
+<span class="sd">    @classmethods allow you to utilize the @staticmethods of the class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
 
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">Appointment</span><span class="p">,</span> <span class="n">Application</span><span class="p">,</span> <span class="n">Review</span>
 
 
 <div class="viewcode-block" id="CustomerLogic"><a class="viewcode-back" href="../../../Customer.utils.html#customer.utils.view_logic.CustomerLogic">[docs]</a><span class="k">class</span> <span class="nc">CustomerLogic</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># Todo: This is kind of useless.</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="CustomerLogic.retrieve_application"><a class="viewcode-back" href="../../../Customer.utils.html#customer.utils.view_logic.CustomerLogic.retrieve_application">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_application</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Application</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">applicant</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -176,6 +181,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
+    <span class="c1"># Todo: This is great! Why don&#39;t you use this code everywhere. It&#39;ll save you a lot of hassle if you want to switch to booleans.</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="CustomerLogic.is_customer"><a class="viewcode-back" href="../../../Customer.utils.html#customer.utils.view_logic.CustomerLogic.is_customer">[docs]</a>    <span class="k">def</span> <span class="nf">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_stylist</span> <span class="o">==</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span>
@@ -185,6 +191,10 @@
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CustomerLogic.render_dashboard"><a class="viewcode-back" href="../../../Customer.utils.html#customer.utils.view_logic.CustomerLogic.render_dashboard">[docs]</a>    <span class="k">def</span> <span class="nf">render_dashboard</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            This is here because I hate seeing this god awful chunk of code within the views.py</span>
+<span class="sd">            It just pulls all the appointments by status and the reviews and renders them on the dashboard.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
             <span class="n">pending_appointments</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">Appointment</span><span class="o">.</span><span class="n">STATUS_PENDING</span><span class="p">)</span>
             <span class="n">accepted_appointments</span> <span class="o">=</span> <span class="n">Appointment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">customer</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
@@ -200,20 +210,25 @@
 
             <span class="n">incomplete_reviews</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist_rating__isnull</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">complete_reviews</span> <span class="o">=</span> <span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stylist_rating__isnull</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">customer_rating__isnull</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/dashboard/dashboard_core.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;full_name&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">(),</span>
-                                                               <span class="s1">&#39;pending_appointments&#39;</span><span class="p">:</span> <span class="n">pending_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;accepted_appointments&#39;</span><span class="p">:</span> <span class="n">accepted_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;declined_appointments&#39;</span><span class="p">:</span> <span class="n">declined_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;rescheduled_bystylist_appointments&#39;</span><span class="p">:</span> <span class="n">rescheduled_bystylist_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;rescheduled_bycustomer_appointments&#39;</span><span class="p">:</span> <span class="n">rescheduled_bycustomer_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;completed_appointments&#39;</span><span class="p">:</span> <span class="n">completed_appointments</span><span class="p">,</span>
-                                                               <span class="s1">&#39;incomplete_reviews&#39;</span><span class="p">:</span> <span class="n">incomplete_reviews</span><span class="p">,</span>
-                                                               <span class="s1">&#39;complete_reviews&#39;</span><span class="p">:</span> <span class="n">complete_reviews</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;customer/customerReal/dashboard/dashboard_core.html&#39;</span><span class="p">,</span>
+                          <span class="p">{</span><span class="s1">&#39;full_name&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">(),</span>
+                           <span class="s1">&#39;pending_appointments&#39;</span><span class="p">:</span> <span class="n">pending_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;accepted_appointments&#39;</span><span class="p">:</span> <span class="n">accepted_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;declined_appointments&#39;</span><span class="p">:</span> <span class="n">declined_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;rescheduled_bystylist_appointments&#39;</span><span class="p">:</span> <span class="n">rescheduled_bystylist_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;rescheduled_bycustomer_appointments&#39;</span><span class="p">:</span> <span class="n">rescheduled_bycustomer_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;completed_appointments&#39;</span><span class="p">:</span> <span class="n">completed_appointments</span><span class="p">,</span>
+                           <span class="s1">&#39;incomplete_reviews&#39;</span><span class="p">:</span> <span class="n">incomplete_reviews</span><span class="p">,</span>
+                           <span class="s1">&#39;complete_reviews&#39;</span><span class="p">:</span> <span class="n">complete_reviews</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:logout&#39;</span><span class="p">)</span></div>
 
+    <span class="c1"># todo: shouldn&#39;t have this here.</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CustomerLogic.render_application_status"><a class="viewcode-back" href="../../../Customer.utils.html#customer.utils.view_logic.CustomerLogic.render_application_status">[docs]</a>    <span class="k">def</span> <span class="nf">render_application_status</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Shouldn&#39;t really be here either. Just renders the correct application_status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">is_customer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
             <span class="n">application</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">retrieve_application</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 

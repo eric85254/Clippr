@@ -1,3 +1,11 @@
+"""
+    Urls of the customer app
+
+    Organized by the following categories
+        | create_appointment_patterns
+        | appointment_modifiers
+        | urlpatterns
+"""
 from django.conf.urls import url, include
 
 from customer import views

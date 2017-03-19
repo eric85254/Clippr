@@ -1,3 +1,8 @@
+"""
+    Creates dummy Appointments for the dummy stylist@gmail.com
+    An appointment with each status is created.
+    An ItemInBill entry is created for each appointment with the appointment status as its name.
+"""
 from django.core.management import BaseCommand
 
 from core.models import Appointment, User, ItemInBill

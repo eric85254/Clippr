@@ -184,6 +184,8 @@
 <h1>customer.utils<a class="headerlink" href="#customer-utils" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-customer.utils.view_logic">
 <span id="customer-utils-view-logic"></span><h2>customer.utils.view_logic<a class="headerlink" href="#module-customer.utils.view_logic" title="Permalink to this headline">¶</a></h2>
+<p>Contains logic that is used throughout the Customer app.
+&#64;classmethods allow you to utilize the &#64;staticmethods of the class.</p>
 <dl class="class">
 <dt id="customer.utils.view_logic.CustomerLogic">
 <em class="property">class </em><code class="descclassname">customer.utils.view_logic.</code><code class="descname">CustomerLogic</code><a class="reference internal" href="_modules/customer/utils/view_logic.html#CustomerLogic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.utils.view_logic.CustomerLogic" title="Permalink to this definition">¶</a></dt>
@@ -196,12 +198,15 @@
 <dl class="classmethod">
 <dt id="customer.utils.view_logic.CustomerLogic.render_application_status">
 <em class="property">classmethod </em><code class="descname">render_application_status</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/utils/view_logic.html#CustomerLogic.render_application_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.utils.view_logic.CustomerLogic.render_application_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Shouldn&#8217;t really be here either. Just renders the correct application_status.</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="customer.utils.view_logic.CustomerLogic.render_dashboard">
 <em class="property">classmethod </em><code class="descname">render_dashboard</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/customer/utils/view_logic.html#CustomerLogic.render_dashboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#customer.utils.view_logic.CustomerLogic.render_dashboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This is here because I hate seeing this god awful chunk of code within the views.py
+It just pulls all the appointments by status and the reviews and renders them on the dashboard.</p>
+</dd></dl>
 
 <dl class="staticmethod">
 <dt id="customer.utils.view_logic.CustomerLogic.retrieve_application">

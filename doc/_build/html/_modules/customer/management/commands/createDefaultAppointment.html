@@ -163,7 +163,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for customer.management.commands.createDefaultAppointment</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates dummy Appointments for the dummy stylist@gmail.com</span>
+<span class="sd">    An appointment with each status is created.</span>
+<span class="sd">    An ItemInBill entry is created for each appointment with the appointment status as its name.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
 
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">Appointment</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">ItemInBill</span>
 <span class="kn">from</span> <span class="nn">stylist.utils.view_logic</span> <span class="k">import</span> <span class="n">BillLogic</span>
