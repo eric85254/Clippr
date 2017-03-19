@@ -1,3 +1,6 @@
+"""
+    This is where you register models so that they are viewable and editable in the built in Django admin page.
+"""
 from django.contrib import admin
 
 # Register your models here.

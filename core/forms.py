@@ -1,3 +1,7 @@
+"""
+    Forms are a class that can be utilized within a django template to quickly render the correct fields.
+    They can also be utilized to catch data from a POST.
+"""
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
@@ -11,7 +15,14 @@ class NewUserForm(UserCreationForm):
 
 
 class UserInformation(ModelForm):
+    """
+        This is how the user can change their basic information.
+    """
+    #Todo: You need to remember why this is here.
     def is_valid(self, *args, **kwargs):
+        """
+            I forgot what this does. But it's pretty important.
+        """
         valid = super(UserInformation, self).is_valid()
 
         request = kwargs.pop('request')
