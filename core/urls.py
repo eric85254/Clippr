@@ -1,3 +1,12 @@
+"""
+    Urls for the Core app.
+
+    Urls are organized by the following categories
+        | loginpatterns
+        | navbarpatterns
+        | profilepatterns
+        | urlpatterns
+"""
 from django.conf.urls import url, include
 
 from core import views

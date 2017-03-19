@@ -28,6 +28,8 @@ class UserInformation(ModelForm):
         request = kwargs.pop('request')
         user = request.user
 
+        # I think if the user.email is the same as the 'change' then there's an error. So this exists to override the error.
+        # But the errors from the other sections can be 'hidden' if the following two lines pass.
         if user.email == self.data['email']:
             if user.phone_number == self.data['phone_number']:
                 return True

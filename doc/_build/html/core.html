@@ -324,10 +324,13 @@ They can also be utilized to catch data from a POST.</p>
 </div>
 <div class="section" id="module-core.models">
 <span id="core-models"></span><h2>core.models<a class="headerlink" href="#module-core.models" title="Permalink to this headline">¶</a></h2>
+<p>Contains the Models that are utilized by all the apps in the project. Essentially the &#8216;core&#8217; models.</p>
 <dl class="class">
 <dt id="core.models.AnsweredQuestionnaire">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">AnsweredQuestionnaire</code><span class="sig-paren">(</span><em>id</em>, <em>user</em>, <em>questionnaire</em>, <em>response</em>, <em>time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#AnsweredQuestionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.AnsweredQuestionnaire" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">AnsweredQuestionnaire</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#AnsweredQuestionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.AnsweredQuestionnaire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Model to store a User&#8217;s response to a particular questionaire.
+| The current date is also stored.</p>
 <dl class="exception">
 <dt id="core.models.AnsweredQuestionnaire.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.AnsweredQuestionnaire.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -420,8 +423,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.Application">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Application</code><span class="sig-paren">(</span><em>id</em>, <em>applicant</em>, <em>application_status</em>, <em>denied_reason</em>, <em>reason</em>, <em>interview_time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Application"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Application" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Application</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Application"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Application" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Where user&#8217;s stylists applications are stored.</p>
 <dl class="exception">
 <dt id="core.models.Application.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Application.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -498,8 +502,11 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.Appointment">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Appointment</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>customer</em>, <em>location</em>, <em>date</em>, <em>price</em>, <em>status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Appointment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Appointment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Appointment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Appointment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Appointments all have a particular status that describes their current state.
+| They are all tied to a customer and a stylist.
+| An Appointment entry won&#8217;t be deleted if the stylist or customer is deleted.</p>
 <dl class="exception">
 <dt id="core.models.Appointment.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Appointment.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -676,8 +683,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.GlobalMenu">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">GlobalMenu</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>price</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#GlobalMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.GlobalMenu" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">GlobalMenu</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#GlobalMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.GlobalMenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Global Menu options available to all stylists are stored here.</p>
 <dl class="exception">
 <dt id="core.models.GlobalMenu.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.GlobalMenu.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -750,8 +758,10 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.ItemInBill">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">ItemInBill</code><span class="sig-paren">(</span><em>id</em>, <em>item_portfolio</em>, <em>item_menu</em>, <em>item_custom</em>, <em>price</em>, <em>appointment</em>, <em>charged</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#ItemInBill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.ItemInBill" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">ItemInBill</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#ItemInBill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.ItemInBill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Each ItemInBill is tied to a particular appointment. To get the total cost of the appointment you must
+sum up the ItemInBill.price of all the ItemInBill items that are tied to it.</p>
 <dl class="exception">
 <dt id="core.models.ItemInBill.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.ItemInBill.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -861,8 +871,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.Questionnaire">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Questionnaire</code><span class="sig-paren">(</span><em>id</em>, <em>question</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Questionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Questionnaire" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Questionnaire</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Questionnaire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Questionnaire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Model to store any questionnaire&#8217;s that you want users to fill out.</p>
 <dl class="exception">
 <dt id="core.models.Questionnaire.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Questionnaire.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -913,8 +924,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.Review">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Review</code><span class="sig-paren">(</span><em>id</em>, <em>stylist_rating</em>, <em>customer_rating</em>, <em>appointment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Review"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Review" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">Review</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#Review"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.Review" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Tied to an appointment. There exists a field for both stylist and customer ratings.</p>
 <dl class="exception">
 <dt id="core.models.Review.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.Review.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -977,8 +989,11 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.StylistMenu">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">StylistMenu</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>name</em>, <em>price</em>, <em>modified_global</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#StylistMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.StylistMenu" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">StylistMenu</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#StylistMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.StylistMenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>A stylist&#8217;s unique menu option.
+| If the stylist makes a modification to the Global Menu option then their modification is stored here
+as a new Menu option and it is tied to the Global Menu through the field modified_global.</p>
 <dl class="exception">
 <dt id="core.models.StylistMenu.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.StylistMenu.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -1076,8 +1091,12 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="core.models.User">
-<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>id</em>, <em>password</em>, <em>last_login</em>, <em>is_superuser</em>, <em>first_name</em>, <em>last_name</em>, <em>is_staff</em>, <em>is_active</em>, <em>date_joined</em>, <em>username</em>, <em>is_stylist</em>, <em>profile_picture</em>, <em>biography</em>, <em>location</em>, <em>hair_type</em>, <em>hidden_hair_type</em>, <em>email</em>, <em>phone_number</em>, <em>average_stylist_rating</em>, <em>average_customer_rating</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.User" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/models.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.models.User" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></p>
+<p>Extends the AbstractUser class.
+| Changed the USERNAME_FIELD to be &#8216;email&#8217;
+| Modified REQUIRED_FIELDS
+| phone_number is validated by regex</p>
 <dl class="exception">
 <dt id="core.models.User.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#core.models.User.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -1355,18 +1374,36 @@ class built by <code class="docutils literal"><span class="pre">create_forward_m
 </div>
 <div class="section" id="module-core.urls">
 <span id="core-urls"></span><h2>core.urls<a class="headerlink" href="#module-core.urls" title="Permalink to this headline">¶</a></h2>
+<p>Urls for the Core app.</p>
+<dl class="docutils">
+<dt>Urls are organized by the following categories</dt>
+<dd><div class="first last line-block">
+<div class="line">loginpatterns</div>
+<div class="line">navbarpatterns</div>
+<div class="line">profilepatterns</div>
+<div class="line">urlpatterns</div>
+</div>
+</dd>
+</dl>
 </div>
 <div class="section" id="module-core.views">
 <span id="core-views"></span><h2>core.views<a class="headerlink" href="#module-core.views" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="core.views.change_password">
 <code class="descclassname">core.views.</code><code class="descname">change_password</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#change_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.change_password" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This view is utilized to change the password. If there are errors with the password then the errors get saved as a cookie.
+The cookie is cleared by the end of this method.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="core.views.create_user">
 <code class="descclassname">core.views.</code><code class="descname">create_user</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#create_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.create_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>This view is accessed by AJAX. It sends NewUserData via POST request. If the data is valid</dt>
+<dd>a JsonResponse is sent back with &#8216;success&#8217;: True. If there are any errors then the errors and &#8216;success&#8217;: False
+are sent back as a JsonResponse.</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="core.views.home">
@@ -1401,17 +1438,22 @@ class built by <code class="docutils literal"><span class="pre">create_forward_m
 <dl class="function">
 <dt id="core.views.returning_user">
 <code class="descclassname">core.views.</code><code class="descname">returning_user</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#returning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.returning_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Accepts a POST request containing the username and password.
+| Validates the request and redirects the user to the proper page.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="core.views.update_basic_information">
 <code class="descclassname">core.views.</code><code class="descname">update_basic_information</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#update_basic_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.update_basic_information" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If there is a problem with updating the information then the errors are sent back via a cookie.
+The cookie is erased at the end of this code.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="core.views.upload_picture">
 <code class="descclassname">core.views.</code><code class="descname">upload_picture</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/views.html#upload_picture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.views.upload_picture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>View is utilized by users to update their profile picture.</p>
+</dd></dl>
 
 </div>
 </div>

@@ -193,6 +193,8 @@
         <span class="n">request</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
 
+        <span class="c1"># I think if the user.email is the same as the &#39;change&#39; then there&#39;s an error. So this exists to override the error.</span>
+        <span class="c1"># But the errors from the other sections can be &#39;hidden&#39; if the following two lines pass.</span>
         <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">phone_number</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;phone_number&#39;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="kc">True</span>

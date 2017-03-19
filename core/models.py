@@ -1,3 +1,6 @@
+"""
+    Contains the Models that are utilized by all the apps in the project. Essentially the 'core' models.
+"""
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime as datetime
 
@@ -9,6 +12,12 @@ from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_P
 
 
 class User(AbstractUser):
+    """
+        Extends the AbstractUser class.
+        | Changed the USERNAME_FIELD to be 'email'
+        | Modified REQUIRED_FIELDS
+        | phone_number is validated by regex
+    """
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number']
     username = models.CharField(max_length=1, unique=False, blank=True)
@@ -31,6 +40,9 @@ class User(AbstractUser):
 
 
 class GlobalMenu(models.Model):
+    """
+        Global Menu options available to all stylists are stored here.
+    """
     name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -39,16 +51,24 @@ class GlobalMenu(models.Model):
 
 
 class StylistMenu(models.Model):
+    """
+        A stylist's unique menu option.
+        | If the stylist makes a modification to the Global Menu option then their modification is stored here
+        as a new Menu option and it is tied to the Global Menu through the field modified_global.
+    """
     stylist = models.ForeignKey('core.User', related_name='owner')
     name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
 
     def __str__(self):
-        stylist_bridge = StylistBridgeMenu.objects.get(stylist_menu=self)
-        return "Stylist: " + stylist_bridge.stylist.get_full_name() + " || Name: " + self.name
+        return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name
 
 class ItemInBill(models.Model):
+    """
+        Each ItemInBill is tied to a particular appointment. To get the total cost of the appointment you must
+        sum up the ItemInBill.price of all the ItemInBill items that are tied to it.
+    """
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
     item_menu = models.ForeignKey('core.StylistMenu', related_name='item_menu', null=True, blank=True)
     item_custom = models.TextField(blank=True)
@@ -67,6 +87,9 @@ class ItemInBill(models.Model):
 
 
 class Review(models.Model):
+    """
+        Tied to an appointment. There exists a field for both stylist and customer ratings.
+    """
     stylist_rating = models.IntegerField(null=True)
     customer_rating = models.IntegerField(null=True)
     appointment = models.ForeignKey('core.Appointment', related_name='appointment', on_delete=models.SET_NULL,
@@ -74,6 +97,11 @@ class Review(models.Model):
 
 
 class Appointment(models.Model):
+    """
+        Appointments all have a particular status that describes their current state.
+        | They are all tied to a customer and a stylist.
+        | An Appointment entry won't be deleted if the stylist or customer is deleted.
+    """
     STATUS_PENDING = 'PENDING'
     STATUS_RECHEDULED_BYSTYLIST = 'RESCHEDULED_BYSTYLIST'
     STATUS_RESCHEDULED_BYCUSTOMER = 'RESCHEDULED_BYCUSTOMER'
@@ -101,6 +129,9 @@ class Appointment(models.Model):
 
 
 class Application(models.Model):
+    """
+        Where user's stylists applications are stored.
+    """
     applicant = models.ForeignKey('core.User', on_delete=models.CASCADE)
     application_status = models.TextField(default='PENDING')
     denied_reason = models.TextField(blank=True)
@@ -110,10 +141,17 @@ class Application(models.Model):
 
 
 class Questionnaire(models.Model):
+    """
+        Model to store any questionnaire's that you want users to fill out.
+    """
     question = models.TextField()
 
 
 class AnsweredQuestionnaire(models.Model):
+    """
+        Model to store a User's response to a particular questionaire.
+        | The current date is also stored.
+    """
     user = models.ForeignKey('core.User', on_delete=models.CASCADE)
     questionnaire = models.ForeignKey('core.Questionnaire', on_delete=models.CASCADE)
     response = models.TextField(blank=True)

@@ -16,6 +16,11 @@ from core.utils.view_logic import UserLogic
 
 
 def create_user(request):
+    """
+        This view is accessed by AJAX. It sends NewUserData via POST request. If the data is valid
+         a JsonResponse is sent back with 'success': True. If there are any errors then the errors and 'success': False
+         are sent back as a JsonResponse.
+    """
     if request.method == 'POST':
         create_user_form = NewUserForm(request.POST)
 
@@ -43,6 +48,10 @@ def create_user(request):
 
 
 def returning_user(request):
+    """
+        Accepts a POST request containing the username and password.
+        | Validates the request and redirects the user to the proper page.
+    """
     if request.method == 'GET':
         return redirect('core:home')
 
@@ -58,6 +67,9 @@ def returning_user(request):
 
 
 def upload_picture(request):
+    """
+        View is utilized by users to update their profile picture.
+    """
     if request.method == 'GET':
         return render(request, 'core/upload_picture.html')
 
@@ -82,6 +94,10 @@ def logout(request):
 
 
 def update_basic_information(request):
+    """
+        If there is a problem with updating the information then the errors are sent back via a cookie.
+        The cookie is erased at the end of this code.
+    """
     if request.method == 'POST':
         information = UserInformation(request.POST)
 
@@ -110,6 +126,10 @@ def update_basic_information(request):
 
 
 def change_password(request):
+    """
+        This view is utilized to change the password. If there are errors with the password then the errors get saved as a cookie.
+        The cookie is cleared by the end of this method.
+    """
     if not request.user.is_anonymous:
         if request.method == 'POST':
             new_password = request.POST.get('new_password')

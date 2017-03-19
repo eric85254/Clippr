@@ -181,6 +181,11 @@
 
 
 <div class="viewcode-block" id="create_user"><a class="viewcode-back" href="../../Core.html#core.views.create_user">[docs]</a><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This view is accessed by AJAX. It sends NewUserData via POST request. If the data is valid</span>
+<span class="sd">         a JsonResponse is sent back with &#39;success&#39;: True. If there are any errors then the errors and &#39;success&#39;: False</span>
+<span class="sd">         are sent back as a JsonResponse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">create_user_form</span> <span class="o">=</span> <span class="n">NewUserForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
@@ -208,6 +213,10 @@
 
 
 <div class="viewcode-block" id="returning_user"><a class="viewcode-back" href="../../Core.html#core.views.returning_user">[docs]</a><span class="k">def</span> <span class="nf">returning_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Accepts a POST request containing the username and password.</span>
+<span class="sd">        | Validates the request and redirects the user to the proper page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:home&#39;</span><span class="p">)</span>
 
@@ -223,6 +232,9 @@
 
 
 <div class="viewcode-block" id="upload_picture"><a class="viewcode-back" href="../../Core.html#core.views.upload_picture">[docs]</a><span class="k">def</span> <span class="nf">upload_picture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        View is utilized by users to update their profile picture.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;core/upload_picture.html&#39;</span><span class="p">)</span>
 
@@ -247,6 +259,10 @@
 
 
 <div class="viewcode-block" id="update_basic_information"><a class="viewcode-back" href="../../Core.html#core.views.update_basic_information">[docs]</a><span class="k">def</span> <span class="nf">update_basic_information</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If there is a problem with updating the information then the errors are sent back via a cookie.</span>
+<span class="sd">        The cookie is erased at the end of this code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">information</span> <span class="o">=</span> <span class="n">UserInformation</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 
@@ -275,6 +291,10 @@
 
 
 <div class="viewcode-block" id="change_password"><a class="viewcode-back" href="../../Core.html#core.views.change_password">[docs]</a><span class="k">def</span> <span class="nf">change_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This view is utilized to change the password. If there are errors with the password then the errors get saved as a cookie.</span>
+<span class="sd">        The cookie is cleared by the end of this method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
             <span class="n">new_password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_password&#39;</span><span class="p">)</span>
