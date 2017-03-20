@@ -172,6 +172,12 @@
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="BillLogic.update_price"><a class="viewcode-back" href="../../../Stylist.utils.html#stylist.utils.view_logic.BillLogic.update_price">[docs]</a>    <span class="k">def</span> <span class="nf">update_price</span><span class="p">(</span><span class="n">appointment</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Simple method that finds all the ItemInBill entries for a particular appointment</span>
+<span class="sd">            and then sums up the cost.</span>
+<span class="sd">            | the appointment.price field is then updated with this newly calculated sum.</span>
+<span class="sd">            | the appointment is then saved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">total</span> <span class="o">=</span> <span class="n">ItemInBill</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appointment</span><span class="o">=</span><span class="n">appointment</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">))[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span>
         <span class="n">appointment</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">total</span>
         <span class="n">appointment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>

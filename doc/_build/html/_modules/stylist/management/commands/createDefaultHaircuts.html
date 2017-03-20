@@ -163,7 +163,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for stylist.management.commands.createDefaultHaircuts</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates dummy portfolio items for the dummy stylist account.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">BaseCommand</span>
 
 <span class="kn">from</span> <span class="nn">core.models</span> <span class="k">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">core.utils.global_constants</span> <span class="k">import</span> <span class="n">DEFAULT_HAIRCUT_1</span><span class="p">,</span> <span class="n">DEFAULT_HAIRCUT_2</span><span class="p">,</span> <span class="n">DEFAULT_HAIRCUT_3</span>

@@ -288,8 +288,10 @@
 <span id="stylist-models"></span><h2>stylist.models<a class="headerlink" href="#module-stylist.models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="stylist.models.Deal">
-<em class="property">class </em><code class="descclassname">stylist.models.</code><code class="descname">Deal</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stylist/models.html#Deal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stylist.models.Deal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">stylist.models.</code><code class="descname">Deal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stylist/models.html#Deal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stylist.models.Deal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This is a model created to hold the deals that a stylist offers.
+It&#8217;s not really in use yet.</p>
 <dl class="exception">
 <dt id="stylist.models.Deal.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#stylist.models.Deal.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -351,8 +353,36 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="stylist.models.PortfolioHaircut">
-<em class="property">class </em><code class="descclassname">stylist.models.</code><code class="descname">PortfolioHaircut</code><span class="sig-paren">(</span><em>id</em>, <em>stylist</em>, <em>picture</em>, <em>name</em>, <em>description</em>, <em>price</em>, <em>menu_option</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stylist/models.html#PortfolioHaircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stylist.models.PortfolioHaircut" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">stylist.models.</code><code class="descname">PortfolioHaircut</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stylist/models.html#PortfolioHaircut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stylist.models.PortfolioHaircut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="docutils">
+<dt>Model to hold portfolio haircuts.</dt>
+<dd><dl class="first last docutils">
+<dt><strong>fields:</strong></dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param stylist:</th><td class="field-body">foreign key to User database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param picture:</th><td class="field-body">FileField</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">Character Field</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param description:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Text Field (Text field has no max character length)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param price:</th><td class="field-body">Decimal Field</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param menu_option:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">foreign key to StylistMenu</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="exception">
 <dt id="stylist.models.PortfolioHaircut.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#stylist.models.PortfolioHaircut.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -478,6 +508,19 @@ object the first time, the query is executed.</p>
 </div>
 <div class="section" id="module-stylist.urls">
 <span id="stylist-urls"></span><h2>stylist.urls<a class="headerlink" href="#module-stylist.urls" title="Permalink to this headline">¶</a></h2>
+<p>Urls of the Stylist app</p>
+<dl class="docutils">
+<dt>Organized by the following categories</dt>
+<dd><div class="first last line-block">
+<div class="line">appointmentpatterns</div>
+<div class="line">billpatterns</div>
+<div class="line">profilepatterns</div>
+<div class="line">portfoliopatterns</div>
+<div class="line">menupatterns</div>
+<div class="line">urlpatterns</div>
+</div>
+</dd>
+</dl>
 </div>
 <div class="section" id="module-stylist.views">
 <span id="stylist-views"></span><h2>stylist.views<a class="headerlink" href="#module-stylist.views" title="Permalink to this headline">¶</a></h2>
