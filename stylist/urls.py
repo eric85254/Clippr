@@ -1,3 +1,14 @@
+"""
+    Urls of the Stylist app
+
+    Organized by the following categories
+        | appointmentpatterns
+        | billpatterns
+        | profilepatterns
+        | portfoliopatterns
+        | menupatterns
+        | urlpatterns
+"""
 from django.conf.urls import url, include
 
 from stylist import views

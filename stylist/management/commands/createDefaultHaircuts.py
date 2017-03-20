@@ -1,3 +1,6 @@
+"""
+    Creates dummy portfolio items for the dummy stylist account.
+"""
 from django.core.management import BaseCommand
 
 from core.models import User
