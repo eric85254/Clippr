@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'fullcalendar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -134,3 +135,10 @@ ALLOWED_HOSTS = ['.ngrok.io', '127.0.0.1']
 
 AUTHENTICATION_BACKENDS = ['core.backends.EmailPhoneNumberOrUsernameModelBackend']
 
+FULLCALENDAR = {
+    'css_url': '/node_modules/fullcalendar/fullcalendar.css',
+    'print_css_url': '/node_modules/fullcalendar/fullcalendar.print.css',
+    'javascript_url': '/node_modules/fullcalendar/fullcalendar.js',
+    'jquery_url': '/node_modules/jquery/jquery.js',
+    'jquery_ui_url': '/node_modules/jquery/core.js',
+}

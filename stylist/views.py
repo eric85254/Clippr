@@ -455,3 +455,7 @@ def profile_test(request):
                        'stylist_options': stylist_options}, )
     else:
         return redirect('core:logout')
+
+
+def calendar_test(request):
+    return render(request, 'stylist/calendar/calendar_test.html')

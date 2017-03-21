@@ -49,6 +49,10 @@ menupatterns = [
     url(r'^delete_menu_option/$', views.delete_menu_option, name="delete_menu_option")
 ]
 
+calendar_patterns = [
+    url(r'^$', views.calendar_test, name="calendar_test")
+]
+
 urlpatterns = [
     url(r'^profile/', include(profilepatterns)),
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
@@ -58,5 +62,6 @@ urlpatterns = [
     url(r'^portfolio/', include(portfoliopatterns)),
     url(r'^profile_test/', include(profilepatterns)),
     url(r'^menu/', include(menupatterns)),
-    url(r'^appointments/', views.appointments, name="appointments")
+    url(r'^appointments/', views.appointments, name="appointments"),
+    url(r'^calendar/', include(calendar_patterns))
 ]
