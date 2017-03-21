@@ -19,7 +19,7 @@
     </ul>
     <div class="tab-content card-scroll">
         <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-            {% for appointment in accepted_appointments %}
+            {% for appointment, bill in accepted_appointments_bill.items %}
                 <div id="accordion" role="tablist" aria-multiselectable="true">
                     <div role="tab" id="headingTwo">
                         <div class="card mb-3 appointment-block">
