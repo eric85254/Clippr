@@ -34,30 +34,29 @@ def dashboard(request):
                                                           status=Appointment.STATUS_PENDING).order_by('-date')
         accepted_appointments = Appointment.objects.filter(stylist=request.user,
                                                            status=Appointment.STATUS_ACCEPTED).order_by('-date')
-        declined_appointments = Appointment.objects.filter(stylist=request.user,
-                                                           status=Appointment.STATUS_DECLINED).order_by('-date')
-        rescheduled_bystylist_appointments = Appointment.objects.filter(stylist=request.user,
-                                                                        status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
-        rescheduled_bycustomer_appointments = Appointment.objects.filter(stylist=request.user,
-                                                                         status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+
         completed_appointments = Appointment.objects.filter(stylist=request.user,
                                                             status=Appointment.STATUS_COMPLETED).order_by('-date')
+
+        pending_appointments_bill = BillLogic.combine_appointment_bill(pending_appointments)
+        accepted_appointments_bill = BillLogic.combine_appointment_bill(accepted_appointments)
+        completed_appointments_bill = BillLogic.combine_appointment_bill(completed_appointments)
 
         incomplete_reviews = Review.objects.filter(customer_rating__isnull=True)
         complete_reviews = Review.objects.filter(stylist_rating__isnull=False, customer_rating__isnull=False)
         stylist_options = StylistMenu.objects.filter(stylist=request.user)
         return render(request, 'stylist/stylistReal/dashboard/dashboard_core.html',
                       {'full_name': request.user.get_full_name(),
-                       'pending_appointments': pending_appointments,
-                       'accepted_appointments': accepted_appointments,
-                       'declined_appointments': declined_appointments,
-                       'rescheduled_bystylist_appointments': rescheduled_bystylist_appointments,
-                       'rescheduled_bycustomer_appointments': rescheduled_bycustomer_appointments,
-                       'completed_appointments': completed_appointments,
+                       # 'pending_appointments': pending_appointments,
+                       # 'accepted_appointments': accepted_appointments,
+                       # 'completed_appointments': completed_appointments,
+                       'pending_appointments_bill': pending_appointments_bill,
+                       'accepted_appointments_bill': accepted_appointments_bill,
+                       'completed_appointments_bill': completed_appointments_bill,
                        'incomplete_reviews': incomplete_reviews,
                        'complete_reviews': complete_reviews,
                        'stylist_options': stylist_options})
-    else:
+        else:
         return redirect('core:logout')
 
 
@@ -214,10 +213,10 @@ def add_item(request):
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
                 if appointment.status is not Appointment.STATUS_COMPLETED:
                     ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
-                                              price=request.POST.get('price'), appointment=appointment)
+                                                     price=request.POST.get('price'), appointment=appointment)
 
                     BillLogic.update_price(appointment)
-                return redirect('stylist:view_bill')
+                return redirect('stylist:dashboard')
         else:
             return redirect('core:logout')
     else:
@@ -235,7 +234,7 @@ def add_haircut(request):
             if appointment.status is not Appointment.STATUS_COMPLETED:
                 ItemInBill.objects.create(item_portfolio=haircut, price=haircut.price, appointment=appointment)
                 BillLogic.update_price(appointment)
-            return redirect('stylist:view_bill')
+            return redirect('stylist:dashboard')
     else:
         return redirect('core:logout')
 
@@ -251,7 +250,7 @@ def add_travel_fee(request):
                     item.price = request.POST.get('travel_fee')
                 else:
                     ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
-                                              appointment=appointment)
+                                                     appointment=appointment)
                 appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
                 BillLogic.update_price(appointment)
             return redirect(request.META.get('HTTP_REFERER'))
