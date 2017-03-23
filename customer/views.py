@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, ItemInBill, Review, StylistMenu
+from core.models import User, Appointment, ItemInBill, Review
 from datetime import datetime
 
 # for the search
@@ -14,7 +14,7 @@ from operator import __or__ as OR
 
 # from django.db.models import Q,
 from customer.utils.view_logic import CustomerLogic
-from stylist.models import PortfolioHaircut
+from stylist.models import PortfolioHaircut, StylistMenu
 from stylist.utils.view_logic import BillLogic
 
 '''

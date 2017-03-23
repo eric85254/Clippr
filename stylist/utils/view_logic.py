@@ -16,3 +16,13 @@ class BillLogic(object):
         total = ItemInBill.objects.filter(appointment=appointment).aggregate(sum=Sum('price'))['sum']
         appointment.price = total
         appointment.save()
+
+
+class StylistLogic(object):
+
+    @staticmethod
+    def is_stylist(request):
+        if request.user.is_stylist == 'YES':
+            return True
+        else:
+            return False

@@ -1,15 +1,16 @@
 from datetime import datetime
 
 from django.db.models import Q
+from django.http import JsonResponse
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, GlobalMenu, ItemInBill, Review, StylistMenu
+from core.models import Appointment, GlobalMenu, ItemInBill, Review
 from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
-from stylist.models import PortfolioHaircut
-from stylist.utils.view_logic import BillLogic
+from stylist.models import PortfolioHaircut, StylistMenu, Shift
+from stylist.utils.view_logic import BillLogic, StylistLogic
 
 
 def profile(request):
@@ -457,5 +458,22 @@ def profile_test(request):
         return redirect('core:logout')
 
 
-def calendar_test(request):
+def render_calendar_page(request):
     return render(request, 'stylist/calendar/calendar_test.html')
+
+def calendar_data(request):
+    if StylistLogic.is_stylist(request):
+        if request.method == 'GET':
+            data = []
+            shifts = Shift.objects.filter(owner=request.user)
+
+            for shift in shifts:
+                shift_entry = {
+                    'title': "Available",
+                    'start': shift.start_time,
+                    'end': shift.end_time,
+                    'dow': [shift.day]
+                }
+                data.append(shift_entry)
+
+            return JsonResponse(data, safe=False)

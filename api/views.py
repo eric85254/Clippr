@@ -23,8 +23,8 @@ from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUse
     OnlySuperUsersCanModify
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
     GlobalMenuSerializer, StylistMenuSerializer
-from core.models import User, Appointment, GlobalMenu, Review, StylistMenu
-from stylist.models import PortfolioHaircut
+from core.models import User, Appointment, GlobalMenu, Review
+from stylist.models import PortfolioHaircut, StylistMenu
 
 '''
     USER LOGIN & LOGOUT

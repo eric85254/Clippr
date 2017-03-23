@@ -15,7 +15,25 @@
         $(document).ready(function () { // Page is ready.
             // Initialize the calendar.
             $('#calendar').fullCalendar({
-
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: moment().format("YYYY-MM-DD"),
+                editable: true,
+                events: {
+                    url: '{% url 'stylist:calendar_data' %}',
+                    error: function () {
+                        $('#script-warning').show();
+                    },
+                    success: function (data) {
+                        console.log("data rendered");
+                    }
+                },
+                loading: function (bool) {
+                    $('#loading').toggle(bool);
+                }
             });
         });
     </script>

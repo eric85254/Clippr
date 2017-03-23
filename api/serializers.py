@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from core.models import User, Appointment, GlobalMenu, StylistMenu
+from core.models import User, Appointment, GlobalMenu
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from stylist.models import PortfolioHaircut
+from stylist.models import PortfolioHaircut, StylistMenu
 
 '''
     User Serializer.

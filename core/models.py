@@ -34,7 +34,7 @@ class User(AbstractUser):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], blank=True, max_length=15, unique=True)
 
-    #Todo: maybe don't show this until a certain number of people have rated?
+    # Todo: maybe don't show this until a certain number of people have rated?
     average_stylist_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
     average_customer_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
 
@@ -50,27 +50,13 @@ class GlobalMenu(models.Model):
         return self.name
 
 
-class StylistMenu(models.Model):
-    """
-        A stylist's unique menu option.
-        | If the stylist makes a modification to the Global Menu option then their modification is stored here
-        as a new Menu option and it is tied to the Global Menu through the field modified_global.
-    """
-    stylist = models.ForeignKey('core.User', related_name='owner')
-    name = models.CharField(max_length=20)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
-
-    def __str__(self):
-        return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name
-
 class ItemInBill(models.Model):
     """
         Each ItemInBill is tied to a particular appointment. To get the total cost of the appointment you must
         sum up the ItemInBill.price of all the ItemInBill items that are tied to it.
     """
     item_portfolio = models.ForeignKey('stylist.PortfolioHaircut', related_name='item_portfolio', null=True, blank=True)
-    item_menu = models.ForeignKey('core.StylistMenu', related_name='item_menu', null=True, blank=True)
+    item_menu = models.ForeignKey('stylist.StylistMenu', related_name='item_menu', null=True, blank=True)
     item_custom = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     appointment = models.ForeignKey('core.Appointment', on_delete=models.SET_NULL, null=True)
