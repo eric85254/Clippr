@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from core.models import User, Appointment, GlobalMenu
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from stylist.models import PortfolioHaircut, StylistMenu
+from stylist.models import PortfolioHaircut, StylistMenu, Shift
 
 '''
     User Serializer.
@@ -162,3 +162,12 @@ class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StylistMenu
         fields = ('url', 'name', 'price', 'modified_global')
+
+
+class ShiftSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:shift-detail')
+    owner = StylistSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Shift
+        fields = '__all__'

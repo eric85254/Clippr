@@ -51,7 +51,6 @@ menupatterns = [
 
 calendar_patterns = [
     url(r'^$', views.render_calendar_page, name="render_calendar"),
-    url(r'^calendar_data/$', views.calendar_data, name="calendar_data")
 ]
 
 urlpatterns = [

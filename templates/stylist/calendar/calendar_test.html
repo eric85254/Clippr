@@ -25,7 +25,7 @@
                 defaultDate: moment().format("YYYY-MM-DD"),
                 editable: true,
                 events: {
-                    url: '{% url 'stylist:calendar_data' %}',
+                    url: '{% url 'api:shift-list' %}',
                     error: function () {
                         $('#script-warning').show();
                     },

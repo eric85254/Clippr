@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core import serializers
 from django.db.models import Q
 from django.http import JsonResponse
 from django.utils import timezone
@@ -460,33 +461,4 @@ def profile_test(request):
 
 def render_calendar_page(request):
     return render(request, 'stylist/calendar/calendar_test.html')
-
-def calendar_data(request):
-    if StylistLogic.is_stylist(request):
-        if request.method == 'GET':
-            data = []
-            shifts = Shift.objects.filter(owner=request.user)
-
-            for shift in shifts:
-                shift_entry = {
-                    'title': shift.title,
-                    'start': shift.start,
-                    'end': shift.end,
-                    'dow': shift.dow,
-                    'color': shift.color,
-                }
-                data.append(shift_entry)
-            # single(data)
-
-            return JsonResponse(data, safe=False)
-
-
-def single(data):
-    shift_entry = {
-        'title': "available",
-        'start': "08:00:00",
-        'end': "14:00:00",
-        'dow': "[1]"
-    }
-    data.append(shift_entry)
 
