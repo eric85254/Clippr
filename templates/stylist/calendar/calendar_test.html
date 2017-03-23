@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
+{% include 'stylist/stylistReal/headerBase.html' %}
 <head>
 
     <link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
@@ -29,6 +30,7 @@
                     },
                     success: function (data) {
                         console.log("data rendered");
+                        console.log(data)
                     }
                 },
                 loading: function (bool) {

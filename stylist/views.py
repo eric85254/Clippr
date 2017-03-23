@@ -469,11 +469,23 @@ def calendar_data(request):
 
             for shift in shifts:
                 shift_entry = {
-                    'title': "Available",
-                    'start': shift.start_time,
-                    'end': shift.end_time,
-                    'dow': [shift.day]
+                    'title': shift.title,
+                    'start': shift.start,
+                    'end': shift.end,
+                    'dow': shift.dow
                 }
                 data.append(shift_entry)
+            # single(data)
 
             return JsonResponse(data, safe=False)
+
+
+def single(data):
+    shift_entry = {
+        'title': "available",
+        'start': "08:00:00",
+        'end': "14:00:00",
+        'dow': "[1]"
+    }
+    data.append(shift_entry)
+

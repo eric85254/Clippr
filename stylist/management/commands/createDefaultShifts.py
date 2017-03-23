@@ -24,6 +24,8 @@ class Command(BaseCommand):
         for day in DAYS:
             Shift.objects.create(
                 owner=stylist,
-                day=day,
-
+                title="available",
+                start_time="8:00:00",
+                end_time="14:00:00",
+                dow="[" + str(day) + "]",
             )

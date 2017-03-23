@@ -2,6 +2,9 @@ from django.db import models
 
 
 # todo: use this model.
+from core.models import FullCalendarEvent
+
+
 class Deal(models.Model):
     """
         This is a model created to hold the deals that a stylist offers.
@@ -49,32 +52,8 @@ class StylistMenu(models.Model):
         return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name
 
 
-class Shift(models.Model):
+class Shift(FullCalendarEvent):
     """
         Model to hold shift schedule of Stylist
     """
     owner = models.ForeignKey('core.User', related_name='shift_owner')
-
-    MONDAY = 1
-    TUESDAY = 2
-    WEDNESDAY = 3
-    THURSDAY = 4
-    FRIDAY = 5
-    SATURDAY = 6
-    SUNDAY = 0
-    DAYS = [
-        (MONDAY, 'Monday'),
-        (TUESDAY, 'Tuesday'),
-        (WEDNESDAY, 'Wednesday'),
-        (THURSDAY, 'Thursday'),
-        (FRIDAY, 'Friday'),
-        (SATURDAY, 'Saturday'),
-        (SUNDAY, 'Sunday'),
-    ]
-
-    day = models.IntegerField(choices=DAYS)
-    start_time = models.TimeField(default='8:00:00')
-    end_time = models.TimeField(default='17:00:00')
-
-    irregular = models.BooleanField(default=False)
-    exception_date = models.DateTimeField(blank=True, null=True)
