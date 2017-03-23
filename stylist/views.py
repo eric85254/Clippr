@@ -472,7 +472,8 @@ def calendar_data(request):
                     'title': shift.title,
                     'start': shift.start,
                     'end': shift.end,
-                    'dow': shift.dow
+                    'dow': shift.dow,
+                    'color': shift.color,
                 }
                 data.append(shift_entry)
             # single(data)

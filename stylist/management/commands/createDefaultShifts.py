@@ -14,6 +14,21 @@ class Command(BaseCommand):
         stylist = User.objects.get(email="stylist@gmail.com")
 
         DAYS = [
+            Shift.SUNDAY,
+            Shift.SATURDAY
+        ]
+
+        for day in DAYS:
+            Shift.objects.create(
+                owner=stylist,
+                title="Unavailable",
+                dow="[" + str(day) + "]",
+                color="red",
+                start_time="0:00:00",
+                end_time="23:59:00"
+            )
+
+        WEEKDAYS = [
             Shift.MONDAY,
             Shift.TUESDAY,
             Shift.WEDNESDAY,
@@ -21,11 +36,20 @@ class Command(BaseCommand):
             Shift.FRIDAY
         ]
 
-        for day in DAYS:
+        for day in WEEKDAYS:
             Shift.objects.create(
                 owner=stylist,
-                title="available",
-                start_time="8:00:00",
-                end_time="14:00:00",
+                title="Unavailable",
                 dow="[" + str(day) + "]",
+                color="red",
+                start_time="0:00:00",
+                end_time="7:59:00",
+            )
+            Shift.objects.create(
+                owner=stylist,
+                title="Unavailable",
+                dow="[" + str(day) + "]",
+                color="red",
+                start_time="18:00:00",
+                end_time="23:59:00",
             )
