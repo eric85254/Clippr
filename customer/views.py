@@ -87,7 +87,8 @@ def create_appointment(request):
 
             calendar_event = AppointmentDateTime(
                 start_date_time=request.session['calendar_event'].get('start'),
-                end_date_time=request.session['calendar_event'].get('end')
+                end_date_time=request.session['calendar_event'].get('end'),
+                title=request.session['calendar_event'].get('title')
             )
             calendar_event.save()
 
@@ -207,17 +208,23 @@ def obtain_selected_menuOption(request):
 def schedule_appointment(request):
     if request.method == 'GET':
         if 'stylist_menu_pk' in request.session:
-            duration = StylistMenu.objects.get(pk=request.session['stylist_menu_pk']).duration
+            menu_object = StylistMenu.objects.get(pk=request.session['stylist_menu_pk'])
+            duration = menu_object.duration
+            title = menu_object.name
         elif 'portfolio_haircut' in request.session:
-            duration = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut']).duration
+            portfolio_haircut = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut'])
+            duration = portfolio_haircut.duration
+            title = portfolio_haircut.name
         else:
             duration = 0
         return render(request, 'customer/calendar/stylist_shift.html', {'stylist_pk': request.session['stylist_pk'],
-                                                                        'duration': duration})
+                                                                        'duration': duration,
+                                                                        'title': title})
     if request.method == 'POST':
         calendar_event = {
             'start': request.POST.get('start'),
-            'end': request.POST.get('end')
+            'end': request.POST.get('end'),
+            'title': request.POST.get('title')
         }
         request.session['calendar_event'] = calendar_event
         return JsonResponse(data={'url': reverse('customer:create_appointment')})

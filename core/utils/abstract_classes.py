@@ -2,16 +2,16 @@ from django.db import models
 
 class FullCalendarEvent(models.Model):
     title = models.TextField(blank=True, default="")
-    allDay = models.NullBooleanField(default=False, blank=True, null=True)
+    allDay = models.BooleanField(default=False)
     start = models.TextField(blank=True, default="")
     end = models.TextField(blank=True, default="")
     url = models.URLField(blank=True, default="")
-    editable = models.NullBooleanField(blank=True, null=True)
-    startEditable = models.NullBooleanField(blank=True, null=True)
-    durationEditable = models.NullBooleanField(blank=True, null=True)
-    resourceEditable = models.NullBooleanField(blank=True, null=True)
+    editable = models.BooleanField(default=False)
+    startEditable = models.BooleanField(default=True)
+    durationEditable = models.BooleanField(default=False)
+    resourceEditable = models.BooleanField(default=False)
     rendering = models.TextField(blank=True, default="")
-    overlap = models.NullBooleanField(null=True, blank=True)
+    overlap = models.BooleanField(default=False)
 
     color = models.TextField(blank=True, default="")
     backgroundColor = models.TextField(blank=True, default="")

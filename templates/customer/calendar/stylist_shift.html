@@ -64,6 +64,7 @@
                         var duration = moment('{{ duration }}', 'HH:mm:ss');
                         newEvent.end = moment(start).add(duration.get('hour'), 'hour').add(duration.get('minute'), 'minute').format();
 
+                        newEvent.title = '{{ title }}';
                         newEvent.allDay = false;
                         $('#calendar').fullCalendar('renderEvent', newEvent);
                     }
