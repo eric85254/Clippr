@@ -1,15 +1,17 @@
 from datetime import datetime
 
+from django.core import serializers
 from django.db.models import Q
+from django.http import JsonResponse
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
 
-from core.models import Appointment, GlobalMenu, ItemInBill, Review, StylistMenu
+from core.models import Appointment, GlobalMenu, ItemInBill, Review
 from core.utils.view_logic import UserLogic
 from stylist.forms import NewPortfolioHaircutForm, MenuOptionForm
-from stylist.models import PortfolioHaircut
-from stylist.utils.view_logic import BillLogic
+from stylist.models import PortfolioHaircut, StylistMenu, Shift
+from stylist.utils.view_logic import BillLogic, StylistLogic
 
 
 def profile(request):
@@ -365,6 +367,7 @@ def select_menu_option(request):
                 stylist=request.user,
                 name=global_menu.name,
                 price=global_menu.price,
+                duration=global_menu.duration,
                 modified_global=global_menu
             )
             stylist_menu.save()
@@ -454,3 +457,8 @@ def profile_test(request):
                        'stylist_options': stylist_options}, )
     else:
         return redirect('core:logout')
+
+
+def render_calendar_page(request):
+    return render(request, 'stylist/calendar/calendar_test.html')
+

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
-from core.models import GlobalMenu, StylistMenu
-from stylist.models import PortfolioHaircut
+from core.models import GlobalMenu
+from stylist.models import PortfolioHaircut, StylistMenu
 
 
 class NewPortfolioHaircutForm(ModelForm):

@@ -22,9 +22,9 @@ from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn, \
     OnlySuperUsersCanModify
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
-    GlobalMenuSerializer, StylistMenuSerializer
-from core.models import User, Appointment, GlobalMenu, Review, StylistMenu
-from stylist.models import PortfolioHaircut
+    GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, AppointmentDateTimeSerializer
+from core.models import User, Appointment, GlobalMenu, Review, AppointmentDateTime
+from stylist.models import PortfolioHaircut, StylistMenu, Shift
 
 '''
     USER LOGIN & LOGOUT
@@ -284,3 +284,27 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         #Todo: currently there's nothing stoping customer's from creating a stylist menu option.
         serializer.save(stylist=self.request.user)
+
+
+class ShiftViewSet(viewsets.ModelViewSet):
+    queryset = Shift.objects.all()
+    serializer_class = ShiftSerializer
+    # permission_classes = ()
+    # Need to add permissions so only Stylists can modify shift items.
+
+    def get_queryset(self):
+        stylist = self.request.query_params.get('stylist_pk', None)
+        if stylist is None:
+            return Shift.objects.filter(owner=self.request.user)
+        else:
+            return Shift.objects.filter(owner=stylist)
+
+
+class AppointmentDateTimeViewSet(viewsets.ModelViewSet):
+    queryset = AppointmentDateTime.objects.all()
+    serializer_class = AppointmentDateTimeSerializer
+
+    def get_queryset(self):
+        stylist = self.request.query_params.get('stylist_pk', None)
+        user = self.request.user
+        return AppointmentDateTime.objects.filter(Q(appointment__stylist=user) | Q(appointment__customer=user) | Q(appointment__stylist=stylist))

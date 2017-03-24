@@ -14,6 +14,8 @@ router.register(r'haircut', views.HaircutViewSet)
 router.register(r'stylist', views.StylistViewSet, 'stylist')
 router.register(r'global_menu', views.GlobalMenuViewSet)
 router.register(r'stylist_menu', views.StylistMenuViewSet)
+router.register(r'shift', views.ShiftViewSet)
+router.register(r'appointment_date_time', views.AppointmentDateTimeViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

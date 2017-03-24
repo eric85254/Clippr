@@ -99,4 +99,4 @@ class CookieClearer(object):
     def clear(cookie_names, request):
         for name in cookie_names:
             if name in request.session:
-                request.session[name] = None
+                del request.session[name]

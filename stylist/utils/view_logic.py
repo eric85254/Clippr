@@ -4,6 +4,7 @@ from core.models import ItemInBill
 
 
 class BillLogic(object):
+
     @staticmethod
     def update_price(appointment):
         """
@@ -16,6 +17,7 @@ class BillLogic(object):
         appointment.price = total
         appointment.save()
 
+
     @staticmethod
     def combine_appointment_bill(appointment_set):
         appointment_set_bill = {}
@@ -23,3 +25,13 @@ class BillLogic(object):
             bill = ItemInBill.objects.filter(appointment=appointment)
             appointment_set_bill[appointment] = bill
         return appointment_set_bill
+
+
+class StylistLogic(object):
+
+    @staticmethod
+    def is_stylist(request):
+        if request.user.is_stylist == 'YES':
+            return True
+        else:
+            return False

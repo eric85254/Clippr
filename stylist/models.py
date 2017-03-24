@@ -1,7 +1,10 @@
 from django.db import models
 
 
-#todo: use this model.
+# todo: use this model.
+from core.utils.abstract_classes import FullCalendarEvent
+
+
 class Deal(models.Model):
     """
         This is a model created to hold the deals that a stylist offers.
@@ -28,7 +31,31 @@ class PortfolioHaircut(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    menu_option = models.ForeignKey('core.StylistMenu', null=True, blank=True)
+    menu_option = models.ForeignKey('stylist.StylistMenu', null=True, blank=True)
+    duration = models.DurationField()
 
     def __str__(self):
         return self.stylist.username + ' || ' + self.name
+
+
+class StylistMenu(models.Model):
+    """
+        A stylist's unique menu option.
+        | If the stylist makes a modification to the Global Menu option then their modification is stored here
+        as a new Menu option and it is tied to the Global Menu through the field modified_global.
+    """
+    stylist = models.ForeignKey('core.User', related_name='menu_owner')
+    name = models.CharField(max_length=20)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
+    duration = models.DurationField()
+
+    def __str__(self):
+        return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name
+
+
+class Shift(FullCalendarEvent):
+    """
+        Model to hold shift schedule of Stylist
+    """
+    owner = models.ForeignKey('core.User', related_name='shift_owner')

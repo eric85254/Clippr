@@ -41,7 +41,8 @@ commands = [
     'createDefaultUsers',
     'createGlobalMenuOption',
     'createDefaultAppointment',
-    'createDefaultHaircuts'
+    'createDefaultHaircuts',
+    'createDefaultShifts'
 ]
 
 for command in commands:
