@@ -368,6 +368,7 @@ def select_menu_option(request):
                 stylist=request.user,
                 name=global_menu.name,
                 price=global_menu.price,
+                duration=global_menu.duration,
                 modified_global=global_menu
             )
             stylist_menu.save()

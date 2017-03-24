@@ -1,6 +1,8 @@
 """
     Creates dummy portfolio items for the dummy stylist account.
 """
+import datetime
+
 from django.core.management import BaseCommand
 
 from core.models import User
@@ -18,19 +20,22 @@ class Command(BaseCommand):
             picture=DEFAULT_HAIRCUT_1,
             name="Default Haircut One",
             description="Bitch ass haircut one.",
-            price=15.00
+            price=15.00,
+            duration=datetime.timedelta(hours=1)
         )
         PortfolioHaircut.objects.create(
             stylist=stylist,
             picture=DEFAULT_HAIRCUT_2,
             name="Default Haircut Two",
             description="Bitch ass haircut Two.",
-            price=15.00
+            price=15.00,
+            duration=datetime.timedelta(hours=1)
         )
         PortfolioHaircut.objects.create(
             stylist=stylist,
             picture=DEFAULT_HAIRCUT_3,
             name="Default Haircut Three",
             description="Bitch ass haircut Three.",
-            price=15.00
+            price=15.00,
+            duration=datetime.timedelta(hours=1)
         )

@@ -2,7 +2,7 @@ from django.db import models
 
 
 # todo: use this model.
-from core.models import FullCalendarEvent
+from core.utils.abstract_classes import FullCalendarEvent
 
 
 class Deal(models.Model):
@@ -32,6 +32,7 @@ class PortfolioHaircut(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     menu_option = models.ForeignKey('stylist.StylistMenu', null=True, blank=True)
+    duration = models.DurationField()
 
     def __str__(self):
         return self.stylist.username + ' || ' + self.name
@@ -47,6 +48,7 @@ class StylistMenu(models.Model):
     name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
+    duration = models.DurationField()
 
     def __str__(self):
         return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name

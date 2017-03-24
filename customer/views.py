@@ -173,7 +173,7 @@ def obtain_selected_haircut(request):
         if request.method == 'POST':
             request.session['portfolio_haircut'] = request.POST.get('portfolio_haircut')
             request.session['stylist_pk'] = request.POST.get('stylist_pk')
-        return redirect('customer:create_appointment')
+        return redirect('customer:schedule_appointment')
     else:
         return redirect('core:logout')
 
@@ -189,10 +189,14 @@ def obtain_selected_menuOption(request):
         if request.method == 'POST':
             request.session['stylist_menu_pk'] = request.POST.get('stylist_option_pk')
             request.session['stylist_pk'] = request.POST.get('stylist_pk')
-        return redirect('customer:create_appointment')
+        return redirect('customer:schedule_appointment')
     else:
         return redirect('core:logout')
 
+
+def schedule_appointment(request):
+    if request.method == 'GET':
+        return render(request, 'customer/calendar/stylist_shift.html', {'stylist_pk': request.session['stylist_pk']})
 
 '''
     APPOINTMENT MODIFIERS

@@ -289,6 +289,8 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
 class ShiftViewSet(viewsets.ModelViewSet):
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer
+    # permission_classes = ()
+    # Need to add permissions so only Stylists can modify shift items.
 
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
