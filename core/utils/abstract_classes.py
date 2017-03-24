@@ -1,22 +1,22 @@
 from django.db import models
 
 class FullCalendarEvent(models.Model):
-    title = models.TextField(blank=True)
-    allDay = models.NullBooleanField(default=False, null=True, blank=True)
-    start = models.TextField(blank=True)
-    end = models.TextField(blank=True)
-    url = models.URLField(null=True, blank=True)
-    editable = models.NullBooleanField(null=True, blank=True)
-    startEditable = models.NullBooleanField(null=True, blank=True)
-    durationEditable = models.NullBooleanField(null=True, blank=True)
-    resourceEditable = models.NullBooleanField(null=True, blank=True)
-    rendering = models.TextField(blank=True)
+    title = models.TextField(blank=True, default="")
+    allDay = models.NullBooleanField(default=False, blank=True, null=True)
+    start = models.TextField(blank=True, default="")
+    end = models.TextField(blank=True, default="")
+    url = models.URLField(blank=True, default="")
+    editable = models.NullBooleanField(blank=True, null=True)
+    startEditable = models.NullBooleanField(blank=True, null=True)
+    durationEditable = models.NullBooleanField(blank=True, null=True)
+    resourceEditable = models.NullBooleanField(blank=True, null=True)
+    rendering = models.TextField(blank=True, default="")
     overlap = models.NullBooleanField(null=True, blank=True)
 
-    color = models.TextField(null=True, blank=True)
-    backgroundColor = models.TextField(null=True, blank=True)
-    borderColor = models.TextField(null=True, blank=True)
-    textColor = models.TextField(null=True, blank=True)
+    color = models.TextField(blank=True, default="")
+    backgroundColor = models.TextField(blank=True, default="")
+    borderColor = models.TextField(blank=True, default="")
+    textColor = models.TextField(null=True, blank=True, default="")
     #constraint = models.ForeignKey('core.EventID')...
     #source = models.ForeignKey('core.EventSourceObject')
 
@@ -27,12 +27,12 @@ class FullCalendarEvent(models.Model):
     FRIDAY = 5
     SATURDAY = 6
     SUNDAY = 0
-    dow = models.CharField(max_length=17, blank=True, null=True)
+    dow = models.CharField(max_length=17, blank=True, default="")
 
-    start_date_time = models.DateTimeField(null=True, blank=True)
-    end_date_time = models.DateTimeField(null=True, blank=True)
-    start_time = models.TimeField(null=True, blank=True)
-    end_time = models.TimeField(null=True, blank=True)
+    start_date_time = models.DateTimeField(blank=True, null=True)
+    end_date_time = models.DateTimeField(blank=True, null=True)
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

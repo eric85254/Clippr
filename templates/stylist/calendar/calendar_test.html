@@ -24,16 +24,16 @@
                 defaultView:'agendaWeek',
                 defaultDate: moment().format("YYYY-MM-DD"),
                 editable: true,
-                events: {
-                    url: '{% url 'api:shift-list' %}',
-                    error: function () {
-                        $('#script-warning').show();
+                eventSources: [
+                    {
+                        url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                        color: 'red'
                     },
-                    success: function (data) {
-                        console.log("data rendered");
-                        console.log(data)
+                    {
+                        url: '{% url 'api:appointmentdatetime-list' %}',
+                        color: 'green'
                     }
-                },
+                ],
                 loading: function (bool) {
                     $('#loading').toggle(bool);
                 }

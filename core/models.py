@@ -147,4 +147,6 @@ class AnsweredQuestionnaire(models.Model):
 
 
 class AppointmentDateTime(FullCalendarEvent):
-    stylist = models.ForeignKey('core.User', on_delete=models.SET_NULL, null=True)
+    """
+        Same as FullCalendarEvent class
+    """

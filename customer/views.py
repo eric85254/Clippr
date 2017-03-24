@@ -1,11 +1,14 @@
 """
     Customer Views.
 """
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, ItemInBill, Review
+from core.models import User, Appointment, ItemInBill, Review, AppointmentDateTime
 from datetime import datetime
 
 # for the search
@@ -82,10 +85,16 @@ def create_appointment(request):
 
         if create_appointment_form.is_valid():
 
+            calendar_event = AppointmentDateTime(
+                start_date_time=request.session['calendar_event'].get('start'),
+                end_date_time=request.session['calendar_event'].get('end')
+            )
+            calendar_event.save()
+
             new_appointment = create_appointment_form.save(commit=False)
             new_appointment.customer = request.user
             new_appointment.stylist = User.objects.get(pk=request.session['stylist_pk'])
-            new_appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
+            new_appointment.date = calendar_event
             new_appointment.save()
 
             if 'portfolio_haircut' in request.session:
@@ -194,15 +203,32 @@ def obtain_selected_menuOption(request):
         return redirect('core:logout')
 
 
+@csrf_exempt
 def schedule_appointment(request):
     if request.method == 'GET':
-        return render(request, 'customer/calendar/stylist_shift.html', {'stylist_pk': request.session['stylist_pk']})
+        if 'stylist_menu_pk' in request.session:
+            duration = StylistMenu.objects.get(pk=request.session['stylist_menu_pk']).duration
+        elif 'portfolio_haircut' in request.session:
+            duration = PortfolioHaircut.objects.get(pk=request.session['portfolio_haircut']).duration
+        else:
+            duration = 0
+        return render(request, 'customer/calendar/stylist_shift.html', {'stylist_pk': request.session['stylist_pk'],
+                                                                        'duration': duration})
+    if request.method == 'POST':
+        calendar_event = {
+            'start': request.POST.get('start'),
+            'end': request.POST.get('end')
+        }
+        request.session['calendar_event'] = calendar_event
+        return JsonResponse(data={'url': reverse('customer:create_appointment')})
+
 
 '''
     APPOINTMENT MODIFIERS
 '''
 
-#todo: can this be utilized by both stylist's and customers?
+
+# todo: can this be utilized by both stylist's and customers?
 def accept_appointment(request):
     """
         METHODS ALLOWED = [POST]
@@ -260,8 +286,9 @@ def reschedule_appointment(request):
     APPOINTMENT MODIFIERS
 '''
 
-#todo: should customers be able to modify the bill (add or remove items) before the appointment is accepted?
-#todo: why is the appointment_pk value stored in sessions here?
+
+# todo: should customers be able to modify the bill (add or remove items) before the appointment is accepted?
+# todo: why is the appointment_pk value stored in sessions here?
 def view_bill(request):
     """
         METHODS ALLOWED = [GET]

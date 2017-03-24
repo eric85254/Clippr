@@ -12,31 +12,69 @@
     ...
 
     <script type="text/javascript">
+        var newEvent;
         $(document).ready(function () { // Page is ready.
             // Initialize the calendar.
             $('#calendar').fullCalendar({
+                customButtons: {
+                    saveButton: {
+                        text: "Save",
+                        click: function(){
+                            $.ajax({
+                                url: '{% url 'customer:schedule_appointment' %}',
+                                type: "post",
+                                data: newEvent,
+                                success: function(data) {
+                                    console.log(data);
+                                    window.location.href = data.url;
+                                }
+                            })
+                        }
+                    }
+                },
                 header: {
-                    left: 'prev,next today',
+                    left: 'prev,next today saveButton',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
                 defaultView:'agendaWeek',
                 defaultDate: moment().format("YYYY-MM-DD"),
                 editable: true,
-                events: {
-                    url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
-                    error: function () {
-                        $('#script-warning').show();
+                eventDurationEditable: false,
+                selectable: true,
+                eventSources: [
+                    {
+                        url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                        color: 'red'
                     },
-                    success: function (data) {
-                        console.log("data rendered");
-                        console.log(data)
+                    {
+                        url: '{% url 'api:appointmentdatetime-list' %}',
+                        color: 'green'
                     }
-                },
+                ],
                 loading: function (bool) {
                     $('#loading').toggle(bool);
                 },
-                select: function (start, end, )
+                select: function (start, end, jsEvent, view) {
+                    function createEvent() {
+                        newEvent = {};
+                        newEvent.id = 123;
+                        newEvent.start = moment(start).format();
+
+                        var duration = moment('{{ duration }}', 'HH:mm:ss');
+                        newEvent.end = moment(start).add(duration.get('hour'), 'hour').add(duration.get('minute'), 'minute').format();
+
+                        newEvent.allDay = false;
+                        $('#calendar').fullCalendar('renderEvent', newEvent);
+                    }
+
+                    if (newEvent) {
+                        $('#calendar').fullCalendar('removeEvents', 123);
+                        createEvent();
+                    } else {
+                        createEvent();
+                    }
+                }
             });
         });
     </script>
@@ -45,5 +83,8 @@
 
 <body>
 <div id="calendar"></div>
+<form method="post" action="{% url 'customer:schedule_appointment' %}"> {% csrf_token %}
+    <input type="hidden" name=""
+</form>
 </body>
 </html>

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Appointment, GlobalMenu
+from core.models import User, Appointment, GlobalMenu, AppointmentDateTime
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from stylist.models import PortfolioHaircut, StylistMenu, Shift
 
@@ -170,4 +170,12 @@ class ShiftSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Shift
+        fields = '__all__'
+
+
+class AppointmentDateTimeSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:appointmentdatetime-detail')
+
+    class Meta:
+        model = AppointmentDateTime
         fields = '__all__'
