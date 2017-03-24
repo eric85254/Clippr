@@ -58,7 +58,7 @@ def dashboard(request):
                        'incomplete_reviews': incomplete_reviews,
                        'complete_reviews': complete_reviews,
                        'stylist_options': stylist_options})
-        else:
+    else:
         return redirect('core:logout')
 
 
