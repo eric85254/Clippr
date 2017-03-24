@@ -26,7 +26,11 @@
                 editable: true,
                 eventSources: [
                     {
+                        {% if stylist_pk %}
                         url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                        {% else %}
+                        url: '{% url 'api:shift-list' %}',
+                        {% endif %}
                         color: 'red'
                     },
                     {
