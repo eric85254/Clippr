@@ -22,8 +22,8 @@ from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUserOrSuperUser, IsUserLoggedIn, \
     OnlySuperUsersCanModify
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
-    GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, AppointmentDateTimeSerializer
-from core.models import User, Appointment, GlobalMenu, Review, AppointmentDateTime
+    GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, CalendarEventSerializer
+from core.models import User, GlobalMenu, Appointment
 from stylist.models import PortfolioHaircut, StylistMenu, Shift
 
 '''
@@ -300,11 +300,13 @@ class ShiftViewSet(viewsets.ModelViewSet):
             return Shift.objects.filter(owner=stylist)
 
 
-class AppointmentDateTimeViewSet(viewsets.ModelViewSet):
-    queryset = AppointmentDateTime.objects.all()
-    serializer_class = AppointmentDateTimeSerializer
+class CalendarEventViewSet(viewsets.ModelViewSet):
+    queryset = Appointment.objects.all()
+    serializer_class = CalendarEventSerializer
 
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
         user = self.request.user
-        return AppointmentDateTime.objects.filter(Q(appointment__stylist=user) | Q(appointment__customer=user) | Q(appointment__stylist=stylist))
+        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist))
+
+

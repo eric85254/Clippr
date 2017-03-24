@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Appointment, GlobalMenu, AppointmentDateTime
+from core.models import User, GlobalMenu, Appointment
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
 from stylist.models import PortfolioHaircut, StylistMenu, Shift
 
@@ -94,7 +94,19 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ('url', 'location', 'date', 'stylist', 'customer')
+        fields = ('url', 'location', 'start', 'end', 'stylist', 'customer')
+
+
+class CalendarEventSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='api:calendarevent-detail')
+
+    stylist = serializers.SlugRelatedField(many=False, read_only=False, slug_field=User.USERNAME_FIELD,
+                                           queryset=User.objects.filter(is_stylist='YES'))
+    customer = UserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = '__all__'
 
 
 '''
@@ -170,12 +182,4 @@ class ShiftSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Shift
-        fields = '__all__'
-
-
-class AppointmentDateTimeSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:appointmentdatetime-detail')
-
-    class Meta:
-        model = AppointmentDateTime
         fields = '__all__'

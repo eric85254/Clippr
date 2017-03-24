@@ -41,7 +41,6 @@
                             Appointment Details: <br>
                             Customer: {{ appointment.customer.get_full_name }} <br>
                             Location: {{ appointment.location }} <br>
-                            Time: {{ appointment.date|default_if_none:"" }} <br>
                             Price: {{ appointment.price|default_if_none:"" }} <br>
 
                             <form action="{% url 'stylist:view_bill' %}" method="get"> {% csrf_token %}
@@ -70,7 +69,6 @@
                             Appointment Details: <br>
                             Customer: {{ appointment.customer.get_full_name }} <br>
                             Location: {{ appointment.location }} <br>
-                            Time: {{ appointment.date|default_if_none:"" }} <br>
                             Price: {{ appointment.price|default_if_none:"" }} <br>
 
                             <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
@@ -113,7 +111,6 @@
                                 Appointment Details: <br>
                                 Customer: {{ appointment.customer.get_full_name }} <br>
                                 Location: {{ appointment.location }} <br>
-                                Time: {{ appointment.date|default_if_none:"" }} <br>
                                 Price: {{ appointment.price|default_if_none:"" }} <br>
 
                                 <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
@@ -142,7 +139,6 @@
                                 Appointment Details: <br>
                                 Customer: {{ appointment.customer.get_full_name }} <br>
                                 Location: {{ appointment.location }} <br>
-                                Time: {{ appointment.date|default_if_none:"" }} <br>
                                 Price: {{ appointment.price|default_if_none:"" }} <br>
 
                                 <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
@@ -172,7 +168,6 @@
                             Appointment Details: <br>
                             Customer: {{ appointment.customer.get_full_name }} <br>
                             Location: {{ appointment.location }} <br>
-                            Time: {{ appointment.date|default_if_none:"" }} <br>
                             Price: {{ appointment.price|default_if_none:"" }} <br>
                             -------------------------------- <br>
                         {% empty %}
@@ -187,7 +182,6 @@
                             Appointment Details: <br>
                             Customer: {{ appointment.customer.get_full_name }} <br>
                             Location: {{ appointment.location }} <br>
-                            Time: {{ appointment.date|default_if_none:"" }} <br>
                             Price: {{ appointment.price|default_if_none:"" }} <br>
 
                             <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}

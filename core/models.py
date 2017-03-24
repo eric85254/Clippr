@@ -84,7 +84,7 @@ class Review(models.Model):
                                     null=True)
 
 
-class Appointment(models.Model):
+class Appointment(FullCalendarEvent):
     """
         Appointments all have a particular status that describes their current state.
         | They are all tied to a customer and a stylist.
@@ -107,7 +107,6 @@ class Appointment(models.Model):
     stylist = models.ForeignKey('core.User', related_name='stylist', on_delete=models.SET_NULL, null=True)
     customer = models.ForeignKey('core.User', related_name='customer', on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=500)
-    date = models.ForeignKey('core.AppointmentDateTime', on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 
     status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)
@@ -144,9 +143,3 @@ class AnsweredQuestionnaire(models.Model):
     questionnaire = models.ForeignKey('core.Questionnaire', on_delete=models.CASCADE)
     response = models.TextField(blank=True)
     time = models.DateTimeField(default=datetime.now)
-
-
-class AppointmentDateTime(FullCalendarEvent):
-    """
-        Same as FullCalendarEvent class
-    """

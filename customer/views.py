@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from core.utils.view_logic import UserLogic, CookieClearer
 from customer.forms import NewAppointmentForm, StylistApplicationForm
-from core.models import User, Appointment, ItemInBill, Review, AppointmentDateTime
+from core.models import User, Appointment, ItemInBill, Review
 from datetime import datetime
 
 # for the search
@@ -85,17 +85,12 @@ def create_appointment(request):
 
         if create_appointment_form.is_valid():
 
-            calendar_event = AppointmentDateTime(
-                start_date_time=request.session['calendar_event'].get('start'),
-                end_date_time=request.session['calendar_event'].get('end'),
-                title=request.session['calendar_event'].get('title')
-            )
-            calendar_event.save()
-
             new_appointment = create_appointment_form.save(commit=False)
             new_appointment.customer = request.user
             new_appointment.stylist = User.objects.get(pk=request.session['stylist_pk'])
-            new_appointment.date = calendar_event
+            new_appointment.start_date_time = request.session['calendar_event'].get('start')
+            new_appointment.end_date_time = request.session['calendar_event'].get('end')
+            new_appointment.title = request.session['calendar_event'].get('title')
             new_appointment.save()
 
             if 'portfolio_haircut' in request.session:

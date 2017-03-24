@@ -33,12 +33,12 @@ def profile(request):
 def dashboard(request):
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user,
-                                                          status=Appointment.STATUS_PENDING).order_by('-date')
+                                                          status=Appointment.STATUS_PENDING)
         accepted_appointments = Appointment.objects.filter(stylist=request.user,
-                                                           status=Appointment.STATUS_ACCEPTED).order_by('-date')
+                                                           status=Appointment.STATUS_ACCEPTED)
 
         completed_appointments = Appointment.objects.filter(stylist=request.user,
-                                                            status=Appointment.STATUS_COMPLETED).order_by('-date')
+                                                            status=Appointment.STATUS_COMPLETED)
 
         pending_appointments_bill = BillLogic.combine_appointment_bill(pending_appointments)
         accepted_appointments_bill = BillLogic.combine_appointment_bill(accepted_appointments)
@@ -86,17 +86,17 @@ def transactions(request):
 def appointments(request):
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user,
-                                                          status=Appointment.STATUS_PENDING).order_by('-date')
+                                                          status=Appointment.STATUS_PENDING)
         accepted_appointments = Appointment.objects.filter(stylist=request.user,
-                                                           status=Appointment.STATUS_ACCEPTED).order_by('-date')
+                                                           status=Appointment.STATUS_ACCEPTED)
         declined_appointments = Appointment.objects.filter(stylist=request.user,
-                                                           status=Appointment.STATUS_DECLINED).order_by('-date')
+                                                           status=Appointment.STATUS_DECLINED)
 
         rescheduled_appointments = Appointment.objects.filter(
             (Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)),
-            stylist=request.user).order_by('-date')
+            stylist=request.user)
         completed_appointments = Appointment.objects.filter(stylist=request.user,
-                                                            status=Appointment.STATUS_COMPLETED).order_by('-date')
+                                                            status=Appointment.STATUS_COMPLETED)
 
         return render(request, 'stylist/stylistReal/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
@@ -136,6 +136,7 @@ def reschedule_appointment(request):
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
             appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
+            #Todo: this needs to go.
             appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
             appointment.save()
         return redirect(request.META.get('HTTP_REFERER'))
