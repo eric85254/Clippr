@@ -8,58 +8,126 @@
     <script src='{% static 'jquery/dist/jquery.min.js' %}'></script>
     <script src='{% static 'moment/min/moment.min.js' %}'></script>
     <script src='{% static 'fullcalendar/dist/fullcalendar.js' %}'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Tether JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
     <title>Shifts</title>
 
     ...
 
     <script type="text/javascript">
+        var id;
+        var globalCalEvent;
+        var rescheduleEvent;
+        var rescheduleDuration;
+
         $(document).ready(function () { // Page is ready.
-            // Initialize the calendar.
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                defaultView: 'agendaWeek',
-                defaultDate: moment().format("YYYY-MM-DD"),
-                editable: true,
-                eventSources: [
-                    {
-                        {% if stylist_pk %}
-                            url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
-                        {% else %}
-                            url: '{% url 'api:shift-list' %}',
-                        {% endif %}
-                        color: 'red'
-                    },
-                    {
-                        url: '{% url 'api:calendarevent-list' %}',
-                        color: 'green'
-                    }
-                ],
-                loading: function (bool) {
-                    $('#loading').toggle(bool);
-                },
-                eventClick: function (calEvent, jsEvent, view) {
-                    id = calEvent.id;
-                    $('#modalTitle').html(calEvent.title);
-                    $('#control_day_edit').val(calEvent.start);
-                    $('#control_level').val(calEvent.title.toString());
-                    console.log(calEvent.title)
-                    console.log(calEvent.start._i)
-                    console.log(calEvent.id)
-                    $('#eventUrl').attr('href', "/users/:user_id/controls/calEvent.id/edit");
-                    $('#fullCalModal').modal();
-                    y = calEvent;
+                // Initialize the calendar.
+
+                var rescheduleForm = document.getElementById("rescheduleform");
+                console.log(rescheduleForm);
+                rescheduleForm.onsubmit = rescheduleFunction;
+
+                function rescheduleFunction() {
+                    $("#popup-modal").modal("hide");
+                    event.preventDefault();
+                    $('#end_date_time').val(moment(rescheduleEvent).add(rescheduleDuration, 'milliseconds').format("YYYY-MM-DDThh:mm:ssZ"));
+                    $.ajax({
+                        url: rescheduleEvent.url,
+                        type: "put",
+                        data: $(rescheduleForm).serialize(),
+                        success: function (data) {
+                            console.log(data);
+                            $('#calendar').fullCalendar('refetchEvents');
+                        },
+                        error: function(wtf) {
+                            console.log(wtf);
+                        }
+                    });
                 }
-            });
-        });
+
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    defaultView: 'agendaWeek',
+                    defaultDate: moment().format("YYYY-MM-DD"),
+                    eventClick: function (event) {
+                        if (event.url) {
+                            rescheduleEvent = event;
+
+                            $("#popup-modal").modal("show");
+                            $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
+                            rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
+                            $("#end_date_time").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+
+                            return false;
+                        }
+                    },
+                    editable: true,
+                    eventSources: [
+                        {
+                            {% if stylist_pk %}
+                                url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                            {% else %}
+                                url: '{% url 'api:shift-list' %}',
+                            {% endif %}
+                            color: 'red'
+                        },
+                        {
+                            url: '{% url 'api:calendarevent-list' %}',
+                            color: 'green'
+                        }
+                    ],
+                    loading: function (bool) {
+                        $('#loading').toggle(bool);
+                    }
+                });
+            }
+        )
+        ;
+
     </script>
 
 </head>
 
 <body>
 <div id="calendar"></div>
+
+<div class="modal fade" id="popup-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-end pt-3 pb-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body m-0">
+
+                <form id="rescheduleform" method="post" action="#">{% csrf_token %}
+
+                    <label for="start_date_time">Start Time</label>
+                    <input id="start_date_time" name="start_date_time" type="datetime"/>
+                    <input id="end_date_time" name="end_date_time" type="hidden"/>
+                    <div class="p-0" id="end_date_time"></div>
+
+                    <input type="submit" value="Reschedule"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

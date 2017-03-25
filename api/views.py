@@ -279,7 +279,10 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
     serializer_class = StylistMenuSerializer
 
     def get_queryset(self):
-        return StylistMenu.objects.filter(stylist=self.request.user)
+        stylist = self.request.query_params.get('stylist_pk', None)
+        if stylist is None:
+            stylist = self.request.user
+        return StylistMenu.objects.filter(stylist=stylist)
 
     def perform_create(self, serializer):
         #Todo: currently there's nothing stoping customer's from creating a stylist menu option.
@@ -303,6 +306,7 @@ class ShiftViewSet(viewsets.ModelViewSet):
 class CalendarEventViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = CalendarEventSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
