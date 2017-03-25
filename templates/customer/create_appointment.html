@@ -3,21 +3,41 @@
 {% block main_content %}
 
 
-{#    <form action="{% url 'customer:create_appointment_menuMainChoice' %}" method="post"> {% csrf_token %}#}
-{#        <button id=short_cut value="short_cut" name="menu_main">Short Cut</button>#}
-{#        <button id=long_cut type="submit" value="long_cut" name="menu_main">Long Cut</button>#}
-{#    </form>#}
-{##}
-{#    <hr>#}
-{##}
-{#    {{ menu_main.name|default_if_none:"" }}#}
+    {#    <form action="{% url 'customer:create_appointment_menuMainChoice' %}" method="post"> {% csrf_token %}#}
+    {#        <button id=short_cut value="short_cut" name="menu_main">Short Cut</button>#}
+    {#        <button id=long_cut type="submit" value="long_cut" name="menu_main">Long Cut</button>#}
+    {#    </form>#}
+    {##}
+    {#    <hr>#}
+    {##}
+    {#    {{ menu_main.name|default_if_none:"" }}#}
 
-    <form id=create_appointment_form action="{% url 'customer:stylist_search' %}" method="get">
-        <input type="search" placeholder="Search...." name="param"/> <br>
-        <input type="submit" value="Stylist Search" name="SEARCH"/>
-    </form>
+    <!-- REMOVING SEARCH FUNCTION FOR MVP -->
+    {#    <form id=create_appointment_form action="{% url 'customer:stylist_search' %}" method="get">#}
+    {#        <input type="search" placeholder="Search...." name="param"/> <br>#}
+    {#        <input type="submit" value="Stylist Search" name="SEARCH"/>#}
+    {#    </form>#}
+    {#    Chosen Stylist: {{ chosen_stylist.get_full_name }}#}
 
-    Chosen Stylist: {{ chosen_stylist.get_full_name }}
+    {% for stylist in stylist_list %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img src="{{ stylist.stylist.stylist_picture.url }}" height="100px" width="100px">
+                </div>
+                <div class="col">
+                    {{ stylist.get_full_name }}
+                    <br>
+                    {{ stylist.stylist.biography }}
+                    <br>
+                    <form action="{% url 'customer:obtain_stylist_profile' %}" method="get">
+                        <input type="hidden" name="stylist_pk" value="{{ stylist.pk }}"/>
+                        <input type="submit" name="SELECT" value="Select"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
     <form action="{% url 'customer:create_appointment' %}" method="post"> {% csrf_token %}
 
