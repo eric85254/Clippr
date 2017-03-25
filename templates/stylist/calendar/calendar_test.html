@@ -33,23 +33,32 @@
                 // Initialize the calendar.
 
                 var rescheduleForm = document.getElementById("rescheduleform");
-                console.log(rescheduleForm);
                 rescheduleForm.onsubmit = rescheduleFunction;
 
                 function rescheduleFunction() {
                     $("#popup-modal").modal("hide");
                     event.preventDefault();
-                    $('#end_date_time').val(moment(rescheduleEvent).add(rescheduleDuration, 'milliseconds').format("YYYY-MM-DDThh:mm:ssZ"));
+
+                    {#                    console.log("hit reschedule button");#}
+                    {#                    console.log("End Time: " + rescheduleEvent.end);#}
+                    {#                    console.log("Duration: " + rescheduleDuration.hours());#}
+                    {#                    console.log("creating new end time...");#}
+                    new_end_time = moment($('#start_date_time').val(), "YYYY-MM-DD HH:mm").add(rescheduleDuration, "milliseconds");
+
+                    {#                    console.log("new end time: " + new_end_time.format("YYYY-MM-DD HH:mm"));#}
+
+                    $('#end_date_time').val(new_end_time.format("YYYY-MM-DDTHH:mm:ss"));
+
                     $.ajax({
                         url: rescheduleEvent.url,
                         type: "put",
                         data: $(rescheduleForm).serialize(),
                         success: function (data) {
-                            console.log(data);
+                            {#                            console.log(data);#}
                             $('#calendar').fullCalendar('refetchEvents');
                         },
-                        error: function(wtf) {
-                            console.log(wtf);
+                        error: function (wtf) {
+                            {#                            console.log(wtf);#}
                         }
                     });
                 }
@@ -65,11 +74,10 @@
                     eventClick: function (event) {
                         if (event.url) {
                             rescheduleEvent = event;
-
                             $("#popup-modal").modal("show");
                             $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
                             rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
-                            $("#end_date_time").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                            $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
 
                             return false;
                         }
@@ -119,7 +127,7 @@
                     <label for="start_date_time">Start Time</label>
                     <input id="start_date_time" name="start_date_time" type="datetime"/>
                     <input id="end_date_time" name="end_date_time" type="hidden"/>
-                    <div class="p-0" id="end_date_time"></div>
+                    <div class="p-0" id="duration"></div>
 
                     <input type="submit" value="Reschedule"/>
                 </form>
