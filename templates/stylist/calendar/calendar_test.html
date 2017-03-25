@@ -35,14 +35,14 @@
                 rescheduleForm.onsubmit = rescheduleFunction;
                 declineAppointmentForm.onsubmit = declineAppointment;
 
-                function declineAppointment(){
+                function declineAppointment() {
                     $("#popup-modal").modal("hide");
                     event.preventDefault();
                     $.ajax({
                         url: rescheduleEvent.url,
                         type: "delete",
                         data: $(declineAppointmentForm).serialize(),
-                        success: function(data) {
+                        success: function (data) {
                             $('#calendar').fullCalendar('refetchEvents');
                         }
                     })
@@ -87,11 +87,12 @@
                     eventClick: function (event) {
                         if (event.url) {
                             rescheduleEvent = event;
-                            $("#popup-modal").modal("show");
-                            $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
-                            rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
-                            $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
-
+                            if (!event.is_shift) {
+                                $("#popup-modal").modal("show");
+                                $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
+                                rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
+                                $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                            }
                             return false;
                         }
                     },
