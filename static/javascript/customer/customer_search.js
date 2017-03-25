@@ -7,10 +7,10 @@ $(".show-menu").click(function () {
     console.log($(this).attr('name'));
 
 
-    // var div = document.getElementById('menu-option');
-    // while (div.firstChild) {
-    //     div.removeChild(div.firstChild);
-    // }
+    var div = document.getElementById('menu-option');
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
 
 
     $.ajax({
@@ -20,10 +20,12 @@ $(".show-menu").click(function () {
             // outputfromserver is an array in this case
             // just access it like one
 
-            console.log(outputfromserver[1].name); // alert the 0th value
+            for (var j=0; j<outputfromserver.length; j++) {
+                $("#menu-start").load("templates/customer/customerReal/search/menu_preview.html");
+            }
 
-            for (var i = 0; i < outputfromserver.length; i++) {
-                $( ".menu-option:nth-child(1)" ).append( "shit" );
+            for (var i = 1; i < (outputfromserver.length+1); i++) {
+                $( "#menu-name:nth-child("+i+")" ).append( outputfromserver[i-1].name );
             }
 
             // for (var i = 0; i < outputfromserver.length; i++) {

@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+<script>
+
+    $(".show-menu").click(function () {
+
+        var div = document.getElementById('profile-preview');
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
+
+        //lOAD THE PROFILE VIEW
+        $('#profile-preview').load("{% static 'html_templates/page_layout.html' %}");
+
+        //TURN MENU OPTION HTML TO ONE LINE SO APPEND WILL WORK PROPERLY
+        var body;
+        var menu = "";
+        $.get("{% static 'html_templates/menu_preview.html' %}", function (txt) {
+            body = txt.split('\n');
+            console.log(body[0]);
+            for (var i = 0; i < body.length; i++) {
+                menu += body[i];
+            }
+        });
+
+
+        $.ajax({
+            url: $(this).attr('name'),
+            dataType: 'json',
+            success: function (outputfromserver) {
+
+                for (var j = 0; j < outputfromserver.length; j++) {
+                    $("#menu-start").append(menu);
+                }
+
+                for (var i = 1; i < (outputfromserver.length + 1); i++) {
+                    $("#menu-price:nth-child(" + i + ")").append("$" + outputfromserver[i - 1].price);
+                    $("#menu-name:nth-child(" + i + ")").append(outputfromserver[i - 1].name);
+                }
+            }
+        });
+    });
+
+</script>

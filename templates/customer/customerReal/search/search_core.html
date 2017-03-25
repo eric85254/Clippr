@@ -44,9 +44,7 @@
 
     <!--STYLIST PROFILE-->
     <div class="col-6" id="profile-preview">
-        <div class="menu-option">1</div>
-        <div class="menu-option">2</div>
-        <div class="menu-option">3</div>
+
     </div>
 </div>
 
@@ -55,7 +53,9 @@
 
 {% include 'master_scripts.html' %}
 
-<script src="{% static 'javascript/customer/customer_search.js' %}"></script>
+{% include 'customer/customerReal/search/search_javascript.html' %}
+
+{#<script src="{% static 'javascript/customer/customer_search.js' %}"></script>#}
 
 
 </body>
