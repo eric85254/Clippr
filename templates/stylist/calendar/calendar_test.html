@@ -31,7 +31,22 @@
                 // Initialize the calendar.
 
                 var rescheduleForm = document.getElementById("rescheduleform");
+                var declineAppointmentForm = document.getElementById("declineAppointmentForm");
                 rescheduleForm.onsubmit = rescheduleFunction;
+                declineAppointmentForm.onsubmit = declineAppointment;
+
+                function declineAppointment(){
+                    $("#popup-modal").modal("hide");
+                    event.preventDefault();
+                    $.ajax({
+                        url: rescheduleEvent.url,
+                        type: "delete",
+                        data: $(declineAppointmentForm).serialize(),
+                        success: function(data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    })
+                }
 
                 function rescheduleFunction() {
                     $("#popup-modal").modal("hide");
@@ -130,6 +145,10 @@
                     <input type="submit" value="Reschedule"/>
                 </form>
 
+                <form id="declineAppointmentForm" method="post" action="#"> {% csrf_token %}
+                    Note that declining an appointment might be irreversible.
+                    <input type="submit" value="Decline"/>
+                </form>
             </div>
         </div>
     </div>
