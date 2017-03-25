@@ -111,13 +111,15 @@ def create_appointment(request):
         return redirect('customer:dashboard')
 
     # ToDo: You can get rid of the following if/else statement and just use template code: {{ chosen_stylist.username | default_if_none:"PleaseSelectStylsit" }}
-    if 'stylist_pk' in request.session:
-        chosen_stylist = User.objects.get(pk=request.session['stylist_pk'])
+    # if 'stylist_pk' in request.session:
+    #     chosen_stylist = User.objects.get(pk=request.session['stylist_pk'])
+    # else:
+    #     chosen_stylist = 'Please select a stylist'
     else:
-        chosen_stylist = 'Please select a stylist'
+        stylist_list = User.objects.filter(is_stylist='YES')
 
-    return render(request, 'customer/create_appointment.html',
-                  {'chosen_stylist': chosen_stylist})
+    return render(request, 'customer/customerReal/search/search_core.html',
+                  {'stylist_list': stylist_list})
 
 
 '''
