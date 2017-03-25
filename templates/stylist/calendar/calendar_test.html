@@ -21,15 +21,15 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
-                defaultView:'agendaWeek',
+                defaultView: 'agendaWeek',
                 defaultDate: moment().format("YYYY-MM-DD"),
                 editable: true,
                 eventSources: [
                     {
                         {% if stylist_pk %}
-                        url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                            url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
                         {% else %}
-                        url: '{% url 'api:shift-list' %}',
+                            url: '{% url 'api:shift-list' %}',
                         {% endif %}
                         color: 'red'
                     },
@@ -40,6 +40,18 @@
                 ],
                 loading: function (bool) {
                     $('#loading').toggle(bool);
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    id = calEvent.id;
+                    $('#modalTitle').html(calEvent.title);
+                    $('#control_day_edit').val(calEvent.start);
+                    $('#control_level').val(calEvent.title.toString());
+                    console.log(calEvent.title)
+                    console.log(calEvent.start._i)
+                    console.log(calEvent.id)
+                    $('#eventUrl').attr('href', "/users/:user_id/controls/calEvent.id/edit");
+                    $('#fullCalModal').modal();
+                    y = calEvent;
                 }
             });
         });
