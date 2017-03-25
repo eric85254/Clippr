@@ -249,7 +249,7 @@ class HaircutViewSet(viewsets.ModelViewSet):
         return PortfolioHaircut.objects.filter(stylist=stylist)
 
     def perform_create(self, serializer):
-        #Todo make it so that only Stylists can save a haircut.
+        # Todo make it so that only Stylists can save a haircut.
         serializer.save(stylist=self.request.user)
 
 
@@ -285,13 +285,14 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
         return StylistMenu.objects.filter(stylist=stylist)
 
     def perform_create(self, serializer):
-        #Todo: currently there's nothing stoping customer's from creating a stylist menu option.
+        # Todo: currently there's nothing stoping customer's from creating a stylist menu option.
         serializer.save(stylist=self.request.user)
 
 
 class ShiftViewSet(viewsets.ModelViewSet):
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer
+
     # permission_classes = ()
     # Need to add permissions so only Stylists can modify shift items.
 
@@ -311,13 +312,11 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
         user = self.request.user
-        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist))
+        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist)).exclude(
+            status=Appointment.STATUS_DECLINED)
 
     def perform_update(self, serializer):
         if self.request.user.is_stylist == 'YES':
             serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
         if self.request.user.is_stylist == 'NO':
             serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
-
-
-

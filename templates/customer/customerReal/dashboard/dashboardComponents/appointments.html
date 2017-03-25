@@ -1,6 +1,7 @@
 {% load staticfiles %}
 
 <div class="card card-dashboard">
+{#Todo: make a customer:appointment page#}
     <a href="{% url 'stylist:appointments' %}">
         <h4 class="card-header module-header">Appointments</h4>
     </a>
@@ -19,13 +20,13 @@
     </ul>
     <div class="tab-content card-scroll">
         <div class="tab-pane active" id="accepted_appointments" role="tabpanel">
-            {% for appointment in accepted_appointments %}
+            {% for appointment, bill in accepted_appointments_bill.items %}
                 <div id="accordion" role="tablist" aria-multiselectable="true">
                     <div role="tab" id="headingTwo">
                         <div class="card mb-3 appointment-block">
                             <h6 class="mb-0 mt-2">
                                 <a class="appointment-option" role="appointment-{{ forloop.counter }}">
-                                    <div class="mr-auto p-0">{{ appointment.date|default_if_none:"" }}</div>
+                                    <div class="mr-auto p-0">{{ appointment.start_date_time|default_if_none:"" }}</div>
                                 </a>
                             </h6>
                             <div id="appointment-{{ forloop.counter }}" class="collapse">
@@ -46,7 +47,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane" id="pending_appointments" role="tabpanel">
-            {% for appointment in pending_appointments %}
+            {% for appointment, bill in pending_appointments_bill.items %}
                 <ul>
                     -------------------------------- <br>
                     Appointment Details: <br>
