@@ -59,3 +59,10 @@ class Shift(FullCalendarEvent):
         Model to hold shift schedule of Stylist
     """
     owner = models.ForeignKey('core.User', related_name='shift_owner')
+    is_shift = models.BooleanField(default=True)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        self.is_shift = True
+        super(Shift, self).save()
