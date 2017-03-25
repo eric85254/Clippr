@@ -131,18 +131,6 @@ def decline_appointment(request):
     return redirect('core:logout')
 
 
-def reschedule_appointment(request):
-    if request.user.is_stylist == 'YES':
-        if request.method == 'POST':
-            appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
-            appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
-            #Todo: this needs to go.
-            appointment.date = datetime.strptime(request.POST.get('date'), '%Y-%m-%dT%H:%M')
-            appointment.save()
-        return redirect(request.META.get('HTTP_REFERER'))
-    return redirect('core:logout')
-
-
 def complete_appointment(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
