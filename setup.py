@@ -40,7 +40,6 @@ subprocess.call('python manage.py migrate', shell=True)
 commands = [
     'createDefaultUsers',
     'createGlobalMenuOption',
-    'createDefaultAppointment',
     'createDefaultHaircuts',
     'createDefaultShifts'
 ]

@@ -94,7 +94,12 @@ class AppointmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ('url', 'location', 'start', 'end', 'stylist', 'customer')
+        fields = (
+            'url', 'title', 'location', 'start_time', 'end_time', 'start_date_time', 'end_date_time', 'stylist',
+            'customer', 'status')
+        extra_kwargs = {
+            'status': {'read_only': True}
+        }
 
 
 class CalendarEventSerializer(serializers.HyperlinkedModelSerializer):

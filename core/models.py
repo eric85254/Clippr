@@ -111,6 +111,19 @@ class Appointment(FullCalendarEvent):
 
     status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        if self.status == Appointment.STATUS_COMPLETED:
+            self.color = 'green'
+        elif self.status == Appointment.STATUS_ACCEPTED:
+            self.color = 'blue'
+        elif self.status == Appointment.STATUS_RESCHEDULED_BYCUSTOMER or self.status == Appointment.STATUS_RECHEDULED_BYSTYLIST or self.status == Appointment.STATUS_PENDING:
+            self.color = 'yellow'
+            self.textColor = 'black'
+
+        super(Appointment, self).save()
+
     def __str__(self):
         return self.stylist.username + "'s appointment with " + self.customer.username
 
