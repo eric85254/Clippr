@@ -313,4 +313,11 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist))
 
+    def perform_update(self, serializer):
+        if self.request.user.is_stylist == 'YES':
+            serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
+        if self.request.user.is_stylist == 'NO':
+            serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+
+
 
