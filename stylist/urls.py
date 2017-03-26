@@ -16,7 +16,6 @@ from stylist import views
 appointmentpatterns = [
     url(r'^accept_appointment/$', views.accept_appointment, name='accept_appointment'),
     url(r'^decline_appointment/$', views.decline_appointment, name='decline_appointment'),
-    url(r'^reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
     url(r'^complete_appointment/$', views.complete_appointment, name='complete_appointment'),
     url(r'^submit_review/$', views.submit_review, name='submit_review'),
 ]
@@ -51,6 +50,7 @@ menupatterns = [
 
 calendar_patterns = [
     url(r'^$', views.render_calendar_page, name="render_calendar"),
+    url(r'^shift_calendar/$', views.render_shift_calender, name="shift_calendar")
 ]
 
 urlpatterns = [

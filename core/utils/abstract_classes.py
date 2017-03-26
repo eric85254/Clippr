@@ -37,14 +37,14 @@ class FullCalendarEvent(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
-        if self.start_date_time is None or self.start_date_time == '':
-            self.start = str(self.start_time)
-        else:
+        if self.start_time is None or self.start_time == '':
             self.start = str(self.start_date_time)
-
-        if self.end_date_time is None or self.end_date_time == '':
-            self.end = str(self.end_time)
         else:
+            self.start = str(self.start_time)
+
+        if self.end_time is None or self.end_time == '':
             self.end = str(self.end_date_time)
+        else:
+            self.end = str(self.end_time)
 
         super(FullCalendarEvent, self).save()

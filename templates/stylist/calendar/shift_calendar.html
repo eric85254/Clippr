@@ -1,0 +1,185 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% include 'stylist/stylistReal/headerBase.html' %}
+<head>
+
+    <link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
+    <script src='{% static 'jquery/dist/jquery.min.js' %}'></script>
+    <script src='{% static 'moment/min/moment.min.js' %}'></script>
+    <script src='{% static 'fullcalendar/dist/fullcalendar.js' %}'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- Tether JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+    <title>Shifts</title>
+
+    ...
+
+    <script type="text/javascript">
+
+        $(document).ready(function () { // Page is ready.
+                // Initialize the calendar.
+
+                var currentEvent;
+
+                var saveForm = document.getElementById("saveForm");
+                var deleteForm = document.getElementById("deleteForm");
+                deleteForm.onsubmit = deleteFormSubmit;
+                saveForm.onsubmit = saveFormSubmit;
+
+                function deleteFormSubmit() {
+                    event.preventDefault();
+                    $("#popup-modal").modal("hide");
+                    $.ajax({
+                        url: currentEvent.url,
+                        type: "delete",
+                        success: function (data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    })
+                }
+
+                function saveFormSubmit() {
+                    event.preventDefault();
+                    $("#popup-modal").modal("hide");
+
+                    var dowValue = $('input[name="dow"]:checked').val();
+                    var currentEventJson;
+                    if (dowValue == '' || dowValue == null) {
+                        console.log('no dow value');
+                        currentEventJson = {
+                            "start_date_time": moment(currentEvent.start).format(),
+                            "end_date_time": moment(currentEvent.end).format(),
+                            "title": "unavailable"
+                        };
+                    } else {
+                        currentEventJson = {
+                            "start_date_time": moment(currentEvent.start).format(),
+                            "end_date_time": moment(currentEvent.end).format(),
+                            "start_time": moment(currentEvent.start).format("HH:mm:ss"),
+                            "end_time": moment(currentEvent.end).format("HH:mm:ss"),
+                            "title": "unavailable",
+                            "dow": dowValue
+                        };
+                    }
+
+                    console.log($(saveForm).serialize());
+                    console.log(currentEvent);
+                    $.ajax({
+                        url: '{% url 'api:shift-list' %}',
+                        type: "post",
+                        data: currentEventJson,
+                        success: function (data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    })
+                }
+
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    defaultView: 'agendaWeek',
+                    defaultDate: moment().format("YYYY-MM-DD"),
+                    eventClick: function (event) {
+                        if (event.is_shift) {
+                            console.log(event);
+                            currentEvent = event;
+                            $("#popup-modal").modal("show");
+                        }
+                        return false;
+                    },
+                    editable: true,
+                    eventSources: [
+                        {
+                            {% if stylist_pk %}
+                                url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                            {% else %}
+                                url: '{% url 'api:shift-list' %}',
+                            {% endif %}
+                            color: 'red'
+                        },
+                        {
+                            url: '{% url 'api:calendarevent-list' %}',
+                            color: 'green'
+                        }
+                    ],
+                    loading: function (bool) {
+                        $('#loading').toggle(bool);
+                    },
+                    selectable: true,
+                    select: function (start, end, jsEvent, view) {
+                        var newEvent = {};
+
+                        newEvent.start = moment(start).format();
+
+                        newEvent.end = moment(end).format();
+
+                        newEvent.title = "Unavailable";
+                        newEvent.allDay = false;
+                        newEvent.is_shift = true;
+
+                        $('#calendar').fullCalendar('renderEvent', newEvent);
+                    }
+                });
+            }
+        )
+        ;
+
+    </script>
+
+</head>
+
+<body>
+<div id="calendar"></div>
+
+<div class="modal fade" id="popup-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-end pt-3 pb-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body m-0">
+
+                <form id="saveForm" method="post" action="#">{% csrf_token %}
+                    <label for="dow">Repeating Event?</label>
+                    Sunday <input type="radio" name="dow" id="dow" value="0"/>
+                    Monday <input type="radio" name="dow" id="dow" value="1"/>
+                    Tuesday <input type="radio" name="dow" id="dow" value="2"/>
+                    Wednesday <input type="radio" name="dow" id="dow" value="3"/>
+                    Thursday <input type="radio" name="dow" id="dow" value="4"/>
+                    Friday <input type="radio" name="dow" id="dow" value="5"/>
+                    Saturday <input type="radio" name="dow" id="dow" value="6"/>
+                    None <input type="radio" name="dow" id="dow" value=""/>
+                    <br>
+
+                    <input type="submit" value="Save"/>
+                </form>
+
+                <form id="deleteForm" method="post" action="#">{% csrf_token %}
+                    <input type="submit" value="Delete"/>
+                </form>
+
+
+                <form id="excludeForm" method="post" action="#">{% csrf_token %}
+                    <input type="submit" value="Exclude"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

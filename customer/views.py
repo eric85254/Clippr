@@ -27,7 +27,7 @@ from stylist.utils.view_logic import BillLogic
 
 def profile(request):
     if request.user.is_stylist == 'NO':
-        return render(request, 'customer/profile.html',
+        return render(request, 'customer/customerReal/profile/profile.html',
                       {'full_name': request.user.get_full_name(),
                        'customer': request.user})
     else:
@@ -335,35 +335,3 @@ def submit_review(request):
     else:
         return redirect('core:logout')
 
-
-'''
-    Adam Lynch's Portion.
-'''
-
-
-def dashboard_real(request):
-    if CustomerLogic.is_customer(request):
-        return render(request, 'customer/customerReal/dashboard/dashboard_core.html')
-    else:
-        return redirect('core:logout')
-
-
-def profile_real(request):
-    if CustomerLogic.is_customer(request):
-        return render(request, 'customer/customerReal/profile/profile_core.html')
-    else:
-        return redirect('core:logout')
-
-
-def search_real(request):
-    if CustomerLogic.is_customer(request):
-        return render(request, 'customer/customerReal/search/search_core.html')
-    else:
-        return redirect('core:logout')
-
-
-def settings_real(request):
-    if CustomerLogic.is_customer(request):
-        return render(request, 'customer/customerReal/settings/settings_core.html')
-    else:
-        return redirect('core:logout')

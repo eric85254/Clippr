@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # todo: use this model.
 from core.utils.abstract_classes import FullCalendarEvent
 
@@ -59,3 +58,15 @@ class Shift(FullCalendarEvent):
         Model to hold shift schedule of Stylist
     """
     owner = models.ForeignKey('core.User', related_name='shift_owner')
+    is_shift = models.BooleanField(default=True)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.is_shift = True
+        super(Shift, self).save()
+
+
+class ShiftException(models.Model):
+    shift = models.ForeignKey('stylist.Shift', related_name='shift', on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()

@@ -4,6 +4,8 @@
 
     CSRF exemption is done on the class based views by setting CsrfExemptSessionAuthentication to its list of authentication_classes
 """
+from datetime import timedelta
+
 from django.contrib import auth
 from django.db.models import Q, Avg
 
@@ -24,7 +26,7 @@ from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUse
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
     GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, CalendarEventSerializer
 from core.models import User, GlobalMenu, Appointment
-from stylist.models import PortfolioHaircut, StylistMenu, Shift
+from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
 
 '''
     USER LOGIN & LOGOUT
@@ -222,6 +224,32 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         """
         serializer.save(customer=self.request.user)
 
+    def perform_destroy(self, instance):
+        instance.status = Appointment.STATUS_DECLINED
+        instance.save()
+
+
+class CalendarEventViewSet(viewsets.ModelViewSet):
+    queryset = Appointment.objects.all()
+    serializer_class = CalendarEventSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+
+    def get_queryset(self):
+        stylist = self.request.query_params.get('stylist_pk', None)
+        user = self.request.user
+        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist)).exclude(
+            status=Appointment.STATUS_DECLINED)
+
+    def perform_update(self, serializer):
+        if self.request.user.is_stylist == 'YES':
+            serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
+        if self.request.user.is_stylist == 'NO':
+            serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+
+    def perform_destroy(self, instance):
+        instance.status = Appointment.STATUS_DECLINED
+        instance.save()
+
 
 '''
     HAIRCUT VIEW SET
@@ -292,6 +320,7 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
 class ShiftViewSet(viewsets.ModelViewSet):
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     # permission_classes = ()
     # Need to add permissions so only Stylists can modify shift items.
@@ -303,20 +332,10 @@ class ShiftViewSet(viewsets.ModelViewSet):
         else:
             return Shift.objects.filter(owner=stylist)
 
-
-class CalendarEventViewSet(viewsets.ModelViewSet):
-    queryset = Appointment.objects.all()
-    serializer_class = CalendarEventSerializer
-    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
-
-    def get_queryset(self):
-        stylist = self.request.query_params.get('stylist_pk', None)
-        user = self.request.user
-        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist)).exclude(
-            status=Appointment.STATUS_DECLINED)
-
-    def perform_update(self, serializer):
-        if self.request.user.is_stylist == 'YES':
-            serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
-        if self.request.user.is_stylist == 'NO':
-            serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+    def perform_create(self, serializer):
+        shift = serializer.save(owner=self.request.user)
+        ShiftException.objects.create(
+            shift=shift,
+            start_date=shift.start_date_time,
+            end_date=shift.start_date_time + timedelta(weeks=2600)
+        )
