@@ -67,6 +67,6 @@ class Shift(FullCalendarEvent):
 
 
 class ShiftException(models.Model):
-    shift = models.ForeignKey('stylist.Shift', related_name='shift')
+    shift = models.ForeignKey('stylist.Shift', related_name='shift', on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
