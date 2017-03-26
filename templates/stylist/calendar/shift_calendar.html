@@ -31,7 +31,21 @@
                 var currentEvent;
 
                 var saveForm = document.getElementById("saveForm");
+                var deleteForm = document.getElementById("deleteForm");
+                deleteForm.onsubmit = deleteFormSubmit;
                 saveForm.onsubmit = saveFormSubmit;
+
+                function deleteFormSubmit() {
+                    event.preventDefault();
+                    $("#popup-modal").modal("hide");
+                    $.ajax({
+                        url: currentEvent.url,
+                        type: "delete",
+                        success: function (data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    })
+                }
 
                 function saveFormSubmit() {
                     event.preventDefault();
