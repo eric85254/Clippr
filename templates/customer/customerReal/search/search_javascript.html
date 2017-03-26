@@ -17,26 +17,22 @@
         var menu = "";
         $.get("{% static 'html_templates/menu_preview.html' %}", function (txt) {
             body = txt.split('\n');
-            console.log(body[0]);
             for (var i = 0; i < body.length; i++) {
                 menu += body[i];
             }
         });
 
-
         $.ajax({
-            url: $(this).attr('name'),
+            url: $("."+$(this).attr('value')).attr('data-field1'),
             dataType: 'json',
             success: function (outputfromserver) {
-
                 for (var j = 0; j < outputfromserver.length; j++) {
                     $("#menu-start").append(menu);
                 }
 
-                for (var i = 1; i < (outputfromserver.length + 1); i++) {
-                    $("#menu-price:nth-child(" + i + ")").append("$" + outputfromserver[i - 1].price);
-                    $("#menu-name:nth-child(" + i + ")").append(outputfromserver[i - 1].name);
-                }
+                $('.menu-name').each(function (i) {
+                    $(this).append(outputfromserver[i].name);
+                });
             }
         });
     });
