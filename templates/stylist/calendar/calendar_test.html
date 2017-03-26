@@ -77,8 +77,16 @@
                 }
 
                 $('#calendar').fullCalendar({
+                    customButtons: {
+                      shiftViewButton: {
+                          text: "Modify Shift",
+                          click: function() {
+                              window.location.href = '{% url 'stylist:shift_calendar' %}';
+                          }
+                      }
+                    },
                     header: {
-                        left: 'prev,next today',
+                        left: 'prev,next today shiftViewButton',
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },

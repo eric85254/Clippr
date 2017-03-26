@@ -4,6 +4,8 @@
 
     CSRF exemption is done on the class based views by setting CsrfExemptSessionAuthentication to its list of authentication_classes
 """
+from datetime import timedelta
+
 from django.contrib import auth
 from django.db.models import Q, Avg
 
@@ -24,7 +26,7 @@ from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUse
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
     GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, CalendarEventSerializer
 from core.models import User, GlobalMenu, Appointment
-from stylist.models import PortfolioHaircut, StylistMenu, Shift
+from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
 
 '''
     USER LOGIN & LOGOUT
@@ -318,6 +320,7 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
 class ShiftViewSet(viewsets.ModelViewSet):
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     # permission_classes = ()
     # Need to add permissions so only Stylists can modify shift items.
@@ -328,3 +331,11 @@ class ShiftViewSet(viewsets.ModelViewSet):
             return Shift.objects.filter(owner=self.request.user)
         else:
             return Shift.objects.filter(owner=stylist)
+
+    def perform_create(self, serializer):
+        shift = serializer.save(owner=self.request.user)
+        ShiftException.objects.create(
+            shift=shift,
+            start_date=shift.start_date_time,
+            end_date=shift.start_date_time + timedelta(weeks=2600)
+        )

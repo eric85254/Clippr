@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # todo: use this model.
 from core.utils.abstract_classes import FullCalendarEvent
 
@@ -63,6 +62,11 @@ class Shift(FullCalendarEvent):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-
         self.is_shift = True
         super(Shift, self).save()
+
+
+class ShiftException(models.Model):
+    shift = models.ForeignKey('stylist.Shift', related_name='shift')
+    start_date = models.DateField()
+    end_date = models.DateField()

@@ -50,6 +50,7 @@ menupatterns = [
 
 calendar_patterns = [
     url(r'^$', views.render_calendar_page, name="render_calendar"),
+    url(r'^shift_calendar/$', views.render_shift_calender, name="shift_calendar")
 ]
 
 urlpatterns = [

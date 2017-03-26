@@ -451,3 +451,7 @@ def profile_test(request):
 def render_calendar_page(request):
     return render(request, 'stylist/calendar/calendar_test.html')
 
+def render_shift_calender(request):
+    return render(request, 'stylist/calendar/shift_calendar.html')
+
+
