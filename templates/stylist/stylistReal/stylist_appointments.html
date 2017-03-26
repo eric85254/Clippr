@@ -81,13 +81,6 @@
                                 <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                             </form>
                             <br>
-                            <form action="{% url 'stylist:reschedule_appointment' %}"
-                                  method="post"> {% csrf_token %}
-                                <label for="date">Date: </label>
-                                <input type="datetime-local" value="" name="date" id="date"/> <br>
-                                <input type="submit" value="Reschedule"/>
-                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                            </form>
                             <form action="{% url 'stylist:add_travel_fee' %}" method="post">{% csrf_token %}
                                 <label for="travel_price">Travel Price:</label>
                                 <input id="travel_price" name="travel_fee" type="number" min="0" max="50"
@@ -123,14 +116,6 @@
                                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                                 </form>
                                 <br>
-                                <form action="{% url 'stylist:reschedule_appointment' %}"
-                                      method="post"> {% csrf_token %}
-                                    <label for="date">Date: </label>
-                                    <input type="datetime-local" value="" name="date" id="date"/> <br>
-                                    <input type="submit" value="Reschedule"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
                                 -------------------------------- <br>
                             {% endif %}
                             {% if appointment.status == stylist_reschedule %}
@@ -143,14 +128,6 @@
 
                                 <form action="{% url 'stylist:decline_appointment' %}" method="post"> {% csrf_token %}
                                     <input type="submit" value="Decline"/>
-                                    <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                                </form>
-                                <br>
-                                <form action="{% url 'stylist:reschedule_appointment' %}"
-                                      method="post"> {% csrf_token %}
-                                    <label for="date">Date: </label>
-                                    <input type="datetime-local" value="" name="date" id="date"/> <br>
-                                    <input type="submit" value="Reschedule"/>
                                     <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                                 </form>
                                 <br>
@@ -186,12 +163,6 @@
 
                             <form action="{% url 'stylist:accept_appointment' %}" method="post"> {% csrf_token %}
                                 <input type="submit" value="Accept"/>
-                                <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
-                            </form>
-                            <form action="{% url 'stylist:reschedule_appointment' %}" method="post"> {% csrf_token %}
-                                <label for="date">Date: </label>
-                                <input type="datetime-local" value="" name="date" id="date"/> <br>
-                                <input type="submit" value="Reschedule"/>
                                 <input type="hidden" name="appointment_pk" value="{{ appointment.pk }}"/>
                             </form>
                             <br>
