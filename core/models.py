@@ -10,6 +10,7 @@ from django.db import models
 # Create your models here.
 from core.utils.abstract_classes import FullCalendarEvent
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
+from stylist.models import PortfolioHaircut, StylistMenu
 
 
 class User(AbstractUser):
@@ -38,6 +39,13 @@ class User(AbstractUser):
     # Todo: maybe don't show this until a certain number of people have rated?
     average_stylist_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
     average_customer_rating = models.DecimalField(max_digits=3, decimal_places=1, null=True)
+
+    def get_portfolio_haircuts(self):
+        return PortfolioHaircut.objects.filter(stylist=self)
+
+    def get_stylist_menu(self):
+        return StylistMenu.objects.filter(stylist=self)
+
 
 
 class GlobalMenu(models.Model):

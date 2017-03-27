@@ -16,7 +16,7 @@ var geocoder;
 //Map Helper Functions
 
 // CONVERT ADDRESS TO LONG AND LAT
-var addressToCoordinates = function addressToCoordinates (gecoder, address) {
+var addressToCoordinates = function addressToCoordinates(gecoder, address) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == 'OK') {
             return results[0].geometry.location;
@@ -68,7 +68,7 @@ function setMarker(map, location) {
 }
 
 /*
-    INITIALIZING MAP
+ INITIALIZING MAP
  */
 function initMap() {
 
@@ -76,7 +76,7 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 33.4169589, lng:-111.9377391}, //ASU Coordinates
+        center: {lat: 33.4169589, lng: -111.9377391}, //ASU Coordinates
         zoom: 10
     });
 
@@ -86,25 +86,25 @@ function initMap() {
 
 
 /*
-    JAVASCRIPT FOR DASHBOARD PAGE - EXCLUDING MAPS JAVASCRIPT
+ JAVASCRIPT FOR DASHBOARD PAGE - EXCLUDING MAPS JAVASCRIPT
  */
 
 function showMarkerOnMap(button) {
     geocodeAddress(geocoder, map, button.value); //address is located in button value
 }
 
-$(".menu-option").click(function() {
+$(".menu-option").click(function () {
     var tmp1 = $(this).attr("role");
     // console.log(tmp1);
     $('#' + tmp1).collapse('toggle');
-})
+});
 
-$(".appointment-option").click(function() {
+$(".appointment-option").click(function () {
     var tmp2 = $(this).attr("role");
     console.log(tmp2);
     $('#' + tmp2).collapse('toggle');
-})
+});
 
 $('.appointment-location').click(function () {
     geocodeAddress(geocoder, map, $(this).attr('role'));
-})
+});
