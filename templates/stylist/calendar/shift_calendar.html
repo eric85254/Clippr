@@ -73,14 +73,25 @@
 
                     console.log($(saveForm).serialize());
                     console.log(currentEvent);
-                    $.ajax({
-                        url: '{% url 'api:shift-list' %}',
-                        type: "post",
-                        data: currentEventJson,
-                        success: function (data) {
-                            $('#calendar').fullCalendar('refetchEvents');
-                        }
-                    })
+                    if (currentEvent.url) {
+                        $.ajax({
+                            url: currentEvent.url,
+                            type: "put",
+                            data: currentEventJson,
+                            success: function (data) {
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        })
+                    } else {
+                        $.ajax({
+                            url: '{% url 'api:shift-list' %}',
+                            type: "post",
+                            data: currentEventJson,
+                            success: function (data) {
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        })
+                    }
                 }
 
                 $('#calendar').fullCalendar({
