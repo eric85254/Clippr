@@ -33,6 +33,10 @@
                 $('.menu-name').each(function (i) {
                     $(this).append(outputfromserver[i].name);
                 });
+
+                $('.menu-price').each(function (k) {
+                    $(this).append('$'+outputfromserver[k].price);
+                });
             }
         });
     });
