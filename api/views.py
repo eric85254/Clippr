@@ -27,6 +27,7 @@ from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHair
     GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, CalendarEventSerializer
 from core.models import User, GlobalMenu, Appointment
 from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
+from stylist.utils.view_logic import StylistLogic
 
 '''
     USER LOGIN & LOGOUT
@@ -199,7 +200,7 @@ class StylistViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericVi
 
 
 '''
-    APPOINTMENT VIEW SET
+    Calendar Event Stuff
 '''
 
 
@@ -249,6 +250,55 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         instance.status = Appointment.STATUS_DECLINED
         instance.save()
+
+
+@api_view(['POST', ])
+def exclude_date(request):
+    if StylistLogic.is_stylist(request):
+        shift = Shift.objects.get(pk=request.POST.get('shift_pk'))
+        number_of_exceptions = ShiftException.objects.filter(shift=shift).count()
+
+        if (shift.dow is not None and shift.dow != "") and (number_of_exceptions != 0):
+            last_exception = ShiftException.objects.filter(shift=shift).last()
+            ShiftException.objects.create(
+                shift=shift,
+                start_date=request.POST.get('excluded_date'),
+                end_date=last_exception.end_date
+            )
+            last_exception.end_date = request.POST.get('excluded_date')
+            last_exception.save()
+
+        else:
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class ShiftViewSet(viewsets.ModelViewSet):
+    queryset = Shift.objects.all()
+    serializer_class = ShiftSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+
+    # permission_classes = ()
+    # Need to add permissions so only Stylists can modify shift items.
+
+    def get_queryset(self):
+        stylist = self.request.query_params.get('stylist_pk', None)
+        if stylist is None:
+            return Shift.objects.filter(owner=self.request.user)
+
+        else:
+             return Shift.objects.filter(owner=stylist)
+
+
+    def perform_create(self, serializer):
+        shift = serializer.save(owner=self.request.user)
+        ShiftException.objects.create(
+            shift=shift,
+            start=shift.start_date_time,
+            end=shift.start_date_time + timedelta(weeks=2600)
+        )
 
 
 '''
@@ -315,27 +365,3 @@ class StylistMenuViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Todo: currently there's nothing stoping customer's from creating a stylist menu option.
         serializer.save(stylist=self.request.user)
-
-
-class ShiftViewSet(viewsets.ModelViewSet):
-    queryset = Shift.objects.all()
-    serializer_class = ShiftSerializer
-    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
-
-    # permission_classes = ()
-    # Need to add permissions so only Stylists can modify shift items.
-
-    def get_queryset(self):
-        stylist = self.request.query_params.get('stylist_pk', None)
-        if stylist is None:
-            return Shift.objects.filter(owner=self.request.user)
-        else:
-            return Shift.objects.filter(owner=stylist)
-
-    def perform_create(self, serializer):
-        shift = serializer.save(owner=self.request.user)
-        ShiftException.objects.create(
-            shift=shift,
-            start_date=shift.start_date_time,
-            end_date=shift.start_date_time + timedelta(weeks=2600)
-        )

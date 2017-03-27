@@ -102,14 +102,6 @@
                     },
                     defaultView: 'agendaWeek',
                     defaultDate: moment().format("YYYY-MM-DD"),
-                    eventClick: function (event) {
-                        if (event.is_shift) {
-                            console.log(event);
-                            currentEvent = event;
-                            $("#popup-modal").modal("show");
-                        }
-                        return false;
-                    },
                     editable: true,
                     eventSources: [
                         {
@@ -125,10 +117,26 @@
                             color: 'green'
                         }
                     ],
+                    selectable: true,
+                    eventClick: function (event) {
+                        if (event.is_shift) {
+                            console.log(event);
+                            currentEvent = event;
+                            $("#popup-modal").modal("show");
+                        }
+                        return false;
+                    },
+                    eventRender: function (event, element, view) {
+                        if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges !="")) {
+                            return (event.ranges.filter(function (range) {
+                                    return (moment(event.start).isBefore(range.end) &&
+                                    moment(event.end).isAfter(range.start));
+                                }).length) > 0;
+                        }
+                    },
                     loading: function (bool) {
                         $('#loading').toggle(bool);
                     },
-                    selectable: true,
                     select: function (start, end, jsEvent, view) {
                         var newEvent = {};
 

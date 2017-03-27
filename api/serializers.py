@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from core.models import User, GlobalMenu, Appointment
 from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
-from stylist.models import PortfolioHaircut, StylistMenu, Shift
+from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
 
 '''
     User Serializer.
@@ -183,10 +183,18 @@ class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'price', 'modified_global')
 
 
+class ShiftExceptionSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = ShiftException
+        fields = ('start', 'end')
+
+
 class ShiftSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:shift-detail')
     owner = StylistSerializer(many=False, read_only=True)
     pk = serializers.ReadOnlyField()
+    ranges = ShiftExceptionSerializer(source='get_exceptions', many=True, read_only=True)
 
     class Meta:
         model = Shift
