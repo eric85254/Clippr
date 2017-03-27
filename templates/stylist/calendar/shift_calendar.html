@@ -28,12 +28,60 @@
         $(document).ready(function () { // Page is ready.
                 // Initialize the calendar.
 
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+
+                $(function () {
+                    console.log('hi');
+                    $.ajaxSetup({
+                        headers: {"X-CSRFToken": getCookie("csrftoken")}
+                    });
+                });
+
                 var currentEvent;
 
                 var saveForm = document.getElementById("saveForm");
                 var deleteForm = document.getElementById("deleteForm");
+                var excludeForm = document.getElementById("excludeForm");
+                excludeForm.onsubmit = excludeFormSubmit;
                 deleteForm.onsubmit = deleteFormSubmit;
                 saveForm.onsubmit = saveFormSubmit;
+
+                function excludeFormSubmit() {
+                    event.preventDefault();
+                    $("#popup-modal").modal("hide");
+
+                    var packageJSON = {
+                        "excluded_date": moment(currentEvent.start).format("YYYY-MM-DD"),
+                        "shift_pk": currentEvent.pk
+                    };
+
+                    $.ajax({
+                        url: "{% url 'api:exclude_date' %}",
+                        type: "post",
+                        data: packageJSON,
+                        success: function (data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        },
+                        error: function (data) {
+                            console.log("error submitting request to " + "{% url 'api:exclude_date' %}");
+                            console.log(data);
+                        }
+                    })
+                }
 
                 function deleteFormSubmit() {
                     event.preventDefault();
@@ -73,14 +121,25 @@
 
                     console.log($(saveForm).serialize());
                     console.log(currentEvent);
-                    $.ajax({
-                        url: '{% url 'api:shift-list' %}',
-                        type: "post",
-                        data: currentEventJson,
-                        success: function (data) {
-                            $('#calendar').fullCalendar('refetchEvents');
-                        }
-                    })
+                    if (currentEvent.url) {
+                        $.ajax({
+                            url: currentEvent.url,
+                            type: "put",
+                            data: currentEventJson,
+                            success: function (data) {
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        })
+                    } else {
+                        $.ajax({
+                            url: '{% url 'api:shift-list' %}',
+                            type: "post",
+                            data: currentEventJson,
+                            success: function (data) {
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        })
+                    }
                 }
 
                 $('#calendar').fullCalendar({
@@ -91,14 +150,6 @@
                     },
                     defaultView: 'agendaWeek',
                     defaultDate: moment().format("YYYY-MM-DD"),
-                    eventClick: function (event) {
-                        if (event.is_shift) {
-                            console.log(event);
-                            currentEvent = event;
-                            $("#popup-modal").modal("show");
-                        }
-                        return false;
-                    },
                     editable: true,
                     eventSources: [
                         {
@@ -114,10 +165,26 @@
                             color: 'green'
                         }
                     ],
+                    selectable: true,
+                    eventClick: function (event) {
+                        if (event.is_shift) {
+                            console.log(event);
+                            currentEvent = event;
+                            $("#popup-modal").modal("show");
+                        }
+                        return false;
+                    },
+                    eventRender: function (event, element, view) {
+                        if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
+                            return (event.ranges.filter(function (range) {
+                                    return (moment(event.start).isBefore(range.end) &&
+                                    moment(event.end).isAfter(range.start));
+                                }).length) > 0;
+                        }
+                    },
                     loading: function (bool) {
                         $('#loading').toggle(bool);
                     },
-                    selectable: true,
                     select: function (start, end, jsEvent, view) {
                         var newEvent = {};
 

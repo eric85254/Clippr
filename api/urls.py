@@ -3,6 +3,7 @@
     The manually registered views (in url patterns) don't show up in the home page of /api.
 """
 from django.conf.urls import url, include
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import routers
 
 from api import views
@@ -23,5 +24,6 @@ urlpatterns = [
     url(r'^user_logout/$', views.user_logout),
     url(r'^stylist_search/(?P<search>.*)$', views.stylist_search),
     url(r'^customer_rating/(?P<customer_pk>.*)$', views.customer_rating),
-    url(r'^stylist_rating/(?P<stylist_pk>.*)$', views.stylist_rating)
+    url(r'^stylist_rating/(?P<stylist_pk>.*)$', views.stylist_rating),
+    url(r'^exclude_date/$', views.exclude_date, name='exclude_date')
 ]
