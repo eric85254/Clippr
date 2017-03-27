@@ -16,7 +16,7 @@ from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -29,37 +29,13 @@ from core.models import User, GlobalMenu, Appointment
 from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
 from stylist.utils.view_logic import StylistLogic
 
-
-@api_view(['POST', ])
-def exclude_date(request):
-    shift = Shift.objects.get(pk=int(request.data.get('shift_pk', '')))
-    number_of_exceptions = ShiftException.objects.filter(shift=shift).count()
-
-    if (shift.dow is not None and shift.dow != "") and (number_of_exceptions != 0):
-        last_exception = ShiftException.objects.filter(shift=shift).last()
-        ShiftException.objects.create(
-            shift=shift,
-            start=datetime.strptime(request.data.get('excluded_date', ''), "%Y-%m-%d") + timedelta(days=1),
-            end=last_exception.end
-        )
-        last_exception.end = request.data.get('excluded_date', '')
-        last_exception.save()
-
-        return Response(status=status.HTTP_200_OK)
-
-    else:
-        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-
-        # else:
-        #     return Response(status=status.HTTP_403_FORBIDDEN)
-
-
 '''
     USER LOGIN & LOGOUT
 '''
 
 
 @api_view(['POST', ])
+@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 def user_login(request):
     """
         Simple view for user's to be able to log in.
@@ -89,6 +65,7 @@ def user_login(request):
 
 
 @api_view(['POST', ])
+@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 def user_logout(request):
     if request.method == 'POST':
         auth.logout(request)
@@ -273,6 +250,31 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         instance.status = Appointment.STATUS_DECLINED
         instance.save()
+
+
+@api_view(['POST', ])
+@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
+def exclude_date(request):
+    shift = Shift.objects.get(pk=int(request.data.get('shift_pk', '')))
+    number_of_exceptions = ShiftException.objects.filter(shift=shift).count()
+
+    if (shift.dow is not None and shift.dow != "") and (number_of_exceptions != 0):
+        last_exception = ShiftException.objects.filter(shift=shift).last()
+        ShiftException.objects.create(
+            shift=shift,
+            start=datetime.strptime(request.data.get('excluded_date', ''), "%Y-%m-%d") + timedelta(days=1),
+            end=last_exception.end
+        )
+        last_exception.end = request.data.get('excluded_date', '')
+        last_exception.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+    else:
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        # else:
+        #     return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 class ShiftViewSet(viewsets.ModelViewSet):
