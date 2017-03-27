@@ -186,6 +186,7 @@ class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
 class ShiftSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:shift-detail')
     owner = StylistSerializer(many=False, read_only=True)
+    pk = serializers.ReadOnlyField()
 
     class Meta:
         model = Shift
