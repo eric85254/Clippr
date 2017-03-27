@@ -48,6 +48,71 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 '''
+    PortfolioHaircut Serializer
+    To get a specific stylist haircut use: http://127.0.0.1:8000/api/haircut/?stylist_pk=1
+'''
+
+
+class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        PortfolioHaircutSerializer (serializer for PortfolioHaircut Model)
+
+        - **fields**::
+            :url: Url for a specific object
+            :stylist: StylistSerializer(many=False, read_only=True)
+            :picture: FileField?
+            :name: CharField
+            :description: TextField or CharField
+            :price: DecimalField
+    """
+    url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
+
+    class Meta:
+        model = PortfolioHaircut
+        fields = ('url', 'picture', 'name', 'description', 'price')
+
+
+'''
+    Menu Serializer
+'''
+
+
+class GlobalMenuSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        GlobalMenuSerializer (serializer for GlobalMenu Model)
+
+        - **fields**::
+            :url: Url for a specific object
+            :name: CharField
+            :price: DecimalField
+    """
+    url = serializers.HyperlinkedIdentityField(view_name='api:globalmenu-detail')
+
+    class Meta:
+        model = GlobalMenu
+        fields = ('url', 'name', 'price')
+
+
+class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        StylistMenuSerializer (serializer for StylistMenu Model)
+
+        - **fields**::
+            :url: Url for a specific object
+            :name: CharField
+            :price: DecimalField
+            :modified_global: SlugRelatedField to GlobalMenu.objects.all() slug_field='name' allow_null=True
+    """
+    url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
+    modified_global = serializers.SlugRelatedField(many=False, read_only=False, allow_null=True, slug_field='name',
+                                                   queryset=GlobalMenu.objects.all())
+
+    class Meta:
+        model = StylistMenu
+        fields = ('url', 'name', 'price', 'modified_global')
+
+
+'''
     Stylist Serializer.
         Similar to User Serializer but omits many unnecessary fields.
         Since the model is User, by default it utilizes user-* views. Conflicts with User views.
@@ -62,10 +127,12 @@ class StylistSerializer(serializers.HyperlinkedModelSerializer):
         Fields are not listed because corresponding view should not accept POST, PUT, or DELETE.
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail')
+    portfolio_haircuts = PortfolioHaircutSerializer(source='get_portfolio_haircuts', many=True, read_only=True)
+    stylist_menu = StylistMenuSerializer(source='get_stylist_menu', many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('url', 'first_name', 'last_name', 'profile_picture')
+        fields = ('url', 'first_name', 'last_name', 'profile_picture', 'portfolio_haircuts', 'stylist_menu')
 
 
 '''
@@ -116,75 +183,7 @@ class CalendarEventSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-'''
-    PortfolioHaircut Serializer
-    To get a specific stylist haircut use: http://127.0.0.1:8000/api/haircut/?stylist_pk=1
-'''
-
-
-class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
-    """
-        PortfolioHaircutSerializer (serializer for PortfolioHaircut Model)
-
-        - **fields**::
-            :url: Url for a specific object
-            :stylist: StylistSerializer(many=False, read_only=True)
-            :picture: FileField?
-            :name: CharField
-            :description: TextField or CharField
-            :price: DecimalField
-    """
-    url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
-
-    stylist = StylistSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = PortfolioHaircut
-        fields = ('url', 'stylist', 'picture', 'name', 'description', 'price')
-
-
-'''
-    Menu Serializer
-'''
-
-
-class GlobalMenuSerializer(serializers.HyperlinkedModelSerializer):
-    """
-        GlobalMenuSerializer (serializer for GlobalMenu Model)
-
-        - **fields**::
-            :url: Url for a specific object
-            :name: CharField
-            :price: DecimalField
-    """
-    url = serializers.HyperlinkedIdentityField(view_name='api:globalmenu-detail')
-
-    class Meta:
-        model = GlobalMenu
-        fields = ('url', 'name', 'price')
-
-
-class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
-    """
-        StylistMenuSerializer (serializer for StylistMenu Model)
-
-        - **fields**::
-            :url: Url for a specific object
-            :name: CharField
-            :price: DecimalField
-            :modified_global: SlugRelatedField to GlobalMenu.objects.all() slug_field='name' allow_null=True
-    """
-    url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
-    modified_global = serializers.SlugRelatedField(many=False, read_only=False, allow_null=True, slug_field='name',
-                                                   queryset=GlobalMenu.objects.all())
-
-    class Meta:
-        model = StylistMenu
-        fields = ('url', 'name', 'price', 'modified_global')
-
-
 class ShiftExceptionSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = ShiftException
         fields = ('start', 'end')
