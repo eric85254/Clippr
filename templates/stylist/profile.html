@@ -35,7 +35,7 @@
 
     <h1>Portfolio</h1>
 
-    <a href="{% url 'stylist:upload_haircut' %}">Click here to build your portfolio.</a> <br>
+    <a href="{% url 'stylist:upload_portfoliohaircut' %}">Click here to build your portfolio.</a> <br>
     <hr>
     {% for portfolio_haircut in portfolio_haircuts %}
         <img src="{{ portfolio_haircut.picture.url }}"/> <br>

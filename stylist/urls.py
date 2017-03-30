@@ -30,13 +30,13 @@ billpatterns = [
 
 profilepatterns = [
     url('^$', views.profile, name="profile"),
-    url(r'^upload_haircut/$', views.upload_haircut, name="upload_haircut"),
     url(r'^test/$', views.profile_test, name='profile_test')
 ]
 
 portfoliopatterns = [
     url('^$', views.portfolio, name="portfolio"),
     url(r'^edit_portfoliohaircut/$', views.edit_portfoliohaircut, name='edit_portfoliohaircut'),
+    url(r'^upload_haircut/$', views.upload_portfoliohaircut, name="upload_portfoliohaircut"),
     url(r'^delete_portfoliohaircut/$', views.delete_portfoliohaircut, name='delete_portfoliohaircut')
 ]
 
@@ -60,7 +60,7 @@ urlpatterns = [
     url(r'^appointment/bill/', include(billpatterns)),
     url(r'^transactions/$', views.transactions, name="transactions"),
     url(r'^portfolio/', include(portfoliopatterns)),
-    url(r'^profile_test/', include(profilepatterns)),
+    url(r'^profile/', include(profilepatterns)),
     url(r'^menu/', include(menupatterns)),
     url(r'^appointments/', views.appointments, name="appointments"),
     url(r'^calendar/', include(calendar_patterns))

@@ -1,4 +1,4 @@
-<form action="{% url 'stylist:upload_haircut' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+<form action="{% url 'stylist:upload_portfoliohaircut' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
     <label for="picture">Picture: </label>
     <input id="picture" type="file" name="picture"/> <br> <br>
 
@@ -10,6 +10,9 @@
 
     <label for="price">Price: </label>
     <input id="price" type="number" step=".01" min="0" name="price"/> <br> <br>
+
+    <label for="duration">Duration (hrs): </label>
+    <input id="duration" type="number" step=".01" min="0" name="duration"/> <br>
 
     Menu:<br>
     <hr>

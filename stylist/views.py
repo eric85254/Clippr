@@ -270,7 +270,7 @@ def portfolio(request):
         return redirect('core:logout')
 
 
-def upload_haircut(request):
+def upload_portfoliohaircut(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             new_portfolioHaircut_form = NewPortfolioHaircutForm(request.POST)
@@ -279,6 +279,7 @@ def upload_haircut(request):
                 new_portfolioHaircut = new_portfolioHaircut_form.save(commit=False)
                 new_portfolioHaircut.stylist = request.user
                 new_portfolioHaircut.picture = request.FILES['picture']
+                new_portfolioHaircut.duration = timedelta(hours=float(request.POST.get('duration')))
                 # Finding and adding selected menu option to new_portfolioHaircut
                 if request.POST.get('stylist_option_pk') == 'none':
                     menu_main = None
