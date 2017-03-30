@@ -17,37 +17,20 @@
     <br>
     Menu Options You've Selected: <br>
     {% for stylist_option in stylist_options %}
-        {% if stylist_option.stylist_menu %}
-            ---------------------------------- <br>
-            Name: {{ stylist_option.stylist_menu.name }} <br>
-            Price: {{ stylist_option.stylist_menu.price|default_if_none:"Set a price!" }}
-            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                <input type="submit" value="Remove"/>
-            </form>
-            <form action="{% url 'stylist:edit_menu_option' %}" method="get">
-                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                <input type="submit" value="Edit Option"/>
-            </form> <br>
-            <form action="{% url 'stylist:delete_menu_option' %}" method="post">{% csrf_token %}
-                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                <input type="submit" value="Delete"/>
-            </form>
-            ---------------------------------- <br>
-        {% else %}
-            ---------------------------------- <br>
-            Name: {{ stylist_option.name }} <br>
-            Price: {{ stylist_option.price|default_if_none:"Set a price!" }}
-            <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
-                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                <input type="submit" value="Remove"/>
-            </form>
-            <form action="{% url 'stylist:edit_menu_option' %}" method="get">
-                <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
-                <input type="submit" value="Edit Option"/>
-            </form> <br>
-            ---------------------------------- <br>
-        {% endif %}
+        ---------------------------------- <br>
+        Name: {{ stylist_option.name }} <br>
+        Price: {{ stylist_option.price|default_if_none:"Set a price!" }} <br>
+        Duration: {{ stylist.duration }}
+        <form action="{% url 'stylist:remove_menu_option' %}" method="post">{% csrf_token %}
+            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+            <input type="submit" value="Remove"/>
+        </form>
+        <form action="{% url 'stylist:edit_menu_option' %}" method="get">
+            <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
+            <input type="submit" value="Edit Option"/>
+        </form> <br>
+        ---------------------------------- <br>
+
     {% endfor %}
 
 {% endblock %}

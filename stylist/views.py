@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.core import serializers
 from django.db.models import Q
@@ -204,7 +204,7 @@ def add_item(request):
                 appointment = Appointment.objects.get(pk=request.session['appointment_for_bill'])
                 if appointment.status is not Appointment.STATUS_COMPLETED:
                     ItemInBill.objects.create(item_custom=request.POST.get('item_custom'),
-                                                     price=request.POST.get('price'), appointment=appointment)
+                                              price=request.POST.get('price'), appointment=appointment)
 
                     BillLogic.update_price(appointment)
                 return redirect('stylist:dashboard')
@@ -241,7 +241,7 @@ def add_travel_fee(request):
                     item.price = request.POST.get('travel_fee')
                 else:
                     ItemInBill.objects.create(item_custom='Travel Fee', price=request.POST.get('travel_fee'),
-                                                     appointment=appointment)
+                                              appointment=appointment)
                 appointment.status = Appointment.STATUS_RECHEDULED_BYSTYLIST
                 BillLogic.update_price(appointment)
             return redirect(request.META.get('HTTP_REFERER'))
@@ -386,7 +386,7 @@ def create_menu_option(request):
 
             if menu_option_form.is_valid():
                 new_option = menu_option_form.save(commit=False)
-                new_option.save(commit=False)
+                new_option.duration = timedelta(hours=float(request.POST.get('duration')))
                 new_option.stylist = request.user
                 new_option.save()
 
@@ -403,10 +403,17 @@ def edit_menu_option(request):
         if request.method == 'POST':
             stylist_option = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
 
-            stylist_option.name = request.POST.get('name')
-            stylist_option.price = request.POST.get('price')
-            stylist_option.stylist = request.user
-            stylist_option.save()
+            if stylist_option.modified_global_id >= 1:
+                stylist_option.price = request.POST.get('price')
+                stylist_option.stylist = request.user
+                stylist_option.duration = timedelta(hours=float(request.POST.get('duration')))
+                stylist_option.save()
+            else:
+                stylist_option.name = request.POST.get('name')
+                stylist_option.price = request.POST.get('price')
+                stylist_option.stylist = request.user
+                stylist_option.duration = timedelta(hours=float(request.POST.get('duration')))
+                stylist_option.save()
 
             return redirect('stylist:select_menu_option')
 
@@ -451,7 +458,6 @@ def profile_test(request):
 def render_calendar_page(request):
     return render(request, 'stylist/calendar/calendar_test.html')
 
+
 def render_shift_calender(request):
     return render(request, 'stylist/calendar/shift_calendar.html')
-
-

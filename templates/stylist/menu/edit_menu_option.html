@@ -17,6 +17,9 @@
         <input type="number" min="0" step=".01" id="price" name="price"
                value="{{ stylist_option.stylist_menu.price|default_if_none:"" }}"/> <br>
 
+        <label for="duration">Duration (hrs): </label>
+        <input type="text" name="duration" id="duration"/> <br>
+
         <input type="hidden" name="stylist_option_pk" value="{{ stylist_option.pk }}"/>
         <input type="submit" value="Submit"/>
     </form>
