@@ -14,12 +14,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         GlobalMenu.objects.create(
-            name="Girl's Haircut",
-            price=50.00,
-            duration=datetime.timedelta(hours=1)
+            name="Short Cut",
+            price=20.00,
+            duration=datetime.timedelta(hours=1.0)
         )
         GlobalMenu.objects.create(
-            name="Boy's Haircut",
-            price=20.00,
-            duration=datetime.timedelta(hours=1)
+            name="Medium Cut",
+            price=30.00,
+            duration=datetime.timedelta(hours=1.5)
+        )
+        GlobalMenu.objects.create(
+            name="Long Cut",
+            price=40.00,
+            duration=datetime.timedelta(hours=2.0)
         )
