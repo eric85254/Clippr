@@ -32,7 +32,7 @@
                     <button name="{% url 'api:portfoliohaircut-list' %}?stylist_pk={{ stylist.pk }}" class="show-menu" value="form{{ forloop.counter }}">
                         View page
                     </button>
-                    <form class="form{{ forloop.counter }}" data-field1="{% url 'api:portfoliohaircut-list' %}?stylist_pk={{ stylist.pk }}">
+                    <form class="form{{ forloop.counter }}" data-field1="{% url 'api:stylist-list' %}{{ stylist.pk }}/">
                     </form>
 
                 </div>
