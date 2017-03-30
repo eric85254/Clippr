@@ -9,6 +9,8 @@
 """
 from django.core.management import BaseCommand
 
+from core.management.commands.dummy_user_information import stylist_information, customer_information
+
 
 class Command(BaseCommand):
     help = 'My custom django management command'
@@ -18,36 +20,36 @@ class Command(BaseCommand):
 
         password = "clippr"
 
-        stylist = User(
-            first_name="I am a",
-            last_name="stylist",
-            email="stylist@gmail.com",
-            phone_number="0000000001",
-            is_stylist="YES"
-        )
+        for user in stylist_information:
+            stylist = User(
+                first_name=user.get('first_name'),
+                last_name=user.get('last_name'),
+                email=user.get('email'),
+                phone_number=user.get('phone_number'),
+                is_stylist="YES"
+            )
+            stylist.set_password(password)
+            stylist.save()
 
-        customer = User(
-            first_name="I am a",
-            last_name="customer",
-            email="customer@gmail.com",
-            phone_number="0000000002",
-            is_stylist="NO"
-        )
+        for user in customer_information:
+            customer = User(
+                first_name=user.get('first_name'),
+                last_name=user.get('last_name'),
+                email=user.get('email'),
+                phone_number="",
+                is_stylist="NO"
+            )
+            customer.set_password(password)
+            customer.save()
 
         superuser = User(
             first_name="I am a",
             last_name="superuser",
             email="development@clippr.org",
-            phone_number="0000000003",
+            phone_number="1100000001",
             is_stylist="NO",
             is_staff=True,
             is_superuser=True
         )
-
-        stylist.set_password(password)
-        customer.set_password(password)
         superuser.set_password(password)
-
-        stylist.save()
-        customer.save()
         superuser.save()
