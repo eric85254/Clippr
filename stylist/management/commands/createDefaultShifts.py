@@ -1,10 +1,12 @@
 """
     Creates a dummy shift schedule for a dummy stylist
 """
+from datetime import timedelta, datetime
+
 from django.core.management import BaseCommand
 
 from core.models import User
-from stylist.models import Shift
+from stylist.models import Shift, ShiftException
 
 
 class Command(BaseCommand):
@@ -19,14 +21,16 @@ class Command(BaseCommand):
         ]
 
         for day in DAYS:
-            Shift.objects.create(
+            new_shift = Shift(
                 owner=stylist,
                 title="Unavailable",
                 dow="[" + str(day) + "]",
                 color="red",
                 start_time="0:00:00",
-                end_time="23:59:00"
+                end_time="23:59:00",
             )
+            new_shift.save()
+            self.create_exception(new_shift)
 
         WEEKDAYS = [
             Shift.MONDAY,
@@ -37,7 +41,7 @@ class Command(BaseCommand):
         ]
 
         for day in WEEKDAYS:
-            Shift.objects.create(
+            shift1 = Shift(
                 owner=stylist,
                 title="Unavailable",
                 dow="[" + str(day) + "]",
@@ -45,7 +49,10 @@ class Command(BaseCommand):
                 start_time="0:00:00",
                 end_time="7:59:00",
             )
-            Shift.objects.create(
+            shift1.save()
+            self.create_exception(shift1)
+
+            shift2 = Shift(
                 owner=stylist,
                 title="Unavailable",
                 dow="[" + str(day) + "]",
@@ -53,3 +60,13 @@ class Command(BaseCommand):
                 start_time="18:00:00",
                 end_time="23:59:00",
             )
+            shift2.save()
+            self.create_exception(shift2)
+
+    def create_exception(self, new_shift):
+        start = datetime.date(datetime.strptime('2017-01-01', '%Y-%m-%d'))
+        ShiftException.objects.create(
+            shift=new_shift,
+            start=start,
+            end=start + timedelta(weeks=2600)
+        )

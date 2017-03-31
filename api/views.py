@@ -259,14 +259,24 @@ def exclude_date(request):
     number_of_exceptions = ShiftException.objects.filter(shift=shift).count()
 
     if (shift.dow is not None and shift.dow != "") and (number_of_exceptions != 0):
-        last_exception = ShiftException.objects.filter(shift=shift).last()
+        exceptions = ShiftException.objects.filter(shift=shift)
+        excluded_date = datetime.date(datetime.strptime(request.data.get('excluded_date', ''), "%Y-%m-%d"))
+
+        exception_pk = None
+        for exception in exceptions:
+            if (exception.end >= excluded_date) and (excluded_date >= exception.start):
+                exception_pk = exception.pk
+                break
+
+        break_point_exception = ShiftException.objects.get(pk=exception_pk)
+
         ShiftException.objects.create(
             shift=shift,
-            start=datetime.strptime(request.data.get('excluded_date', ''), "%Y-%m-%d") + timedelta(days=1),
-            end=last_exception.end
+            start=excluded_date + timedelta(days=1),
+            end=break_point_exception.end
         )
-        last_exception.end = request.data.get('excluded_date', '')
-        last_exception.save()
+        break_point_exception.end = request.data.get('excluded_date', '')
+        break_point_exception.save()
 
         return Response(status=status.HTTP_200_OK)
 

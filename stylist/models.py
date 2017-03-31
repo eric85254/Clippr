@@ -82,3 +82,11 @@ class ShiftException(models.Model):
     shift = models.ForeignKey('stylist.Shift', related_name='shift', on_delete=models.CASCADE)
     start = models.DateField()
     end = models.DateField()
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        if self.start == self.end:
+            super(ShiftException, self).delete()
+        else:
+            super(ShiftException, self).save()
