@@ -10,32 +10,89 @@
         }
 
         //lOAD THE PROFILE VIEW
-        $('#profile-preview').load("{% static 'html_templates/page_layout.html' %}");
+        $('#profile-preview').load("{% static 'html_templates/preview_layout.html' %}");
 
         //TURN MENU OPTION HTML TO ONE LINE SO APPEND WILL WORK PROPERLY
-        var body;
-        var menu = "";
+        var menuBody;
+        var menuHTML = "";
         $.get("{% static 'html_templates/menu_preview.html' %}", function (txt) {
-            body = txt.split('\n');
-            for (var i = 0; i < body.length; i++) {
-                menu += body[i];
+            menuBody = txt.split('\n');
+            for (var i = 0; i < menuBody.length; i++) {
+                menuHTML += menuBody[i];
             }
         });
 
+        //TURN PORTFOLIO HTML TO ONE LINE SO APPEND WILL WORK PROPERLY
+        var portfolioBody;
+        var portfolioHTML = "";
+        $.get("{% static 'html_templates/portfolio_preview.html' %}", function (txt) {
+            portfolioBody = txt.split('\n');
+            for (var i = 0; i < portfolioBody.length; i++) {
+                portfolioHTML += portfolioBody[i];
+            }
+            console.log(portfolioHTML);
+        });
+
+
+        //PUT PORTFOLIO IN PAGE
         $.ajax({
-            url: $("."+$(this).attr('value')).attr('data-field1'),
+            url: $("." + $(this).attr('value')).attr('data-field1'),
             dataType: 'json',
             success: function (outputfromserver) {
-                for (var j = 0; j < outputfromserver.length; j++) {
-                    $("#menu-start").append(menu);
+
+                $('.profile-image').attr('src', outputfromserver.profile_picture);
+                $('.stylist-name').append(outputfromserver.first_name + " " + outputfromserver.last_name);
+
+                //initialize menu and portfolio dictionaries to store JSON data
+                var menu = {};
+                var portfolio = {};
+
+                //Put portfolio options from JSON into dictionary
+                for (var i = 0, port; i < outputfromserver.portfolio_haircuts.length; i++) {
+                    port = outputfromserver.portfolio_haircuts[i];
+                    portfolio[i] = port;
                 }
 
+                //Put menu options from JSON into dictionary
+                for (var k = 0, menu_items; k < outputfromserver.stylist_menu.length; k++) {
+                    menu_items = outputfromserver.stylist_menu[k];
+                    menu[k] = menu_items;
+                }
+
+                //Give html block for each menu option
+                for (var j = 0; j < outputfromserver.stylist_menu.length; j++) {
+                    $("#menu-start").append(menuHTML);
+                }
+
+                //Give html block for each portfolio option
+                for (var p = 0; p < outputfromserver.portfolio_haircuts.length; p++) {
+                    $("#portfolio-start").append(portfolioHTML);
+                }
+
+                //Write name of menu item in each menu-name class
                 $('.menu-name').each(function (i) {
-                    $(this).append(outputfromserver[i].name);
+                    $(this).append(menu[i].name);
                 });
 
-                $('.menu-price').each(function (k) {
-                    $(this).append('$'+outputfromserver[k].price);
+                //Write price of menu option in each menu-price class
+                $('.menu-price').each(function (i) {
+                    $(this).append('$' + menu[i].price);
+                });
+
+                $('.portfolio-image').each(function (i) {
+                    $(this).attr('src', portfolio[i].picture);
+                });
+
+                $('.portfolio-name').each(function (i) {
+                    $(this).append(portfolio[i].name);
+                });
+
+                $('.portfolio-price').each(function (i) {
+                    $(this).append('$' + portfolio[i].price);
+                });
+
+                $('.portfolio-description').each(function (i) {
+                    $(this).append('Description: ' + portfolio[i].description);
                 });
             }
         });

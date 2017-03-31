@@ -13,7 +13,7 @@
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <!--Clippr CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/customer/customer_search.css' %}">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'css/stylist/stylist_profile.css' %}">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/stylist/stylist_profile.css' %}">#}
 
 </head>
 <body>
@@ -25,14 +25,15 @@
     <div class="col-4">
         {% for stylist in stylist_list %}
             <div class="d-flex flex-row">
-                <img src="{{ stylist.stylist.stylist_picture.url }}" height="100px" width="100px">
+                <img src="{{ stylist.profile_picture.url }}" height="100px" width="100px">
                 <div class="d-flex flex-column">
                     <div class="p-1"> {{ stylist.get_full_name }} </div>
-                    {#                    <div class="p-1">{{ stylist.biography }}</div>#}
-                    <button name="{% url 'api:portfoliohaircut-list' %}?stylist_pk={{ stylist.pk }}" class="show-menu" value="form{{ forloop.counter }}">
+                    {#                                        <div class="p-1">{{ stylist.biography }}</div>#}
+                    <button name="{% url 'api:portfoliohaircut-list' %}?stylist_pk={{ stylist.pk }}" class="show-menu"
+                            value="form{{ forloop.counter }}">
                         View page
                     </button>
-                    <form class="form{{ forloop.counter }}" data-field1="{% url 'api:portfoliohaircut-list' %}?stylist_pk={{ stylist.pk }}">
+                    <form class="form{{ forloop.counter }}" data-field1="{% url 'api:stylist-list' %}{{ stylist.pk }}/">
                     </form>
 
                 </div>
