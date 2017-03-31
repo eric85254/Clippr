@@ -7,11 +7,14 @@
     2. Customer (email = "stylist@gmail.com")
     3. Superuser (email = "development@clippr.org")
 """
+from datetime import timedelta
+
 from django.core.management import BaseCommand
 
 from core.models import User, GlobalMenu
 from core.utils.dummy_user_information import stylist_information, customer_information
-from stylist.models import StylistMenu
+from stylist.utils.dummy_portfoliohaircut_information import DUMMY_PORTFOLIO_PICTURES
+from stylist.models import StylistMenu, PortfolioHaircut
 
 
 class Command(BaseCommand):
@@ -70,3 +73,16 @@ class Command(BaseCommand):
 
         for global_menu in self.global_menu_options:
             StylistMenu.copy_global(StylistMenu(), global_menu, stylist)
+
+        name_key = stylist.first_name.lower() + '_' + stylist.last_name.lower()
+        portfolio_haircuts = DUMMY_PORTFOLIO_PICTURES.get(name_key)
+
+        for haircut in portfolio_haircuts:
+            PortfolioHaircut.objects.create(
+                stylist=stylist,
+                picture=haircut.get('picture'),
+                name=haircut.get('name'),
+                description=haircut.get('description'),
+                price=haircut.get('price'),
+                duration=timedelta(hours=1),
+            )

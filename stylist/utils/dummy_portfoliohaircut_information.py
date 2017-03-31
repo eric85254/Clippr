@@ -1,27 +1,3 @@
-"""
-    This is where global constants are stored.
-    Default Picture locations and Default Haircut Locations are stored here.
-"""
-DEFAULT_PICTURE_LOCATION = "\defaults\default_user.png"
-DEFAULT_MENU_PICTURE = "\defaults\default_menu.png"
-
-DEFAULT_HAIRCUT_1 = "\defaults\haircut.jpeg"
-DEFAULT_HAIRCUT_2 = "\defaults\haircut2.jpeg"
-DEFAULT_HAIRCUT_3 = "\defaults\haircut3.jpeg"
-
-DUMMY_STYLIST_PICTURES = {
-    'sam_bee': '\defaults\profile_pictures\sam_bee.jpg',
-    'samantha_clem': '\defaults\profile_pictures\samantha_clem.jpg',
-    'mckenna_kent': '\defaults\profile_pictures\mckenna_kent.jpeg',
-    'lindsay_mcgreggor': '\defaults\profile_pictures\lindsay_mcgreggor.jpeg',
-    'mariah_han': '\defaults\profile_pictures\mariah_han.jpeg',
-    'jacob_rudy': '\defaults\profile_pictures\jacob_rudy.jpeg',
-    'alanzo_dominguez': r'\defaults\profile_pictures\alanzo_dominguez',
-    'lauren_brown': '\defaults\profile_pictures\lauren_brown.jpeg',
-    'tina_davina': r'\defaults\profile_pictures\tina_davina',
-    'linda_xue': '\defaults\profile_pictures\linda_xue'
-}
-
 DUMMY_PORTFOLIO_PICTURES = {
     'sam_bee': [
         {
@@ -71,13 +47,13 @@ DUMMY_PORTFOLIO_PICTURES = {
             'price': 12.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut2.jpeg',
+            'picture': '\defaults\portfolio_haircuts\mckenna_kent\haircut2.jpeg',
             'name': 'Original 2',
             'description': "Literally the same as the first one.",
             'price': 13.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut3.jpeg',
+            'picture': '\defaults\portfolio_haircuts\mckenna_kent\haircut3.jpeg',
             'name': 'Original 3',
             'description': "Classic Top Knot",
             'price': 15.00
@@ -85,19 +61,19 @@ DUMMY_PORTFOLIO_PICTURES = {
     ],
     'lindsay_mcgreggor': [
         {
-            'picture': '\defaults\portfolio_haircuts\haircut1.jpeg',
+            'picture': '\defaults\portfolio_haircuts\lindsay_mcgreggor\haircut1.jpeg',
             'name': 'Purple Cut',
             'description': "Modern Pixie Cut",
             'price': 25.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut2.jpeg',
+            'picture': '\defaults\portfolio_haircuts\lindsay_mcgreggor\haircut2.jpeg',
             'name': 'Star Cut',
             'description': 'Classic Runway Model Look',
             'price': 35.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut3.jpeg',
+            'picture': '\defaults\portfolio_haircuts\lindsay_mcgreggor\haircut3.jpeg',
             'name': 'Sexy Pixie Cut',
             'description': 'Short with a new flavor.',
             'price': 40.00
@@ -177,7 +153,7 @@ DUMMY_PORTFOLIO_PICTURES = {
             'price': 40.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\lauren_brown\haircut2.jpeg',
+            'picture': '\defaults\portfolio_haircuts\lauren_brown\haircut3.jpeg',
             'name': 'Regular Cut',
             'description': 'Only if you wanna be boring',
             'price': 1.00
@@ -217,7 +193,7 @@ DUMMY_PORTFOLIO_PICTURES = {
             'price': 25.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut3.jpeg',
+            'picture': '\defaults\portfolio_haircuts\linda_xue\haircut3.jpeg',
             'name': 'Model Status',
             'description': 'I can turn you into her.',
             'price': 145.00
