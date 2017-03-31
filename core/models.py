@@ -9,7 +9,7 @@ from django.db import models
 
 # Create your models here.
 from core.utils.abstract_classes import FullCalendarEvent
-from core.utils.global_constants import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
+from core.utils.picture_locations import DEFAULT_PICTURE_LOCATION, DEFAULT_MENU_PICTURE
 from stylist.models import PortfolioHaircut, StylistMenu
 
 

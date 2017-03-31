@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from core.models import User
-from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
+from core.utils.picture_locations import DEFAULT_PICTURE_LOCATION
 
 '''
     User Serializer.

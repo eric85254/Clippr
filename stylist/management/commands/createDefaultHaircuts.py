@@ -6,7 +6,7 @@ import datetime
 from django.core.management import BaseCommand
 
 from core.models import User
-from core.utils.global_constants import DEFAULT_HAIRCUT_1, DEFAULT_HAIRCUT_2, DEFAULT_HAIRCUT_3
+from core.utils.picture_locations import DEFAULT_HAIRCUT_1, DEFAULT_HAIRCUT_2, DEFAULT_HAIRCUT_3
 from stylist.models import PortfolioHaircut
 
 

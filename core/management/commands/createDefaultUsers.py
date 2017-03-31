@@ -9,38 +9,22 @@
 """
 from django.core.management import BaseCommand
 
-from core.management.commands.dummy_user_information import stylist_information, customer_information
+from core.models import User
+from core.utils.dummy_user_information import stylist_information, customer_information
 
 
 class Command(BaseCommand):
     help = 'My custom django management command'
 
     def handle(self, *args, **options):
-        from core.models import User
 
         password = "clippr"
 
         for user in stylist_information:
-            stylist = User(
-                first_name=user.get('first_name'),
-                last_name=user.get('last_name'),
-                email=user.get('email'),
-                phone_number=user.get('phone_number'),
-                is_stylist="YES"
-            )
-            stylist.set_password(password)
-            stylist.save()
+            self.create_dummy_stylist(password, user)
 
         for user in customer_information:
-            customer = User(
-                first_name=user.get('first_name'),
-                last_name=user.get('last_name'),
-                email=user.get('email'),
-                phone_number="",
-                is_stylist="NO"
-            )
-            customer.set_password(password)
-            customer.save()
+            self.create_dummy_customer(password, user)
 
         superuser = User(
             first_name="I am a",
@@ -53,3 +37,26 @@ class Command(BaseCommand):
         )
         superuser.set_password(password)
         superuser.save()
+
+    def create_dummy_customer(self, password, user):
+        customer = User(
+            first_name=user.get('first_name'),
+            last_name=user.get('last_name'),
+            email=user.get('email'),
+            phone_number="",
+            is_stylist="NO"
+        )
+        customer.set_password(password)
+        customer.save()
+
+    def create_dummy_stylist(self, password, user):
+        stylist = User(
+            first_name=user.get('first_name'),
+            last_name=user.get('last_name'),
+            email=user.get('email'),
+            phone_number=user.get('phone_number'),
+            profile_picture=user.get('profile_picture'),
+            is_stylist="YES"
+        )
+        stylist.set_password(password)
+        stylist.save()

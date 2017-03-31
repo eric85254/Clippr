@@ -1,12 +1,9 @@
-import httplib2
-from googleapiclient.discovery import build
 from django.contrib import auth
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from oauth2client.service_account import ServiceAccountCredentials
 
 from core.forms import NewUserForm, UserInformation
-from core.utils.global_constants import DEFAULT_PICTURE_LOCATION
+from core.utils.picture_locations import DEFAULT_PICTURE_LOCATION
 from core.utils.view_logic import UserLogic
 
 '''
