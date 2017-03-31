@@ -49,6 +49,14 @@ class StylistMenu(models.Model):
     modified_global = models.ForeignKey('core.GlobalMenu', related_name='modified_global', null=True, blank=True)
     duration = models.DurationField()
 
+    def copy_global(self, global_menu, user):
+        self.stylist = user
+        self.name = global_menu.name
+        self.price = global_menu.price
+        self.duration = global_menu.duration
+        self.modified_global = global_menu
+        self.save()
+
     def __str__(self):
         return "Stylist: " + self.stylist.get_full_name() + " || Name: " + self.name
 

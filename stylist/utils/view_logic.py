@@ -1,10 +1,10 @@
 from django.db.models import Sum
 
 from core.models import ItemInBill
+from stylist.models import StylistMenu
 
 
 class BillLogic(object):
-
     @staticmethod
     def update_price(appointment):
         """
@@ -17,7 +17,6 @@ class BillLogic(object):
         appointment.price = total
         appointment.save()
 
-
     @staticmethod
     def combine_appointment_bill(appointment_set):
         appointment_set_bill = {}
@@ -28,7 +27,6 @@ class BillLogic(object):
 
 
 class StylistLogic(object):
-
     @staticmethod
     def is_stylist(request):
         if request.user.is_stylist == 'YES':

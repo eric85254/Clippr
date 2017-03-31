@@ -353,14 +353,8 @@ def select_menu_option(request):
 
         elif request.method == 'POST':
             global_menu = GlobalMenu.objects.get(pk=request.POST.get('menu_option_pk'))
-            stylist_menu = StylistMenu(
-                stylist=request.user,
-                name=global_menu.name,
-                price=global_menu.price,
-                duration=global_menu.duration,
-                modified_global=global_menu
-            )
-            stylist_menu.save()
+            StylistMenu.copy_global(StylistMenu(), global_menu, request.user)
+
             return redirect('stylist:select_menu_option')
     else:
         return redirect('core:logout')

@@ -3,15 +3,15 @@
     An appointment with each status is created.
     An ItemInBill entry is created for each appointment with the appointment status as its name.
 """
-from datetime import datetime, timedelta
+from datetime import datetime
 from random import Random
 
 from django.core.management import BaseCommand
 
 from core.models import Appointment, User, ItemInBill
+from customer.utils.dummy_appointment_information import appointment_information
 from stylist.models import PortfolioHaircut
 from stylist.utils.view_logic import BillLogic
-from customer.management.commands.dummy_appointment_information import appointment_information
 
 
 class Command(BaseCommand):

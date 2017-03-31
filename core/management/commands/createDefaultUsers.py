@@ -9,12 +9,15 @@
 """
 from django.core.management import BaseCommand
 
-from core.models import User
+from core.models import User, GlobalMenu
 from core.utils.dummy_user_information import stylist_information, customer_information
+from stylist.models import StylistMenu
 
 
 class Command(BaseCommand):
     help = 'My custom django management command'
+
+    global_menu_options = GlobalMenu.objects.all()
 
     def handle(self, *args, **options):
 
@@ -38,6 +41,10 @@ class Command(BaseCommand):
         superuser.set_password(password)
         superuser.save()
 
+    '''
+        HELPER FUNCTIONS
+    '''
+
     def create_dummy_customer(self, password, user):
         customer = User(
             first_name=user.get('first_name'),
@@ -60,3 +67,6 @@ class Command(BaseCommand):
         )
         stylist.set_password(password)
         stylist.save()
+
+        for global_menu in self.global_menu_options:
+            StylistMenu.copy_global(StylistMenu(), global_menu, stylist)
