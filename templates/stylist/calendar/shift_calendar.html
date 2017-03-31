@@ -177,14 +177,22 @@
                     eventRender: function (event, element, view) {
                         if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
                             return (event.ranges.filter(function (range) {
-                                    return (moment(event.start).isBefore(range.end) &&
-                                    moment(event.end).isAfter(range.start));
-                                }).length) > 0;
+                                        var event_start = moment.utc(event.start);
+                                        var event_end = moment.utc(event.end);
+                                        var range_start = moment.utc(range.start);
+                                        var range_end = moment.utc(range.end);
+
+
+                                        return (event_start).isBefore(range_end) &&
+                                            event_end.isAfter(range_start);
+                                    }
+                                ).length) > 0;
                         }
                     },
                     loading: function (bool) {
                         $('#loading').toggle(bool);
-                    },
+                    }
+                    ,
                     select: function (start, end, jsEvent, view) {
                         var newEvent = {};
 
@@ -198,7 +206,8 @@
 
                         $('#calendar').fullCalendar('renderEvent', newEvent);
                     }
-                });
+                })
+                ;
             }
         )
         ;
