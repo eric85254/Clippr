@@ -19,12 +19,12 @@
                 customButtons: {
                     saveButton: {
                         text: "Save",
-                        click: function(){
+                        click: function () {
                             $.ajax({
                                 url: '{% url 'customer:schedule_appointment' %}',
                                 type: "post",
                                 data: newEvent,
-                                success: function(data) {
+                                success: function (data) {
                                     console.log(data);
                                     window.location.href = data.url;
                                 }
@@ -37,7 +37,7 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
-                defaultView:'agendaWeek',
+                defaultView: 'agendaWeek',
                 defaultDate: moment().format("YYYY-MM-DD"),
                 editable: true,
                 eventDurationEditable: false,
@@ -52,6 +52,21 @@
                         color: 'green'
                     }
                 ],
+                eventRender: function (event, element, view) {
+                    if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
+                        return (event.ranges.filter(function (range) {
+                                    var event_start = moment.utc(event.start);
+                                    var event_end = moment.utc(event.end);
+                                    var range_start = moment.utc(range.start);
+                                    var range_end = moment.utc(range.end);
+
+
+                                    return (event_start).isBefore(range_end) &&
+                                        event_end.isAfter(range_start);
+                                }
+                            ).length) > 0;
+                    }
+                },
                 loading: function (bool) {
                     $('#loading').toggle(bool);
                 },

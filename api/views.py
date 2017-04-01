@@ -13,10 +13,11 @@ from django.db.models import Q, Avg
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import mixins
+from rest_framework import renderers
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
-from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.decorators import api_view, authentication_classes, detail_route
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -26,6 +27,7 @@ from api.permissions import IsOwnerOfAppointment, IsOwnerOfHaircut, IsCurrentUse
 from api.serializers import UserSerializer, AppointmentSerializer, PortfolioHaircutSerializer, StylistSerializer, \
     GlobalMenuSerializer, StylistMenuSerializer, ShiftSerializer, CalendarEventSerializer
 from core.models import User, GlobalMenu, Appointment
+from customer.utils.view_logic import CustomerLogic
 from stylist.models import PortfolioHaircut, StylistMenu, Shift, ShiftException
 from stylist.utils.view_logic import StylistLogic
 
@@ -235,6 +237,13 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
     serializer_class = CalendarEventSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
+    @detail_route(methods=['PUT', ])
+    def complete_appointment(self, request, pk=None):
+        if StylistLogic.is_stylist(request):
+            appointment = self.get_object()
+            appointment.status = Appointment.STATUS_COMPLETED
+            appointment.save()
+
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
         user = self.request.user
@@ -242,10 +251,11 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
             status=Appointment.STATUS_DECLINED)
 
     def perform_update(self, serializer):
-        if self.request.user.is_stylist == 'YES':
-            serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
-        if self.request.user.is_stylist == 'NO':
-            serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
+        if self.get_object().status != Appointment.STATUS_COMPLETED:
+            if StylistLogic.is_stylist(self.request):
+                serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
+            if CustomerLogic.is_customer(self.request):
+                serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
 
     def perform_destroy(self, instance):
         instance.status = Appointment.STATUS_DECLINED

@@ -51,14 +51,7 @@
                 function rescheduleFunction() {
                     $("#popup-modal").modal("hide");
                     event.preventDefault();
-
-                    {#                    console.log("hit reschedule button");#}
-                    {#                    console.log("End Time: " + rescheduleEvent.end);#}
-                    {#                    console.log("Duration: " + rescheduleDuration.hours());#}
-                    {#                    console.log("creating new end time...");#}
                     new_end_time = moment($('#start_date_time').val(), "YYYY-MM-DD HH:mm").add(rescheduleDuration, "milliseconds");
-
-                    {#                    console.log("new end time: " + new_end_time.format("YYYY-MM-DD HH:mm"));#}
 
                     $('#end_date_time').val(new_end_time.format("YYYY-MM-DDTHH:mm:ss"));
 
@@ -76,14 +69,16 @@
                     });
                 }
 
+                {#////////////////////////////////////////////////////////////////////////////#}
+
                 $('#calendar').fullCalendar({
                     customButtons: {
-                      shiftViewButton: {
-                          text: "Modify Shift",
-                          click: function() {
-                              window.location.href = '{% url 'stylist:shift_calendar' %}';
-                          }
-                      }
+                        shiftViewButton: {
+                            text: "Modify Shift",
+                            click: function () {
+                                window.location.href = '{% url 'stylist:shift_calendar' %}';
+                            }
+                        }
                     },
                     header: {
                         left: 'prev,next today shiftViewButton',
@@ -92,18 +87,6 @@
                     },
                     defaultView: 'agendaWeek',
                     defaultDate: moment().format("YYYY-MM-DD"),
-                    eventClick: function (event) {
-                        if (event.url) {
-                            rescheduleEvent = event;
-                            if (!event.is_shift) {
-                                $("#popup-modal").modal("show");
-                                $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
-                                rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
-                                $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
-                            }
-                            return false;
-                        }
-                    },
                     editable: true,
                     eventSources: [
                         {
@@ -119,6 +102,33 @@
                             color: 'green'
                         }
                     ],
+                    eventClick: function (event) {
+                        if (event.url) {
+                            rescheduleEvent = event;
+                            if (!event.is_shift) {
+                                $("#popup-modal").modal("show");
+                                $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
+                                rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
+                                $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                            }
+                            return false;
+                        }
+                    },
+                    eventRender: function (event, element, view) {
+                        if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
+                            return (event.ranges.filter(function (range) {
+                                        var event_start = moment.utc(event.start);
+                                        var event_end = moment.utc(event.end);
+                                        var range_start = moment.utc(range.start);
+                                        var range_end = moment.utc(range.end);
+
+
+                                        return (event_start).isBefore(range_end) &&
+                                            event_end.isAfter(range_start);
+                                    }
+                                ).length) > 0;
+                        }
+                    },
                     loading: function (bool) {
                         $('#loading').toggle(bool);
                     }
