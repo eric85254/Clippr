@@ -1,5 +1,5 @@
 """
-    Calendar Views
+    APPOINTMENT & CALENDAR VIEWS
 """
 from datetime import timedelta, datetime
 

@@ -1,6 +1,6 @@
-'''
+"""
     CUSTOMER VIEW SET
-'''
+"""
 from rest_framework import viewsets
 
 from api.utils.serializers import CustomerSerializer
