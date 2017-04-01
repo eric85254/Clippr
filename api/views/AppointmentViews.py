@@ -1,14 +1,16 @@
 """
-    Calendar Event Stuff
+    Calendar Views
 """
 from datetime import timedelta, datetime
 
 from django.db.models import Q
+from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import detail_route, authentication_classes, api_view
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment
@@ -47,13 +49,32 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         instance.save()
 
 
-class CalendarEventViewSet(viewsets.ModelViewSet):
+class CalendarEventViewSet(mixins.RetrieveModelMixin,
+                           mixins.UpdateModelMixin,
+                           mixins.DestroyModelMixin,
+                           mixins.ListModelMixin,
+                           GenericViewSet):
+    """
+        This view set handles all the information going to a person's calendar except for Shifts.
+        Any modifications that need to be done to the appointments such as: rescheduling, accepting, declining, and completing
+        are all done through this viewset. This view set has a couple of additional views 'accept' and 'complete'
+
+        More information on routers can be found in the django rest framework documentation.
+
+        Returns all the appointments that you are involved in. If a stylist_pk query paramter is sent then it returns
+        all the appointments that you and the stylist you chose are involved in.
+
+        YOU CANNOT POST TO THIS VIEW - Posting implies the creation on appointment. Must be done with AppointmentViewSet.
+    """
     queryset = Appointment.objects.all()
     serializer_class = CalendarEventSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     @detail_route(methods=['PUT', ])
     def accept(self, request, pk=None):
+        """
+            Reached by {% url 'api:calendarevent-accept' %} or by <domain>.com/api/calendar_event/pk/accept
+        """
         appointment = self.get_object()
         if StylistLogic.is_stylist(request) and (
                         appointment.status != Appointment.STATUS_ACCEPTED and appointment.status != Appointment.STATUS_COMPLETED):
@@ -63,6 +84,9 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['PUT', ])
     def complete(self, request, pk=None):
+        """
+            Reached by {% url 'api:calendarevent-complete' %} or by <domain>.com/api/calendar_event/pk/complete
+        """
         appointment = self.get_object()
         if StylistLogic.is_stylist(request) and appointment.status == Appointment.STATUS_ACCEPTED:
             appointment.status = Appointment.STATUS_COMPLETED
@@ -70,12 +94,19 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_202_ACCEPTED)
 
     def get_queryset(self):
+        """
+            Reached by {% url 'api:calendarevent-list' %}
+        """
         stylist = self.request.query_params.get('stylist_pk', None)
         user = self.request.user
-        return Appointment.objects.filter(Q(stylist=user) | Q(customer=user) | Q(stylist=stylist)).exclude(
+        return Appointment.objects.filter(
+            Q(stylist=user) | Q(customer=user) | Q(stylist=stylist) | Q(customer=stylist)).exclude(
             status=Appointment.STATUS_DECLINED)
 
     def perform_update(self, serializer):
+        """
+            Reached by a PUT request on the detail view of a specific calendarevent.
+        """
         if self.get_object().status != Appointment.STATUS_COMPLETED:
             if StylistLogic.is_stylist(self.request):
                 serializer.save(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)
@@ -83,6 +114,9 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
                 serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
 
     def perform_destroy(self, instance):
+        """
+            Reached by a DELETE request on the detail view of a specific calendarevent.
+        """
         if self.get_object().status != Appointment.STATUS_COMPLETED:
             instance.status = Appointment.STATUS_DECLINED
             instance.save()
@@ -91,6 +125,14 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
 @api_view(['POST', ])
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 def exclude_date(request):
+    """
+        Reached by {% url 'api:exclude_date' %}
+
+        SEND PK VALUE OF SHIFT TO THIS ENDPOINT!
+
+        This endpoint modifies and creates a new shift exception entry so that the excluded date is not
+        contained within the range of valid dates for rendering.
+    """
     shift = Shift.objects.get(pk=int(request.data.get('shift_pk', '')))
     number_of_exceptions = ShiftException.objects.filter(shift=shift).count()
 
@@ -124,6 +166,9 @@ def exclude_date(request):
 
 
 class ShiftViewSet(viewsets.ModelViewSet):
+    """
+        View set to obtain all shift information of a specific stylist.
+    """
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)

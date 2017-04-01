@@ -27,3 +27,19 @@ class StylistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'first_name', 'last_name', 'profile_picture', 'portfolio_haircuts', 'stylist_menu')
+
+
+class UnNestedStylistSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        The StylistSerializer has a couple serializers nested within it that are unnecessary for the
+        FullCalendar.
+
+        This class was made specifically for the CalendarEventSerializer.
+
+        not that the url links to the stylist-detail.
+    """
+    url = serializers.HyperlinkedIdentityField(view_name='api:stylist-detail')
+
+    class Meta:
+        model = User
+        fields = ('url', 'first_name', 'last_name', 'profile_picture')

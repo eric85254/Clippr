@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from api.utils.serializers.CustomerSerializer import CustomerSerializer
-from api.utils.serializers.StylistSerializer import StylistSerializer
+from api.utils.serializers.StylistSerializer import UnNestedStylistSerializer
 from core.models import Appointment
 
 
@@ -15,7 +15,7 @@ class CalendarEventSerializer(serializers.HyperlinkedModelSerializer):
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:calendarevent-detail')
 
-    stylist = StylistSerializer(many=False, read_only=True)
+    stylist = UnNestedStylistSerializer(many=False, read_only=True)
     customer = CustomerSerializer(many=False, read_only=True)
 
     class Meta:
