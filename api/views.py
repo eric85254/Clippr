@@ -238,11 +238,21 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     @detail_route(methods=['PUT', ])
-    def complete_appointment(self, request, pk=None):
-        if StylistLogic.is_stylist(request):
-            appointment = self.get_object()
+    def accept(self, request, pk=None):
+        appointment = self.get_object()
+        if StylistLogic.is_stylist(request) and (
+                appointment.status != Appointment.STATUS_ACCEPTED and appointment.status != Appointment.STATUS_COMPLETED):
+            appointment.status = Appointment.STATUS_ACCEPTED
+            appointment.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+
+    @detail_route(methods=['PUT', ])
+    def complete(self, request, pk=None):
+        appointment = self.get_object()
+        if StylistLogic.is_stylist(request) and appointment.status == Appointment.STATUS_ACCEPTED:
             appointment.status = Appointment.STATUS_COMPLETED
             appointment.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
 
     def get_queryset(self):
         stylist = self.request.query_params.get('stylist_pk', None)
@@ -258,8 +268,9 @@ class CalendarEventViewSet(viewsets.ModelViewSet):
                 serializer.save(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER)
 
     def perform_destroy(self, instance):
-        instance.status = Appointment.STATUS_DECLINED
-        instance.save()
+        if self.get_object().status != Appointment.STATUS_COMPLETED:
+            instance.status = Appointment.STATUS_DECLINED
+            instance.save()
 
 
 @api_view(['POST', ])

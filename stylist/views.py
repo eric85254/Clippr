@@ -434,7 +434,14 @@ def delete_menu_option(request):
 
 
 def render_calendar_page(request):
-    return render(request, 'stylist/calendar/calendar_test.html')
+    context = {
+        'STATUS_COMPLETED': Appointment.STATUS_COMPLETED,
+        'STATUS_RESCHEDULED_BYCUSTOMER': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
+        'STATUS_RESCHEDULED_BYSTYLIST': Appointment.STATUS_RECHEDULED_BYSTYLIST,
+        'STATUS_ACCEPTED': Appointment.STATUS_ACCEPTED,
+    }
+
+    return render(request, 'stylist/calendar/calendar_test.html', context)
 
 
 def render_shift_calender(request):

@@ -24,22 +24,39 @@
     ...
 
     <script type="text/javascript">
-        var rescheduleEvent;
+        var selectedEvent;
         var rescheduleDuration;
 
         $(document).ready(function () { // Page is ready.
                 // Initialize the calendar.
 
+                var openedModal;
+
                 var rescheduleForm = document.getElementById("rescheduleform");
                 var declineAppointmentForm = document.getElementById("declineAppointmentForm");
+                var acceptAppointmentForm = document.getElementById("acceptAppointmentForm");
                 rescheduleForm.onsubmit = rescheduleFunction;
                 declineAppointmentForm.onsubmit = declineAppointment;
+                acceptAppointmentForm.onsubmit = acceptAppointment;
 
-                function declineAppointment() {
-                    $("#popup-modal").modal("hide");
+                function acceptAppointment() {
+                    openedModal.modal("hide");
                     event.preventDefault();
                     $.ajax({
-                        url: rescheduleEvent.url,
+                        url: selectedEvent.url + "accept/",
+                        type: "put",
+                        data: $(acceptAppointmentForm).serialize(),
+                        success: function (data) {
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    })
+                }
+
+                function declineAppointment() {
+                    openedModal.modal("hide");
+                    event.preventDefault();
+                    $.ajax({
+                        url: selectedEvent.url,
                         type: "delete",
                         data: $(declineAppointmentForm).serialize(),
                         success: function (data) {
@@ -49,14 +66,14 @@
                 }
 
                 function rescheduleFunction() {
-                    $("#popup-modal").modal("hide");
+                    openedModal.modal("hide");
                     event.preventDefault();
                     new_end_time = moment($('#start_date_time').val(), "YYYY-MM-DD HH:mm").add(rescheduleDuration, "milliseconds");
 
                     $('#end_date_time').val(new_end_time.format("YYYY-MM-DDTHH:mm:ss"));
 
                     $.ajax({
-                        url: rescheduleEvent.url,
+                        url: selectedEvent.url,
                         type: "put",
                         data: $(rescheduleForm).serialize(),
                         success: function (data) {
@@ -103,13 +120,38 @@
                         }
                     ],
                     eventClick: function (event) {
+                        function rescheduleModal_noAcceptAppointment() {
+                            openedModal = $("#reschedule-modal");
+                            $(acceptAppointmentForm).hide();
+                            openedModal.modal("show");
+                            $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
+                            rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
+                            $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                        }
+
+                        function rescheduleModal_wAcceptAppointment() {
+                            openedModal = $("#reschedule-modal");
+                            $(acceptAppointmentForm).show();
+                            openedModal.modal("show");
+                            $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
+                            rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
+                            $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                        }
+
                         if (event.url) {
-                            rescheduleEvent = event;
+                            selectedEvent = event;
                             if (!event.is_shift) {
-                                $("#popup-modal").modal("show");
-                                $("#start_date_time").val(moment(event.start).format("YYYY-MM-DD HH:mm"));
-                                rescheduleDuration = moment.duration(moment(event.end).diff(moment(event.start)));
-                                $("#duration").text("Duration is: " + rescheduleDuration.hours() + " hours and " + rescheduleDuration.minutes() + " minutes ");
+                                if (!(event.status === "{{ STATUS_COMPLETED }}")) {
+                                    if (!(event.status === "{{ STATUS_ACCEPTED }}")) {
+                                        if (!(event.status === "{{ STATUS_RESCHEDULED_BYCUSTOMER }}")) {
+                                            rescheduleModal_noAcceptAppointment();
+                                        } else {
+                                            rescheduleModal_wAcceptAppointment();
+                                        }
+                                    } else {
+                                        rescheduleModal_noAcceptAppointment();
+                                    }
+                                }
                             }
                             return false;
                         }
@@ -144,7 +186,7 @@
 <body>
 <div id="calendar"></div>
 
-<div class="modal fade" id="popup-modal">
+<div class="modal fade" id="reschedule-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header justify-content-end pt-3 pb-0">
@@ -167,6 +209,10 @@
                 <form id="declineAppointmentForm" method="post" action="#"> {% csrf_token %}
                     Note that declining an appointment might be irreversible.
                     <input type="submit" value="Decline"/>
+                </form>
+
+                <form id="acceptAppointmentForm" action="#" style="display:none"> {% csrf_token %}
+                    <input type="submit" value="Accept"/>
                 </form>
             </div>
         </div>
