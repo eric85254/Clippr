@@ -54,13 +54,13 @@ calendar_patterns = [
 
 urlpatterns = [
     url(r'^profile/', include(profilepatterns)),
+    url(r'^portfolio/', include(portfoliopatterns)),
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
+    url(r'^transactions/$', views.transactions, name="transactions"),
+    url(r'^calendar/', include(calendar_patterns)),
+
     url(r'^appointment/', include(appointmentpatterns)),
     url(r'^appointment/bill/', include(billpatterns)),
-    url(r'^transactions/$', views.transactions, name="transactions"),
-    url(r'^portfolio/', include(portfoliopatterns)),
-    url(r'^profile/', include(profilepatterns)),
     url(r'^menu/', include(menupatterns)),
     url(r'^appointments/', views.appointments, name="appointments"),
-    url(r'^calendar/', include(calendar_patterns))
 ]

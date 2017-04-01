@@ -98,7 +98,7 @@ def appointments(request):
         completed_appointments = Appointment.objects.filter(stylist=request.user,
                                                             status=Appointment.STATUS_COMPLETED)
 
-        return render(request, 'stylist/stylistReal/stylist_appointments.html',
+        return render(request, 'stylist/stylistReal/appointments/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
                        'stylist_reschedule': Appointment.STATUS_RECHEDULED_BYSTYLIST,
                        'customer_reschedule': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
@@ -373,7 +373,6 @@ def remove_menu_option(request):
         return redirect('core:logout')
 
 
-# ToDo: difference between select menu_option and create_menu_option??
 def create_menu_option(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
@@ -430,7 +429,7 @@ def delete_menu_option(request):
 
 
 '''
-    NEW DEVELOPMENT
+    CALENDAR DEVELOPMENT
 '''
 
 
