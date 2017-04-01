@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.utils.serializers.UserSerializer import UserSerializer
+from api.serializers.UserSerializer import UserSerializer
 from core.models import Appointment, User
 
 

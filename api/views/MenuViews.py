@@ -6,8 +6,8 @@ from rest_framework.authentication import BasicAuthentication
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import OnlySuperUsersCanModify
-from api.utils.serializers import GlobalMenuSerializer
-from api.utils.serializers import StylistMenuSerializer
+from api.serializers import GlobalMenuSerializer
+from api.serializers import StylistMenuSerializer
 from core.models import GlobalMenu
 from stylist.models import StylistMenu
 

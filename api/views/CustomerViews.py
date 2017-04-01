@@ -3,7 +3,7 @@
 """
 from rest_framework import viewsets
 
-from api.utils.serializers import CustomerSerializer
+from api.serializers import CustomerSerializer
 from core.models import User
 
 

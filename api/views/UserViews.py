@@ -11,7 +11,7 @@ from rest_framework.response import Response
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsCurrentUserOrSuperUser
-from api.utils.serializers.UserSerializer import UserSerializer
+from api.serializers import UserSerializer
 from core.models import User
 
 

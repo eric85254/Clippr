@@ -14,9 +14,9 @@ from rest_framework.viewsets import GenericViewSet
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfAppointment
-from api.utils.serializers import AppointmentSerializer
-from api.utils.serializers import CalendarEventSerializer
-from api.utils.serializers import ShiftSerializer
+from api.serializers import AppointmentSerializer
+from api.serializers import CalendarEventSerializer
+from api.serializers import ShiftSerializer
 from core.models import Appointment
 from customer.utils.view_logic import CustomerLogic
 from stylist.models import ShiftException, Shift

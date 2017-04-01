@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from api.utils.serializers.ShiftExceptionSerializer import ShiftExceptionSerializer
-from api.utils.serializers.StylistSerializer import StylistSerializer
+from api.serializers.ShiftExceptionSerializer import ShiftExceptionSerializer
+from api.serializers.StylistSerializer import StylistSerializer
 from stylist.models import Shift
 
 

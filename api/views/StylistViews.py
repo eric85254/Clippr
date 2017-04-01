@@ -12,7 +12,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsUserLoggedIn
-from api.utils.serializers import StylistSerializer
+from api.serializers import StylistSerializer
 from core.models import User
 
 

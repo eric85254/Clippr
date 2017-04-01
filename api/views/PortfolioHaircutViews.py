@@ -6,7 +6,7 @@ from rest_framework.authentication import BasicAuthentication
 
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfHaircut
-from api.utils.serializers import PortfolioHaircutSerializer
+from api.serializers import PortfolioHaircutSerializer
 from stylist.models import PortfolioHaircut
 
 
