@@ -1,6 +1,7 @@
 """
     Customer Views.
 """
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -57,6 +58,39 @@ def become_stylist(request):
     elif request.method == 'GET':
         return CustomerLogic.render_application_status(request)
 
+    else:
+        return redirect('core:logout')
+
+
+'''
+    APPOINTMENTS
+'''
+
+
+def appointments(request):
+    if CustomerLogic.is_customer(request):
+        pending_appointments = Appointment.objects.filter(customer=request.user,
+                                                          status=Appointment.STATUS_PENDING)
+        accepted_appointments = Appointment.objects.filter(customer=request.user,
+                                                           status=Appointment.STATUS_ACCEPTED)
+        declined_appointments = Appointment.objects.filter(customer=request.user,
+                                                           status=Appointment.STATUS_DECLINED)
+
+        rescheduled_appointments = Appointment.objects.filter(
+            (Q(status=Appointment.STATUS_RESCHEDULED_BYCUSTOMER) | Q(status=Appointment.STATUS_RECHEDULED_BYSTYLIST)),
+            customer=request.user)
+        completed_appointments = Appointment.objects.filter(customer=request.user,
+                                                            status=Appointment.STATUS_COMPLETED)
+
+        return render(request, 'customer/customerReal/dashboard/appointments/customer_appointment.html',
+                      {'full_name': request.user.get_full_name(),
+                       'stylist_reschedule': Appointment.STATUS_RECHEDULED_BYSTYLIST,
+                       'customer_reschedule': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
+                       'pending_appointments': pending_appointments,
+                       'accepted_appointments': accepted_appointments,
+                       'declined_appointments': declined_appointments,
+                       'rescheduled_appointments': rescheduled_appointments,
+                       'completed_appointments': completed_appointments})
     else:
         return redirect('core:logout')
 
@@ -201,7 +235,6 @@ def obtain_selected_menuOption(request):
         return redirect('core:logout')
 
 
-@csrf_exempt
 def schedule_appointment(request):
     if request.method == 'GET':
         if 'stylist_menu_pk' in request.session:
@@ -214,6 +247,7 @@ def schedule_appointment(request):
             title = portfolio_haircut.name
         else:
             duration = 0
+            title = ''
         return render(request, 'customer/calendar/stylist_shift.html', {'stylist_pk': request.session['stylist_pk'],
                                                                         'duration': duration,
                                                                         'title': title})
@@ -287,7 +321,7 @@ def reschedule_appointment(request):
 
 
 '''
-    APPOINTMENT MODIFIERS
+     Bill
 '''
 
 
@@ -334,4 +368,3 @@ def submit_review(request):
             return redirect('customer:dashboard')
     else:
         return redirect('core:logout')
-

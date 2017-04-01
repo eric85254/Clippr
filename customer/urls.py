@@ -23,11 +23,16 @@ calendar_patterns = [
     url(r'^schedule_appointment/$', views.schedule_appointment, name="schedule_appointment")
 ]
 
+appointment_patterns = [
+    url(r'^$', views.appointments, name="appointments"),
+    url(r'^cancel_appointment/$', views.cancel_appointment, name='cancel_appointment'),
+    url(r'^reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
+    url(r'^accept_appointment/$', views.accept_appointment, name='accept_appointment'),
+]
+
 appointment_modifiers = [
     url(r'^$', views.dashboard, name="dashboard"),
-    url(r'^appointment/cancel_appointment/$', views.cancel_appointment, name='cancel_appointment'),
-    url(r'^appointment/reschedule_appointment/$', views.reschedule_appointment, name='reschedule_appointment'),
-    url(r'^appointment/accept_appointment/$', views.accept_appointment, name='accept_appointment'),
+    url(r'^appointment/', include(appointment_patterns)),
     url(r'^view_bill/$', views.view_bill, name='view_bill'),
     url(r'^calendar/', include(calendar_patterns))
 ]

@@ -98,7 +98,7 @@ def appointments(request):
         completed_appointments = Appointment.objects.filter(stylist=request.user,
                                                             status=Appointment.STATUS_COMPLETED)
 
-        return render(request, 'stylist/stylistReal/appointments/stylist_appointments.html',
+        return render(request, 'stylist/stylistReal/dashboard/appointments/stylist_appointments.html',
                       {'full_name': request.user.get_full_name(),
                        'stylist_reschedule': Appointment.STATUS_RECHEDULED_BYSTYLIST,
                        'customer_reschedule': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
@@ -163,7 +163,7 @@ def submit_review(request):
 
 
 '''
-    APPOINTMENT / BILL RELATED VIEWS
+    BILL RELATED VIEWS
 '''
 
 
