@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 title="Unavailable",
                 dow="[" + str(day) + "]",
                 color="red",
-                start_time="1:00:00",
+                start_time="0:00:00",
                 end_time="23:59:00",
             )
             new_shift.save()
@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 title="Unavailable",
                 dow="[" + str(day) + "]",
                 color="red",
-                start_time="1:00:00",
+                start_time="0:00:00",
                 end_time="7:59:00",
             )
             shift1.save()
