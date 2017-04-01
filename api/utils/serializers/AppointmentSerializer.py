@@ -1,8 +1,3 @@
-'''
-    Appointment Serializer
-        Customer's can only pick stylists from a list of stylists hence the SlugRelatedField.
-        Customer ties to UserSerializer.
-'''
 from rest_framework import serializers
 
 from api.utils.serializers.UserSerializer import UserSerializer
