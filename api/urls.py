@@ -17,6 +17,7 @@ router.register(r'global_menu', views.GlobalMenuViewSet)
 router.register(r'stylist_menu', views.StylistMenuViewSet)
 router.register(r'shift', views.ShiftViewSet)
 router.register(r'calendar_event', views.CalendarEventViewSet, 'calendarevent')
+router.register(r'customer', views.CustomerViewSet, 'customer')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

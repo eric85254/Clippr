@@ -19,3 +19,4 @@ from api.utils.serializers.StylistSerializer import StylistSerializer
 from api.utils.serializers.AppointmentSerializer import AppointmentSerializer
 from api.utils.serializers.CalendarEventSerializer import CalendarEventSerializer
 from api.utils.serializers.ShiftSerializer import ShiftSerializer
+from api.utils.serializers.CustomerSerializer import CustomerSerializer
