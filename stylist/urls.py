@@ -30,7 +30,6 @@ billpatterns = [
 
 profilepatterns = [
     url('^$', views.profile, name="profile"),
-    url(r'^test/$', views.profile_test, name='profile_test')
 ]
 
 portfoliopatterns = [

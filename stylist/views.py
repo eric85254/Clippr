@@ -21,7 +21,7 @@ def profile(request):
         portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
         stylist_options = StylistMenu.objects.filter(stylist=request.user)
 
-        return render(request, 'stylist/profile.html',
+        return render(request, 'stylist/stylistReal/profile/profile_core.html',
                       {'full_name': full_name,
                        'stylist': request.user,
                        'portfolio_haircuts': portfolio_haircuts,
@@ -432,22 +432,6 @@ def delete_menu_option(request):
 '''
     NEW DEVELOPMENT
 '''
-
-
-def profile_test(request):
-    if request.user.is_stylist == 'YES':
-        full_name = request.user.get_full_name()
-
-        portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
-        stylist_options = StylistMenu.objects.filter(stylist=request.user)
-
-        return render(request, 'stylist/stylistReal/profile/profile_core.html',
-                      {'full_name': full_name,
-                       'stylist': request.user,
-                       'portfolio_haircuts': portfolio_haircuts,
-                       'stylist_options': stylist_options}, )
-    else:
-        return redirect('core:logout')
 
 
 def render_calendar_page(request):

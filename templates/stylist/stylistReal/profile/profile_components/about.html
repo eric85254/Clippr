@@ -3,6 +3,7 @@
 <div class="card">
     <div class="card-block pt-2">
         <h5 class="card-title">About me</h5>
+        <a href="{% url 'core:update_basic_information' %}">Edit Basic Information</a>
         <div class="card-text">
             {{ stylist.biography|default_if_none:"Basic Information goes here." }}
         </div>
