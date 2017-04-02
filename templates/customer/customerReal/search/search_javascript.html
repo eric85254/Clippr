@@ -4,6 +4,7 @@
 
     $(".show-menu").click(function () {
 
+
         var div = document.getElementById('profile-preview');
         while (div.firstChild) {
             div.removeChild(div.firstChild);
@@ -30,7 +31,6 @@
             for (var i = 0; i < portfolioBody.length; i++) {
                 portfolioHTML += portfolioBody[i];
             }
-            console.log(portfolioHTML);
         });
 
 
@@ -41,7 +41,24 @@
             success: function (outputfromserver) {
 
                 $('.profile-image').attr('src', outputfromserver.profile_picture);
+
+                $('.profile-image').each(function () {
+                    if ($(this).height() > $(this).width()) {
+                        $(this).height('100%');
+                        var left_padding = (130 - $(this).width()) / 2;
+                        console.log(left_padding);
+                        $(this).css({'margin-left': left_padding});
+                    }
+                    else {
+                        $(this).width('100%');
+                        var top_padding = (130 - $(this).height()) / 2;
+                        console.log(top_padding);
+                        $(this).css({'margin-top': top_padding});
+                    }
+                });
+
                 $('.stylist-name').append(outputfromserver.first_name + " " + outputfromserver.last_name);
+                $('.stylist-bio').append(outputfromserver.biography);
 
                 //initialize menu and portfolio dictionaries to store JSON data
                 var menu = {};

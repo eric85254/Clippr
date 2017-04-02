@@ -2,3 +2,7 @@
     border-left: solid black 2px;
 }
 
+.profile-image-sizing {
+    height: 130px;
+    width: 130px;
+}

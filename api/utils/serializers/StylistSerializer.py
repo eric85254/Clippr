@@ -24,4 +24,4 @@ class StylistSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'first_name', 'last_name', 'profile_picture', 'portfolio_haircuts', 'stylist_menu')
+        fields = ('url', 'first_name', 'last_name', 'biography','profile_picture', 'portfolio_haircuts', 'stylist_menu', )
