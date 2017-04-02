@@ -16,10 +16,10 @@ DUMMY_STYLIST_PICTURES = {
     'lindsay_mcgreggor': '\defaults\profile_pictures\lindsay_mcgreggor.jpeg',
     'mariah_han': '\defaults\profile_pictures\mariah_han.jpeg',
     'jacob_rudy': '\defaults\profile_pictures\jacob_rudy.jpeg',
-    'alanzo_dominguez': r'\defaults\profile_pictures\alanzo_dominguez',
+    'alanzo_dominguez': r'\defaults\profile_pictures\alanzo_dominguez.jpeg',
     'lauren_brown': '\defaults\profile_pictures\lauren_brown.jpeg',
-    'tina_davina': r'\defaults\profile_pictures\tina_davina',
-    'linda_xue': '\defaults\profile_pictures\linda_xue'
+    'tina_davina': r'\defaults\profile_pictures\tina_davina.jpeg',
+    'linda_xue': '\defaults\profile_pictures\linda_xue.jpeg'
 }
 
 DUMMY_PORTFOLIO_PICTURES = {
@@ -217,7 +217,7 @@ DUMMY_PORTFOLIO_PICTURES = {
             'price': 25.00
         },
         {
-            'picture': '\defaults\portfolio_haircuts\haircut3.jpeg',
+            'picture': '\defaults\portfolio_haircuts\linda_xue\haircut3.jpeg',
             'name': 'Model Status',
             'description': 'I can turn you into her.',
             'price': 145.00
