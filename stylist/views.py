@@ -135,7 +135,7 @@ def complete_appointment(request):
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
-            if timezone.now() > appointment.date:
+            if timezone.now() > appointment.end_date_time:
                 appointment.status = Appointment.STATUS_COMPLETED
                 appointment.save()
 
