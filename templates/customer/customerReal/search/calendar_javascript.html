@@ -1,0 +1,133 @@
+{% load staticfiles %}
+
+<link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
+<script src='{% static 'jquery/dist/jquery.min.js' %}'></script>
+<script src='{% static 'moment/min/moment.min.js' %}'></script>
+<script src='{% static 'fullcalendar/dist/fullcalendar.js' %}'></script>
+<title>Shifts</title>
+
+...
+
+<script type="text/javascript">
+    var newEvent;
+    $(document).ready(function () {
+        // Page is ready.
+        // Initialize the calendar.
+
+        // intialize package that gets sent to the create appointment endpoint
+        var newEvent;
+
+        // information that must be obtained from the customer's choice.
+        var stylist_pk;
+        var choice_duration;
+        var portfolio_haircut_pk;
+        var stylist_menu_pk;
+
+
+        //Following lines of code should create a full calendar. You need a button with the id='calendarButton'
+        var showCalendarButton = document.getElementById("calendarButton");
+        showCalendarButton.onclick = showCalendarFunction;
+
+        function showCalendarFunction() {
+            $('#reveal_calendar').show();
+        }
+
+        // FullCalendar generator
+        $('#calendar').fullCalendar({
+            //Custom Save Button. When you save the button it'll send a post to create a customer.
+            //Don't send the post to api:appointment (it needs to be able to catch optional portfoliohaircut pk and stylist_menu pk values)
+            customButtons: {
+                saveButton: {
+                    text: "Save",
+                    click: function () {
+                        $.ajax({
+                            url: '{% url 'customer:schedule_appointment' %}',
+                            type: "post",
+                            data: newEvent,
+                            success: function (data) {
+                                console.log(data);
+                                window.location.href = data.url;
+                            }
+                        })
+                    }
+                }
+            },
+
+            //Options on top of the calendar. Notice that saveButton (defined above) is listed here.
+            header: {
+                left: 'prev,next today saveButton',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+
+            // basics.
+            defaultView: 'agendaWeek',
+            defaultDate: moment().format("YYYY-MM-DD"),
+            editable: true,
+            // we don't want customers setting the end time for the appointment. End time is determined by duration.
+            eventDurationEditable: false,
+            selectable: true,
+
+            // Where full calendar looks to get event data.
+            eventSources: [
+                {
+                    url: '{% url 'api:shift-list' %}?stylist_pk='+stylist_pk,
+                    color: 'red'
+                },
+                {
+                    url: '{% url 'api:calendarevent-list' %}',
+                    color: 'green'
+                }
+            ],
+
+            // Super important function. Every full calendar needs this!!! This is what determines which recurring events
+            // to exclude from the FullCalendar.
+            eventRender: function (event, element, view) {
+                if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
+                    return (event.ranges.filter(function (range) {
+                                var event_start = moment.utc(event.start);
+                                var event_end = moment.utc(event.end);
+                                var range_start = moment.utc(range.start);
+                                var range_end = moment.utc(range.end);
+
+
+                                return (event_start).isBefore(range_end) &&
+                                    event_end.isAfter(range_start);
+                            }
+                        ).length) > 0;
+                }
+            },
+            loading: function (bool) {
+                $('#loading').toggle(bool);
+            },
+
+            // This is what dictates what happens when you select a point on the calendar.
+            select: function (start, end, jsEvent, view) {
+                function createEvent() {
+                    // newEvent gets turned into a blank dictionary.
+                    newEvent = {};
+                    // the event gets assigned an id so it can be deleted later. number doesn't matter.
+                    newEvent.id = 123;
+                    newEvent.start = moment(start).format();
+
+                    //This NEEDS TO BE EDITED. Since there are multiple stylists, options, haircuts, etc. The duration
+                    // value will need to be set by javascript.
+                    var duration = moment(choice_duration, 'HH:mm:ss');
+                    newEvent.end = moment(start).add(duration.get('hour'), 'hour').add(duration.get('minute'), 'minute').format();
+
+                    newEvent.title = '{{ title }}';
+                    newEvent.allDay = false;
+                    $('#calendar').fullCalendar('renderEvent', newEvent);
+                }
+
+                // This makes sure that only one event/appointment can be on the calendar at any given time.
+                if (newEvent) {
+                    $('#calendar').fullCalendar('removeEvents', 123);
+                    createEvent();
+                } else {
+                    createEvent();
+                }
+            }
+        });
+    });
+</script>
