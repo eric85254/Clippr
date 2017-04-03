@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from api.serializers.CustomerSerializer import CustomerSerializer
-from api.serializers.StylistSerializer import UnNestedStylistSerializer
+from api.serializers.Customer import CustomerSerializer
+from api.serializers.Stylist import UnNestedStylistSerializer
 from core.models import Appointment
 
 

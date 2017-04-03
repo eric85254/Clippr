@@ -1,8 +1,18 @@
 from rest_framework import serializers
 
-from api.serializers.ShiftExceptionSerializer import ShiftExceptionSerializer
-from api.serializers.StylistSerializer import UnNestedStylistSerializer
-from stylist.models import Shift
+from api.serializers.Stylist import UnNestedStylistSerializer
+from stylist.models import Shift, ShiftException
+
+
+class ShiftExceptionSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        This serializer is linked to the ShiftException model, and is utilized to both create a new ShiftException,
+        | and by the ShiftSerializer.
+    """
+
+    class Meta:
+        model = ShiftException
+        fields = ('start', 'end')
 
 
 class ShiftSerializer(serializers.HyperlinkedModelSerializer):

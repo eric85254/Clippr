@@ -47,7 +47,6 @@ class User(AbstractUser):
         return StylistMenu.objects.filter(stylist=self)
 
 
-
 class GlobalMenu(models.Model):
     """
         Global Menu options available to all stylists are stored here.
@@ -80,6 +79,17 @@ class ItemInBill(models.Model):
             return str(self.appointment.date) + " || " + self.appointment.stylist.username + " || " + self.item_custom
         else:
             return "Unknown Entry"
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        if self.item_portfolio is not None and self.item_portfolio != '':
+            self.price = self.item_portfolio.price
+
+        elif self.item_menu is not None and self.item_menu != '':
+            self.price = self.item_menu.price
+            
+        super(ItemInBill, self).save()
 
 
 class Review(models.Model):
@@ -118,6 +128,9 @@ class Appointment(FullCalendarEvent):
     price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 
     status = models.TextField(choices=STATUS_CHOICES, default=STATUS_PENDING)
+
+    def item_in_bill(self):
+        return ItemInBill.objects.filter(appointment=self)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

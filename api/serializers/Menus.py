@@ -1,7 +1,22 @@
 from rest_framework import serializers
 
-from core.models import GlobalMenu
-from stylist.models import StylistMenu
+from core.models import GlobalMenu, StylistMenu
+
+
+class GlobalMenuSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        GlobalMenuSerializer (serializer for GlobalMenu Model)
+
+        - **fields**::
+            :url: Url for a specific object
+            :name: CharField
+            :price: DecimalField
+    """
+    url = serializers.HyperlinkedIdentityField(view_name='api:globalmenu-detail')
+
+    class Meta:
+        model = GlobalMenu
+        fields = ('url', 'name', 'price')
 
 
 class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):

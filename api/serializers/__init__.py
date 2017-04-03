@@ -10,12 +10,11 @@
     dealing with numerous nested serializers, and developers will spend more time working on organization rather then code.
     For this reason, the serializers were abstracted to their individual classes and simply imported into this document.
 """
-from api.serializers.AppointmentSerializer import AppointmentSerializer
-from api.serializers.CalendarEventSerializer import CalendarEventSerializer
-from api.serializers.CustomerSerializer import CustomerSerializer
-from api.serializers.GlobalMenuSerializer import GlobalMenuSerializer
-from api.serializers.PortfolioHaircutSerializer import PortfolioHaircutSerializer
-from api.serializers.ShiftSerializer import ShiftSerializer
-from api.serializers.StylistMenuSerializer import StylistMenuSerializer
-from api.serializers.StylistSerializer import StylistSerializer, UnNestedStylistSerializer
-from api.serializers.UserSerializer import UserSerializer
+from api.serializers.Appointments import AppointmentSerializer
+from api.serializers.CalendarEvents import CalendarEventSerializer
+from api.serializers.Customer import CustomerSerializer
+from api.serializers.Menus import GlobalMenuSerializer, StylistMenuSerializer
+from api.serializers.PortfolioHaircuts import PortfolioHaircutSerializer
+from api.serializers.Shift import ShiftSerializer, ShiftException
+from api.serializers.Stylist import StylistSerializer, UnNestedStylistSerializer
+from api.serializers.User import UserSerializer

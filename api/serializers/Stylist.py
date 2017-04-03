@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from api.serializers.PortfolioHaircutSerializer import PortfolioHaircutSerializer
-from api.serializers.StylistMenuSerializer import StylistMenuSerializer
+from api.serializers.PortfolioHaircuts import PortfolioHaircutSerializer
+from api.serializers.Menus import StylistMenuSerializer
 from core.models import User
 
 '''
