@@ -32,7 +32,8 @@ class StylistMenuSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
     modified_global = serializers.SlugRelatedField(many=False, read_only=False, allow_null=True, slug_field='name',
                                                    queryset=GlobalMenu.objects.all())
+    pk = serializers.ReadOnlyField()
 
     class Meta:
         model = StylistMenu
-        fields = ('url', 'name', 'price', 'modified_global')
+        fields = ('pk', 'url', 'name', 'price', 'modified_global')

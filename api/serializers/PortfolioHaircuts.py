@@ -21,8 +21,9 @@ class PortfolioHaircutSerializer(serializers.HyperlinkedModelSerializer):
             :price: DecimalField
     """
     url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
+    pk = serializers.ReadOnlyField()
 
     class Meta:
         model = PortfolioHaircut
-        fields = ('url', 'picture', 'name', 'description', 'price')
+        fields = ('pk', 'url', 'picture', 'name', 'description', 'price')
 
