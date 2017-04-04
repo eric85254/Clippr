@@ -46,13 +46,11 @@
                     if ($(this).height() > $(this).width()) {
                         $(this).height('100%');
                         var left_padding = (130 - $(this).width()) / 2;
-                        console.log(left_padding);
                         $(this).css({'margin-left': left_padding});
                     }
                     else {
                         $(this).width('100%');
                         var top_padding = (130 - $(this).height()) / 2;
-                        console.log(top_padding);
                         $(this).css({'margin-top': top_padding});
                     }
                 });
@@ -100,6 +98,21 @@
                     $(this).attr('src', portfolio[i].picture);
                 });
 
+{#                $('.portfolio-image').each(function () {#}
+{#                    if ($(this).height() > $(this).width()) {#}
+{#                        $(this).height('100%');#}
+{#                        var left_padding = (220 - $(this).width()) / 2;#}
+{#                        console.log(left_padding);#}
+{#                        $(this).css({'margin-left': left_padding});#}
+{#                    }#}
+{#                    else {#}
+{#                        $(this).width('100%');#}
+{#                        var top_padding = (220 - $(this).height()) / 2;#}
+{#                        console.log(top_padding);#}
+{#                        $(this).css({'margin-top': top_padding});#}
+{#                    }#}
+{#                });#}
+
                 $('.portfolio-name').each(function (i) {
                     $(this).append(portfolio[i].name);
                 });
@@ -111,6 +124,7 @@
                 $('.portfolio-description').each(function (i) {
                     $(this).append('Description: ' + portfolio[i].description);
                 });
+
             }
         });
     });
