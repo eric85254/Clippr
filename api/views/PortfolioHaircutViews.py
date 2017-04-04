@@ -7,7 +7,9 @@ from rest_framework.authentication import BasicAuthentication
 from api.backends import CsrfExemptSessionAuthentication
 from api.permissions import IsOwnerOfHaircut
 from api.serializers import PortfolioHaircutSerializer
+from customer.utils.view_logic import CustomerLogic
 from stylist.models import PortfolioHaircut
+from stylist.utils.view_logic import StylistLogic
 
 
 class HaircutViewSet(viewsets.ModelViewSet):
@@ -25,11 +27,16 @@ class HaircutViewSet(viewsets.ModelViewSet):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get_queryset(self):
-        stylist = self.request.query_params.get('stylist_pk', None)
-        if stylist is None:
-            stylist = self.request.user
-        return PortfolioHaircut.objects.filter(stylist=stylist)
+        user = self.request.query_params.get('stylist_pk', None)
+        if user is None:
+            if StylistLogic.is_stylist(self.request):
+                user = self.request.user
+                return PortfolioHaircut.objects.filter(stylist=user)
+            if CustomerLogic.is_customer(self.request):
+                user = self.request.user
+                return PortfolioHaircut.objects.filter(item_portfolio__appointment__customer=user).distinct()
+        else:
+            return PortfolioHaircut.objects.filter(stylist=user)
 
     def perform_create(self, serializer):
-        # Todo make it so that only Stylists can save a haircut.
         serializer.save(stylist=self.request.user)

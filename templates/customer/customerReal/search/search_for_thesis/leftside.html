@@ -1,0 +1,100 @@
+<div class="row">
+
+    <!--STYLIST LIST -->
+    <div class="col-4">
+        {% for stylist in stylist_list %}
+            <div class="d-flex flex-row">
+                <img src="{{ stylist.profile_picture.url }}" height="100px" width="100px">
+                <div class="d-flex flex-column">
+                    <div class="p-1"> {{ stylist.get_full_name }} </div>
+                    <form method="get" action="{% url 'customer:render_stylist_data' %}">
+                        <input type="hidden" name="stylist_pk" value="{{ stylist.pk }}"/>
+                        <input type="submit" value="See Stylist Menu"/>
+                    </form>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+    {% if stylist and menu_list and portfolio_list %}
+        <!--STYLIST PROFILE-->
+        <div class="col-8" id="profile-preview">
+            <img align="left" class="fb-image-profile thumbnail" src="{{ stylist.profile_picture.url }}"/> <br>
+            <div class="container">
+
+                <div class="d-flex flex-column">
+                    <div class="profile-image-sizing d-flex justify-content-center">
+                        <img src="" class="profile-image">
+                    </div>
+                    <h3 class="stylist-name"></h3>
+                    <p class="stylist-bio"></p>
+                    <div class="card card-dashboard">
+                        <h4 class="card-header module-header">Menu</h4>
+                        <div class="card-block card-scroll" id="menu-start">
+                            {% for item in menu_list %}
+                                <div class='card'>
+                                    <div class='menu-header card-header'>
+                                        <h5 class='menu-option mb-0 d-flex justify-content-end'>
+                                            <a class='mr-auto menu-name'>
+                                                {{ item.name }}
+                                            </a>
+                                            <a class='menu-price'>
+                                                ${{ item.price }}
+                                            </a>
+                                            <form method="post"
+                                                  action="{% url 'customer:save_menu' %}"> {% csrf_token %}
+                                                <input name="menu_pk" value="{{ item.pk }}" type="hidden"/>
+                                                <input type="submit" value="Choose this"/>
+                                            </form>
+                                        </h5>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card card-dashboard">
+                        <h4 class="card-header module-header">Portfolio</h4>
+                        <div class="card-block card-scroll">
+                            {% for item in portfolio_list %}
+                                <div class="row" id="portfolio-start">
+                                    <div class="col-lg-4 col-md-6 mb-3 mt-3 d-flex justify-content-center">
+                                        <div class="card portfolio-card mr-md-3">
+                                            <div class="portfolio-image-sizing">
+                                                <img class="card-img-top portfolio-image" src="{{ item.picture.url }}"/>
+                                            </div>
+                                            <div class="card-block">
+                                                <p class="card-text">
+                                                    <a class="portfolio-name">
+                                                        {{ item.name }}
+                                                    </a>
+                                                    <a class="portfolio-price">
+                                                        Price: {{ item.price }}
+                                                    </a>
+                                                    <a class="portfolio-description">
+                                                    </a>
+                                                <form method="post"
+                                                      action="{% url 'customer:save_haircut' %}"> {% csrf_token %}
+                                                    <input name="haircut_pk" value="{{ item.pk }}" type="hidden"/>
+                                                    <input type="submit" value="Choose this"/>
+                                                </form>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <button id="calendarButton">View Stylist Calendar</button>
+            <div class="modal fade" id="calendar" style="display:none"></div>
+        </div>
+        </div>
+    {% endif %}

@@ -368,3 +368,62 @@ def submit_review(request):
             return redirect('customer:dashboard')
     else:
         return redirect('core:logout')
+
+
+'''
+    SEARCH FOR THESIS
+'''
+
+
+def search_core(request):
+    stylist_list = User.objects.filter(is_stylist='YES')
+    CookieClearer.thesis_search(request)
+    return render(request, 'customer/customerReal/search/search_for_thesis/base.html', {'stylist_list': stylist_list})
+
+
+def render_stylist_data(request):
+    if request.method == 'GET':
+        request.session['stylist_pk'] = request.GET.get('stylist_pk')
+        stylist = User.objects.get(pk=request.GET.get('stylist_pk'))
+        menu_list = StylistMenu.objects.filter(stylist=stylist)
+        portfolio_list = PortfolioHaircut.objects.filter(stylist=stylist)
+        stylist_list = User.objects.filter(is_stylist='YES')
+        return render(request, 'customer/customerReal/search/search_for_thesis/base.html', {'stylist': stylist,
+                                                                                            'menu_list': menu_list,
+                                                                                            'portfolio_list': portfolio_list,
+                                                                                            'stylist_list': stylist_list})
+    else:
+        redirect('core:logout')
+
+
+def save_haircut(request):
+    if request.method == 'POST':
+        request.session["haircut_pk"] = request.POST.get('haircut_pk')
+        return redirect('customer:reveal_fullcalendar')
+    else:
+        return redirect('core:logout')
+
+
+def save_menu(request):
+    if request.method == 'POST':
+        request.session['menu_pk'] = request.POST.get('menu_pk')
+        return redirect('customer:reveal_fullcalendar')
+
+
+def reveal_fullcalendar(request):
+
+    if 'haircut_pk' in request.session:
+        haircut = PortfolioHaircut.objects.get(pk=request.session.get('haircut_pk'))
+        duration = haircut.duration
+    elif 'menu_pk' in request.session:
+        menu = StylistMenu.objects.get(pk=request.session.get('menu_pk'))
+        duration = menu.duration
+    else:
+        duration = None
+
+    return render(request, 'customer/customerReal/search/search_for_thesis/calendar.html',
+                  {'stylist_pk': request.session.get('stylist_pk'),
+                   'menu_pk': request.session.get('menu_pk'),
+                   'haircut_pk': request.session.get('haircut_pk'),
+                   'duration': duration})
+

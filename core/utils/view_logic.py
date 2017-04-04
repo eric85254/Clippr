@@ -94,6 +94,16 @@ class CookieClearer(object):
 
         CookieClearer.clear(cookie_names, request)
 
+    @staticmethod
+    def thesis_search(request):
+        cookie_names = [
+            'stylist_pk',
+            'haircut_pk',
+            'menu_pk',
+        ]
+
+        CookieClearer.clear(cookie_names, request)
+
     # Helper Method
     @staticmethod
     def clear(cookie_names, request):

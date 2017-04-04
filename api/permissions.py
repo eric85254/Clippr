@@ -13,6 +13,8 @@
 
 from rest_framework import permissions
 
+from customer.utils.view_logic import CustomerLogic
+
 '''
     APPOINTMENT PERMISSION
 '''
@@ -58,6 +60,9 @@ class IsOwnerOfHaircut(permissions.BasePermission):
         """
             Returns True if the Stylist is the owner of the haircut.
         """
+        if CustomerLogic.is_customer(request) and request.method == 'GET':
+            return True
+
         if obj.stylist == request.user:
             return True
         else:
@@ -67,6 +72,9 @@ class IsOwnerOfHaircut(permissions.BasePermission):
         """
             Returns True if the user is not anonymous.
         """
+        if CustomerLogic.is_customer(request) and request.method != 'GET':
+            return False
+
         if request.user.is_anonymous:
             return False
         else:

@@ -37,10 +37,22 @@ appointment_modifiers = [
     url(r'^calendar/', include(calendar_patterns))
 ]
 
+
+search_for_thesis = [
+    url(r'^$', views.search_core, name="search_core"),
+    url(r'^render_stylist_data/$', views.render_stylist_data, name="render_stylist_data"),
+    url(r'^save_haircut/$', views.save_haircut, name="save_haircut"),
+    url(r'^save_menu/$', views.save_menu, name="save_menu"),
+    url(r'^appointment_calendar/$', views.reveal_fullcalendar, name="reveal_fullcalendar"),
+]
+
 urlpatterns = [
     url(r'^profile/$', views.profile, name="profile"),
     url(r'^dashboard/', include(appointment_modifiers)),
     url(r'^create_appointment/', include(create_appointment_patterns)),
     url(r'^become_stylist/$', views.become_stylist, name="become_stylist"),
-    url(r'^submit_review/$', views.submit_review, name="submit_review")
+    url(r'^submit_review/$', views.submit_review, name="submit_review"),
+
+    #for thesis
+    url(r'^search/', include(search_for_thesis))
 ]

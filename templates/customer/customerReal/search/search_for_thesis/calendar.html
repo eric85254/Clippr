@@ -1,0 +1,148 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
+    <script src='{% static 'jquery/dist/jquery.min.js' %}'></script>
+    <script src='{% static 'moment/min/moment.min.js' %}'></script>
+    <script src='{% static 'fullcalendar/dist/fullcalendar.js' %}'></script>
+    <title>Shifts</title>
+
+    ...
+
+    <script type="text/javascript">
+        var newEvent;
+        var item_portfolio_pk = "{{ haircut_pk|default_if_none:"" }}";
+        var item_menu_pk = "{{ menu_pk|default_if_none:"" }}";
+        var stylist_pk = "{{ stylist_pk|default_if_none:"" }}";
+
+        $(document).ready(function () { // Page is ready.
+            // Initialize the calendar.
+            $('#calendar').fullCalendar({
+                customButtons: {
+                    saveButton: {
+                        text: "Save",
+                        click: function () {
+                            var jsonObject;
+                            if (item_portfolio_pk != "") {
+                                jsonObject = {
+                                    "location": "Arizona State University",
+                                    "start_date_time": newEvent.start,
+                                    "stylist": "http://127.0.0.1:8000/api/stylist/" + stylist_pk + "/",
+                                    "item_in_bill": [
+                                        {
+                                            "item_portfolio": {
+                                                "pk": item_portfolio_pk
+                                            },
+                                            "item_menu": null
+                                        }
+                                    ]
+                                };
+                            } else if (item_menu_pk != "") {
+                                jsonObject = {
+                                    "location": "Arizona State University",
+                                    "start_date_time": newEvent.start,
+                                    "stylist": "http://127.0.0.1:8000/api/stylist/" + stylist_pk + "/",
+                                    "item_in_bill": [
+                                        {
+                                            "item_portfolio": null,
+                                            "item_menu": {
+                                                "pk": item_menu_pk
+                                            }
+                                        }
+                                    ]
+                                };
+                            }
+                            console.log(jsonObject);
+                            console.log(jsonObject.toJSON);
+                            console.log("{% url 'api:appointment-list' %}");
+                            $.ajax({
+                                url: "{% url 'api:appointment-list' %}",
+                                {#                                beforeSend: function (xhrObj) {#}
+                                {#                                    xhrObj.setRequestHeader("Content-Type", "application/json");#}
+                                {#                                    xhrObj.setRequestHeader("Accept", "application/json");#}
+                                {#                                },#}
+                                type: "post",
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(jsonObject),
+                                success: function (data) {
+                                    console.log(data);
+                                    window.location.href = data.url;
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                        }
+                    }
+                },
+                header: {
+                    left: 'prev,next today saveButton',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'agendaWeek',
+                defaultDate: moment().format("YYYY-MM-DD"),
+                editable: true,
+                eventDurationEditable: false,
+                selectable: true,
+                eventSources: [
+                    {
+                        url: '{% url 'api:shift-list' %}?stylist_pk={{ stylist_pk }}',
+                        color: 'red'
+                    },
+                    {
+                        url: '{% url 'api:calendarevent-list' %}',
+                        color: 'green'
+                    }
+                ],
+                eventRender: function (event, element, view) {
+                    if ((event.dow != null && event.dow != "") && (event.ranges != null && event.ranges != "")) {
+                        return (event.ranges.filter(function (range) {
+                                    var event_start = moment.utc(event.start);
+                                    var event_end = moment.utc(event.end);
+                                    var range_start = moment.utc(range.start);
+                                    var range_end = moment.utc(range.end);
+
+
+                                    return (event_start).isBefore(range_end) &&
+                                        event_end.isAfter(range_start);
+                                }
+                            ).length) > 0;
+                    }
+                },
+                loading: function (bool) {
+                    $('#loading').toggle(bool);
+                },
+                select: function (start, end, jsEvent, view) {
+                    function createEvent() {
+                        newEvent = {};
+                        newEvent.id = 123;
+                        newEvent.start = moment(start).format();
+
+                        var duration = moment('{{ duration }}', 'HH:mm:ss');
+                        newEvent.end = moment(start).add(duration.get('hour'), 'hour').add(duration.get('minute'), 'minute').format();
+
+                        newEvent.title = '{{ title|default_if_none:"new appointment" }}';
+                        newEvent.allDay = false;
+                        $('#calendar').fullCalendar('renderEvent', newEvent);
+                    }
+
+                    if (newEvent) {
+                        $('#calendar').fullCalendar('removeEvents', 123);
+                        createEvent();
+                    } else {
+                        createEvent();
+                    }
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+<div id="calendar"></div>
+</body>
+</html>
