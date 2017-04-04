@@ -6,3 +6,12 @@
     height: 130px;
     width: 130px;
 }
+
+.portfolio-image-sizing {
+    height: 220px;
+    width: 220px;
+}
+
+.portfolio-card {
+    width: 220px;
+}
