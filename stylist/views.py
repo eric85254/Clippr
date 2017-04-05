@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 
-from django.core import serializers
 from django.db.models import Q
-from django.http import JsonResponse
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
@@ -15,6 +13,9 @@ from stylist.utils.view_logic import BillLogic, StylistLogic
 
 
 def profile(request):
+    """
+        Renders the user's profile.
+    """
     if request.user.is_stylist == 'YES':
         full_name = request.user.get_full_name()
 
@@ -31,6 +32,9 @@ def profile(request):
 
 
 def dashboard(request):
+    """
+        Renders all the reviews, and appointments, that the customer is involved in.
+    """
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user,
                                                           status=Appointment.STATUS_PENDING)
@@ -63,6 +67,9 @@ def dashboard(request):
 
 
 def transactions(request):
+    """
+        Shows the Stylist's completed appointments and the bills in the completed appointments.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             appointments = Appointment.objects.filter(stylist=request.user, status=Appointment.STATUS_COMPLETED)
@@ -84,6 +91,9 @@ def transactions(request):
 
 
 def appointments(request):
+    """
+        Obtains all the appointments for the appointment page.
+    """
     if request.user.is_stylist == 'YES':
         pending_appointments = Appointment.objects.filter(stylist=request.user,
                                                           status=Appointment.STATUS_PENDING)
@@ -112,6 +122,9 @@ def appointments(request):
 
 
 def accept_appointment(request):
+    """
+        POST here with appointment_pk to accept an appointment.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
@@ -122,6 +135,9 @@ def accept_appointment(request):
 
 
 def decline_appointment(request):
+    """
+        POST here with appointment_pk to decline an appointment.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
@@ -132,6 +148,9 @@ def decline_appointment(request):
 
 
 def complete_appointment(request):
+    """
+        POST here with appointment_pk to complete an appointment.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
@@ -151,6 +170,9 @@ def complete_appointment(request):
 
 
 def submit_review(request):
+    """
+       POST here with review_pk and rating fields to submit a rating.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             review = Review.objects.get(pk=request.POST.get('review_pk'))
@@ -168,6 +190,9 @@ def submit_review(request):
 
 
 def view_bill(request):
+    """
+        GET request here to obtain the bill information. Make sure to send appointment_pk value.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             appointment = Appointment.objects.get(pk=request.GET.get('appointment_pk'))
@@ -183,6 +208,9 @@ def view_bill(request):
 
 
 def delete_item(request):
+    """
+        POST here to delete an item in the bill. Submit with item_pk value.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             item = ItemInBill.objects.get(pk=request.POST.get('item_pk'))
@@ -196,6 +224,10 @@ def delete_item(request):
 
 
 def add_item(request):
+    """
+        GET here to get the add_item to bill form.
+        POST here with 'custom' to create a new item in the bill.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             return render(request, 'stylist/bill/add_item_form.html')
@@ -215,6 +247,10 @@ def add_item(request):
 
 
 def add_haircut(request):
+    """
+        GET here for the form.
+        POST here to add a haircut to the bill. post with portfoliohaircut_pk
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             portfolio_haircuts = PortfolioHaircut.objects.filter(stylist=request.user)
@@ -231,6 +267,9 @@ def add_haircut(request):
 
 
 def add_travel_fee(request):
+    """
+        POST here to add a travel fee. make sure you send appointment_pk and travel_fee.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             appointment = Appointment.objects.get(pk=request.POST.get('appointment_pk'))
@@ -255,6 +294,9 @@ def add_travel_fee(request):
 
 
 def portfolio(request):
+    """
+        GET here to view portfolio information.
+    """
     if request.user.is_stylist == 'YES':
         full_name = request.user.get_full_name()
 
@@ -271,6 +313,9 @@ def portfolio(request):
 
 
 def upload_portfoliohaircut(request):
+    """
+        POST here to upload a new portfolio haircut image.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             new_portfolioHaircut_form = NewPortfolioHaircutForm(request.POST)
@@ -298,6 +343,10 @@ def upload_portfoliohaircut(request):
 
 
 def edit_portfoliohaircut(request):
+    """
+        GET request here to get the edit_portfoliohaircut form.
+        POST here with 'portfoliohaircut_pk', 'picture', 'name', 'description', and 'price' to edit the portfolio item.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfoliohaircut_pk'))
@@ -328,6 +377,9 @@ def edit_portfoliohaircut(request):
 
 
 def delete_portfoliohaircut(request):
+    """
+        POST here to delete the portfoliohaircut
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             haircut = PortfolioHaircut.objects.get(pk=request.POST.get('portfolio_haircut_pk'))
@@ -344,6 +396,10 @@ def delete_portfoliohaircut(request):
 
 
 def select_menu_option(request):
+    """
+        GET here to see all the global menu options and to select / edit stylist's options.
+        POST here to 'select' a global option.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             menu_options = GlobalMenu.objects.all().exclude(modified_global__stylist=request.user)
@@ -361,6 +417,9 @@ def select_menu_option(request):
 
 
 def remove_menu_option(request):
+    """
+        POST here to delete a menu option.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'GET':
             return redirect(request.META.get('HTTP_REFERER'))
@@ -374,6 +433,10 @@ def remove_menu_option(request):
 
 
 def create_menu_option(request):
+    """
+        GET here to view the create_menu_option form.
+        POST here to create a new menu option.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             menu_option_form = MenuOptionForm(request.POST)
@@ -393,10 +456,15 @@ def create_menu_option(request):
 
 
 def edit_menu_option(request):
+    """
+        POST here to edit_menu_option
+        GET here to recieve the edit_menu_option form.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             stylist_option = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
 
+            #todo: why did i do this?
             if stylist_option.modified_global_id >= 1:
                 stylist_option.price = request.POST.get('price')
                 stylist_option.stylist = request.user
@@ -418,7 +486,11 @@ def edit_menu_option(request):
         return redirect('core:logout')
 
 
+#todo: you have two delete_menu_option views
 def delete_menu_option(request):
+    """
+        POST here with stylist_pk value to delete the menu_option.
+    """
     if request.user.is_stylist == 'YES':
         if request.method == 'POST':
             stylist_option = StylistMenu.objects.get(pk=request.POST.get('stylist_option_pk'))
@@ -434,6 +506,9 @@ def delete_menu_option(request):
 
 
 def render_calendar_page(request):
+    """
+        GET request here to render the calendar.
+    """
     context = {
         'STATUS_COMPLETED': Appointment.STATUS_COMPLETED,
         'STATUS_RESCHEDULED_BYCUSTOMER': Appointment.STATUS_RESCHEDULED_BYCUSTOMER,
@@ -445,4 +520,7 @@ def render_calendar_page(request):
 
 
 def render_shift_calender(request):
+    """
+        GET request here to render the shift calendar.
+    """
     return render(request, 'stylist/calendar/shift_calendar.html')
