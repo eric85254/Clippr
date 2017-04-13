@@ -1,16 +1,9 @@
 {% load staticfiles %}
 
-<link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
-<script src='{% static 'jquery/dist/jquery.min.js' %}'></script>
-<script src='{% static 'moment/min/moment.min.js' %}'></script>
-<script src='{% static 'fullcalendar/dist/fullcalendar.js' %}'></script>
-<title>Shifts</title>
-
-...
 
 <script type="text/javascript">
     var newEvent;
-    $(document).ready(function () {
+    function getCalendar() {
         // Page is ready.
         // Initialize the calendar.
 
@@ -22,7 +15,6 @@
         var choice_duration;
         var portfolio_haircut_pk;
         var stylist_menu_pk;
-
 
         //Following lines of code should create a full calendar. You need a button with the id='calendarButton'
         var showCalendarButton = document.getElementById("calendarButton");

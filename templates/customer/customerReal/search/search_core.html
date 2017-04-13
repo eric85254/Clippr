@@ -13,7 +13,9 @@
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <!--Clippr CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/customer/customer_search.css' %}">
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/stylist/stylist_profile.css' %}">#}
+
+    <!--FullCalendar CSS -->
+    <link rel='stylesheet' type="text/css" href='{% static 'fullcalendar/dist/fullcalendar.css' %}'/>
 
 </head>
 <body>
@@ -43,21 +45,22 @@
 
     <!--STYLIST PROFILE-->
     <div class="col-8" id="profile-preview">
-
         <button id="calendarButton">View Stylist Calendar</button>
-        <div class="modal fade" id="calendar" style="display:none"></div>
     </div>
+
 </div>
 
+{% include 'customer/customerReal/search/search_popup.html' %}
 
 {% include 'stylist/stylistReal/footerBase.html' %}
 
 {% include 'master_scripts.html' %}
 
+{% include 'customer/customerReal/search/calendar_javascript.html' %}
+
 {% include 'customer/customerReal/search/search_javascript.html' %}
 
 {#<script src="{% static 'javascript/stylists/stylist_portfolio.js' %}"></script>#}
-
 
 </body>
 </html>
