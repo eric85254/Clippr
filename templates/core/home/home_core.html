@@ -11,6 +11,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!--FontAwesome CSS -->
+    <script src="https://use.fontawesome.com/0e84b89dfa.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -21,14 +23,14 @@
     </button>
 
     <a class="navbar-brand" id="navLogo" href="{% url 'core:home' %}">
-        <img src="{% static "clippr/images/logoTransparent.png" %}" width="50" height="50" alt="">
+        <img src="{% static "clippr/images/logoTransparent.png" %}" width="100" height="100" alt="">
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="container" id="OuterCenter">
             <div class="container" id="InnerCenter">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" id="navHome" href="{% url 'core:home' %}">Home <span
                                 class="sr-only">(current)</span></a>
                     </li>

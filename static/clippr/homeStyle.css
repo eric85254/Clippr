@@ -24,7 +24,7 @@ body {
 }
 
 .jumbotron {
-    min-height:420px;
+    min-height:380px;
 }
 
 .collapse {
@@ -56,7 +56,7 @@ body {
     -webkit-background-size:contain;
     background-size: contain;
     display: block;
-    margin: 10px;
+    /*margin: 10px;*/
     width: 150px;
     height: 150px;
     float:left;

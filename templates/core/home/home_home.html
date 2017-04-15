@@ -2,37 +2,35 @@
 {% load staticfiles %}
 
 {% block main_content %}
-<div id="navHome-Link">
-    <div class="jumbotron jumbotron-fluid" id="homeJumbotron">
-        <div class="container">
-            <h1 class="display-3">Clippr</h1>
-            <p class="lead">Some Crazy Branding Statement Here</p>
-            <hr class="my-2">
-            <p>Schedule your first catered salon experience today.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Book Now</a>
-            </p>
+    <div class="row">
+        <div class="col-7">
+            <div class="jumbotron jumbotron-fluid" id="homeJumbotron">
+            </div>
         </div>
+        <div class="col-5" id="howItWorks">
+            <h2>How it works</h2>
+        </div>
+    </div>
     </div>
     <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-block">
-            <h3 class="card-title">About</h3>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-{#            <a href="{% url 'customerReal:search' %}" class="btn btn-primary">Book Now</a>#}
-          </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-block">
+                    <h3 class="card-title">About</h3>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    {#            <a href="{% url 'customerReal:search' %}" class="btn btn-primary">Book Now</a>#}
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-block">
-            <h3 class="card-title">Download the App</h3>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            <p class="card-text">Follow us on social media here!</p>
-          </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-block">
+                    <h3 class="card-title">Download the App</h3>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Follow us on social media here!</p>
+                    <i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-</div>
 {% endblock %}
