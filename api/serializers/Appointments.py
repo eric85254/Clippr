@@ -11,6 +11,15 @@ from stylist.models import PortfolioHaircut, StylistMenu
 
 
 class CustomPortfolioHaircutSerializer(serializers.Serializer):
+    """
+        Custom Serializer class. note that this does not extend the serializers.HyperlinkedModelSerializer.
+
+        This is because of issues with grabbing nested serializer data. The HyperlinkedModelSerializer attempts to
+        check the field types and permissions with those that were set in the models. For example, we need to catch
+        the pk value to know which service to add to the Item_in_bill. However, if we utilized a HyperlinkedModelSerializer
+        instead of a regular Serializer, the prior would think that we are trying to create a new Item_in_bill with a predefined
+        pk value. This will return an error saying that the pk field is a read only field.
+    """
     pk = serializers.IntegerField()
     url = serializers.HyperlinkedIdentityField(view_name='api:portfoliohaircut-detail')
     name = serializers.CharField(read_only=True)
@@ -18,6 +27,15 @@ class CustomPortfolioHaircutSerializer(serializers.Serializer):
 
 
 class CustomStylistMenuSerializer(serializers.Serializer):
+    """
+            Custom Serializer class. note that this does not extend the serializers.HyperlinkedModelSerializer.
+
+            This is because of issues with grabbing nested serializer data. The HyperlinkedModelSerializer attempts to
+            check the field types and permissions with those that were set in the models. For example, we need to catch
+            the pk value to know which service to add to the Item_in_bill. However, if we utilized a HyperlinkedModelSerializer
+            instead of a regular Serializer, the prior would think that we are trying to create a new Item_in_bill with a predefined
+            pk value. This will return an error saying that the pk field is a read only field.
+        """
     pk = serializers.IntegerField()
     url = serializers.HyperlinkedIdentityField(view_name='api:stylistmenu-detail')
     name = serializers.CharField(read_only=True)
@@ -25,6 +43,11 @@ class CustomStylistMenuSerializer(serializers.Serializer):
 
 
 class ItemInBillSerializer(serializers.HyperlinkedModelSerializer):
+    """
+        Item in Bill Serializer
+
+        catches the nested data sent when creating a new appointment.
+    """
     item_portfolio = CustomPortfolioHaircutSerializer(many=False, read_only=False, allow_null=True)
     item_menu = CustomStylistMenuSerializer(many=False, read_only=False, allow_null=True)
 

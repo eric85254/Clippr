@@ -25,8 +25,8 @@
                     Time: {{ review.appointment.date|default_if_none:"" }} <br>
                     Price: {{ review.appointment.price|default_if_none:"" }} <br>
 
-                    How you rated customer: {{ review.customer_rating }} <br>
-                    Your Rating: {{ review.stylist_rating }} <br>
+                    How you rated Stylist: {{ review.stylist_rating }} <br>
+                    Your Rating: {{ review.customer_rating }} <br>
                     -------------------------------- <br>
                 </ul>
             {% empty %}
@@ -45,7 +45,7 @@
                     Location: {{ review.appointment.location }} <br>
                     Time: {{ review.appointment.date|default_if_none:"" }} <br>
                     Price: {{ review.appointment.price|default_if_none:"" }} <br>
-                    <form action="{% url 'stylist:submit_review' %}" method="post"> {% csrf_token %}
+                    <form action="{% url 'customer:submit_review' %}" method="post"> {% csrf_token %}
                         <input type="hidden" name="review_pk" value="{{ review.pk }}"/>
                         <input type="number" name="rating" min="0" max="5"/>
                         <input type="submit" value="Write a Review"/>

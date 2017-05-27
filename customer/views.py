@@ -68,6 +68,9 @@ def become_stylist(request):
 
 
 def appointments(request):
+    """
+        Provides all appointments that the user is involved in.
+    """
     if CustomerLogic.is_customer(request):
         pending_appointments = Appointment.objects.filter(customer=request.user,
                                                           status=Appointment.STATUS_PENDING)
@@ -376,12 +379,18 @@ def submit_review(request):
 
 
 def search_core(request):
+    """
+        For thesis.
+    """
     stylist_list = User.objects.filter(is_stylist='YES')
     CookieClearer.thesis_search(request)
     return render(request, 'customer/customerReal/search/search_for_thesis/base.html', {'stylist_list': stylist_list})
 
 
 def render_stylist_data(request):
+    """
+        For Thesis
+    """
     if request.method == 'GET':
         request.session['stylist_pk'] = request.GET.get('stylist_pk')
         stylist = User.objects.get(pk=request.GET.get('stylist_pk'))
@@ -397,6 +406,9 @@ def render_stylist_data(request):
 
 
 def save_haircut(request):
+    """
+        For Thesis
+    """
     if request.method == 'POST':
         request.session["haircut_pk"] = request.POST.get('haircut_pk')
         return redirect('customer:reveal_fullcalendar')
@@ -405,13 +417,18 @@ def save_haircut(request):
 
 
 def save_menu(request):
+    """
+        For Thesis
+    """
     if request.method == 'POST':
         request.session['menu_pk'] = request.POST.get('menu_pk')
         return redirect('customer:reveal_fullcalendar')
 
 
 def reveal_fullcalendar(request):
-
+    """
+        For Thesis
+    """
     if 'haircut_pk' in request.session:
         haircut = PortfolioHaircut.objects.get(pk=request.session.get('haircut_pk'))
         duration = haircut.duration
@@ -426,4 +443,3 @@ def reveal_fullcalendar(request):
                    'menu_pk': request.session.get('menu_pk'),
                    'haircut_pk': request.session.get('haircut_pk'),
                    'duration': duration})
-

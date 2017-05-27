@@ -58,7 +58,7 @@ class IsOwnerOfHaircut(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-            Returns True if the Stylist is the owner of the haircut.
+            Returns True if the Stylist is the owner of the haircut. Or if the method is GET and the user is a customer.
         """
         if CustomerLogic.is_customer(request) and request.method == 'GET':
             return True

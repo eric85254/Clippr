@@ -18,8 +18,8 @@ class HaircutViewSet(viewsets.ModelViewSet):
         | It's important that a parameter is fed to the url like so:
         | http://www.<domain>.com/api/haircut?stylist_pk=1
         |   Where the stylist_pk is simply the pk value of the stylist whose haircuts you are trying to view.
-        | If a stylist_pk value is not given then it will retrieve all the PortfolioHaircuts of the current user.
-        |   - zero if they're a customer.
+        | If a stylist_pk value is not given then it will retrieve all the haircuts of the stylist.
+        | If the user is a customer - not a stylist - then it will show the history of their choices (for appointments)
     """
     queryset = PortfolioHaircut.objects.all()
     serializer_class = PortfolioHaircutSerializer
